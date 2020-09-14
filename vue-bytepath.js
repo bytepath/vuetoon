@@ -20,6 +20,8 @@ import acceleratesTranslation from './vue/Mutators/AcceleratesTranslation';
 
 
 export default {
+    AnimationEntity,
+
     mixins: {
         transformer: CalculatesTransformation,
         keyframer: KeyframeAnimation,
