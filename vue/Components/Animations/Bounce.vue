@@ -1,8 +1,9 @@
 <script>
-    import AnimationEntity from "../Mixins/AnimationEntity";
+    import KeyframeAnimation from '../../Mixins/KeyframeAnimation';
+    import CalculatesTransformation from '../../Mixins/CalculatesTransformation';
 
     export default {
-        mixins: [AnimationEntity],
+        mixins: [ KeyframeAnimation, CalculatesTransformation ],
 
         props:{
             mx: {
@@ -20,7 +21,7 @@
 
         methods:{
             componentAnimations() {
-                console.log("loading bounce anim");
+                //console.log("loading bounce anim");
                 return {
                     default: [
                         {

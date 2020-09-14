@@ -1,5 +1,5 @@
-import CalculateLetterDifferential from "./Utilities/CalculateLetterDifferential";
-import WaveDifferential from "./Utilities/Calculations/WaveDifferential";
+import CalculateLetterDifferential from "../../../../../../bytepath/Components/Text/Utilities/CalculateLetterDifferential";
+import WaveDifferential from "../../../../../../bytepath/Components/Text/Utilities/Calculations/WaveDifferential";
 
 /**
  * TextAnimation.js

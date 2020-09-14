@@ -7,8 +7,6 @@ export default {
      * @param anim
      */
     createFromUserAnimation(name, actions, meta = {}) {
-        console.log("creating from user anumation", name, actions);
-
         // The start and end frame of this animation
         let start = Number.MAX_SAFE_INTEGER;
         let end = null;

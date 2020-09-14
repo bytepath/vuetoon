@@ -1,7 +1,7 @@
 <script>
     import AnimationEntity from "../../Mixins/AnimationEntity";
-    import TextAnimation from "./TextAnimation";
-    import GText from "../../Primitives/GText";
+    import TextAnimation from "../../../../../../bytepath/Components/Text/TextAnimation";
+    import GText from "bytepath/Primitives/GText";
 
     export default {
         mixins: [

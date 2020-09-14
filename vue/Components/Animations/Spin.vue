@@ -1,8 +1,8 @@
 <script>
-    import AnimationEntity from "../Mixins/AnimationEntity";
+    import KeyframeAnimation from '../../Mixins/KeyframeAnimation';
 
     export default {
-        mixins: [AnimationEntity],
+        mixins: [ KeyframeAnimation ],
 
         props:{
             ma: {
@@ -34,7 +34,7 @@
                         frames: {
                             0: {
                                 action: [
-                                    this.rotateCounterClockwise(this.ma)
+                                    this.rotateLinear(this.ma)
                                 ]
                             },
                         },

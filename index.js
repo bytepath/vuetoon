@@ -26,7 +26,6 @@ let bytepath = (framework = 'vue') => {
 
 const defaultToVue = {
     get: function(obj, prop) {
-        console.log("trying to find", prop, obj);
         return prop in obj ? obj[prop] : bytepath('vue')[prop];
     },
 };

@@ -1,7 +1,7 @@
 <script>
     import AnimationEntity from "../../Mixins/AnimationEntity";
-    import TextAnimation from "./TextAnimation";
-    import GText from "../../Primitives/GText";
+    import TextAnimation from "../../../../../../bytepath/Components/Text/TextAnimation";
+    import GText from "bytepath/Primitives/GText";
 
     export default {
         mixins: [
@@ -24,7 +24,7 @@
                         frames: {
                             0: {
                                 action: [
-                                    this.waveText(this.direction, this.interval)
+                                    this.waveText(this.direction, this.interval, this.pull)
                                 ]
                             },
                         },
@@ -42,7 +42,7 @@
 <template>
     <g>
     <template>
-        <g-text :dy="dy" :id="`fluttertext-${_uid}`" :font-size="fontSize">
+        <g-text :dy="dy" :dx="dx" :id="`fluttertext-${_uid}`" :font-size="fontSize">
             {{ text }}
         </g-text>
     </template>

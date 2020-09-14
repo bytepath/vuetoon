@@ -246,8 +246,6 @@ export default {
             retval = retval.multiply(translation);
             retval = retval.multiply(inverse);
             return retval;
-
-            return matrix;
         },
 
         /**

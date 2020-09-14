@@ -51,10 +51,7 @@ export default {
     },
 
     mounted(){
-        if(this.autoPlay){
-            console.log("Auto playing");
-            this.play(this.name);
-        }
+        this.play();
     },
 
     computed:{
@@ -71,7 +68,7 @@ export default {
     },
 
     methods: {
-        play(name = 'default') {
+        play() {
             // If we want to play a different movie then we need to reset the timer
             if(this.timerId) {
                 if(this.name !== name) {

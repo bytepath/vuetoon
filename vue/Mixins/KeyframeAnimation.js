@@ -48,7 +48,7 @@ export default {
             if(this.anim) {
                 // Check to see if this entity has an animation with the name in the controls
                 if (Object.prototype.hasOwnProperty.call(this.animations, this.anim)) {
-                    console.log("new animation", this.anim);
+                    //console.log("new animation", this.anim);
                     return new Animation(this.anim, this.animations[this.anim], this.repeat);
                 }
             }
