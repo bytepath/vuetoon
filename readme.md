@@ -41,9 +41,49 @@
 
 
 # Installation
+ Install Bytepath using NPM
+
+	npm install bytepath        
+
+
+# Quick Start
+Bytepath works by combining the VueJS with the powerful, but complicated, SVG Vector Graphics Standard. 
+SVG Images are represented with XML-like tags just like the HTML spec meaning we can modularize our SVG art assets into modular single file art assets (refered to as animation entities from here on out) just like we would do for web components.
+
+###Using the premade entity component
+Bytepath provides you with a pre built animation entity you can use to get started with your projects. In a new Vue component, import bytepath then add the entity component to its list of external components. 
+
+```html
+<template>
+    <entity>HELLO WORLD</entity>
+</template>
+
+<script>
+    import bytepath from "bytepath";
+
+    export default {
+        components:{
+            entity: bytepath.components.entity
+        }
+    }
+</script>
+```
+- Pass props to any Bytepath entity to immediately transform it's graphical representation
 
 
 
+| Prop | Description                    | Example |
+| ------------- | ------------------------------ | |
+| `:x`      | X position       | `<entity :x="100" />` |
+| `:y`   | Y Position     | `<entity :y="25" />` |
+| `:a`   | Rotation angle (degrees)     | `<entity :a="100" />` |
+| `:sx`   | Scale horizontally     | `<entity :sx="2" />` |
+| `:sy`   | Scale vertically      | `<entity :sy="0,5" />` |
+| `:cx`   | Center X Position     | `<entity :cx="50" />` |
+| `:cy`   | Center Y Position     | `<entity :cy="50" />` |
+| `:matrix`   | The projection matrix for this element. Used to pass animations from renderless components    | `<entity :matrix="new DOMMatrix()" />` |
+
+### Display a 
 **Table of Contents**
 
 [TOCM]
