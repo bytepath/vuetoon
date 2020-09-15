@@ -1,4 +1,4 @@
-## Bytepath - A Component Based Javascript Animation Framework
+## Bytepath - A VueJS Based Vector Graphics & Animation Framework
 
 ![](https://pandao.github.io/editor.md/images/logos/editormd-logo-180x180.png)
 ![](https://img.shields.io/github/stars/pandao/editor.md.svg) ![](https://img.shields.io/github/forks/pandao/editor.md.svg) ![](https://img.shields.io/github/tag/pandao/editor.md.svg) ![](https://img.shields.io/github/release/pandao/editor.md.svg) ![](https://img.shields.io/github/issues/pandao/editor.md.svg) ![](https://img.shields.io/bower/v/editor.md.svg)
@@ -14,10 +14,17 @@
 	
 	- **Reusable** Animations are self contained objects that can be tested in isolation or shared with the world
 	
-	- **Reactive Playback** Animation playback is as simple as providing a number to the :keyframe prop of your animation components. Whatever frame is provided is what will be rendered on the screen. Create interactive animations by connecting the :keyframe prop to one of bytepaths provided Timer classes. Out of the box, bytepath provides adapters for 
-			Clock: A Stopwatch that pings at a set interval
-			Scroll:  Ties playback to page scroll making your animations play at the speed that the user scrolls with their finger,mousewheel, etc
-If these timer components aren't what you are looking for, Bytepath makes it super simple to create a custom adapter to fit your use case. 			
+	- **Reactive** Animation playback is as simple as providing a frame number to the :keyframe prop of your animation components. Whatever frame is provided is what will be rendered on the screen. Create interactive animations by connecting the :keyframe prop to one of bytepaths provided Playback Timer classes. 
+	
+	- **Playback on your terms** Animations are played using Bytepath playback timers. Playback timers handle the playback speed and FPS of your animations and thanks to the reactivity provided by vue, can be connected to anything in your application that can output a number. 
+	Out of the box, bytepath provides adapters for 
+			Clock: A Stopwatch that pings at a set interval. Think setTimeout() but for animation
+			Scroll:  Ties playback to page scroll making your animations play at the speed that the user scrolls with their finger or mousewheel.
+			Responsive Scroll: Similar to 'Scroll' but the output frame takes into account the size of your screen ensuring animations play back as expected on all devices
+			
+	- **Easy custom playback** If these playback timer components aren't what you are looking for, Bytepath makes it super simple to create a custom adapter to fit your use case. 			
+
+	- **Component based** Animations can be part of your single file component art assets or consumed as renderless components. Whatever works better for your particular use case 
 
 - ***Transformer***
 **A framework for building component based vector graphics**
@@ -27,7 +34,7 @@ If these timer components aren't what you are looking for, Bytepath makes it sup
 
 	- **Reusable -** Art assets are single file VueJS components allowing you to easily re-use assets in future projects or package them up and share them with the world 
 
-	- **VueJS For Graphics** Use the exact same skills you use to make websites to make interactive graphical interfaces that blow your customers away. Anything you can do in vue, you can do here (slots, $emit, Mouse/Keyboard Events, props, mixins, etc)
+	- **VueJS For Graphics** The same skills you've perfected to make awesome websites can now be used to make cutting edge vector graphics. Anything you can do in vue, you can do here (slots, $emit, Mouse/Keyboard Events, props, mixins, etc)
 
 
 # Installation
