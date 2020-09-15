@@ -272,4 +272,7 @@ Bytepath ships with the following timers
 ```
 
 #### Custom Animations
-sjdlkfjskdjfklsaj
+yes u can do this good luck
+
+#### Animations as Renderless Components
+yes u can also do this good luck
