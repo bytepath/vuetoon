@@ -15,13 +15,13 @@
 	
 	- **Reactive** Animation playback is as simple as providing a frame number to the :keyframe prop of your animation components. Whatever frame is provided is what will be rendered on the screen. Create interactive animations by connecting the :keyframe prop to one of bytepaths provided Playback Timer classes. 
 	
-	- **Playback limited only by your imagination** Animations are played using Bytepath playback timers. Playback timers handle the playback speed and FPS of your animations and thanks to the reactivity provided by vue, can be connected to anything in your application that can output a number. 
+	- **Simple Playback** Animations are played using Bytepath playback timers. Playback timers handle the playback speed and FPS of your animations and thanks to the reactivity provided by vue, can be connected to anything in your application that can output a number. 
 		Out of the box, bytepath provides adapters for 
 		- Clock: A Stopwatch that pings at a set interval. Think setTimeout() but for animation
 		- Scroll:  Ties playback to page scroll making your animations play at the speed that the user scrolls with their finger or mousewheel. 
 		- Responsive Scroll: Similar to 'Scroll' but the output frame takes into account the size of your screen ensuring animations play back as expected on all devices
 			
-	- **Easy custom playback** If these playback timer components aren't what you are looking for, Bytepath makes it dead simple to create a custom adapter to fit your use case. 			
+	- **Custom Playback Timers** If the provided playback timer components aren't what you are looking for, Bytepath makes it dead simple to create a custom adapter to fit your use case. 			
 
 	- **Component based** Animations can be part of your art assets or consumed as renderless components (or both!).  Whatever works better for your particular use case 
 
