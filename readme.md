@@ -11,7 +11,7 @@
 	
 	- **No thinking required** Bytepath provides a handy tween object that will handle the hard part of transitioning from one frame to the next.  All you need to know is where you want your animation to start, and where you want it to end up. Bytepath handles the hard work for you so you can focus on the creative process
 	
-	- **Reusable** Animations are self contained objects that can be tested in isolation or shared with the world
+	- **Reusable** Animations are self contained Javascript objects that can be tested in isolation or shared with the world
 	
 	- **Reactive** Animation playback is as simple as providing a frame number to the :keyframe prop of your animation components. Whatever frame is provided is what will be rendered on the screen. Create interactive animations by connecting the :keyframe prop to one of bytepaths provided Playback Timer classes. 
 	
