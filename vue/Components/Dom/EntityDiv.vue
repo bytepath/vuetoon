@@ -1,22 +1,22 @@
 <script>
-    import CalculatesTransformation from "../../Mixins/CalculatesTransformation";
+    import AnimationEntity from "../../Mixins/AnimationEntity";
 
     export default {
-        mixins:[CalculatesTransformation],
-        props: {
+        mixins:[AnimationEntity],
+        computed:{
+            cssTransform() {
+                let p = this.getPosition();
+                return {
+                    transform: this.transform.toString(),
+                    transformOrigin: `${p.centerX}px ${p.centerY}px`,
+                };
+            },
         },
-
-        data(){ return {}; },
-        computed:{},
-        methods:{},
-        components:{}
     }
 </script>
 
 <template>
-    <div :style="{transform: this.transform }">
-        THIS IS A NORMAL DIV THAT IS NOT AN SVG
-        {{ transform.toString() }}
+    <div :style="cssTransform">
         <slot></slot>
     </div>
 </template>

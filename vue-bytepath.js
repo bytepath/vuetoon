@@ -34,10 +34,6 @@ export default {
         reset
     },
 
-    dom:{
-        entity
-    },
-
     animations: {
         bounce,
         spin,
@@ -46,6 +42,11 @@ export default {
     mutators: {
         acceleratesTranslation,
     },
+
+    components:{
+        entity
+    },
+
 
     // The default init function
     init(modules = ['keyframer', 'transformer']){

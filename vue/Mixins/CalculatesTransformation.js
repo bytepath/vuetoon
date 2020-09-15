@@ -211,7 +211,7 @@ export default {
             let transformTranslation = new DOMMatrix();
             let point = new DOMPoint(x, y, 0);
 
-            let m = this.$el.getScreenCTM();
+            let m = this.getProjectionMatrix();
             let psc = 1 + (1 - m.d);
 
             if(scaleX !== 1 || scaleY !== 1) {
