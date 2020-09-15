@@ -171,6 +171,9 @@ Bytepath adds the following props to your vue component
 #### Reactive Animations
 When the keyframe prop is updated, our animations will automatically compute the new animation position for us and re render the screen if necessary. 
 
+#### Playback Timers
+jskdjflkasjdfkasjdfkl 
+
 #### Inline Animations
 - If the animation you are making is relatively simple and doesn't require any precise values, you can just write your animation inline on the component tag itself. The template tag has access to the keyframe prop which tells us the current frame this animation should be displaying. 
 
@@ -212,3 +215,6 @@ When the keyframe prop is updated, our animations will automatically compute the
     }
 </script>
 ```
+
+#### Custom Animations
+sjdlkfjskdjfklsaj
