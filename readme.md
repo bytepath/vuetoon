@@ -3,11 +3,10 @@
 ![](https://pandao.github.io/editor.md/images/logos/editormd-logo-180x180.png)
 ![](https://img.shields.io/github/stars/pandao/editor.md.svg) ![](https://img.shields.io/github/forks/pandao/editor.md.svg) ![](https://img.shields.io/github/tag/pandao/editor.md.svg) ![](https://img.shields.io/github/release/pandao/editor.md.svg) ![](https://img.shields.io/github/issues/pandao/editor.md.svg) ![](https://img.shields.io/bower/v/editor.md.svg)
 
-##### (VueJS only for now!)
 
-###### Bytepath consists of two main modules
-- ***Keyframer***
-**A framework for building keyframed animations in your Javascript Apps**
+#### *Bytepath consists of two main modules*
+## ***Keyframer*** ##
+- **A framework for building keyframed animations in your Javascript Apps**
 	- **Simple to write** Animations are represented using simple Javascript functions that you already know how to write. Anything you can do in javascript, you can do here. 
 	
 	- **No thinking required** Bytepath provides a handy tween object that will handle the hard part of transitioning from one frame to the next.  All you need to know is where you want your animation to start, and where you want it to end up. Bytepath handles the hard work for you so you can focus on the creative process
@@ -26,8 +25,8 @@
 
 	- **Component based** Animations can be part of your art assets or consumed as renderless components (or both!).  Whatever works better for your particular use case 
 
-- ***Transformer***
-**A framework for building component based vector graphics**
+## ***Transformer*** ##
+- **A framework for building component based vector graphics**
 	- **Use tools that artists already know how to use -** Art assets are built using tools artists are already familiar with such as Adobe Illustrator, Inkscape, and Affinity Designer.
 
 	- **Reactive**: Instantly Scale, Rotate, Translate, and Skew on screen graphics by modifying prop values. Art assets will automatically redraw after any change of position
