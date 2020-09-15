@@ -158,6 +158,8 @@ Bytepath provides you with a pre built animation entity you can use to get start
 
 
 ### Animating Art Assets
+Bytepath uses the powerful reactivity system of VueJS to make building custom animations simple and fun
+
 ####  Animation Props
 Bytepath adds the following props to your vue component
 
@@ -172,7 +174,59 @@ Bytepath adds the following props to your vue component
 When the keyframe prop is updated, our animations will automatically compute the new animation position for us and re render the screen if necessary. 
 
 #### Playback Timers
-jskdjflkasjdfkasjdfkl 
+Animation playback is controlled by renderless components called Playback Timers. All these timers do is pass back an integer value that you can connect to the :keyframe prop of child components to progress through the animation. Since the :keyframe prop of our animation component will reactively update our animations when the frame value changes, we can use these timers to create fully interactive scenes that automatically re render themselves as needed. 
+
+#### Pre Built Playback Timers
+Bytepath ships with the following timers 
+- Clock
+
+```html
+<template>
+    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1300 500">
+	<!-- keyframe will iterate at set interval -->   
+        <clock v-slot="{ keyframe }" auto-play>
+                <custom-rectangle :keyframe="keyframe" />
+        </clock>
+    </svg>
+</template>
+
+<script>
+    import CustomRectangle from "./CustomRectangle";
+    import bytepath from "bytepath";
+
+    export default {
+        components: {
+            CustomRectangle,
+            "clock": bytepath.timers.clock,
+        },
+    }
+</script>
+```
+
+- Scroll
+```html
+<template>
+    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1300 500">
+	<!-- Keyframe will be iterate as the user scrolls down -->    
+        <scroll v-slot="{ keyframe }" auto-play>
+                <custom-rectangle :keyframe="keyframe" />
+        </scroll>
+    </svg>
+</template>
+
+<script>
+    import CustomRectangle from "./CustomRectangle";
+    import bytepath from "bytepath";
+
+    export default {
+        components: {
+            CustomRectangle,
+            "scroll": bytepath.timers.scroll,
+        },
+    }
+</script>
+```
+
 
 #### Inline Animations
 - If the animation you are making is relatively simple and doesn't require any precise values, you can just write your animation inline on the component tag itself. The template tag has access to the keyframe prop which tells us the current frame this animation should be displaying. 
