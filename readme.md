@@ -13,7 +13,7 @@
 	
 	- **Reusable** Animations are self contained Javascript objects that can be tested in isolation or shared with the world
 	
-	- **Reactive** Animation playback is as simple as providing a frame number to the :keyframe prop of your animation components. Whatever frame is provided is what will be rendered on the screen. Create interactive animations by connecting the :keyframe prop to one of bytepaths provided Playback Timer classes. 
+	- **Reactive** Animation playback is as simple as providing an integer to the :keyframe prop of your animation components. Animations will automatically update and re-render using the new frame position. Connect the :keyframe prop to one of the provided Playback Timers to turn your vector graphics into interactive animations. 
 	
 	- **Simple Playback** Animations are played using Bytepath playback timers. Playback timers handle the playback speed and FPS of your animations and thanks to the reactivity provided by vue, can be connected to anything in your application that can output a number. 
 		Out of the box, bytepath provides adapters for 
