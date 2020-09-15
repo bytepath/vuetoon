@@ -8,23 +8,26 @@
 ###### Bytepath consists of two main modules
 - ***Keyframer***
 **A framework for building keyframed animations in your Javascript Apps**
-	- Simple to write- just say where you want to start, and where you want to end up, and let bytepath handle the hard work
+	- **Simple to write** Animations are represented using an array of simple Javascript functions that you already know how to write. Anything you can do in javascript, you can do here. 
 	
-	- Reusable - Animations are self contained objects that can be tested in isolation or shared with the world
+	- **No thinking required** Bytepath provides a handy tween object that will handle the hard part of transitioning from one frame to the next.  All you need to know is where you want your animation to start, and where you want it to end up. Bytepath handles the hard work for you so you can focus on the creative process
 	
-	- Modular Playback - Animation playback can be easily tied to whatever you want, but out of the box, bytepath provides adapters for 
+	- **Reusable** Animations are self contained objects that can be tested in isolation or shared with the world
+	
+	- **Reactive Playback** Animation playback is as simple as providing a number to the :keyframe prop of your animation components. Whatever frame is provided is what will be rendered on the screen. Create interactive animations by connecting the :keyframe prop to one of bytepaths provided Timer classes. Out of the box, bytepath provides adapters for 
 			Clock: A Stopwatch that pings at a set interval
 			Scroll:  Ties playback to page scroll making your animations play at the speed that the user scrolls with their finger,mousewheel, etc
+If these timer components aren't what you are looking for, Bytepath makes it super simple to create a custom adapter to fit your use case. 			
 
 - ***Transformer***
 **A framework for building component based vector graphics**
-- **Use tools that artists already know how to use -** Art assets are built using tools artists are already familiar with such as Adobe Illustrator, Inkscape, and Affinity Designer.
+	- **Use tools that artists already know how to use -** Art assets are built using tools artists are already familiar with such as Adobe Illustrator, Inkscape, and Affinity Designer.
 
-- **Reactive**: Instantly Scale, Rotate, Translate, and Skew on screen graphics by modifying prop values. Art assets will automatically redraw after any change of position
+	- **Reactive**: Instantly Scale, Rotate, Translate, and Skew on screen graphics by modifying prop values. Art assets will automatically redraw after any change of position
 
-- **Reusable -** Art assets are single file VueJS components allowing you to easily re-use assets in future projects or package them up and share them with the world 
+	- **Reusable -** Art assets are single file VueJS components allowing you to easily re-use assets in future projects or package them up and share them with the world 
 
-- **VueJS For Graphics** Use the exact same skills you use to make websites to make interactive graphical interfaces that blow your customers away. Anything you can do in vue, you can do here (slots, $emit, props, mixins, etc)
+	- **VueJS For Graphics** Use the exact same skills you use to make websites to make interactive graphical interfaces that blow your customers away. Anything you can do in vue, you can do here (slots, $emit, Mouse/Keyboard Events, props, mixins, etc)
 
 
 # Installation
