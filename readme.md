@@ -179,7 +179,7 @@ Animation playback is controlled by renderless components called Playback Timers
 #### Pre Built Playback Timers
 Bytepath ships with the following timers 
 - Clock
-
+	- Clock will iterate your keyframe value on a set interval. When you think of timers you are probably thinking of this
 ```html
 <template>
     <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1300 500">
@@ -204,6 +204,7 @@ Bytepath ships with the following timers
 ```
 
 - Scroll
+	- Scroll ties the keyframe value to the current scroll position of the page. This means that your animations will automatically play in forwards and reverse as the user scrolls around on your page.
 ```html
 <template>
     <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1300 500">
@@ -229,7 +230,7 @@ Bytepath ships with the following timers
 
 
 #### Inline Animations
-- If the animation you are making is relatively simple and doesn't require any precise values, you can just write your animation inline on the component tag itself. The template tag has access to the keyframe prop which tells us the current frame this animation should be displaying. 
+- If the animation you are building is relatively simple, you can just write your animation inline on the component tag itself. The template tag has access to the keyframe prop which tells us the current frame this animation should be displaying. 
 
 ```html
 <!-- AnimatedRectangleScene.vue -->
