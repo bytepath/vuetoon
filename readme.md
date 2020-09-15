@@ -50,7 +50,21 @@
 Bytepath works by combining the VueJS with the powerful, but complicated, SVG Vector Graphics Standard. 
 SVG Images are represented with XML-like tags just like the HTML spec meaning we can modularize our SVG art assets into modular single file art assets (refered to as animation entities from here on out) just like we would do for web components.
 
-###Using the premade entity component
+### Use props to reactively transform any Bytepath element
+Scale, Translate, and Rotate your Bytepath entities simply by modifying the listed props below. Bytepath will automatically re-render your asset after any modifications to these values
+
+| Prop | Description                    |
+| ------------- | ------------------------------ |
+| `:x`      | X position       |
+| `:y`   | Y Position     |
+| `:a`   | Rotation angle (degrees)     |
+| `:sx`   | Scale horizontally     |
+| `:sy`   | Scale vertically      |
+| `:cx`   | Center X Position     |
+| `:cy`   | Center Y Position     |
+| `:matrix`   | The projection matrix for this element. Used to pass animations from renderless components    |
+
+### Using the premade entity component
 Bytepath provides you with a pre built animation entity you can use to get started with your projects. In a new Vue component, import bytepath then add the entity component to its list of external components.
 
 ```html
@@ -72,319 +86,73 @@ Bytepath provides you with a pre built animation entity you can use to get start
     }
 </script>
 ```
-- Pass props to any Bytepath entity to immediately transform it's graphical representation
 
+### Creating custom Animation Entities
+- Bytepath Animation Entities are normal VueJS Components with the provided bytepath.AnimationEntity mixin applied.
 
+- Anything available to a Vue web component is also available to use with a Bytepath Animation Entity (Props, for example).
 
-| Prop | Description                    |
-| ------------- | ------------------------------ |
-| `:x`      | X position       |
-| `:y`   | Y Position     |
-| `:a`   | Rotation angle (degrees)     |
-| `:sx`   | Scale horizontally     |
-| `:sy`   | Scale vertically      |
-| `:cx`   | Center X Position     |
-| `:cy`   | Center Y Position     |
-| `:matrix`   | The projection matrix for this element. Used to pass animations from renderless components    |
+- The template of an Animation Entity will contain a valid SVG tag that your browser can render as a standalone asset. 
 
-### Display a 
-**Table of Contents**
+- When creating custom components, you must manually add the transform property to your template using ' :transform="transform". Normally, the transform should be added to either the SVG tag itself or the root element below the SVG tag.
 
-[TOCM]
+- Once an image has been added to a single file component, we can render as many copies of the asset as we want by adding another tag (in this case <rectangle />). Each tag can be scaled, rotated, and translated independently from the rest of the scene
 
-[TOC]
+- Assets are made up of *multiple* Animation entities composed together using single file components. If a part of your asset animates independently from the main (Example: A characters arm's or legs), this sub asset should be it's own single file component.. 
 
-#H1 header
-##H2 header
-###H3 header
-####H4 header
-#####H5 header
-######H6 header
-#Heading 1 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-##Heading 2 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-###Heading 3 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-####Heading 4 link [Heading link](https://github.com/pandao/editor.md "Heading link") Heading link [Heading link](https://github.com/pandao/editor.md "Heading link")
-#####Heading 5 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-######Heading 6 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-
-##Headers (Underline)
-
-H1 Header (Underline)
-=============
-
-H2 Header (Underline)
--------------
-
-###Characters
-                
-----
-
-~~Strikethrough~~ <s>Strikethrough (when enable html tag decode.)</s>
-*Italic*      _Italic_
-**Emphasis**  __Emphasis__
-***Emphasis Italic*** ___Emphasis Italic___
-
-Superscript: X<sub>2</sub>，Subscript: O<sup>2</sup>
-
-**Abbreviation(link HTML abbr tag)**
-
-The <abbr title="Hyper Text Markup Language">HTML</abbr> specification is maintained by the <abbr title="World Wide Web Consortium">W3C</abbr>.
-
-###Blockquotes
-
-> Blockquotes
-
-Paragraphs and Line Breaks
-                    
-> "Blockquotes Blockquotes", [Link](http://localhost/)。
-
-###Links
-
-[Links](http://localhost/)
-
-[Links with title](http://localhost/ "link title")
-
-`<link>` : <https://github.com>
-
-[Reference link][id/name] 
-
-[id/name]: http://link-url/
-
-GFM a-tail link @pandao
-
-###Code Blocks (multi-language) & highlighting
-
-####Inline code
-
-`$ npm install marked`
-
-####Code Blocks (Indented style)
-
-Indented 4 spaces, like `<pre>` (Preformatted Text).
-
-    <?php
-        echo "Hello world!";
-    ?>
-    
-Code Blocks (Preformatted text):
-
-    | First Header  | Second Header |
-    | ------------- | ------------- |
-    | Content Cell  | Content Cell  |
-    | Content Cell  | Content Cell  |
-
-####Javascript　
-
-```javascript
-function test(){
-	console.log("Hello world!");
-}
- 
-(function(){
-    var box = function(){
-        return box.fn.init();
-    };
-
-    box.prototype = box.fn = {
-        init : function(){
-            console.log('box.init()');
-
-			return this;
-        },
-
-		add : function(str){
-			alert("add", str);
-
-			return this;
-		},
-
-		remove : function(str){
-			alert("remove", str);
-
-			return this;
-		}
-    };
-    
-    box.fn.init.prototype = box.fn;
-    
-    window.box =box;
-})();
-
-var testBox = box();
-testBox.add("jQuery").remove("jQuery");
-```
-
-####HTML code
+- The SVG specification allows us to nest as many SVG tags as we want, We can use this feature to compose larger scenes made up of smaller, reusable art assets, that we can just drop into any scene.
 
 ```html
-<!DOCTYPE html>
-<html>
-    <head>
-        <mate charest="utf-8" />
-        <title>Hello world!</title>
-    </head>
-    <body>
-        <h1>Hello world!</h1>
-    </body>
-</html>
+<!-- CustomRectangle.vue -->
+<template>
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <g :transform="transform">
+                <rect :fill="fill" x="0" y="0" width="50" height="50" />
+			<g>
+        </svg>
+</template>
+
+<script>
+    import bytepath from "bytepath";
+
+    export default {
+		props:{
+			fill: {
+				type: String,
+				default: "red",
+			},
+		},
+		mixins: [ bytepath.AnimationEntity ],
+    }
+</script>
 ```
 
-###Images
 
-Image:
+```html
+<!-- RectangleScene.vue -->
+<template>
+    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1300 500">
+        <g>
+			<!-- Draws our custom entity at [200, 100] with red fill -->
+            <custom-rectangle fill="red" :x="200" :y="100" />
+			
+			<!-- Draws our custom entity at [200, 100] with green fill -->
+            <custom-rectangle fill="green" :x="300"  />
+			
+			<!-- Draws our custom entity at [200, 100] with blue fill -->
+            <custom-rectangle fill="blue" :x="100" :y="50" />
+        </g>
+    </svg>
+</template>
 
-![](https://pandao.github.io/editor.md/examples/images/4.jpg)
+<script>
+    import CustomRectangle from "./CustomRectangle";
 
-> Follow your heart.
-
-![](https://pandao.github.io/editor.md/examples/images/8.jpg)
-
-> 图为：厦门白城沙滩 Xiamen
-
-图片加链接 (Image + Link)：
-
-[![](https://pandao.github.io/editor.md/examples/images/7.jpg)](https://pandao.github.io/editor.md/examples/images/7.jpg "李健首张专辑《似水流年》封面")
-
-> 图为：李健首张专辑《似水流年》封面
-                
-----
-
-###Lists
-
-####Unordered list (-)
-
-- Item A
-- Item B
-- Item C
-     
-####Unordered list (*)
-
-* Item A
-* Item B
-* Item C
-
-####Unordered list (plus sign and nested)
-                
-+ Item A
-+ Item B
-    + Item B 1
-    + Item B 2
-    + Item B 3
-+ Item C
-    * Item C 1
-    * Item C 2
-    * Item C 3
-
-####Ordered list
-                
-1. Item A
-2. Item B
-3. Item C
-                
-----
-                    
-###Tables
-                    
-First Header  | Second Header
-------------- | -------------
-Content Cell  | Content Cell
-Content Cell  | Content Cell 
-
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
-
-| Function name | Description                    |
-| ------------- | ------------------------------ |
-| `help()`      | Display the help window.       |
-| `destroy()`   | **Destroy your computer!**     |
-
-| Item      | Value |
-| --------- | -----:|
-| Computer  | $1600 |
-| Phone     |   $12 |
-| Pipe      |    $1 |
-
-| Left-Aligned  | Center Aligned  | Right Aligned |
-| :------------ |:---------------:| -----:|
-| col 3 is      | some wordy text | $1600 |
-| col 2 is      | centered        |   $12 |
-| zebra stripes | are neat        |    $1 |
-                
-----
-
-####HTML entities
-
-&copy; &  &uml; &trade; &iexcl; &pound;
-&amp; &lt; &gt; &yen; &euro; &reg; &plusmn; &para; &sect; &brvbar; &macr; &laquo; &middot; 
-
-X&sup2; Y&sup3; &frac34; &frac14;  &times;  &divide;   &raquo;
-
-18&ordm;C  &quot;  &apos;
-
-##Escaping for Special Characters
-
-\*literal asterisks\*
-
-##Markdown extras
-
-###GFM task list
-
-- [x] GFM task list 1
-- [x] GFM task list 2
-- [ ] GFM task list 3
-    - [ ] GFM task list 3-1
-    - [ ] GFM task list 3-2
-    - [ ] GFM task list 3-3
-- [ ] GFM task list 4
-    - [ ] GFM task list 4-1
-    - [ ] GFM task list 4-2
-
-###Emoji mixed :smiley:
-
-> Blockquotes :star:
-
-####GFM task lists & Emoji & fontAwesome icon emoji & editormd logo emoji :editormd-logo-5x:
-
-- [x] :smiley: @mentions, :smiley: #refs, [links](), **formatting**, and <del>tags</del> supported :editormd-logo:;
-- [x] list syntax required (any unordered or ordered list supported) :editormd-logo-3x:;
-- [x] [ ] :smiley: this is a complete item :smiley:;
-- [ ] []this is an incomplete item [test link](#) :fa-star: @pandao; 
-- [ ] [ ]this is an incomplete item :fa-star: :fa-gear:;
-    - [ ] :smiley: this is an incomplete item [test link](#) :fa-star: :fa-gear:;
-    - [ ] :smiley: this is  :fa-star: :fa-gear: an incomplete item [test link](#);
-            
-###TeX(LaTeX)
-   
-$$E=mc^2$$
-
-Inline $$E=mc^2$$ Inline，Inline $$E=mc^2$$ Inline。
-
-$$\(\sqrt{3x-1}+(1+x)^2\)$$
-                    
-$$\sin(\alpha)^{\theta}=\sum_{i=0}^{n}(x^i + \cos(f))$$
-                
-###FlowChart
-
-```flow
-st=>start: Login
-op=>operation: Login operation
-cond=>condition: Successful Yes or No?
-e=>end: To admin
-
-st->op->cond
-cond(yes)->e
-cond(no)->op
+    export default {
+        components: {
+            CustomRectangle,
+        },
+    }
+</script>
 ```
 
-###Sequence Diagram
-                    
-```seq
-Andrew->China: Says Hello 
-Note right of China: China thinks\nabout it 
-China-->Andrew: How are you? 
-Andrew->>China: I am good thanks!
-```
-
-###End
