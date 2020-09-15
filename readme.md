@@ -37,6 +37,7 @@
 	- **Modular -** Assets are normal Vue components meaning you can swap in and out various sub sections using slots. Mix and match various assets to create an unlimited number of potential assets from the art you aleady have
 		- A "Person" asset could be built using a component containing slots for arms, legs, head and body allowing you to create an unlimited number of characters without having to re-write any code. 
 		- A "Vehicle" asset could be built using a component containing slots for wheels, and body allowing you to create an unlimited number of trucks, cars, motorcycles, etc that all share the same basic properties of a vehicle. 
+	- **Experimental DOM Support** Transformer can be used on normal DOM Elements by passing its render output to the CSS "transform" property for that element.
 	- **VueJS For Graphics** The same skills you've perfected to make awesome websites can now be used to make cutting edge vector graphics. Anything you can do in vue, you can do here (slots, $emit, Mouse/Keyboard Events, props, mixins, etc)
 
 
