@@ -157,9 +157,22 @@ Bytepath provides you with a pre built animation entity you can use to get start
 ```
 
 
-### Animating assets using Keyframer
+### Animating Art Assets
+####  Animation Props
+Bytepath adds the following props to your vue component
+
+
+| Prop | Type | Default | Description                    |
+| ------------- | ------------------------------ |
+| `:keyframe` | Integer | 0   | The current animation frame |
+| `:anim`   | String | "default" | The Animation this component should be playing. If the provided animation doesn't exist, the default animation gets played instead     |
+| `:repeat` | Boolean | false  | Should this animation restart when it finishes |
+
+#### Reactive Animations
+When the keyframe prop is updated, our animations will automatically compute the new animation position for us and re render the screen if necessary. 
+
 #### Inline Animations
-- If the animation you are making is relatively simple and doesn't require any precise values, it's much simpler to just skip keyframer altogether and just write your animation inline on the component tag itself. The template tag has access to the keyframe prop which tells us the current frame this animation should be displaying. 
+- If the animation you are making is relatively simple and doesn't require any precise values, you can just write your animation inline on the component tag itself. The template tag has access to the keyframe prop which tells us the current frame this animation should be displaying. 
 
 ```html
 <!-- AnimatedRectangleScene.vue -->
@@ -194,4 +207,3 @@ Bytepath provides you with a pre built animation entity you can use to get start
     }
 </script>
 ```
-
