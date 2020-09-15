@@ -186,6 +186,10 @@ When the keyframe prop is updated, our animations will automatically compute the
 		<!-- Move from (300, 0) to (300, 500) repeating -->
             <custom-rectangle fill="green" :x="300" :y="keyframe % 500"  />
 						
+		<!-- Frame 0 to 100 - Move Right  -->
+		<!-- Frame 100 to infinity - Move Left  -->
+            <custom-rectangle fill="green" :x="(keyframe < 100)? keyframe : 100 - keyframe" :y="200"  />
+		
 		<!-- Move left from 300, 50  to 0, 50 repeating -->
             <custom-rectangle fill="blue" :x="Math.abs((300 - keyframe) % 300)" :y="50" />
 	    
