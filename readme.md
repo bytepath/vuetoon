@@ -156,3 +156,42 @@ Bytepath provides you with a pre built animation entity you can use to get start
 </script>
 ```
 
+
+### Animating assets using Keyframer
+#### Inline Animations
+- If the animation you are making is relatively simple and doesn't require any precise values, it's much simpler to just skip keyframer altogether and just write your animation inline on the component tag itself. The template tag has access to the keyframe prop which tells us the current frame this animation should be displaying. 
+
+```html
+<!-- AnimatedRectangleScene.vue -->
+<template>
+    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1300 500">
+        <g>
+			<!-- Move right from (200,100) to (500, 100) -->
+			<!-- The modulo operator essentially acts as a "repeater" here -->
+            <custom-rectangle fill="red" :x="(200 + keyframe) % 500" :y="100" />
+			
+			<!-- Move from (300, 0) to (300, 500) repeating -->
+            <custom-rectangle fill="green" :x="300" :y="keyframe % 500"  />
+			
+			<!-- Move left from 300, 50  to 0, 50 repeating -->
+            <custom-rectangle fill="blue" :x="Math.abs((300 - keyframe) % 300)" :y="50" />
+			<!-- oscillate back and forth between -100, 0 and  100, 0 --> 
+            <custom-rectangle fill="orange" :x="Math.sin(keyframe / 100) * 100" />
+			
+			<!-- paths around a circle of radius = 50 --> 
+            <custom-rectangle fill="orange" :x="Math.sin(keyframe / 100) * 100" :y="Math.cos(keyframe / 100) * 100" />
+        </g>
+    </svg>
+</template>
+
+<script>
+    import CustomRectangle from "./CustomRectangle";
+
+    export default {
+        components: {
+            CustomRectangle,
+        },
+    }
+</script>
+```
+
