@@ -163,8 +163,8 @@ Bytepath adds the following props to your vue component
 
 
 | Prop | Type | Default | Description                    |
-| ------------- | ------------------------------ |
-| `:keyframe` | Integer | 0   | The current animation frame |
+| ------------- | -- | --- | ------------------------------ |
+| `:keyframe` | Integer | 0   | The current animation frame. Assets should pass the current animation frame down to it's children |
 | `:anim`   | String | "default" | The Animation this component should be playing. If the provided animation doesn't exist, the default animation gets played instead     |
 | `:repeat` | Boolean | false  | Should this animation restart when it finishes |
 
@@ -179,19 +179,20 @@ When the keyframe prop is updated, our animations will automatically compute the
 <template>
     <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1300 500">
         <g>
-			<!-- Move right from (200,100) to (500, 100) -->
-			<!-- The modulo operator essentially acts as a "repeater" here -->
+		<!-- Move right from (200,100) to (500, 100) -->
+		<!-- The modulo operator essentially acts as a "repeater" here -->
             <custom-rectangle fill="red" :x="(200 + keyframe) % 500" :y="100" />
 			
-			<!-- Move from (300, 0) to (300, 500) repeating -->
+		<!-- Move from (300, 0) to (300, 500) repeating -->
             <custom-rectangle fill="green" :x="300" :y="keyframe % 500"  />
-			
-			<!-- Move left from 300, 50  to 0, 50 repeating -->
+						
+		<!-- Move left from 300, 50  to 0, 50 repeating -->
             <custom-rectangle fill="blue" :x="Math.abs((300 - keyframe) % 300)" :y="50" />
-			<!-- oscillate back and forth between -100, 0 and  100, 0 --> 
+	    
+		<!-- oscillate back and forth between -100, 0 and  100, 0 --> 
             <custom-rectangle fill="orange" :x="Math.sin(keyframe / 100) * 100" />
-			
-			<!-- paths around a circle of radius = 50 --> 
+		
+		<!-- paths around a circle of radius = 50 --> 
             <custom-rectangle fill="orange" :x="Math.sin(keyframe / 100) * 100" :y="Math.cos(keyframe / 100) * 100" />
         </g>
     </svg>
