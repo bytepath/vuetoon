@@ -8,7 +8,7 @@
 ###### Bytepath consists of two main modules
 - ***Keyframer***
 **A framework for building keyframed animations in your Javascript Apps**
-	- **Simple to write** Animations are represented using an array of simple Javascript functions that you already know how to write. Anything you can do in javascript, you can do here. 
+	- **Simple to write** Animations are represented using simple Javascript functions that you already know how to write. Anything you can do in javascript, you can do here. 
 	
 	- **No thinking required** Bytepath provides a handy tween object that will handle the hard part of transitioning from one frame to the next.  All you need to know is where you want your animation to start, and where you want it to end up. Bytepath handles the hard work for you so you can focus on the creative process
 	
