@@ -343,20 +343,69 @@ In the example below, we create a simple rectangle that has a custom animation c
         },
     }
 </script>
-
 ```
-#### Using component animations
-Access animations inside a component by setting the :anim prop to the name of the animation you want to play
+
+#### Single file animations
+As you see in the above example, animations can very quickly overwhelm your single 
+file components, making them difficult to read and maintain. The easy solution to this is to store your animations as standalone javascript files and import them as necessary. As a nice added bonus you can now reuse your animations in any component. 
 
 ```html
-<!-- SomeAnimation.vue -->
 <template>
-	<!-- The tornado animation will play indefinitely, repeating when it reaches the end -->
-	<clock v-slot="{ keyframe }" auto-play>
-		<rectangle fill="pink" :keyframe="keyframe" anim="tornado" :repeat="true" />
-	</clock>
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <g :transform="transform">
+            <rect :fill="fill" width="50" height="50"/>
+        </g>
+    </svg>
 </template>
+
+<script>
+    import { AnimationEntity } from "bytepath";
+    import TornadoAnim from "./TornadoAnim";
+    
+    export default {
+        mixins: [AnimationEntity],
+        props: {
+            fill: {
+                type: String,
+                default: "red",
+            },
+        },
+
+        methods: {
+            componentAnimations() {
+                return {
+                    default: [],
+                    tornado: TornadoAnim,
+                }
+            }
+        },
+    }
+</script>
 ```
 
 #### Animations as Renderless Components
-yes u can also do this good luck
+Animations can also be made from renderless functions by passing the transform 
+property to the slot value through the :matrix prop
+
+```html
+<template>
+    <slot :matrix="transform" />
+</template>
+
+<script>
+    import { AnimationEntity } from "bytepath";
+    import TornadoAnim from "./TornadoAnim";
+    export default {
+        mixins: [AnimationEntity],
+        
+        methods: {
+            componentAnimations() {
+                return {
+                    default: [],
+                    tornado: TornadoAnim,
+                }
+            }
+        },
+    }
+</script>
+```
