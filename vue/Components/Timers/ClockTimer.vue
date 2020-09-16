@@ -1,8 +1,8 @@
 <script>
-    import AnimationControls from "../../Mixins/AnimationControls";
+    import PlaybackTimer from "../../Mixins/PlaybackTimer";
 
     export default {
-        mixins: [AnimationControls],
+        mixins: [PlaybackTimer],
         props: {
             timeout:{
                 type: Number,
