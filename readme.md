@@ -321,7 +321,7 @@ In the example below, we create a simple rectangle that has a custom animation c
                              */
                             handler(context, tween) {
                                 context.position.x = tween.between(0, 250);
-                                context.position.angle = context.keyframe % 360;
+                                context.position.angle = tween.betweenFloat(0, 360);
                             }
                         },
                         {
