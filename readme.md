@@ -271,8 +271,79 @@ Bytepath ships with the following timers
 </script>
 ```
 
-#### Custom Animations
-yes u can do this good luck
+#### Component Animations
+Animations can be defined right in your single file components allowing you to create reusable vector graphics and interactive scenes. Animations are defined by creating a componentAnimations() function in the methods section of your vue component. 
 
+The componentAnimations() function returns a javascript object with each key being the name of an animation that can be used by the asset by setting the :anim prop to the name of the animation
+
+In the example below, we create a simple rectangle that has a custom animation called "tornado" that rotates the tornado around its center
+```html
+<template>
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <g :transform="transform">
+            <rect :fill="fill" width="50" height="50"/>
+        </g>
+    </svg>
+</template>
+
+<script>
+    import { AnimationEntity } from "bytepath";
+
+    export default {
+        mixins: [AnimationEntity],
+        props: {
+            fill: {
+                type: String,
+                default: "red",
+            },
+        },
+
+        methods: {
+            componentAnimations() {
+                return {
+                    default: [],
+                                         
+                    tornado: [
+                        /*
+                          An animation is made up of an array of stages. Stages have 3 required fields
+                          Start: The frame we start this stage
+                          End: The frame that this stage is completed
+                          handler: The function that is ran during each frame of the stage
+                         */
+                        {
+                            name: 'Tornado Kick',
+                            start: 0,
+                            end: 250,
+                            /**
+                             * Rotates while moving to the right from frame 0 to 250
+                             * @param context The vue component
+                             * @param tween A helper function to handle the transition from start to finish value
+                             */
+                            handler(context, tween) {
+                                context.position.x = tween.between(0, 250);
+                                context.position.angle = context.keyframe % 360;
+                            }
+                        },
+                        {
+                            name: 'Move back',
+                            start: 251,
+                            end: 500,
+                            /**
+                             * Moves back to the left and does not rotate
+                             * @param context The vue component
+                             * @param tween A helper function to handle the transition from start to finish value
+                             */
+                            handler(context, tween) {
+                                context.position.x = tween.between(250, 0);
+                            }
+                        },                        
+                    ]
+                }
+            }
+        },
+    }
+</script>
+
+```
 #### Animations as Renderless Components
 yes u can also do this good luck
