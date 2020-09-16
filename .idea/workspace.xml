@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f1008968-6b73-41c3-b8de-2bbf306171de" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue/Components/Timers/ClockTimer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue/Components/Timers/ClockTimer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue/Components/Timers/DefaultTimer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue/Components/Timers/ResponsiveScrollTimer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue/Components/Timers/ResponsiveScrollTimer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue/Components/Timers/ScrollTimer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue/Components/Timers/ScrollTimer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue/Components/Timers/debounce.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue/Mixins/AnimationControls.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue/Mixins/PlaybackTimer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-bytepath.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue-bytepath.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -52,7 +48,8 @@
       <option name="presentableId" value="Default" />
       <updated>1599767774373</updated>
       <workItem from="1599767775454" duration="125000" />
-      <workItem from="1600258051028" duration="203000" />
+      <workItem from="1600258051028" duration="577000" />
+      <workItem from="1600258746538" duration="4000" />
     </task>
     <servers />
   </component>
@@ -64,7 +61,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
