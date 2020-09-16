@@ -1,13 +1,5 @@
-import DefaultTimer from "../Components/Timers/DefaultTimer";
-
 export default {
-    mixins: [],
     props: {
-        repeat:{
-            type: Boolean,
-            default: false,
-        },
-
         // Keyframe of the overall animation
         keyframe:{
             type: Number,
@@ -26,7 +18,7 @@ export default {
             default: null,
         },
 
-        autoPlay:{
+        pause:{
             type: Boolean,
             default: false,
         },
@@ -44,19 +36,20 @@ export default {
         return {
             timerId: null,
             frame: 0,
-            name: "default",
-            // The number of times the animation has repeated
-            timesRepeated: 0
         };
     },
 
     mounted(){
-        this.play();
+        this.createTimer();
     },
 
     computed:{
         // Determines whether we should start the timer or not
         shouldTick() {
+            if(this.pause){
+                return false;
+            }
+
             // If start is null we ignore it by setting it to a value below keyframe
             let start = (this.start !== null)? this.start : this.keyframe - 1;
 
@@ -68,41 +61,6 @@ export default {
     },
 
     methods: {
-        play() {
-            // If we want to play a different movie then we need to reset the timer
-            if(this.timerId) {
-                if(this.name !== name) {
-                    stop();
-                    this.frame = 0;
-                    this.timesRepeated = 0;
-                }
-            }
-
-            // If there is no existing timer then we start one here
-            else{
-                this.createTimer();
-            }
-            this.name = name;
-        },
-
-        restart() {
-            this.frame = 0;
-            this.timesRepeated += 1;
-        },
-
-        stop(){
-            console.log("timer stop", this.timerType());
-            this.pause();
-            this.frame = 0;
-        },
-
-        pause(){
-            if(this.timerId !== null) {
-                console.log("clearing timer", this.timerId);
-                this.clearTimer();
-            }
-        },
-
         createTimer(){
             // Instantiate your tracking event that will control the animation
             this.timerId = true;
@@ -121,7 +79,7 @@ export default {
             return "Animation Control Mixin";
         },
 
-        timestep(time){
+        timeStep(time){
             if(!this.$options.prevFrameTime) {
                 this.$options.prevFrameTime = time;
             }
@@ -133,7 +91,7 @@ export default {
             }
 
             if(this.timerId !== null){
-                this.newTimeout();
+                this.createTimer();
             }
         },
     },
@@ -141,26 +99,14 @@ export default {
     created(){},
 
     destroyed(){
-        this.clear();
+        this.clearTimer();
     },
 
     render() {
-        // Use the default timer so we can ensure that components without timers still have all of the same fields
-        let timer = DefaultTimer();
-        timer.name = this.name;
-        timer.repeat = this.repeat;
-        timer.running = (this.timerId !== null);
-        timer.timesRepeated = this.timesRepeated;
-        timer.type = this.timerType();
-
-        timer._p = this.play;
-        timer._s = this.stop;
-        timer._r = this.restart;
-        timer._u = this.pause;
-
         return this.$scopedSlots.default({
-            timer: timer,
             keyframe: this.frame,
+            type: this.timerType(),
+            running: (this.timerId !== null),
         })
     }
 }

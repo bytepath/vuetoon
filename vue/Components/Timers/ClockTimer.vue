@@ -38,7 +38,7 @@
 
             // Create a new timeout that when finished will run the running function of this control
             newTimeout() {
-               this.timerId = requestAnimationFrame(this.timestep);
+               this.timerId = requestAnimationFrame(this.timeStep);
             }
         },
     }

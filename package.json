@@ -2,7 +2,7 @@
   "name": "bytepath",
   "version": "0.1.0",
   "description": "A component based javascript animation and keyframe library",
-  "main": "index.js",
+  "main": "vue-bytepath.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
