@@ -388,6 +388,7 @@ Animations can also be made from renderless functions by passing the transform
 property to the slot value through the :matrix prop
 
 ```html
+<!-- Tornado.vue -->
 <template>
     <slot :matrix="transform" />
 </template>
@@ -406,6 +407,33 @@ property to the slot value through the :matrix prop
                 }
             }
         },
+    }
+</script>
+```
+
+
+```html
+<!-- SomeAnimation.vue -->
+<template>
+    <clock v-slot="clock" auto-play>
+	<tornado :keyframe="clock.keyframe" v-slot="tornado">
+	    <custom-rectangle :matrix="tornado.matrix" />	
+        </tornado>		
+    </clock>
+</template>
+
+<script>
+    import bytepath from "bytepath";
+    import Tornado from "./Tornado";
+    import CustomRectangle from "./CustomRectangle";
+	
+    export default {
+        mixins: [bytepath.AnimationEntity],
+        components: {
+		CustomRectangle,
+		Tornado,
+		clock: bytepath.timers.clock,
+	},        
     }
 </script>
 ```
