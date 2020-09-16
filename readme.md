@@ -228,6 +228,8 @@ Bytepath ships with the following timers
 </script>
 ```
 
+#### Custom Playback Timers
+
 
 #### Inline Animations
 - If the animation you are building is relatively simple, you can just write your animation inline on the component tag itself. The template tag has access to the keyframe prop which tells us the current frame this animation should be displaying. 
