@@ -1,333 +1,441 @@
-## Bytepath - A Component Based Javascript Animation Framework
+## Bytepath - A VueJS Based Vector Graphics & Animation Framework
 
 ![](https://pandao.github.io/editor.md/images/logos/editormd-logo-180x180.png)
 ![](https://img.shields.io/github/stars/pandao/editor.md.svg) ![](https://img.shields.io/github/forks/pandao/editor.md.svg) ![](https://img.shields.io/github/tag/pandao/editor.md.svg) ![](https://img.shields.io/github/release/pandao/editor.md.svg) ![](https://img.shields.io/github/issues/pandao/editor.md.svg) ![](https://img.shields.io/bower/v/editor.md.svg)
 
-##### (VueJS only for now!)
 
-###### Bytepath consists of two main modules
-- ***Keyframer***
-**A framework for building keyframed animations in your Javascript Apps**
-	- Simple to write- just say where you want to start, and where you want to end up, and let bytepath handle the hard work
+#### *Bytepath consists of two main modules*
+## ***Keyframer*** ##
+- **A framework for building keyframed animations in your Javascript Apps**
+	- **Simple to write** Animations are represented using simple Javascript functions that you already know how to write. Anything you can do in javascript, you can do here. 
 	
-	- Reusable - Animations are self contained objects that can be tested in isolation or shared with the world
+	- **No thinking required** Bytepath provides a handy tween object that will handle the hard part of transitioning from one frame to the next.  All you need to know is where you want your animation to start, and where you want it to end up. Bytepath handles the hard work for you so you can focus on the creative process
 	
-	- Modular Playback - Animation playback can be easily tied to whatever you want, but out of the box, bytepath provides adapters for 
-			Clock: A Stopwatch that pings at a set interval
-			Scroll:  Ties playback to page scroll making your animations play at the speed that the user scrolls with their finger,mousewheel, etc
+	- **Reusable** Animations are self contained Javascript objects that can be tested in isolation or shared with the world
+	
+	- **Reactive** Animation playback is as simple as providing an integer to the :keyframe prop of your animation components. Animations will automatically update and re-render using the new frame position. Connect the :keyframe prop to one of the provided Playback Timers to turn your vector graphics into interactive animations. 
+	
+	- **Simple Playback** Animations are played using Bytepath playback timers. Playback timers handle the playback speed and FPS of your animations and thanks to the reactivity provided by vue, can be connected to anything in your application that can output a number. 
+		Out of the box, bytepath provides adapters for 
+		- Clock: A Stopwatch that pings at a set interval. Think setTimeout() but for animation
+		- Scroll:  Ties playback to page scroll making your animations play at the speed that the user scrolls with their finger or mousewheel. 
+		- Responsive Scroll: Similar to 'Scroll' but the output frame takes into account the size of your screen ensuring animations play back as expected on all devices
+			
+	- **Custom Playback Timers** If the provided playback timer components aren't what you are looking for, Bytepath makes it dead simple to create a custom adapter to fit your use case. 			
 
-- ***Transformer***
-**A framework for building component based vector graphics**
-- **Use tools that artists already know how to use -** Art assets are built using tools artists are already familiar with such as Adobe Illustrator, Inkscape, and Affinity Designer.
+	- **Component based** Animations can be part of your art assets or consumed as renderless components (or both!).  Whatever works better for your particular use case 
 
-- **Reactive**: Instantly Scale, Rotate, Translate, and Skew on screen graphics by modifying prop values. Art assets will automatically redraw after any change of position
+## ***Transformer*** ##
+- **A framework for building component based vector graphics**
+	- **Use tools that artists already know how to use -** Art assets are built using tools artists are already familiar with such as Adobe Illustrator, Inkscape, and Affinity Designer.
 
-- **Reusable -** Art assets are single file VueJS components allowing you to easily re-use assets in future projects or package them up and share them with the world 
+	- **Reactive**: Instantly Scale, Rotate, Translate, and Skew on screen graphics by modifying prop values. Art assets will automatically redraw after any change of position
 
-- **VueJS For Graphics** Use the exact same skills you use to make websites to make interactive graphical interfaces that blow your customers away. Anything you can do in vue, you can do here (slots, $emit, props, mixins, etc)
+	- **Reusable -** Art assets are single file VueJS components allowing you to easily re-use assets in future projects or package them up and share them with the world 
+
+	- **Modular -** Assets are normal Vue components meaning you can swap in and out various sub sections using slots. Mix and match various assets to create an unlimited number of potential assets from the art you aleady have
+		- A "Person" asset could be built using a component containing slots for arms, legs, head and body allowing you to create an unlimited number of characters without having to re-write any code. 
+		- A "Vehicle" asset could be built using a component containing slots for wheels, and body allowing you to create an unlimited number of trucks, cars, motorcycles, etc that all share the same basic properties of a vehicle. 
+	- **Experimental DOM Support** Transformer can be used on normal DOM Elements by passing its render output to the CSS "transform" property for that element.
+	- **VueJS For Graphics** The same skills you've perfected to make awesome websites can now be used to make cutting edge vector graphics. Anything you can do in vue, you can do here (slots, $emit, Mouse/Keyboard Events, props, mixins, etc)
 
 
 # Installation
+ Install Bytepath using NPM
+
+	npm install bytepath        
 
 
+# Quick Start
+Bytepath works by combining the VueJS with the powerful, but complicated, SVG Vector Graphics Standard. 
+SVG Images are represented with XML-like tags just like the HTML spec meaning we can modularize our SVG art assets into modular single file art assets (refered to as animation entities from here on out) just like we would do for web components.
 
-**Table of Contents**
+### Use props to reactively transform any Bytepath element
+Scale, Translate, and Rotate your Bytepath entities simply by modifying the listed props below. Bytepath will automatically re-render your asset after any modifications to these values
 
-[TOCM]
+| Prop | Description                    |
+| ------------- | ------------------------------ |
+| `:x`      | X position       |
+| `:y`   | Y Position     |
+| `:a`   | Rotation angle (degrees)     |
+| `:sx`   | Scale horizontally     |
+| `:sy`   | Scale vertically      |
+| `:cx`   | Center X Position     |
+| `:cy`   | Center Y Position     |
+| `:matrix`   | The projection matrix for this element. Used to pass animations from renderless components    |
 
-[TOC]
-
-#H1 header
-##H2 header
-###H3 header
-####H4 header
-#####H5 header
-######H6 header
-#Heading 1 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-##Heading 2 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-###Heading 3 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-####Heading 4 link [Heading link](https://github.com/pandao/editor.md "Heading link") Heading link [Heading link](https://github.com/pandao/editor.md "Heading link")
-#####Heading 5 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-######Heading 6 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-
-##Headers (Underline)
-
-H1 Header (Underline)
-=============
-
-H2 Header (Underline)
--------------
-
-###Characters
-                
-----
-
-~~Strikethrough~~ <s>Strikethrough (when enable html tag decode.)</s>
-*Italic*      _Italic_
-**Emphasis**  __Emphasis__
-***Emphasis Italic*** ___Emphasis Italic___
-
-Superscript: X<sub>2</sub>，Subscript: O<sup>2</sup>
-
-**Abbreviation(link HTML abbr tag)**
-
-The <abbr title="Hyper Text Markup Language">HTML</abbr> specification is maintained by the <abbr title="World Wide Web Consortium">W3C</abbr>.
-
-###Blockquotes
-
-> Blockquotes
-
-Paragraphs and Line Breaks
-                    
-> "Blockquotes Blockquotes", [Link](http://localhost/)。
-
-###Links
-
-[Links](http://localhost/)
-
-[Links with title](http://localhost/ "link title")
-
-`<link>` : <https://github.com>
-
-[Reference link][id/name] 
-
-[id/name]: http://link-url/
-
-GFM a-tail link @pandao
-
-###Code Blocks (multi-language) & highlighting
-
-####Inline code
-
-`$ npm install marked`
-
-####Code Blocks (Indented style)
-
-Indented 4 spaces, like `<pre>` (Preformatted Text).
-
-    <?php
-        echo "Hello world!";
-    ?>
-    
-Code Blocks (Preformatted text):
-
-    | First Header  | Second Header |
-    | ------------- | ------------- |
-    | Content Cell  | Content Cell  |
-    | Content Cell  | Content Cell  |
-
-####Javascript　
-
-```javascript
-function test(){
-	console.log("Hello world!");
-}
- 
-(function(){
-    var box = function(){
-        return box.fn.init();
-    };
-
-    box.prototype = box.fn = {
-        init : function(){
-            console.log('box.init()');
-
-			return this;
-        },
-
-		add : function(str){
-			alert("add", str);
-
-			return this;
-		},
-
-		remove : function(str){
-			alert("remove", str);
-
-			return this;
-		}
-    };
-    
-    box.fn.init.prototype = box.fn;
-    
-    window.box =box;
-})();
-
-var testBox = box();
-testBox.add("jQuery").remove("jQuery");
-```
-
-####HTML code
+### Using the premade entity component
+Bytepath provides you with a pre built animation entity you can use to get started with your projects. In a new Vue component, import bytepath then add the entity component to its list of external components.
 
 ```html
-<!DOCTYPE html>
-<html>
-    <head>
-        <mate charest="utf-8" />
-        <title>Hello world!</title>
-    </head>
-    <body>
-        <h1>Hello world!</h1>
-    </body>
-</html>
+<template>
+    <div style="padding: 12px;">
+        <entity :x="200" :y="300">X=200 Y=300</entity><br/>
+        <entity :a="20">Angle=20</entity><br/>
+        <entity :a="50" :sx="3.5" :sy="1.5">Angle=50 ScaleX=3.5 ScaleY=1.5</entity>
+    </div>
+</template>
+
+<script>
+    import bytepath from "bytepath";
+
+    export default {
+        components:{
+            entity: bytepath.components.entity
+        }
+    }
+</script>
 ```
 
-###Images
+### Creating custom Animation Entities
+- Bytepath Animation Entities are normal VueJS Components with the provided bytepath.AnimationEntity mixin applied.
 
-Image:
+- Anything available to a Vue web component is also available to use with a Bytepath Animation Entity (Props, for example).
 
-![](https://pandao.github.io/editor.md/examples/images/4.jpg)
+- The template of an Animation Entity will contain a valid SVG tag that your browser can render as a standalone asset. 
 
-> Follow your heart.
+- When creating custom components, you must manually add the transform property to your template using ' :transform="transform". Normally, the transform should be added to either the SVG tag itself or the root element below the SVG tag.
 
-![](https://pandao.github.io/editor.md/examples/images/8.jpg)
+- Once an image has been added to a single file component, we can render as many copies of the asset as we want by adding another tag (in this case <rectangle />). Each tag can be scaled, rotated, and translated independently from the rest of the scene
 
-> 图为：厦门白城沙滩 Xiamen
+- Assets are made up of *multiple* Animation entities composed together using single file components. If a part of your asset animates independently from the main (Example: A characters arm's or legs), this sub asset should be it's own single file component.. 
 
-图片加链接 (Image + Link)：
+- The SVG specification allows us to nest as many SVG tags as we want, We can use this feature to compose larger scenes made up of smaller, reusable art assets, that we can just drop into any scene.
 
-[![](https://pandao.github.io/editor.md/examples/images/7.jpg)](https://pandao.github.io/editor.md/examples/images/7.jpg "李健首张专辑《似水流年》封面")
+```html
+<!-- CustomRectangle.vue -->
+<template>
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <g :transform="transform">
+                <rect :fill="fill" x="0" y="0" width="50" height="50" />
+			<g>
+        </svg>
+</template>
 
-> 图为：李健首张专辑《似水流年》封面
-                
-----
+<script>
+    import bytepath from "bytepath";
 
-###Lists
-
-####Unordered list (-)
-
-- Item A
-- Item B
-- Item C
-     
-####Unordered list (*)
-
-* Item A
-* Item B
-* Item C
-
-####Unordered list (plus sign and nested)
-                
-+ Item A
-+ Item B
-    + Item B 1
-    + Item B 2
-    + Item B 3
-+ Item C
-    * Item C 1
-    * Item C 2
-    * Item C 3
-
-####Ordered list
-                
-1. Item A
-2. Item B
-3. Item C
-                
-----
-                    
-###Tables
-                    
-First Header  | Second Header
-------------- | -------------
-Content Cell  | Content Cell
-Content Cell  | Content Cell 
-
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
-
-| Function name | Description                    |
-| ------------- | ------------------------------ |
-| `help()`      | Display the help window.       |
-| `destroy()`   | **Destroy your computer!**     |
-
-| Item      | Value |
-| --------- | -----:|
-| Computer  | $1600 |
-| Phone     |   $12 |
-| Pipe      |    $1 |
-
-| Left-Aligned  | Center Aligned  | Right Aligned |
-| :------------ |:---------------:| -----:|
-| col 3 is      | some wordy text | $1600 |
-| col 2 is      | centered        |   $12 |
-| zebra stripes | are neat        |    $1 |
-                
-----
-
-####HTML entities
-
-&copy; &  &uml; &trade; &iexcl; &pound;
-&amp; &lt; &gt; &yen; &euro; &reg; &plusmn; &para; &sect; &brvbar; &macr; &laquo; &middot; 
-
-X&sup2; Y&sup3; &frac34; &frac14;  &times;  &divide;   &raquo;
-
-18&ordm;C  &quot;  &apos;
-
-##Escaping for Special Characters
-
-\*literal asterisks\*
-
-##Markdown extras
-
-###GFM task list
-
-- [x] GFM task list 1
-- [x] GFM task list 2
-- [ ] GFM task list 3
-    - [ ] GFM task list 3-1
-    - [ ] GFM task list 3-2
-    - [ ] GFM task list 3-3
-- [ ] GFM task list 4
-    - [ ] GFM task list 4-1
-    - [ ] GFM task list 4-2
-
-###Emoji mixed :smiley:
-
-> Blockquotes :star:
-
-####GFM task lists & Emoji & fontAwesome icon emoji & editormd logo emoji :editormd-logo-5x:
-
-- [x] :smiley: @mentions, :smiley: #refs, [links](), **formatting**, and <del>tags</del> supported :editormd-logo:;
-- [x] list syntax required (any unordered or ordered list supported) :editormd-logo-3x:;
-- [x] [ ] :smiley: this is a complete item :smiley:;
-- [ ] []this is an incomplete item [test link](#) :fa-star: @pandao; 
-- [ ] [ ]this is an incomplete item :fa-star: :fa-gear:;
-    - [ ] :smiley: this is an incomplete item [test link](#) :fa-star: :fa-gear:;
-    - [ ] :smiley: this is  :fa-star: :fa-gear: an incomplete item [test link](#);
-            
-###TeX(LaTeX)
-   
-$$E=mc^2$$
-
-Inline $$E=mc^2$$ Inline，Inline $$E=mc^2$$ Inline。
-
-$$\(\sqrt{3x-1}+(1+x)^2\)$$
-                    
-$$\sin(\alpha)^{\theta}=\sum_{i=0}^{n}(x^i + \cos(f))$$
-                
-###FlowChart
-
-```flow
-st=>start: Login
-op=>operation: Login operation
-cond=>condition: Successful Yes or No?
-e=>end: To admin
-
-st->op->cond
-cond(yes)->e
-cond(no)->op
+    export default {
+		props:{
+			fill: {
+				type: String,
+				default: "red",
+			},
+		},
+		mixins: [ bytepath.AnimationEntity ],
+    }
+</script>
 ```
 
-###Sequence Diagram
-                    
-```seq
-Andrew->China: Says Hello 
-Note right of China: China thinks\nabout it 
-China-->Andrew: How are you? 
-Andrew->>China: I am good thanks!
+
+```html
+<!-- RectangleScene.vue -->
+<template>
+    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1300 500">
+        <g>
+			<!-- Draws our custom entity at [200, 100] with red fill -->
+            <custom-rectangle fill="red" :x="200" :y="100" />
+			
+			<!-- Draws our custom entity at [200, 100] with green fill -->
+            <custom-rectangle fill="green" :x="300"  />
+			
+			<!-- Draws our custom entity at [200, 100] with blue fill -->
+            <custom-rectangle fill="blue" :x="100" :y="50" />
+        </g>
+    </svg>
+</template>
+
+<script>
+    import CustomRectangle from "./CustomRectangle";
+
+    export default {
+        components: {
+            CustomRectangle,
+        },
+    }
+</script>
 ```
 
-###End
+
+### Animating Art Assets
+Bytepath uses the powerful reactivity system of VueJS to make building custom animations simple and fun
+
+####  Animation Props
+Bytepath adds the following props to your vue component
+
+
+| Prop | Type | Default | Description                    |
+| ------------- | -- | --- | ------------------------------ |
+| `:keyframe` | Integer | 0   | The current animation frame. Assets should pass the current animation frame down to it's children |
+| `:anim`   | String | "default" | The Animation this component should be playing. If the provided animation doesn't exist, the default animation gets played instead     |
+| `:repeat` | Boolean | false  | Should this animation restart when it finishes |
+
+#### Reactive Animations
+When the keyframe prop is updated, our animations will automatically compute the new animation position for us and re render the screen if necessary. 
+
+#### Playback Timers
+Animation playback is controlled by renderless components called Playback Timers. All these timers do is pass back an integer value that you can connect to the :keyframe prop of child components to progress through the animation. Since the :keyframe prop of our animation component will reactively update our animations when the frame value changes, we can use these timers to create fully interactive scenes that automatically re render themselves as needed. 
+
+#### Pre Built Playback Timers
+Bytepath ships with the following timers 
+- Clock
+	- Clock will iterate your keyframe value on a set interval. When you think of timers you are probably thinking of this
+```html
+<template>
+    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1300 500">
+	<!-- keyframe will iterate at set interval -->   
+        <clock v-slot="{ keyframe }" auto-play>
+                <custom-rectangle :keyframe="keyframe" />
+        </clock>
+    </svg>
+</template>
+
+<script>
+    import CustomRectangle from "./CustomRectangle";
+    import bytepath from "bytepath";
+
+    export default {
+        components: {
+            CustomRectangle,
+            "clock": bytepath.timers.clock,
+        },
+    }
+</script>
+```
+
+- Scroll
+	- Scroll ties the keyframe value to the current scroll position of the page. This means that your animations will automatically play in forwards and reverse as the user scrolls around on your page.
+```html
+<template>
+    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1300 500">
+	<!-- Keyframe will be iterate as the user scrolls down -->    
+        <scroll v-slot="{ keyframe }" auto-play>
+                <custom-rectangle :keyframe="keyframe" />
+        </scroll>
+    </svg>
+</template>
+
+<script>
+    import CustomRectangle from "./CustomRectangle";
+    import bytepath from "bytepath";
+
+    export default {
+        components: {
+            CustomRectangle,
+            "scroll": bytepath.timers.scroll,
+        },
+    }
+</script>
+```
+
+#### Custom Playback Timers
+
+
+#### Inline Animations
+- If the animation you are building is relatively simple, you can just write your animation inline on the component tag itself. The template tag has access to the keyframe prop which tells us the current frame this animation should be displaying. 
+
+```html
+<!-- AnimatedRectangleScene.vue -->
+<template>
+    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1300 500">
+        <g>
+		<!-- Move right from (200,100) to (500, 100) -->
+		<!-- The modulo operator essentially acts as a "repeater" here -->
+            <custom-rectangle fill="red" :x="(200 + keyframe) % 500" :y="100" />
+			
+		<!-- Move from (300, 0) to (300, 500) repeating -->
+            <custom-rectangle fill="green" :x="300" :y="keyframe % 500"  />
+						
+		<!-- Frame 0 to 100 - Move Right  -->
+		<!-- Frame 100 to infinity - Move Left  -->
+            <custom-rectangle fill="green" :x="(keyframe < 100)? keyframe : 100 - keyframe" :y="200"  />
+		
+		<!-- Move left from 300, 50  to 0, 50 repeating -->
+            <custom-rectangle fill="blue" :x="Math.abs((300 - keyframe) % 300)" :y="50" />
+	    
+		<!-- oscillate back and forth between -100, 0 and  100, 0 --> 
+            <custom-rectangle fill="orange" :x="Math.sin(keyframe / 100) * 100" />
+		
+		<!-- paths around a circle of radius = 50 --> 
+            <custom-rectangle fill="orange" :x="Math.sin(keyframe / 100) * 100" :y="Math.cos(keyframe / 100) * 100" />
+        </g>
+    </svg>
+</template>
+
+<script>
+    import CustomRectangle from "./CustomRectangle";
+
+    export default {
+        components: {
+            CustomRectangle,
+        },
+    }
+</script>
+```
+
+#### Component Animations
+Animations can be defined right in your single file components allowing you to create reusable vector graphics and interactive scenes. Animations are defined by creating a componentAnimations() function in the methods section of your vue component. 
+
+The componentAnimations() function returns a javascript object with each key being the name of an animation that can be used by the asset by setting the :anim prop to the name of the animation
+
+In the example below, we create a simple rectangle that has a custom animation called "tornado" that rotates the tornado around its center
+```html
+<template>
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <g :transform="transform">
+            <rect :fill="fill" width="50" height="50"/>
+        </g>
+    </svg>
+</template>
+
+<script>
+    import { AnimationEntity } from "bytepath";
+
+    export default {
+        mixins: [AnimationEntity],
+        props: {
+            fill: {
+                type: String,
+                default: "red",
+            },
+        },
+
+        methods: {
+            componentAnimations() {
+                return {
+                    default: [],
+                                         
+                    tornado: [
+                        /*
+                          An animation is made up of an array of stages. Stages have 3 required fields
+                          Start: The frame we start this stage
+                          End: The frame that this stage is completed
+                          handler: The function that is ran during each frame of the stage
+                         */
+                        {
+                            name: 'Tornado Kick',
+                            start: 0,
+                            end: 250,
+                            /**
+                             * Rotates while moving to the right from frame 0 to 250
+                             * @param context The vue component
+                             * @param tween A helper function to handle the transition from start to finish value
+                             */
+                            handler(context, tween) {
+                                context.position.x = tween.between(0, 250);
+                                context.position.angle = tween.betweenFloat(0, 360);
+                            }
+                        },
+                        {
+                            name: 'Move back',
+                            start: 251,
+                            end: 500,
+                            /**
+                             * Moves back to the left and does not rotate
+                             * @param context The vue component
+                             * @param tween A helper function to handle the transition from start to finish value
+                             */
+                            handler(context, tween) {
+                                context.position.x = tween.between(250, 0);
+                            }
+                        },                        
+                    ]
+                }
+            }
+        },
+    }
+</script>
+```
+
+#### Single file animations
+As you see in the above example, animations can very quickly overwhelm your single 
+file components, making them difficult to read and maintain. The easy solution to this is to store your animations as standalone javascript files and import them as necessary. As a nice added bonus you can now reuse your animations in any component. 
+
+```html
+<template>
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <g :transform="transform">
+            <rect :fill="fill" width="50" height="50"/>
+        </g>
+    </svg>
+</template>
+
+<script>
+    import { AnimationEntity } from "bytepath";
+    import TornadoAnim from "./TornadoAnim";
+    
+    export default {
+        mixins: [AnimationEntity],
+        props: {
+            fill: {
+                type: String,
+                default: "red",
+            },
+        },
+
+        methods: {
+            componentAnimations() {
+                return {
+                    default: [],
+                    tornado: TornadoAnim,
+                }
+            }
+        },
+    }
+</script>
+```
+
+#### Animations as Renderless Components
+Animations can also be made from renderless functions by passing the transform 
+property to the slot value through the :matrix prop
+
+```html
+<!-- Tornado.vue -->
+<template>
+    <slot :matrix="transform" />
+</template>
+
+<script>
+    import { AnimationEntity } from "bytepath";
+    import TornadoAnim from "./TornadoAnim";
+    export default {
+        mixins: [AnimationEntity],
+        
+        methods: {
+            componentAnimations() {
+                return {
+                    default: [],
+                    tornado: TornadoAnim,
+                }
+            }
+        },
+    }
+</script>
+```
+
+
+```html
+<!-- SomeAnimation.vue -->
+<template>
+    <clock v-slot="clock" auto-play>
+	<tornado :keyframe="clock.keyframe" v-slot="tornado">
+	    <custom-rectangle :matrix="tornado.matrix" />	
+        </tornado>		
+    </clock>
+</template>
+
+<script>
+    import bytepath from "bytepath";
+    import Tornado from "./Tornado";
+    import CustomRectangle from "./CustomRectangle";
+	
+    export default {
+        mixins: [bytepath.AnimationEntity],
+        components: {
+		CustomRectangle,
+		Tornado,
+		clock: bytepath.timers.clock,
+	},        
+    }
+</script>
+```
