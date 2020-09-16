@@ -345,5 +345,18 @@ In the example below, we create a simple rectangle that has a custom animation c
 </script>
 
 ```
+#### Using component animations
+Access animations inside a component by setting the :anim prop to the name of the animation you want to play
+
+```html
+<!-- SomeAnimation.vue -->
+<template>
+	<!-- The tornado animation will play indefinitely, repeating when it reaches the end -->
+	<clock v-slot="{ keyframe }" auto-play>
+		<rectangle fill="pink" :keyframe="keyframe" anim="tornado" :repeat="true" />
+	</clock>
+</template>
+```
+
 #### Animations as Renderless Components
 yes u can also do this good luck
