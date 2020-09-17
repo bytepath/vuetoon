@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f1008968-6b73-41c3-b8de-2bbf306171de" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-bytepath.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue-bytepath.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -50,6 +48,7 @@
       <workItem from="1599767775454" duration="125000" />
       <workItem from="1600258051028" duration="577000" />
       <workItem from="1600258746538" duration="4000" />
+      <workItem from="1600262232662" duration="100000" />
     </task>
     <servers />
   </component>

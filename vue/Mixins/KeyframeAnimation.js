@@ -63,7 +63,7 @@ export default {
             Object.entries(this.componentAnimations()).forEach(([name, data]) => {
                 let anim = AnimationDataFactory.createFromUserAnimation(name, data);
                 animations[name] = anim;
-                //console.log("load animation found", name, anim);
+                console.log("load animation found", name, anim);
             });
 
             return animations;

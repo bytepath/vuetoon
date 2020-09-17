@@ -1,8 +1,8 @@
 // Mixins
-import Transformer from "./vue/Mixins/CalculatesTransformation";
-import Keyframer from "./vue/Mixins/KeyframeAnimation";
+import transformer from "./vue/Mixins/CalculatesTransformation";
+import keyframer from "./vue/Mixins/KeyframeAnimation";
 import AnimationEntity from "./vue/Mixins/AnimationEntity";
-import PlaybackTimer from "./vue/Mixins/PlaybackTimer";
+import playbackTimer from "./vue/Mixins/PlaybackTimer";
 
 // Timers
 import clock from "./vue/Components/Timers/ClockTimer";
@@ -25,9 +25,9 @@ export default {
     AnimationEntity,
 
     mixins: {
-        PlaybackTimer,
-        Transformer,
-        Keyframer,
+        playbackTimer,
+        transformer,
+        keyframer,
     },
 
     timers:{

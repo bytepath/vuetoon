@@ -176,7 +176,7 @@ export default {
              *  this point so that rotation, scale, and skew operations work as expected.
              */
             let center = new DOMMatrix();
-            center = center.translate(cx + x, cy + y);
+            center = center.translate(cx, cy);
 
             /**
              *  SCALE
@@ -198,8 +198,7 @@ export default {
              */
             // Rotate the element
             let rotation = new DOMMatrix();
-            rotation = rotation.rotate(0,0, angle % 360);
-
+            rotation = rotation.rotate(0,0,  angle);
 
             /**
              *  TRANSLATION
@@ -215,10 +214,8 @@ export default {
             let psc = 1 + (1 - m.d);
 
             if(scaleX !== 1 || scaleY !== 1) {
-                transformTranslation.scaleSelf(1 / scaleX, 1 / scaleY);
+                transformTranslation.scaleSelf((1 / scaleX), (1 / scaleY));
             }
-
-            transformTranslation.scaleSelf(psc, psc);
 
             // if(skewY + skewX !== 0){
             //     transformTranslation.skewXSelf(1/skewX);
@@ -240,9 +237,9 @@ export default {
             retval = retval.multiply(matrix);
             retval = retval.multiply(center);
             retval = retval.multiply(scale);
-            retval = retval.multiply(skew);
+            //retval = retval.multiply(skew);
             retval = retval.multiply(rotation);
-            retval = retval.multiply(center.inverse());
+            retval.multiplySelf(center.inverse());
             retval = retval.multiply(translation);
             retval = retval.multiply(inverse);
             return retval;
@@ -254,20 +251,29 @@ export default {
          */
         getProjectionMatrix(){
             if(this.matrix){
+                console.log("custom matrix", this.matrix.toString());
                 return this.matrix;
             }
 
+
             if(this.$el) {
+                console.log("el", this.$el);
+
                 if(this.$el.parentNode) {
+                    console.log("parent", this.$el.parentNode);
                     if (Object.prototype.hasOwnProperty.call(this.$el.parentNode, "getScreenCTM")) {
+
                         let ctm = this.$el.parentNode.getScreenCTM();
                         // Some browsers return a depreciated SVGMatrix from getScreenCTM so we need to manually convert to a
                         // DOMMatrix object
-                        return new DOMMatrix([ctm.a, ctm.b, ctm.c, ctm.d, ctm.e, ctm.f]);
+                        let projection = new DOMMatrix([ctm.a, ctm.b, ctm.c, ctm.d, ctm.e, ctm.f]);
+                        console.log("projection", projection.toString());
+                        return projection;
                     }
                 }
             }
 
+            console.log("iden mat");
             return new DOMMatrix();
         },
 
