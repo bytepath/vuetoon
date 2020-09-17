@@ -14,7 +14,7 @@ export default {
         /**
          * X position
          */
-        x:{
+        x: {
             type: Number,
             default: 0,
         },
@@ -38,7 +38,7 @@ export default {
         /**
          * scaleX
          */
-        sx:{
+        sx: {
             type: Number,
             default: 0,
         },
@@ -54,7 +54,7 @@ export default {
         /**
          * X position of center point
          */
-        cx:{
+        cx: {
             type: Number,
             default: 0,
         },
@@ -68,7 +68,7 @@ export default {
         },
     },
 
-    data(){
+    data() {
         return {
             position: {
                 x: 0,
@@ -83,7 +83,7 @@ export default {
                 centerX: 0,
                 centerY: 0,
             },
-            transform:  new DOMMatrix(),
+            transform: new DOMMatrix(),
             mutations: {},
             animationDirty: true,
         };
@@ -96,21 +96,37 @@ export default {
         });
     },
 
-    watch:{
+    watch: {
         /**
          * If we change position either internally or via prop we need to
          * mark as dirty so we re calculate the transform matrix
          */
-        position: { handler() { this.positionChanged(); }, deep: true },
-        x(){ this.positionChanged(); },
-        y(){ this.positionChanged(); },
-        a(){ this.positionChanged(); },
-        sx(){ this.positionChanged(); },
-        sy(){ this.positionChanged(); },
-        matrix(){ this.positionChanged(); },
+        position: {
+            handler() {
+                this.positionChanged();
+            }, deep: true
+        },
+        x() {
+            this.positionChanged();
+        },
+        y() {
+            this.positionChanged();
+        },
+        a() {
+            this.positionChanged();
+        },
+        sx() {
+            this.positionChanged();
+        },
+        sy() {
+            this.positionChanged();
+        },
+        matrix() {
+            this.positionChanged();
+        },
     },
 
-    computed:{
+    computed: {
         // debugTransform(){
         //     return this.transform.toString();
         // },
@@ -178,27 +194,14 @@ export default {
             let center = new DOMMatrix();
             center = center.translate(cx, cy);
 
-            /**
-             *  SCALE
-             *  Note that normal scale position is 1, not 0
-             */
-            let scale = new DOMMatrix();
-            scale = scale.scale(scaleX,scaleY);
+
 
             /**
              *  SKEW
              */
-            let skew = new DOMMatrix();
-            skew = skew.skewX(skewX);
-            skew = skew.skewY(skewY);
-
-            /**
-             *  ROTATION
-             *  We rotate around the Z axis as this is the "expected" thing to do in 2d animation
-             */
-            // Rotate the element
-            let rotation = new DOMMatrix();
-            rotation = rotation.rotate(0,0,  angle);
+            // let skew = new DOMMatrix();
+            // skew = skew.skewX(skewX);
+            // skew = skew.skewY(skewY);
 
             /**
              *  TRANSLATION
@@ -210,10 +213,11 @@ export default {
             let transformTranslation = new DOMMatrix();
             let point = new DOMPoint(x, y, 0);
 
-            let m = this.$el.getScreenCTM();
-            let psc = 1 + (1 - m.d);
+            // take viewport size into account for translation
+            // let m = this.$el.getScreenCTM();
+            // let psc = 1 + (1 - m.d);
 
-            if(scaleX !== 1 || scaleY !== 1) {
+            if (scaleX !== 1 || scaleY !== 1) {
                 transformTranslation.scaleSelf((1 / scaleX), (1 / scaleY));
             }
 
@@ -222,26 +226,27 @@ export default {
             //     transformTranslation.skewYSelf(1/skewY);
             // }
 
-            if(angle !== 0) {
+            if (angle !== 0) {
                 transformTranslation.rotateSelf(0, 0, 360 - angle);
             }
 
             point = point.matrixTransform(transformTranslation);
-            translation = translation.translate(point.x,point.y);
+            translation = translation.translate(point.x, point.y);
 
 
             /**
              * TRANSFORM
              * Multiply all of these matricies together to get the final position
              */
-            retval = retval.multiply(matrix);
-            retval = retval.multiply(center);
-            retval = retval.multiply(scale);
-            //retval = retval.multiply(skew);
-            retval = retval.multiply(rotation);
+            //retval = retval.multiply(matrix);
+            retval = retval.multiplySelf(center);
+            retval.scaleSelf(scaleX,scaleY);
+            //retval = retval.multiplySelf(skew);
+            retval.rotateSelf(0, 0, angle);
             retval.multiplySelf(center.inverse());
-            retval = retval.multiply(translation);
-            retval = retval.multiply(inverse);
+
+            retval.multiplySelf(translation);
+            //retval = retval.multiply(inverse);
             return retval;
         },
 
@@ -249,31 +254,26 @@ export default {
          * Get the initial Matrix used to transform this entity
          * @returns {DOMMatrix}
          */
-        getProjectionMatrix(){
-            if(this.matrix){
+        getProjectionMatrix() {
+            if (this.matrix) {
                 console.log("custom matrix", this.matrix.toString());
                 return this.matrix;
             }
 
+            //
+            // if (this.$el) {
+            //     if (this.$el.parentNode) {
+            //         if (Object.prototype.hasOwnProperty.call(this.$el.parentNode, "getScreenCTM")) {
+            //
+            //             let ctm = this.$el.parentNode.getScreenCTM();
+            //             // Some browsers return a depreciated SVGMatrix from getScreenCTM so we need to manually convert to a
+            //             // DOMMatrix object
+            //             let projection = new DOMMatrix([ctm.a, ctm.b, ctm.c, ctm.d, ctm.e, ctm.f]);
+            //             return projection;
+            //         }
+            //     }
+            // }
 
-            if(this.$el) {
-                console.log("el", this.$el);
-
-                if(this.$el.parentNode) {
-                    console.log("parent", this.$el.parentNode);
-                    if (Object.prototype.hasOwnProperty.call(this.$el.parentNode, "getScreenCTM")) {
-
-                        let ctm = this.$el.parentNode.getScreenCTM();
-                        // Some browsers return a depreciated SVGMatrix from getScreenCTM so we need to manually convert to a
-                        // DOMMatrix object
-                        let projection = new DOMMatrix([ctm.a, ctm.b, ctm.c, ctm.d, ctm.e, ctm.f]);
-                        console.log("projection", projection.toString());
-                        return projection;
-                    }
-                }
-            }
-
-            console.log("iden mat");
             return new DOMMatrix();
         },
 
@@ -281,7 +281,7 @@ export default {
          * Returns a matrix representing this entity
          * @returns {*|DOMMatrix}
          */
-        getTransformation(){
+        getTransformation() {
             let position = this.getPosition();
             let m = this.getDefaultTransformMatrix(position);
 
@@ -305,8 +305,8 @@ export default {
          * Called by request animation frame. We check for dirty changes before running this as computing matricies is
          * a slow operation that we want to avoid if we can
          */
-        computeTransformation(){
-            if(this.animationDirty) {
+        computeTransformation() {
+            if (this.animationDirty) {
                 this.transform = this.getTransformation();
                 this.animationDirty = false;
             }
@@ -317,7 +317,7 @@ export default {
          * @param mutation
          */
         registerMutation(mutation) {
-            if(this._debug) {
+            if (this._debug) {
                 console.log("Registering mutation", mutation.name);
             }
 
