@@ -1,9 +1,7 @@
 <script>
-    import KeyframeAnimation from '../../Mixins/KeyframeAnimation';
-    import CalculatesTransformation from '../../Mixins/CalculatesTransformation';
-
+    import AnimationEntity from '../../Mixins/AnimationEntity';
     export default {
-        mixins: [ KeyframeAnimation, CalculatesTransformation ],
+        mixins: [ AnimationEntity ],
 
         props:{
             mx: {
@@ -28,18 +26,18 @@
                             name: 'bounceyman',
                             start: 0,
                             handler(context, tween) {
-                                context.position.x = Math.sin(context.keyframe/1000) * 500;
+                                context.position.x = Math.sin(context.keyframe/1000) * (context.mx * 100);
                             }
                         }
                     ],
                 };
             },
         },
+
+        render() {
+            return this.$scopedSlots.default({
+                matrix: this.transform,
+            })
+        }
     }
 </script>
-
-<template>
-    <g>
-        <slot :matrix="transform" />
-    </g>
-</template>
