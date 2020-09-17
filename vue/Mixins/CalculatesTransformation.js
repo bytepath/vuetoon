@@ -238,15 +238,14 @@ export default {
              * TRANSFORM
              * Multiply all of these matricies together to get the final position
              */
-            //retval = retval.multiply(matrix);
-            retval = retval.multiplySelf(center);
-            retval.scaleSelf(scaleX,scaleY);
-            //retval = retval.multiplySelf(skew);
-            retval.rotateSelf(0, 0, angle);
-            retval.multiplySelf(center.inverse());
+                retval = retval.multiply(matrix);
+                retval = retval.multiplySelf(center);
+                retval.scaleSelf(scaleX, scaleY);
+                retval.rotateSelf(0, 0, angle);
+                retval.multiplySelf(center.inverse());
 
-            retval.multiplySelf(translation);
-            //retval = retval.multiply(inverse);
+                retval.multiplySelf(translation);
+                // retval = retval.multiply(inverse);
             return retval;
         },
 
@@ -256,7 +255,6 @@ export default {
          */
         getProjectionMatrix() {
             if (this.matrix) {
-                console.log("custom matrix", this.matrix.toString());
                 return this.matrix;
             }
 
