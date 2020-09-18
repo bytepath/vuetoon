@@ -2,7 +2,6 @@ import AnimationDataFactory from "../../Animation/AnimationDataFactory";
 import Animation from "../../Animation/Animation";
 
 export default {
-    mixins: [],
     props: {
         // The current playback frame of the animation
         keyframe: {
@@ -27,11 +26,6 @@ export default {
         return {
             animations: this.loadAnimation(),
         };
-    },
-
-    mounted() {
-        // Initialize the animation at keyframe 0
-
     },
 
     watch:{
@@ -63,7 +57,7 @@ export default {
             Object.entries(this.componentAnimations()).forEach(([name, data]) => {
                 let anim = AnimationDataFactory.createFromUserAnimation(name, data);
                 animations[name] = anim;
-                console.log("load animation found", name, anim);
+                //console.log("load animation found", name, anim);
             });
 
             return animations;

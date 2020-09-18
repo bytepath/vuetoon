@@ -79,15 +79,17 @@ export default {
             return "Animation Control Mixin";
         },
 
-        timeStep(time){
+        timeStep(time) {
             if(!this.$options.prevFrameTime) {
                 this.$options.prevFrameTime = time;
             }
 
-            let frametime = 1000 / this.fps;
-            if((time - this.$options.prevFrameTime >= frametime)){
-                this.running();
-                this.$options.prevFrameTime = time;
+            if(this.fps > 0) {
+                let frametime = 1000 / this.fps;
+                if ((time - this.$options.prevFrameTime >= frametime)) {
+                    this.running();
+                    this.$options.prevFrameTime = time;
+                }
             }
 
             if(this.timerId !== null){

@@ -38,7 +38,9 @@
 
             // Create a new timeout that when finished will run the running function of this control
             newTimeout() {
-               this.timerId = requestAnimationFrame(this.timeStep);
+                if(this.fps > 0) {
+                    this.timerId = requestAnimationFrame(this.timeStep);
+                }
             }
         },
     }

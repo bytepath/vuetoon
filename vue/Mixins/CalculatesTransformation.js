@@ -127,9 +127,9 @@ export default {
     },
 
     computed: {
-        // debugTransform(){
-        //     return this.transform.toString();
-        // },
+        debugTransform(){
+            return this.transform.toString();
+        },
     },
 
     methods: {

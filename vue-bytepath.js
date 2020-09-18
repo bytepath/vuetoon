@@ -23,7 +23,7 @@ import spin from './vue/Components/Animations/spin';
 import acceleratesTranslation from './vue/Mutators/AcceleratesTranslation';
 
 
-export default {
+const Bytepath = {
     AnimationEntity,
     entity,
     mixins: {
@@ -63,3 +63,5 @@ export default {
         return AnimationEntity;
     }
 }
+
+export default Bytepath;

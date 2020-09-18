@@ -1,8 +1,19 @@
+<template>
+    <svg :id="'svg-' + usedAsset" :width="width" :height="height" :transform="transform">
+        <asset-loader v-if="src"  :src="src" :asset="asset" @loaded="assetLoaded" v-slot="{loaded}">
+            <g :id="'g' + usedAsset" :transform="assetMatrix">
+                <use v-if="loaded" :href="'#' + usedAsset" />
+            </g>
+        </asset-loader>
+    </svg>
+</template>
+
 <script>
     import AssetLoader from "./Loaders/AssetLoader";
     import AnimationEntity from "../Mixins/AnimationEntity";
 
     export default {
+        name: 'entity',
         mixins: [ AnimationEntity ],
         props: {
             /**
@@ -65,7 +76,7 @@
              * @returns String
              */
             asset() {
-                return (this.name)? (this._uid + `-${this.name}`) : this._uid;
+                return (this.name)? `__${this._uid}-${this.name}` : `__${this._uid}`;
             },
 
             /**
@@ -89,11 +100,12 @@
              * Moves the "camera" to look directly at the asset we are puling from a larger scene
              */
             lookAtAsset(){
-                let element = document.getElementById(this._uid + '-g-' + this.usedAsset);
+                let element = document.getElementById('g' + this.usedAsset);
                 if(element){
+                    console.log("element is", element, this);
                     if(typeof element.getBBox == "function") {
                         let bbox = element.getBBox();
-                        console.log("bbox", bbox);
+                        //console.log("bbox", bbox);
                         this.em = new DOMMatrix([1,0,0,1,-bbox.x,-bbox.y]);
                     }
                 }
@@ -102,14 +114,4 @@
         components: {AssetLoader}
     }
 </script>
-
-<template>
-    <svg :width="width" :height="height" :transform="transform">
-        <asset-loader v-if="src"  :src="src" :asset="asset" @loaded="assetLoaded" v-slot="{loaded}">
-            <g :id="_uid + '-g-' + usedAsset" :transform="assetMatrix">
-                <use v-if="loaded" :href="'#' + usedAsset" />
-            </g>
-        </asset-loader>
-    </svg>
-</template>
 
