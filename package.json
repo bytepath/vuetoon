@@ -13,6 +13,9 @@
     "keyframe",
     "vue"
   ],
+  "devDependencies": {
+    "axios": "^0.19"
+  },
   "author": "Andrew Reddin",
   "license": "MIT"
 }

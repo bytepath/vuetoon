@@ -11,7 +11,9 @@ import responsiveScroll from "./vue/Components/Timers/ResponsiveScrollTimer";
 import reset from "./vue/Components/Timers/KeyframeReset";
 
 // DOM
-import entity from './vue/Components/Dom/EntityDiv';
+import entityDiv from './vue/Components/Dom/EntityDiv';
+import entity from './vue/Components/Entity';
+
 
 // Animations
 import bounce from './vue/Components/Animations/bounce';
@@ -23,7 +25,7 @@ import acceleratesTranslation from './vue/Mutators/AcceleratesTranslation';
 
 export default {
     AnimationEntity,
-
+    entity,
     mixins: {
         playbackTimer,
         transformer,
@@ -46,8 +48,8 @@ export default {
         acceleratesTranslation,
     },
 
-    components:{
-        entity
+    dom:{
+        entityDiv
     },
 
 
