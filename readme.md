@@ -62,6 +62,8 @@ Scale, Translate, and Rotate your Bytepath entities simply by modifying the list
 | `:sy`   | Scale vertically      |
 | `:cx`   | Center X Position     |
 | `:cy`   | Center Y Position     |
+| `:width`   | Asset Width     |
+| `:height`   | Asset Height    |
 | `:matrix`   | The projection matrix for this element. Used to pass animations from renderless components    |
 
 ### Using the premade entity component

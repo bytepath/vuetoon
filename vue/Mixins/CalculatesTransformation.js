@@ -66,6 +66,22 @@ export default {
             type: Number,
             default: 0,
         },
+
+        /**
+         * The width of this asset. Optional if you want to use the size of the loaded asset
+         */
+        width: {
+            type: Number,
+            default: null
+        },
+
+        /**
+         * The height of this asset. Optional if you want to use the size of the loaded asset
+         */
+        height: {
+            type: Number,
+            default: null
+        },
     },
 
     data() {
@@ -78,8 +94,8 @@ export default {
                 scaleY: 0,
                 skewX: 0,
                 skewY: 0,
-                width: 100,
-                height: 100,
+                width: null,
+                height: null,
                 centerX: 0,
                 centerY: 0,
             },
@@ -157,7 +173,18 @@ export default {
                 skewY: this.position.skewY,
                 centerX: this.position.centerX + this.cx,
                 centerY: this.position.centerY + this.cy,
+                width: this.position.width,
+                height: this.position.width,
             };
+
+            if(this.width) {
+                retval.width = this.width;
+            }
+
+            if(this.height) {
+                retval.height = this.height;
+            }
+
             return retval;
         },
 

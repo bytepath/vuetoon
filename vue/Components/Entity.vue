@@ -1,5 +1,5 @@
 <template>
-    <svg :id="'svg-' + usedAsset" :width="width" :height="height" :transform="transform">
+    <svg :id="'svg' + usedAsset" :width="w" :height="h" :transform="transform">
         <asset-loader v-if="src"  :src="src" :asset="asset" @loaded="assetLoaded" v-slot="{loaded}">
             <g :id="'g' + usedAsset" :transform="assetMatrix">
                 <use v-if="loaded" :href="'#' + usedAsset" />
@@ -31,22 +31,6 @@
                 type: String,
                 default: null
             },
-
-            /**
-             * The width of this asset. Optional if you want to use the size of the loaded asset
-             */
-            width: {
-                type: String,
-                default: null
-            },
-
-            /**
-             * The height of this asset. Optional if you want to use the size of the loaded asset
-             */
-            height: {
-                type: String,
-                default: ""
-            }
         },
         data() {
             return {
@@ -63,6 +47,21 @@
         },
 
         computed: {
+
+            /**
+             * The width of the asset
+             */
+            w(){
+                return (this.width) ? this.width : this.position.width;
+            },
+
+            /**
+             * The height of the asset
+             */
+            h(){
+                return (this.height) ? this.height : this.position.height;
+            },
+
             /**
              * The transformation matrix for the loaded asset returned as a string
              * @returns String
@@ -105,7 +104,9 @@
                     console.log("element is", element, this);
                     if(typeof element.getBBox == "function") {
                         let bbox = element.getBBox();
-                        //console.log("bbox", bbox);
+                        console.log("bbox", bbox);
+                            this.position.height = bbox.height;
+                            this.position.width = bbox.width;
                         this.em = new DOMMatrix([1,0,0,1,-bbox.x,-bbox.y]);
                     }
                 }
