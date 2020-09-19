@@ -22,10 +22,13 @@ import spin from './vue/Components/Animations/spin';
 // Mutators
 import acceleratesTranslation from './vue/Mutators/AcceleratesTranslation';
 
+import entityFactory from "./vue/Factories/EntityFactory";
 
 const Bytepath = {
     AnimationEntity,
     entity,
+    entityFactory,
+
     mixins: {
         playbackTimer,
         transformer,
