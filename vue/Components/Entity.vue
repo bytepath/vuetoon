@@ -47,21 +47,6 @@
         },
 
         computed: {
-
-            /**
-             * The width of the asset
-             */
-            w(){
-                return (this.width) ? this.width : this.position.width;
-            },
-
-            /**
-             * The height of the asset
-             */
-            h(){
-                return (this.height) ? this.height : this.position.height;
-            },
-
             /**
              * The transformation matrix for the loaded asset returned as a string
              * @returns String
@@ -101,12 +86,13 @@
             lookAtAsset(){
                 let element = document.getElementById('g' + this.usedAsset);
                 if(element){
-                    console.log("element is", element, this);
                     if(typeof element.getBBox == "function") {
                         let bbox = element.getBBox();
-                        console.log("bbox", bbox);
-                            this.position.height = bbox.height;
-                            this.position.width = bbox.width;
+
+                        // Move the asset into the position of the camera by multiplying by the inverse of its bbox
+                        // X y positions
+                        this.position.height = bbox.height;
+                        this.position.width = bbox.width;
                         this.em = new DOMMatrix([1,0,0,1,-bbox.x,-bbox.y]);
                     }
                 }

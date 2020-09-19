@@ -56,7 +56,7 @@ export default {
          */
         cx: {
             type: Number,
-            default: 0,
+            default: null,
         },
 
         /**
@@ -64,7 +64,7 @@ export default {
          */
         cy: {
             type: Number,
-            default: 0,
+            default: null,
         },
 
         /**
@@ -96,8 +96,8 @@ export default {
                 skewY: 0,
                 width: null,
                 height: null,
-                centerX: 0,
-                centerY: 0,
+                centerX: null,
+                centerY: null,
             },
             transform: new DOMMatrix(),
             mutations: {},
@@ -143,9 +143,40 @@ export default {
     },
 
     computed: {
-        debugTransform(){
-            return this.transform.toString();
+
+        /**
+         * Returns the position this asset is using as center
+         * @returns {{x: number, y: number}}
+         */
+        centerPosition() {
+            let height = this.position.height;
+            let width = this.position.width;
+            let cx = this.cx;
+            let cy = this.cy;
+            return this.getCenterPosition();
         },
+
+        /**
+         * The width of the asset
+         */
+        w(){
+            return (this.width) ? this.width : this.position.width;
+        },
+
+        /**
+         * The height of the asset
+         */
+        h(){
+            return (this.height) ? this.height : this.position.height;
+        },
+
+        // /**
+        //  * Prints the current transformation matrix to the vue dev tools
+        //  * @returns {*}
+        //  */
+        // debugTransform() {
+        //     return this.transform.toString();
+        // },
     },
 
     methods: {
@@ -163,6 +194,7 @@ export default {
          * @returns Object
          */
         getPosition() {
+            let center = this.centerPosition;
             let retval = {
                 x: this.position.x + this.x,
                 y: this.position.y + this.y,
@@ -171,18 +203,79 @@ export default {
                 scaleY: this.position.scaleY + this.sy,
                 skewX: this.position.skewX,
                 skewY: this.position.skewY,
-                centerX: this.position.centerX + this.cx,
-                centerY: this.position.centerY + this.cy,
-                width: this.position.width,
-                height: this.position.width,
+                centerX: center.x,
+                centerY: center.y,
+                width: this.w,
+                height: this.h,
             };
 
-            if(this.width) {
-                retval.width = this.width;
+            // Width and height props override internal values
+            (this.width) ? retval.width = this.width : null;
+            (this.height) ? retval.height = this.height : null;
+
+            return retval;
+        },
+
+        /**
+         * Returns the position this asset is using as center
+         * @returns {{x: number, y: number}}
+         */
+        getCenterPosition(){
+            // Defaults to 0,0
+            let retval = {x: 0, y: 0,};
+
+            // calculate asset dimensions if not already done
+            if(this.position.width == null && this.position.height == null) {
+                this.calculateAssetDimensions();
             }
 
-            if(this.height) {
-                retval.height = this.height;
+            // Center X
+            if (this.cx !== null) { // Use Prop first
+                retval.x = this.cx;
+            } else if (this.position.centerX !== null) { // If no prop value use position
+                retval.x = this.position.centerX;
+            } else if (this.position.width) { // If no position use half the width
+                retval.x = this.position.width / 2;
+            }
+
+            // Center Y
+            if (this.cy !== null) { // Use Prop first
+                retval.y = this.cy;
+            } else if (this.position.centerY !== null) { // If no prop value use position
+                retval.y = this.position.centerY;
+            } else if (this.position.height) { // If no position use half the height
+                retval.y = this.position.height / 2;
+            }
+
+            return retval;
+        },
+
+        /**
+         * Calculates the dimensions of this asset and if successful sets the position width/height properties
+         */
+        calculateAssetDimensions(){
+            let dimensions = this.getAssetDimensions();
+
+            this.position.width = dimensions.width;
+            this.position.height = dimensions.height;
+        },
+
+        /**
+         * Returns a object representing the bounding box of this object
+         * @returns { width, height }
+         */
+        getAssetDimensions() {
+            let retval = { width: null, height: null }
+            let hasBBox = (typeof ((this.$el) ? this.$el.getBBox : null) == 'function');
+            if(this.$el && hasBBox) {
+                let box = this.$el.getBBox();
+                if(box.width !== 0) {
+                    retval.width = box.width;
+                }
+
+                if(box.height !== 0) {
+                    retval.height = box.height;
+                }
             }
 
             return retval;
@@ -211,7 +304,6 @@ export default {
              */
             let matrix = this.getProjectionMatrix();
             let retval = new DOMMatrix();
-            let inverse = matrix.inverse();
 
             /**
              *  CENTER POINT
@@ -220,7 +312,6 @@ export default {
              */
             let center = new DOMMatrix();
             center = center.translate(cx, cy);
-
 
 
             /**
@@ -265,14 +356,14 @@ export default {
              * TRANSFORM
              * Multiply all of these matricies together to get the final position
              */
-                retval = retval.multiply(matrix);
-                retval = retval.multiplySelf(center);
-                retval.scaleSelf(scaleX, scaleY);
-                retval.rotateSelf(0, 0, angle);
-                retval.multiplySelf(center.inverse());
+            retval = retval.multiply(matrix);
+            retval = retval.multiplySelf(center);
+            retval.scaleSelf(scaleX, scaleY);
+            retval.rotateSelf(0, 0, angle);
+            retval.multiplySelf(center.inverse());
 
-                retval.multiplySelf(translation);
-                // retval = retval.multiply(inverse);
+            retval.multiplySelf(translation);
+            // retval = retval.multiply(inverse);
             return retval;
         },
 
@@ -281,25 +372,7 @@ export default {
          * @returns {DOMMatrix}
          */
         getProjectionMatrix() {
-            if (this.matrix) {
-                return this.matrix;
-            }
-
-            //
-            // if (this.$el) {
-            //     if (this.$el.parentNode) {
-            //         if (Object.prototype.hasOwnProperty.call(this.$el.parentNode, "getScreenCTM")) {
-            //
-            //             let ctm = this.$el.parentNode.getScreenCTM();
-            //             // Some browsers return a depreciated SVGMatrix from getScreenCTM so we need to manually convert to a
-            //             // DOMMatrix object
-            //             let projection = new DOMMatrix([ctm.a, ctm.b, ctm.c, ctm.d, ctm.e, ctm.f]);
-            //             return projection;
-            //         }
-            //     }
-            // }
-
-            return new DOMMatrix();
+            return (this.matrix) ? this.matrix : new DOMMatrix();
         },
 
         /**
@@ -319,14 +392,6 @@ export default {
         },
 
         /**
-         * Returns a DOMRect representing the bounding box of this object
-         * @returns {DOMRect}
-         */
-        getBoundingBox() {
-            return this.$el.getBBox();
-        },
-
-        /**
          * Called by request animation frame. We check for dirty changes before running this as computing matricies is
          * a slow operation that we want to avoid if we can
          */
@@ -343,7 +408,7 @@ export default {
          */
         registerMutation(mutation) {
             if (this._debug) {
-                console.log("Registering mutation", mutation.name);
+                //console.log("Registering mutation", mutation.name);
             }
 
             this.mutations[mutation.name] = mutation;

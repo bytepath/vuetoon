@@ -13,7 +13,6 @@
 
         methods: {
             createTimer(){
-                console.log("creating scroll timer");
                 window.addEventListener('scroll', this.windowScrolled);
                 this.timerId = true;
             },
