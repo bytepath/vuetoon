@@ -8,7 +8,9 @@ import Entity from "../Components/Entity";
  * @returns {{mixins: [*], components: {Entity: *}, data(): *, name: (*|string), render: (function(*): *)}|{src: *, use: *}}
  */
 let createEntity = function(src, use = null) {
-    let name = (use) ? use : "entity";
+    console.log("create entity", src, use);
+
+    let name = (use) ? use : "custom-entity";
 
     let component = {
         name,
@@ -31,9 +33,15 @@ let createEntity = function(src, use = null) {
         }
     };
 
-    let retval = {};
-    retval[name] = component;
-    return retval;
+
+    if(name !== "custom-entity"){
+        let retval = {};
+        retval[name] = component;
+        return retval;
+    }
+
+    console.log("returning component");
+    return component;
 }
 
 /**
@@ -42,7 +50,8 @@ let createEntity = function(src, use = null) {
  * @param use the name of the layer/group that we want to create the entity with
  */
 let createFactory = function(src, use = null) {
-    let factory = (use) => createEntity(src, use);
+    console.log("factory entity", src, use);
+    let factory = (name = null) => createEntity(src, name);
     return (use) ? factory(use) : factory;
 }
 
