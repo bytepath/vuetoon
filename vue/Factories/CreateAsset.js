@@ -1,16 +1,16 @@
-import AnimationEntity from '../Mixins/AnimationEntity';
-import Entity from "../Components/Entity";
-
 /**
- * Factory function to create a new entity
+ * Factory function to create a new asset
  * @param src the file path to the SVG image
  * @param use the name of the layer/group that we want to create the entity with
  * @returns {{mixins: [*], components: {Entity: *}, data(): *, name: (*|string), render: (function(*): *)}|{src: *, use: *}}
  */
-let createEntity = function(src, use = null) {
-    console.log("create entity", src, use);
+import Asset from "../Mixins/Asset"
+import Entity from "../Components/Entity";
 
-    let name = (use) ? use : "custom-entity";
+let createAsset = function(src, use = null) {
+    console.log("create asset", src, use, this);
+
+    let name = (use) ? use : "Asset";
 
     let component = {
         name,
@@ -30,11 +30,11 @@ let createEntity = function(src, use = null) {
             let props = { ...this.$props, src: this.src };
             (this.use) ? props["use"] = this.use : null;
             return createElement('entity', { props })
-        }
+        },
     };
 
 
-    if(name !== "custom-entity"){
+    if(name !== "Asset"){
         let retval = {};
         retval[name] = component;
         return retval;
@@ -44,15 +44,4 @@ let createEntity = function(src, use = null) {
     return component;
 }
 
-/**
- * Returns an entity if use is specified and returns a function to MAKE entities if it's not
- * @param src the file path to the SVG image
- * @param use the name of the layer/group that we want to create the entity with
- */
-let createFactory = function(src, use = null) {
-    console.log("factory entity", src, use);
-    let factory = (name = null) => createEntity(src, name);
-    return (use) ? factory(use) : factory;
-}
-
-export default createFactory;
+export default createAsset;

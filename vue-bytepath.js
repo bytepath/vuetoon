@@ -22,7 +22,8 @@ import spin from './vue/Components/Animations/spin';
 // Mutators
 import acceleratesTranslation from './vue/Mutators/AcceleratesTranslation';
 
-import createEntity from "./vue/Factories/EntityFactory";
+// Factories
+import createEntity from "./vue/Factories/CreateEntity";
 
 const Bytepath = {
     AnimationEntity,

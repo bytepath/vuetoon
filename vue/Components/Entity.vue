@@ -5,12 +5,16 @@
                 <use v-if="loaded" :href="'#' + usedAsset" />
             </g>
         </asset-loader>
+        <template v-if="debug" >
+            <rect v-if="debug" :x="centerPosition.x - 5" :y="centerPosition.y - 5" width="10" height="10" fill="blue" />
+        </template>
     </svg>
 </template>
 
 <script>
     import AssetLoader from "./Loaders/AssetLoader";
     import AnimationEntity from "../Mixins/AnimationEntity";
+    import CreateAsset from "../Factories/CreateAsset";
 
     export default {
         name: 'entity',
@@ -40,6 +44,10 @@
                  */
                 em: new DOMMatrix(),
             };
+        },
+
+        created(){
+          console.log("entity created", this.custom);
         },
 
         watch:{
@@ -98,7 +106,16 @@
                 }
             },
         },
-        components: {AssetLoader}
+        components: {AssetLoader},
+
+        /**
+         * The following methods are used to instantiate an entity using an external asset
+         * and are automatically removed by vue when creating a component
+        */
+        src: null,
+        fromAsset(src){
+            return CreateAsset(src);
+        },
     }
 </script>
 
