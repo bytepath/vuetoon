@@ -68,7 +68,9 @@
              * @returns String
              */
             asset() {
-                return (this.name)? `__${this._uid}-${this.name}` : `__${this._uid}`;
+                let asset = (this.name)? `__${this._uid}-${this.name}` : `__${this._uid}`;
+                console.log("asset is", asset, this.$options.name, this._uid);
+                return asset;
             },
 
             /**

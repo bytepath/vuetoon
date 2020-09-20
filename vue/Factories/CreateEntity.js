@@ -12,10 +12,11 @@ let createEntity = function(src = null, use = null) {
         return Object.assign(Entity);
     }
 
+    console.log("create entity", src, use);
     // If a src and optionally, use are provided we are really creating an Asset not an entity.
     // An asset is an entity wrapped around an asset loader
     let factory = (name = null) => CreateAsset(src, name);
     return (use) ? factory(use) : factory;
 }
 
-export default entity;
+export default createEntity();
