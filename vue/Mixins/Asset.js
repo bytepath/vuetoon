@@ -1,10 +1,14 @@
 import AnimationEntity from "../Mixins/AnimationEntity";
-import Entity from "../Components/Entity";
 
 export default {
     name: 'Asset',
     mixins: [AnimationEntity],
-    components: {Entity},
+
+    computed:{
+        catHam(){
+            return "dog ham" + this._uid;
+        },
+    },
 
     /**
      * Equivalent to

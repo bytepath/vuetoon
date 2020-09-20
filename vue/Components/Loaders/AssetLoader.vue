@@ -99,6 +99,9 @@
             ensureUniqueIds(svg) {
                 var template = document.createElement('template');
                 template.innerHTML = svg;
+                let camera = template.content.firstElementChild.viewBox;
+                console.log("camera is", camera);
+                template.content.firstElementChild.removeAttribute('viewBox');
                 template.content.firstElementChild.querySelectorAll("[id]").forEach((element) => {
                     element.setAttribute("id", this.asset+element.id);
                 });
