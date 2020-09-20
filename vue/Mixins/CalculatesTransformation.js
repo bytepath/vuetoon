@@ -71,7 +71,7 @@ export default {
          * The width of this asset. Optional if you want to use the size of the loaded asset
          */
         width: {
-            type: Number,
+            type: Number|String,
             default: null
         },
 
@@ -79,7 +79,7 @@ export default {
          * The height of this asset. Optional if you want to use the size of the loaded asset
          */
         height: {
-            type: Number,
+            type: Number|String,
             default: null
         },
     },

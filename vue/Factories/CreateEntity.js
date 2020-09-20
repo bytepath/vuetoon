@@ -1,4 +1,3 @@
-import AnimationEntity from '../Mixins/AnimationEntity';
 import Entity from "../Components/Entity";
 import CreateAsset from "./CreateAsset";
 
@@ -19,4 +18,4 @@ let createEntity = function(src = null, use = null) {
     return (use) ? factory(use) : factory;
 }
 
-export default createEntity();
+export default createEntity;

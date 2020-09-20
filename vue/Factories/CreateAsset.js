@@ -6,6 +6,7 @@
  */
 import Asset from "../Mixins/Asset"
 import Entity from "../Components/Entity";
+import AnimationEntity from '../Mixins/AnimationEntity';
 
 let createAsset = function(src, use = null) {
     console.log("create asset", src, use, this);
