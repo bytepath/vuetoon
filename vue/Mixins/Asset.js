@@ -36,7 +36,6 @@ export default {
      */
     render: function (createElement) {
         let props = {...this.$props, src: this.src};
-        console.log("render use is", this.use, this.$props);
         (this.use) ? props["use"] = this.use : null;
         return createElement('entity', {props})
     },

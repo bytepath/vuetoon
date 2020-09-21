@@ -16,7 +16,9 @@
     import AssetLoader from "./Loaders/AssetLoader";
     import AnimationEntity from "../Mixins/AnimationEntity";
     import CreateAsset from "../Factories/CreateAsset";
+    import Position from "../../Helpers/Position";
 
+    console.log("new position", new Position({x: 400}).getDefaultTransformMatrix());
     export default {
         name: 'entity',
         mixins: [AnimationEntity],
@@ -62,92 +64,53 @@
         },
 
         computed: {
-            preserveAspectRatio(){
+            preserveAspectRatio() {
                 //return "xMinYMin slice";
                 return "none";
             },
 
-            viewBox(){
+            /**
+             * The viewbox is what svg uses to figure out what portion of the coordinate system to draw.
+             * We multiply the values against the passed in camera prop to simulate moving the camera around
+             * viewbox = [ 0 0 500 100 ]
+             * top left    [0,0]    [500, 0]   //Top Right
+             * Bottom Left [0,1000] [500,1000] //Bottom right
+             */
+            viewBox() {
                 let viewbox = null;
 
-                // 0 0 500 1000
+                if (this.assetDimensions) {
+                    let viewBox = new Position({
+                        x: this.assetDimensions.x,
+                        y: this.assetDimensions.y,
+                        width: (this.assetDimensions.width - this.assetDimensions.x),
+                        height: (this.assetDimensions.height - this.assetDimensions.y),
+                    });
 
-                //top left          [0,0]
-                //top right      [500, 0]
-                //bottom left    [0,1000]
-                //bottom right [500,1000]
+                    if (this.camera) {
 
+                        let scale = 0.5;
 
-                //viewbox = [ 0 0 500 100 ]
-                /////top left// [0,0]    [500, 0]   //Top Right
-                //Bottom Left// [0,1000] [500,1000] //Bottom right
+                        viewBox.centerX = this.assetDimensions.width / (1 / (scale));
+                        viewBox.centerY = this.assetDimensions.height / (1 / (scale));
+                        viewBox.scaleX = scale;
+                        viewBox.scaleY = scale;
+                        viewBox.x = ((Math.sin(this.camera / 500)) * (this.assetDimensions.width / (1 / (scale / 2))));
+                        viewBox.y = ((Math.cos(this.camera / 500)) * (this.assetDimensions.height / (1 / (scale / 2))));
 
-                //let tl = new DOMPoint(0,0);
-                //let tr = new DOMPoint(500,0);
-                //let bl = new DOMPoint(0,1000);
-                //let br = new DOMPoint(500,1000);
+                        let tl = viewBox.multiplyPoint(this.assetDimensions.x, this.assetDimensions.y);
+                        let br = viewBox.multiplyPoint(this.assetDimensions.width, this.assetDimensions.height);
 
-
-                // let tl = new DOMPoint(viewbox.x,viewbox.y);
-                // let tr = new DOMPoint(viewbox.width,viewbox.y);
-                // let bl = new DOMPoint(viewbox.x,viewbox.height);
-                // let br = new DOMPoint(viewbox.width,viewbox.height);
-
-                //
-                // console.log("before", tl,tr,bl,br);
-                // let matrix = new DOMMatrix();
-                // matrix.translateSelf(100,0);
-                //
-                // tl = tl.matrixTransform(matrix);
-                // tr = tr.matrixTransform(matrix);
-                // bl = bl.matrixTransform(matrix);
-                // br = br.matrixTransform(matrix);
-                // console.log("after", tl,tr,bl,br);
-                // console.log("0 0 500 1000");
-                // let cameraviewbox = `${tl.x} ${tl.y} ${br.x} ${br.y}`;
-
-                // Viewbox is calculated using {x y total-length total-height}
-                // which is confusing. Instead we use camera position which is
-                // {x y x+width x+height }
-                if(this.assetDimensions){
-                    viewbox = {};
-                    viewbox.x = this.assetDimensions.x;
-                    viewbox.y = this.assetDimensions.y;
-                    viewbox.width = (this.assetDimensions.width - this.assetDimensions.x);
-                    viewbox.height = (this.assetDimensions.height - this.assetDimensions.y);
-
-                    if(this.camera){
-
-                        let tl = new DOMPoint(viewbox.x,viewbox.y);
-                        // let tr = new DOMPoint(viewbox.width,viewbox.y);
-                        // let bl = new DOMPoint(viewbox.x,viewbox.height);
-                        let br = new DOMPoint(viewbox.width,viewbox.height);
-
-                        let matrix = new DOMMatrix();
-                        //let scale = 1 - Math.abs((Math.sin(this.camera/500)));
-                        let scale = 0.3;
-                        let center = matrix.translate(this.assetDimensions.width / 2, this.assetDimensions.height / 2);
-                        matrix.multiplySelf(center);
-                        matrix.scaleSelf(scale, scale);
-                        matrix.multiplySelf(center.inverse());
-                        matrix.translateSelf(((Math.sin(this.camera/500)) * (this.assetDimensions.width / (1/(scale/2)))), ((Math.cos(this.camera/500)) * (this.assetDimensions.height / (1/(scale/2)))));
-                        tl = tl.matrixTransform(matrix);
-                        // tr = tr.matrixTransform(matrix);
-                        // bl = bl.matrixTransform(matrix);
-                        br = br.matrixTransform(matrix);
-                        //this.transform = matrix.inverse();
-                        console.log(scale, `${tl.x} ${tl.y} ${br.x} ${br.y}`);
-                        this.position.width = br.x * (1/scale);//this.assetDimensions.width * 2;
-                        this.position.height = br.y * (1/scale)//this.assetDimensions.height * 2;;
-                        return {
+                        this.position.width = br.x * (1 / scale);//this.assetDimensions.width * 2;
+                        this.position.height = br.y * (1 / scale)//this.assetDimensions.height * 2;;
+                        return new Position({
                             x: Math.abs(tl.x),
                             y: Math.abs(tl.y),
                             width: (br.x),// + (tl.x),
                             height: (br.y),// + (tl.y),
-                        };
+                        });
                     }
                 }
-
 
 
                 return viewbox;
@@ -194,7 +157,7 @@
              */
             assetLoaded(asset) {
                 if (asset.viewBox) {
-                    this.assetDimensions = { ...asset.viewBox };
+                    this.assetDimensions = {...asset.viewBox};
                 }
                 setTimeout(this.lookAtAsset, 0);
             },
