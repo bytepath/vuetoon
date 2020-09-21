@@ -103,12 +103,13 @@
 
                         this.position.width = br.x * (1 / scale);//this.assetDimensions.width * 2;
                         this.position.height = br.y * (1 / scale)//this.assetDimensions.height * 2;;
-                        return new Position({
-                            x: Math.abs(tl.x),
-                            y: Math.abs(tl.y),
-                            width: (br.x),// + (tl.x),
-                            height: (br.y),// + (tl.y),
-                        });
+                        return viewBox;
+                        // return new Position({
+                        //     x: Math.abs(tl.x),
+                        //     y: Math.abs(tl.y),
+                        //     width: (br.x),// + (tl.x),
+                        //     height: (br.y),// + (tl.y),
+                        // });
                     }
                 }
 
