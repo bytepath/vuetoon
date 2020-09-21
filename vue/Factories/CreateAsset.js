@@ -10,16 +10,27 @@ import AnimationEntity from '../Mixins/AnimationEntity';
 import nameFromPath from "../Components/Filters/Filename";
 
 let createAsset = function(src, use = null) {
-    //console.log("create asset", src, use, this);
+    console.log("create asset", src, use, this);
     let retval = {};
 
     let component = {
         ...Asset,
         data() {
-            return {src, use};
+            return {src};
         },
         components: { Entity },
+        //src,
     };
+
+    // If we have a use value replace the prop in the asset to return the name of the layer by default
+    if(use){
+        console.log(`using ${use} as prop default`);
+        delete component.props.use;
+        component.props.use = {
+            type: String,
+            default: use,
+        };
+    }
 
     delete component.name;
     return component;

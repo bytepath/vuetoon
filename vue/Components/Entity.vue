@@ -1,8 +1,9 @@
 <template>
-    <svg :id="'svg' + usedAsset" :width="w" :height="h" :transform="transform" :viewBox="viewboxString" preserveAspectRatio="none">
+    <svg :id="'svg' + usedAsset" :width="w" :height="h" :transform="transform" :viewBox="viewboxString"
+         :preserveAspectRatio="preserveAspectRatio">
         <asset-loader v-if="src" :src="src" :asset="asset" @loaded="assetLoaded" v-slot="{ href }">
             <g :id="'g' + usedAsset" :transform="assetMatrix">
-                <use v-if="href" :href="href"/>
+                <use v-if="href" :href="'#' + usedAsset"/>
             </g>
         </asset-loader>
         <template v-if="debug">
@@ -45,13 +46,34 @@
                 em: new DOMMatrix(),
 
                 /**
-                 * The value to display in svg viewbox
+                 * A rectangle representing the area of the user coordinate system we want to display
                  */
-                viewBox: null,
+                camera: null,
             };
         },
 
         computed: {
+            preserveAspectRatio(){
+                // if(this.use){
+                //     return "xMinYMin meet"
+                // }
+
+                return "none";
+                //return "xMinYMin slice"
+            },
+
+            viewBox(){
+                if(this.camera){
+                    return {
+                        x: this.camera.x,
+                        y: this.camera.y,
+                        width: this.camera.width - this.camera.x,
+                        height: this.camera.height - this.camera.y,
+                    };
+                }
+                return null;
+            },
+
             viewboxString() {
                 if (this.viewBox) {
                     let b = this.viewBox;
@@ -92,7 +114,9 @@
              * to point {0, 0} so that we are "looking" at it
              */
             assetLoaded(asset) {
-                this.viewBox = { ...asset.viewBox };
+                if (asset.viewBox) {
+                    this.camera = { ...asset.viewBox };
+                }
                 setTimeout(this.lookAtAsset, 0);
             },
 
@@ -100,6 +124,7 @@
              * Moves the "camera" to look directly at the asset we are puling from a larger scene
              */
             lookAtAsset() {
+                console.log("looking at", 'g' + this.usedAsset);
                 let element = document.getElementById('g' + this.usedAsset);
                 if (element) {
                     if (typeof element.getBBox == "function") {
@@ -109,7 +134,15 @@
                         // X y positions
                         this.position.height = bbox.height;
                         this.position.width = bbox.width;
-                        this.em = new DOMMatrix([1, 0, 0, 1, -bbox.x, -bbox.y]);
+
+                        console.log("bbox", bbox);
+                        // Set camera position to the BBox of this element
+                        this.camera.x = bbox.x;
+                        this.camera.y = bbox.y;
+                        this.camera.width = bbox.width + bbox.x;
+                        this.camera.height = bbox.height + bbox.y;
+                        //this.em = new DOMMatrix([1, 0, 0, 1, -bbox.x, -bbox.y]);
+
                     }
                 }
             },
