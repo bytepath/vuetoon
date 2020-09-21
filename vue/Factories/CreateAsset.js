@@ -10,19 +10,18 @@ import AnimationEntity from '../Mixins/AnimationEntity';
 import nameFromPath from "../Components/Filters/Filename";
 
 let createAsset = function(src, use = null) {
-    console.log("create asset", src, use, this);
+    //console.log("create asset", src, use, this);
     let retval = {};
-    let name = (use) ? use : "Asset";
 
     let component = {
         ...Asset,
-        name,
         data() {
             return {src, use};
         },
         components: { Entity },
     };
 
+    delete component.name;
     return component;
 }
 

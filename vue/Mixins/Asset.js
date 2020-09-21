@@ -1,7 +1,6 @@
 import AnimationEntity from "../Mixins/AnimationEntity";
 
 export default {
-    name: 'Asset',
     mixins: [AnimationEntity],
 
     computed:{
@@ -17,8 +16,12 @@ export default {
      * </template>
      */
     render: function (createElement) {
-        let props = {...this.$props, src: this.src};
+        let props = {...this.$props, src: this.src };
         (this.use) ? props["use"] = this.use : null;
         return createElement('entity', {props})
     },
+
+    extractLayers(){
+
+    }
 };

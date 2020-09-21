@@ -1,8 +1,8 @@
 <template>
-    <svg :id="'svg' + usedAsset" :width="w" :height="h" :transform="transform">
-        <asset-loader v-if="src"  :src="src" :asset="asset" @loaded="assetLoaded" v-slot="{loaded}">
+    <svg :id="'svg' + usedAsset" :width="w" :height="h" :transform="transform" viewBox="0 0 1363 1101">
+        <asset-loader v-if="src"  :src="src" :asset="asset" @loaded="assetLoaded" v-slot="{ href }">
             <g :id="'g' + usedAsset" :transform="assetMatrix">
-                <use v-if="loaded" :href="'#' + usedAsset" />
+                <use v-if="href" :href="href" />
             </g>
         </asset-loader>
         <template v-if="debug" >
@@ -47,7 +47,7 @@
         },
 
         created(){
-          console.log("entity created", this.custom);
+          //console.log("entity created", this.custom);
         },
 
         watch:{

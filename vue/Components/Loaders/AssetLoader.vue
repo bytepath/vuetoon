@@ -1,3 +1,12 @@
+<template>
+    <g>
+        <defs>
+            <symbol :id="asset" v-if="assetData" v-html="assetString"></symbol>
+        </defs>
+        <slot :loaded="loaded" :href="'#' + loadedAssetId" />
+    </g>
+</template>
+
 <script>
     /**
      * Entity loader accepts src that is the path to the svg file containing the assets this entity wants.
@@ -10,6 +19,7 @@
      */
     const axios = require('axios');
     let loadedAssets = {};
+    import SanitizedPath from "../Filters/SanitizedPath";
 
     export default {
         props: {
@@ -35,12 +45,15 @@
          * use the <use> tag of the SVG spec to clone the tag with id = loadedAssets[this.src]
          */
         created() {
-            if (!Object.prototype.hasOwnProperty.call(loadedAssets, this.src)) {
+            if (!Object.prototype.hasOwnProperty.call(loadedAssets, this.assetKey)) {
                 return this.loadAsset();
             }
 
-            // Asset was previously loaded by someone else
-            this.loadedAssetId = loadedAssets[this.src];
+            // Asset was previously loaded by someone else so just hook into that instead of loading the same file again
+            loadedAssets[this.assetKey].promise.then((response) => {
+                console.log("This was called by component that didnt load the file", this.assetKey, loadedAssets[this.assetKey]);
+                this.loadedAsset = loadedAssets[this.assetKey];
+            });
         },
 
         /**
@@ -53,14 +66,19 @@
         data() {
             return {
                 /**
-                 * The DOM id we will pass to the <use> tag
+                 * The loaded asset
                  */
-                loadedAssetId: null,
+                loadedAsset: null,
 
                 /**
-                 * A string version of the SVG file grabbed via ajax
+                 * The layers we found in the SVG
                  */
-                assetData: null,
+                rawLayers: [],
+
+                /**
+                 * Was this the component that loaded the file or was it someone else
+                 */
+                loadedTheFile: false,
             };
         },
 
@@ -71,6 +89,49 @@
             loaded() {
                 return (this.loadedAssetId !== null);
             },
+
+            /**
+             * The ID of the dom element containing our asset. Not necessarily part of this component
+             * someone else may have loaded the data and we just make a copy
+             */
+            loadedAssetId(){
+                console.log("computing asset id");
+              return (this.loadedAsset) ? this.loadedAsset.id : null;
+            },
+
+            /**
+             * The data attribute of the loaded asset
+             */
+            assetData(){
+                if(this.loadedAsset){
+                    if(this.loadedTheFile) {
+                        return this.loadedAsset.data;
+                    }
+                }
+
+                return null;
+            },
+
+            /**
+             * Returns the list of layers that are valid entities
+             */
+            layers() {
+                return this.rawLayers.filter((layer) => (layer.charAt(0) !== "_"));
+            },
+
+            /**
+             * The key we use to find this asset in the global repository
+             */
+            assetKey() {
+                return SanitizedPath(this.src);
+            },
+
+            /**
+             * Returns the asset stringified as valid HTML
+             */
+            assetString() {
+                return (this.assetData) ? this.assetData.outerHTML : "";
+            }
         },
 
         methods: {
@@ -78,17 +139,22 @@
              * Makes an ajax request to load the :src file
              */
             loadAsset() {
-                axios.get(this.src)
+                console.log("load asset", this.src, this.assetKey);
+                let promise = axios.get(this.src)
                 .then((response) => {
+                    console.log(this.src, "has loaded");
                     // Set this :src file as downloaded in the global list
-                    loadedAssets[this.src] = this.asset;
+                    this.processLoadedImage(response.data);
+                    this.loadedAsset = loadedAssets[this.assetKey];
 
-                    this.loadedAssetId = this.asset;
-                    this.assetData = this.ensureUniqueIds(response.data);
-
+                    // Emit a loaded event so that parent classes can act on that
                     this.$emit("loaded");
                 })
                 .catch((error) => console.log('asset err', error));
+
+                loadedAssets[this.assetKey] = { id: this.asset, promise, data: null, viewBox: null, layers: {}};
+                this.loadedAsset = loadedAssets[this.assetKey];
+                this.loadedTheFile = true;
             },
 
             /**
@@ -96,29 +162,32 @@
              * @param {String} html The representing a single element
              * @return {Element}
              */
-            ensureUniqueIds(svg) {
+            processLoadedImage(svg) {
+                // Convert the string into dom elements
                 var template = document.createElement('template');
                 template.innerHTML = svg;
-                let camera = template.content.firstElementChild.viewBox;
-                console.log("camera is", camera);
+
+                // Remove the viewbox but make a copy of it in the global asset
+                loadedAssets[this.assetKey].viewBox = template.content.firstElementChild.viewBox;
                 template.content.firstElementChild.removeAttribute('viewBox');
-                template.content.firstElementChild.querySelectorAll("[id]").forEach((element) => {
+
+                // Find all of the layers in this image
+                template.content.firstElementChild.querySelectorAll("g[id]").forEach((element) => {
+                    this.rawLayers.push(element.id);
+
+                    // Ensure this ID is unique in the dom by adding the asset tag
                     element.setAttribute("id", this.asset+element.id);
                 });
 
-                return template.content.firstElementChild.outerHTML;
+                // Save a copy of the layers we found in this image in the global var
+                loadedAssets[this.assetKey].layers = this.rawLayers.filter((layer) => (layer.charAt(0) !== "_"));
+
+                // Save the processed tags in the global variable;
+                loadedAssets[this.assetKey].data = template.content.firstElementChild;
+
+                console.log("processed", loadedAssets);
             },
         }
     }
 </script>
-
-<template>
-    <g>
-        <defs>
-            <symbol :id="asset" v-if="assetData" v-html="assetData"></symbol>
-            <use v-else :id="asset" :href="'#' + loadedAssetId"></use>
-        </defs>
-        <slot :loaded="loaded"/>
-    </g>
-</template>
 
