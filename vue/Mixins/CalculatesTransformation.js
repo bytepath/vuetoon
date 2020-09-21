@@ -1,6 +1,8 @@
 /**
  * Code that handles computing transformation matricies goes here
  */
+import Position from "../../Helpers/Position";
+
 export default {
     props: {
         /**
@@ -86,19 +88,7 @@ export default {
 
     data() {
         return {
-            position: {
-                x: 0,
-                y: 0,
-                angle: 0,
-                scaleX: 0,
-                scaleY: 0,
-                skewX: 0,
-                skewY: 0,
-                width: null,
-                height: null,
-                centerX: null,
-                centerY: null,
-            },
+            dimensions: new Position(),
             transform: new DOMMatrix(),
             mutations: {},
             animationDirty: true,
@@ -145,12 +135,33 @@ export default {
     computed: {
 
         /**
+         * Computes actual position of entity
+         * @returns Object
+         */
+        position() {
+            let center = this.centerPosition;
+            return new Position({
+                x: this.x,
+                y: this.y,
+                angle: this.a,
+                scaleX: this.sx,
+                scaleY: this.sy,
+                skewX: 0,
+                skewY: 0,
+                centerX: center.x,
+                centerY: center.y,
+                width: this.w,
+                height: this.h,
+            });
+        },
+
+        /**
          * Returns the position this asset is using as center
          * @returns {{x: number, y: number}}
          */
         centerPosition() {
-            let height = this.position.height;
-            let width = this.position.width;
+            let height = this.dimensions.height;
+            let width = this.dimensions.width;
             let cx = this.cx;
             let cy = this.cy;
             return this.getCenterPosition();
@@ -160,14 +171,14 @@ export default {
          * The width of the asset
          */
         w(){
-            return (this.width) ? this.width : this.position.width;
+            return (this.width) ? this.width : this.dimensions.width;
         },
 
         /**
          * The height of the asset
          */
         h(){
-            return (this.height) ? this.height : this.position.height;
+            return (this.height) ? this.height : this.dimensions.height;
         },
 
         // /**
@@ -190,33 +201,6 @@ export default {
         },
 
         /**
-         * Computes actual position of entity
-         * @returns Object
-         */
-        getPosition() {
-            let center = this.centerPosition;
-            let retval = {
-                x: this.position.x + this.x,
-                y: this.position.y + this.y,
-                angle: this.position.angle + this.a,
-                scaleX: this.position.scaleX + this.sx,
-                scaleY: this.position.scaleY + this.sy,
-                skewX: this.position.skewX,
-                skewY: this.position.skewY,
-                centerX: center.x,
-                centerY: center.y,
-                width: this.w,
-                height: this.h,
-            };
-
-            // Width and height props override internal values
-            (this.width) ? retval.width = this.width : null;
-            (this.height) ? retval.height = this.height : null;
-
-            return retval;
-        },
-
-        /**
          * Returns the position this asset is using as center
          * @returns {{x: number, y: number}}
          */
@@ -225,26 +209,22 @@ export default {
             let retval = {x: 0, y: 0,};
 
             // calculate asset dimensions if not already done
-            if(this.position.width == null && this.position.height == null) {
+            if(this.dimensions.width == null && this.dimensions.height == null) {
                 this.calculateAssetDimensions();
             }
 
             // Center X
             if (this.cx !== null) { // Use Prop first
                 retval.x = this.cx;
-            } else if (this.position.centerX !== null) { // If no prop value use position
-                retval.x = this.position.centerX;
-            } else if (this.position.width) { // If no position use half the width
-                retval.x = this.position.width / 2;
+            } else if (this.dimensions.width) { // If no position use half the width
+                retval.x = this.dimensions.width / 2;
             }
 
             // Center Y
             if (this.cy !== null) { // Use Prop first
                 retval.y = this.cy;
-            } else if (this.position.centerY !== null) { // If no prop value use position
-                retval.y = this.position.centerY;
-            } else if (this.position.height) { // If no position use half the height
-                retval.y = this.position.height / 2;
+            } else if (this.dimensions.height) { // If no position use half the height
+                retval.y = this.dimensions.height / 2;
             }
 
             return retval;
@@ -256,8 +236,8 @@ export default {
         calculateAssetDimensions(){
             let dimensions = this.getAssetDimensions();
 
-            this.position.width = dimensions.width;
-            this.position.height = dimensions.height;
+            this.dimensions.width = dimensions.width;
+            this.dimensions.height = dimensions.height;
         },
 
         /**
@@ -278,7 +258,7 @@ export default {
                 }
             }
 
-            return retval;
+            return { ...retval };
         },
 
         /**
@@ -380,8 +360,7 @@ export default {
          * @returns {*|DOMMatrix}
          */
         getTransformation() {
-            let position = this.getPosition();
-            let m = this.getDefaultTransformMatrix(position);
+            let m = this.position.getDefaultTransformMatrix();
 
             // compute any mutator matricies we have specified
             Object.values(this.mutations).forEach((mutation) => {
