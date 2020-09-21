@@ -124,21 +124,21 @@
                         let br = new DOMPoint(viewbox.width,viewbox.height);
 
                         let matrix = new DOMMatrix();
-                        let scale = 0.5;// + Math.abs((Math.sin(this.camera/500)));
-                        
+                        let scale = Math.abs((Math.sin(this.camera/500)));
+
                         let center = matrix.translate(this.assetDimensions.width / 2, this.assetDimensions.height / 2);
                         matrix.multiplySelf(center);
                         matrix.scaleSelf(scale, scale);
                         matrix.multiplySelf(center.inverse());
-                        matrix.translateSelf(((Math.sin(this.camera/500)) * (this.assetDimensions.width / 2)), ((Math.cos(this.camera/500)) * (this.assetDimensions.height / 2)));
+                        matrix.translateSelf(((Math.sin(this.camera/500)) * (this.assetDimensions.width / (1/(scale/2)))), ((Math.cos(this.camera/500)) * (this.assetDimensions.height / (1/(scale/2)))));
                         tl = tl.matrixTransform(matrix);
                         // tr = tr.matrixTransform(matrix);
                         // bl = bl.matrixTransform(matrix);
                         br = br.matrixTransform(matrix);
                         //this.transform = matrix.inverse();
                         console.log(scale, `${tl.x} ${tl.y} ${br.x} ${br.y}`);
-                        this.position.width = Math.abs(br.x);
-                        this.position.height = Math.abs(br.y);
+                        this.position.width = br.x * (1/scale);//this.assetDimensions.width * 2;
+                        this.position.height = br.y * (1/scale)//this.assetDimensions.height * 2;;
                         return {
                             x: Math.abs(tl.x),
                             y: Math.abs(tl.y),
