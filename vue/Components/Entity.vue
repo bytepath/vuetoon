@@ -89,18 +89,19 @@
 
                     if (this.camera) {
 
-                        viewBox.centerX = this.assetDimensions.width / (1 / (this.camera.scaleX));
-                        viewBox.centerY = this.assetDimensions.height / (1 / (this.camera.scaleY));
-                        viewBox.scaleX = this.camera.scaleX;
-                        viewBox.scaleY = this.camera.scaleY;
-                        viewBox.x = this.camera.x * (this.assetDimensions.width / (1 / (this.camera.scaleX / 2)));
-                        viewBox.y = this.camera.y * (this.assetDimensions.height / (1 / (this.camera.scaleY / 2)));
+                        //console.log("camera", this.camera);
+                        viewBox.centerX = this.assetDimensions.width / this.camera.scaleX;
+                        viewBox.centerY = this.assetDimensions.height / this.camera.scaleY;
+                        viewBox.scaleX = 1 / this.camera.scaleX;
+                        viewBox.scaleY = 1 / this.camera.scaleY;
+                        viewBox.x = this.camera.x * (this.assetDimensions.width / (this.camera.scaleX << 2));
+                        viewBox.y = this.camera.y * (this.assetDimensions.height / (this.camera.scaleY << 2));
 
                         let tl = viewBox.multiplyPoint(this.assetDimensions.x, this.assetDimensions.y);
                         let br = viewBox.multiplyPoint(this.assetDimensions.width, this.assetDimensions.height);
 
-                        this.dimensions.width = br.x * (1 / this.camera.scaleX);
-                        this.dimensions.height = br.y * (1 / this.camera.scaleY);
+                        this.dimensions.width = br.x * (this.camera.scaleX);
+                        this.dimensions.height = br.y * (this.camera.scaleY);
 
                         return new Position({
                             x: Math.abs(tl.x),
