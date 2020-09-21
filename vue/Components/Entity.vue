@@ -1,5 +1,5 @@
 <template>
-    <svg :id="'svg' + usedAsset" :width="w" :height="h" :transform="transform" :viewBox="viewboxString">
+    <svg :id="'svg' + usedAsset" :width="w" :height="h" :transform="transform" :viewBox="viewboxString" preserveAspectRatio="none">
         <asset-loader v-if="src" :src="src" :asset="asset" @loaded="assetLoaded" v-slot="{ href }">
             <g :id="'g' + usedAsset" :transform="assetMatrix">
                 <use v-if="href" :href="href"/>
