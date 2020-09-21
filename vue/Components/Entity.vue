@@ -3,7 +3,7 @@
          :preserveAspectRatio="preserveAspectRatio">
         <asset-loader v-if="src" :src="src" :asset="asset" @loaded="assetLoaded" v-slot="{ href }">
             <g :id="'g' + usedAsset" :transform="assetMatrix">
-                <use v-if="href" :href="'#' + usedAsset"/>
+                <use v-if="href" :href="href + ((use)?use:'')"/>
             </g>
         </asset-loader>
         <template v-if="debug">
@@ -36,6 +36,15 @@
                 type: String,
                 default: null
             },
+
+            /**
+             * position rect with {x,y,width,height}
+             * If provided the camera will be moved to this location
+             */
+            camera: {
+                type: Number,
+                default: null
+            },
         },
         data() {
             return {
@@ -48,30 +57,100 @@
                 /**
                  * A rectangle representing the area of the user coordinate system we want to display
                  */
-                camera: null,
+                assetDimensions: null,
             };
         },
 
         computed: {
             preserveAspectRatio(){
-                // if(this.use){
-                //     return "xMinYMin meet"
-                // }
-
+                //return "xMinYMin slice";
                 return "none";
-                //return "xMinYMin slice"
             },
 
             viewBox(){
-                if(this.camera){
-                    return {
-                        x: this.camera.x,
-                        y: this.camera.y,
-                        width: this.camera.width - this.camera.x,
-                        height: this.camera.height - this.camera.y,
-                    };
+                let viewbox = null;
+
+                // 0 0 500 1000
+
+                //top left          [0,0]
+                //top right      [500, 0]
+                //bottom left    [0,1000]
+                //bottom right [500,1000]
+
+
+                //viewbox = [ 0 0 500 100 ]
+                /////top left// [0,0]    [500, 0]   //Top Right
+                //Bottom Left// [0,1000] [500,1000] //Bottom right
+
+                //let tl = new DOMPoint(0,0);
+                //let tr = new DOMPoint(500,0);
+                //let bl = new DOMPoint(0,1000);
+                //let br = new DOMPoint(500,1000);
+
+
+                // let tl = new DOMPoint(viewbox.x,viewbox.y);
+                // let tr = new DOMPoint(viewbox.width,viewbox.y);
+                // let bl = new DOMPoint(viewbox.x,viewbox.height);
+                // let br = new DOMPoint(viewbox.width,viewbox.height);
+
+                //
+                // console.log("before", tl,tr,bl,br);
+                // let matrix = new DOMMatrix();
+                // matrix.translateSelf(100,0);
+                //
+                // tl = tl.matrixTransform(matrix);
+                // tr = tr.matrixTransform(matrix);
+                // bl = bl.matrixTransform(matrix);
+                // br = br.matrixTransform(matrix);
+                // console.log("after", tl,tr,bl,br);
+                // console.log("0 0 500 1000");
+                // let cameraviewbox = `${tl.x} ${tl.y} ${br.x} ${br.y}`;
+
+                // Viewbox is calculated using {x y total-length total-height}
+                // which is confusing. Instead we use camera position which is
+                // {x y x+width x+height }
+                if(this.assetDimensions){
+                    viewbox = {};
+                    viewbox.x = this.assetDimensions.x;
+                    viewbox.y = this.assetDimensions.y;
+                    viewbox.width = (this.assetDimensions.width - this.assetDimensions.x);
+                    viewbox.height = (this.assetDimensions.height - this.assetDimensions.y);
+
+                    if(this.camera){
+
+                        let tl = new DOMPoint(viewbox.x,viewbox.y);
+                        // let tr = new DOMPoint(viewbox.width,viewbox.y);
+                        // let bl = new DOMPoint(viewbox.x,viewbox.height);
+                        let br = new DOMPoint(viewbox.width,viewbox.height);
+
+                        let matrix = new DOMMatrix();
+                        let scale = 0.5;// + Math.abs((Math.sin(this.camera/500)));
+                        
+                        let center = matrix.translate(this.assetDimensions.width / 2, this.assetDimensions.height / 2);
+                        matrix.multiplySelf(center);
+                        matrix.scaleSelf(scale, scale);
+                        matrix.multiplySelf(center.inverse());
+                        matrix.translateSelf(((Math.sin(this.camera/500)) * (this.assetDimensions.width / 2)), ((Math.cos(this.camera/500)) * (this.assetDimensions.height / 2)));
+                        tl = tl.matrixTransform(matrix);
+                        // tr = tr.matrixTransform(matrix);
+                        // bl = bl.matrixTransform(matrix);
+                        br = br.matrixTransform(matrix);
+                        //this.transform = matrix.inverse();
+                        console.log(scale, `${tl.x} ${tl.y} ${br.x} ${br.y}`);
+                        this.position.width = Math.abs(br.x);
+                        this.position.height = Math.abs(br.y);
+                        return {
+                            x: Math.abs(tl.x),
+                            y: Math.abs(tl.y),
+                            width: (br.x),// + (tl.x),
+                            height: (br.y),// + (tl.y),
+                        };
+                    }
                 }
-                return null;
+
+
+
+                return viewbox;
             },
 
             viewboxString() {
@@ -115,7 +194,7 @@
              */
             assetLoaded(asset) {
                 if (asset.viewBox) {
-                    this.camera = { ...asset.viewBox };
+                    this.assetDimensions = { ...asset.viewBox };
                 }
                 setTimeout(this.lookAtAsset, 0);
             },
@@ -137,10 +216,10 @@
 
                         console.log("bbox", bbox);
                         // Set camera position to the BBox of this element
-                        this.camera.x = bbox.x;
-                        this.camera.y = bbox.y;
-                        this.camera.width = bbox.width + bbox.x;
-                        this.camera.height = bbox.height + bbox.y;
+                        this.assetDimensions.x = bbox.x;
+                        this.assetDimensions.y = bbox.y;
+                        this.assetDimensions.width = bbox.width + bbox.x;
+                        this.assetDimensions.height = bbox.height + bbox.y;
                         //this.em = new DOMMatrix([1, 0, 0, 1, -bbox.x, -bbox.y]);
 
                     }

@@ -11,6 +11,15 @@ export default {
             type: String,
             default: null
         },
+
+        /**
+         * position rect with {x,y,width,height}
+         * If provided the camera will be moved to this location
+         */
+        camera: {
+            type: Number,
+            default: null
+        },
     },
 
     computed: {
