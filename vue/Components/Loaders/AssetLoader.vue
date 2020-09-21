@@ -51,7 +51,6 @@
 
             // Asset was previously loaded by someone else so just hook into that instead of loading the same file again
             loadedAssets[this.assetKey].promise.then((response) => {
-                console.log("This was called by component that didnt load the file", this.assetKey, loadedAssets[this.assetKey]);
                 this.loadedAsset = loadedAssets[this.assetKey];
 
                 // Emit a loaded event so that parent classes can act on that
@@ -98,7 +97,6 @@
              * someone else may have loaded the data and we just make a copy
              */
             loadedAssetId(){
-                console.log("computing asset id");
               return (this.loadedAsset) ? this.loadedAsset.id : null;
             },
 
@@ -142,10 +140,8 @@
              * Makes an ajax request to load the :src file
              */
             loadAsset() {
-                console.log("load asset", this.src, this.assetKey);
                 let promise = axios.get(this.src)
                 .then((response) => {
-                    console.log(this.src, "has loaded");
                     // Set this :src file as downloaded in the global list
                     this.processLoadedImage(response.data);
                     this.loadedAsset = loadedAssets[this.assetKey];
@@ -197,8 +193,6 @@
 
                 // Save the processed tags in the global variable;
                 loadedAssets[this.assetKey].data = template.content.firstElementChild;
-
-                console.log("processed", { ...loadedAssets });
             },
         }
     }

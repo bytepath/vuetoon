@@ -51,17 +51,10 @@
             };
         },
 
-        created() {
-            //console.log("entity created", this.custom);
-        },
-
-        watch: {},
-
         computed: {
             viewboxString() {
                 if (this.viewBox) {
                     let b = this.viewBox;
-                    console.log("b is", { ...b });
                     return `${b.x} ${b.y} ${b.width} ${b.height}`;
                 }
 
@@ -82,7 +75,6 @@
              */
             asset() {
                 let asset = (this.name) ? `__${this._uid}-${this.name}` : `__${this._uid}`;
-                console.log("asset is", asset, this.$options.name, this._uid);
                 return asset;
             },
 
@@ -100,7 +92,6 @@
              * to point {0, 0} so that we are "looking" at it
              */
             assetLoaded(asset) {
-                console.log("ENTITY HAS LOADED ASSET", { ...asset.viewBox });
                 this.viewBox = { ...asset.viewBox };
                 setTimeout(this.lookAtAsset, 0);
             },
