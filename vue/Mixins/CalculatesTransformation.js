@@ -87,8 +87,10 @@ export default {
     },
 
     data() {
+        let dimensions = new Position();
+
         return {
-            dimensions: new Position(),
+            dimensions,
             transform: new DOMMatrix(),
             mutations: {},
             animationDirty: true,
@@ -107,8 +109,9 @@ export default {
          * If we change position either internally or via prop we need to
          * mark as dirty so we re calculate the transform matrix
          */
-        position: {
+        dimensions: {
             handler() {
+                console.log("dimensions changed");
                 this.positionChanged();
             }, deep: true
         },
@@ -196,6 +199,7 @@ export default {
          * Called when the position variable or position props change
          */
         positionChanged() {
+            console.log("position changed");
             this.animationDirty = true;
             requestAnimationFrame(this.computeTransformation);
         },
@@ -207,11 +211,6 @@ export default {
         getCenterPosition(){
             // Defaults to 0,0
             let retval = {x: 0, y: 0,};
-
-            // calculate asset dimensions if not already done
-            if(this.dimensions.width == null && this.dimensions.height == null) {
-                this.calculateAssetDimensions();
-            }
 
             // Center X
             if (this.cx !== null) { // Use Prop first
@@ -245,10 +244,11 @@ export default {
          * @returns { width, height }
          */
         getAssetDimensions() {
-            let retval = { width: null, height: null }
+            let retval = new Position();
             let hasBBox = (typeof ((this.$el) ? this.$el.getBBox : null) == 'function');
+            let box = null;
             if(this.$el && hasBBox) {
-                let box = this.$el.getBBox();
+                box = this.$el.getBBox();
                 if(box.width !== 0) {
                     retval.width = box.width;
                 }
@@ -258,101 +258,7 @@ export default {
                 }
             }
 
-            return { ...retval };
-        },
-
-        /**
-         * Creates a transformation matrix using the provided position
-         * @param position an object with position data (x, y, angle, scale, skew, etc)
-         * @returns {DOMMatrix}
-         */
-        getDefaultTransformMatrix(position) {
-            let angle = (position.angle % 360);
-            let x = position.x;
-            let y = position.y;
-            let skewX = position.skewX;
-            let skewY = position.skewY;
-            let cx = position.centerX;
-            let cy = position.centerY;
-            let scaleX = (position.scaleX === 0) ? 1 : position.scaleX;
-            let scaleY = (position.scaleY === 0) ? 1 : position.scaleY;
-
-            /**
-             *  PROJECTION
-             *  Our starting matrix. Usually the transformation matrix of the parent node acquired with the
-             *  getScreenCTM
-             */
-            let matrix = this.getProjectionMatrix();
-            let retval = new DOMMatrix();
-
-            /**
-             *  CENTER POINT
-             *  Rotations always happen around the center point 0,0 So we need to temporarily move the entity around
-             *  this point so that rotation, scale, and skew operations work as expected.
-             */
-            let center = new DOMMatrix();
-            center = center.translate(cx, cy);
-
-
-            /**
-             *  SKEW
-             */
-            // let skew = new DOMMatrix();
-            // skew = skew.skewX(skewX);
-            // skew = skew.skewY(skewY);
-
-            /**
-             *  TRANSLATION
-             *  We need to rotate scale and skew these values independent of the scene in order to translate
-             *  to the correct place. We only need to compute these if the values aren't 0 so we can save
-             *  some CPU time if we check for this
-             */
-            let translation = new DOMMatrix();
-            let transformTranslation = new DOMMatrix();
-            let point = new DOMPoint(x, y, 0);
-
-            // take viewport size into account for translation
-            // let m = this.$el.getScreenCTM();
-            // let psc = 1 + (1 - m.d);
-
-            if (scaleX !== 1 || scaleY !== 1) {
-                transformTranslation.scaleSelf((1 / scaleX), (1 / scaleY));
-            }
-
-            // if(skewY + skewX !== 0){
-            //     transformTranslation.skewXSelf(1/skewX);
-            //     transformTranslation.skewYSelf(1/skewY);
-            // }
-
-            if (angle !== 0) {
-                transformTranslation.rotateSelf(0, 0, 360 - angle);
-            }
-
-            point = point.matrixTransform(transformTranslation);
-            translation = translation.translate(point.x, point.y);
-
-
-            /**
-             * TRANSFORM
-             * Multiply all of these matricies together to get the final position
-             */
-            retval = retval.multiply(matrix);
-            retval = retval.multiplySelf(center);
-            retval.scaleSelf(scaleX, scaleY);
-            retval.rotateSelf(0, 0, angle);
-            retval.multiplySelf(center.inverse());
-
-            retval.multiplySelf(translation);
-            // retval = retval.multiply(inverse);
             return retval;
-        },
-
-        /**
-         * Get the initial Matrix used to transform this entity
-         * @returns {DOMMatrix}
-         */
-        getProjectionMatrix() {
-            return (this.matrix) ? this.matrix : new DOMMatrix();
         },
 
         /**
@@ -360,6 +266,13 @@ export default {
          * @returns {*|DOMMatrix}
          */
         getTransformation() {
+            console.log("get transformation");
+            // calculate asset dimensions if not already done
+            if(this.dimensions.width == null && this.dimensions.height == null) {
+                console.log("Calculating asset dimensions", this);
+                this.calculateAssetDimensions();
+            }
+
             let m = this.position.getDefaultTransformMatrix();
 
             // compute any mutator matricies we have specified

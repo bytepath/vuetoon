@@ -101,8 +101,8 @@
                         let tl = viewBox.multiplyPoint(this.assetDimensions.x, this.assetDimensions.y);
                         let br = viewBox.multiplyPoint(this.assetDimensions.width, this.assetDimensions.height);
 
-                        this.position.width = br.x * (1 / scale);
-                        this.position.height = br.y * (1 / scale);
+                        this.dimensions.width = br.x * (1 / scale);
+                        this.dimensions.height = br.y * (1 / scale);
 
                         return new Position({
                             x: Math.abs(tl.x),
