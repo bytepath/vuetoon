@@ -53,6 +53,9 @@
             loadedAssets[this.assetKey].promise.then((response) => {
                 console.log("This was called by component that didnt load the file", this.assetKey, loadedAssets[this.assetKey]);
                 this.loadedAsset = loadedAssets[this.assetKey];
+
+                // Emit a loaded event so that parent classes can act on that
+                this.$emit("loaded", this.loadedAsset);
             });
         },
 
@@ -148,7 +151,7 @@
                     this.loadedAsset = loadedAssets[this.assetKey];
 
                     // Emit a loaded event so that parent classes can act on that
-                    this.$emit("loaded");
+                    this.$emit("loaded", this.loadedAsset);
                 })
                 .catch((error) => console.log('asset err', error));
 
@@ -168,7 +171,17 @@
                 template.innerHTML = svg;
 
                 // Remove the viewbox but make a copy of it in the global asset
-                loadedAssets[this.assetKey].viewBox = template.content.firstElementChild.viewBox;
+                let viewBox = template.content.firstElementChild.getAttribute("viewBox");
+                if(viewBox !== null){
+                    const arr = viewBox.split(/[ ,]+/);
+                    viewBox = {
+                        x: arr[0],
+                        y: arr[1],
+                        width: arr[2],
+                        height: arr[3]
+                    };
+                }
+                loadedAssets[this.assetKey].viewBox = viewBox;
                 template.content.firstElementChild.removeAttribute('viewBox');
 
                 // Find all of the layers in this image
@@ -185,7 +198,7 @@
                 // Save the processed tags in the global variable;
                 loadedAssets[this.assetKey].data = template.content.firstElementChild;
 
-                console.log("processed", loadedAssets);
+                console.log("processed", { ...loadedAssets });
             },
         }
     }
