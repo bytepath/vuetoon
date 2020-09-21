@@ -111,7 +111,6 @@ export default {
          */
         dimensions: {
             handler() {
-                console.log("dimensions changed");
                 this.positionChanged();
             }, deep: true
         },
@@ -199,7 +198,6 @@ export default {
          * Called when the position variable or position props change
          */
         positionChanged() {
-            console.log("position changed");
             this.animationDirty = true;
             requestAnimationFrame(this.computeTransformation);
         },
@@ -266,10 +264,8 @@ export default {
          * @returns {*|DOMMatrix}
          */
         getTransformation() {
-            console.log("get transformation");
             // calculate asset dimensions if not already done
             if(this.dimensions.width == null && this.dimensions.height == null) {
-                console.log("Calculating asset dimensions", this);
                 this.calculateAssetDimensions();
             }
 

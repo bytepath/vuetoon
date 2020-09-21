@@ -44,7 +44,7 @@
              * If provided the camera will be moved to this location
              */
             camera: {
-                type: Number,
+                type: Object,
                 default: null
             },
         },
@@ -89,26 +89,24 @@
 
                     if (this.camera) {
 
-                        let scale = 0.5;
-
-                        viewBox.centerX = this.assetDimensions.width / (1 / (scale));
-                        viewBox.centerY = this.assetDimensions.height / (1 / (scale));
-                        viewBox.scaleX = scale;
-                        viewBox.scaleY = scale;
-                        viewBox.x = ((Math.sin(this.camera / 500)) * (this.assetDimensions.width / (1 / (scale / 2))));
-                        viewBox.y = ((Math.cos(this.camera / 500)) * (this.assetDimensions.height / (1 / (scale / 2))));
+                        viewBox.centerX = this.assetDimensions.width / (1 / (this.camera.scaleX));
+                        viewBox.centerY = this.assetDimensions.height / (1 / (this.camera.scaleY));
+                        viewBox.scaleX = this.camera.scaleX;
+                        viewBox.scaleY = this.camera.scaleY;
+                        viewBox.x = this.camera.x * (this.assetDimensions.width / (1 / (this.camera.scaleX / 2)));
+                        viewBox.y = this.camera.y * (this.assetDimensions.height / (1 / (this.camera.scaleY / 2)));
 
                         let tl = viewBox.multiplyPoint(this.assetDimensions.x, this.assetDimensions.y);
                         let br = viewBox.multiplyPoint(this.assetDimensions.width, this.assetDimensions.height);
 
-                        this.dimensions.width = br.x * (1 / scale);
-                        this.dimensions.height = br.y * (1 / scale);
+                        this.dimensions.width = br.x * (1 / this.camera.scaleX);
+                        this.dimensions.height = br.y * (1 / this.camera.scaleY);
 
                         return new Position({
                             x: Math.abs(tl.x),
                             y: Math.abs(tl.y),
-                            width: (br.x),// + (tl.x),
-                            height: (br.y),// + (tl.y),
+                            width: (br.x),
+                            height: (br.y),
                         });
                     }
                 }
@@ -178,14 +176,11 @@
                         this.position.height = bbox.height;
                         this.position.width = bbox.width;
 
-                        console.log("bbox", bbox);
                         // Set camera position to the BBox of this element
                         this.assetDimensions.x = bbox.x;
                         this.assetDimensions.y = bbox.y;
                         this.assetDimensions.width = bbox.width + bbox.x;
                         this.assetDimensions.height = bbox.height + bbox.y;
-                        //this.em = new DOMMatrix([1, 0, 0, 1, -bbox.x, -bbox.y]);
-
                     }
                 }
             },

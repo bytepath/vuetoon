@@ -17,7 +17,7 @@ export default {
          * If provided the camera will be moved to this location
          */
         camera: {
-            type: Number,
+            type: Object,
             default: null
         },
     },

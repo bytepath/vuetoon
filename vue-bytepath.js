@@ -14,7 +14,6 @@ import reset from "./vue/Components/Timers/KeyframeReset";
 import entityDiv from './vue/Components/Dom/EntityDiv';
 import entity from './vue/Components/Entity';
 
-
 // Animations
 import bounce from './vue/Components/Animations/bounce';
 import spin from './vue/Components/Animations/spin';
@@ -25,11 +24,14 @@ import acceleratesTranslation from './vue/Mutators/AcceleratesTranslation';
 // Factories
 import createEntity from "./vue/Factories/CreateEntity";
 
+// Helpers
+import Position from "./Helpers/Position";
+
 const Bytepath = {
     AnimationEntity,
     entity,
     createEntity,
-
+    Position,
     mixins: {
         playbackTimer,
         transformer,
