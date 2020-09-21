@@ -124,8 +124,8 @@
                         let br = new DOMPoint(viewbox.width,viewbox.height);
 
                         let matrix = new DOMMatrix();
-                        let scale = Math.abs((Math.sin(this.camera/500)));
-
+                        //let scale = 1 - Math.abs((Math.sin(this.camera/500)));
+                        let scale = 0.3;
                         let center = matrix.translate(this.assetDimensions.width / 2, this.assetDimensions.height / 2);
                         matrix.multiplySelf(center);
                         matrix.scaleSelf(scale, scale);
