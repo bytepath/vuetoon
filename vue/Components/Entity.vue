@@ -159,6 +159,7 @@
                 }
                 setTimeout(this.lookAtAsset, 0);
                 console.log("asset loaded", asset);
+                this.$emit("loaded", asset);
             },
 
             /**

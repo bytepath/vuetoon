@@ -13,7 +13,7 @@ import nameFromPath from "../Components/Filters/Filename";
 let createAsset = function(data = {}) {
     let src = null;
     let use = null;
-
+    let asset = null;
 
     if(data.hasOwnProperty("src"))
     {
@@ -35,11 +35,17 @@ let createAsset = function(data = {}) {
                 type: String,
                 default: null
             },
+
+            /**
+             * The file path to the asset we need to load. Optional if you don't need to load an asset
+             */
+            src: {
+                type: String,
+                default: null,
+            },
         },
 
-        data() {
-            return {src, use};
-        },
+        data() { return { asset }; },
         mixins: [AnimationEntity],
         components: { Entity },
 
@@ -51,10 +57,21 @@ let createAsset = function(data = {}) {
          */
         render: function (createElement) {
             let props = {...this.$props, src: this.src};
+            let on = { loaded: (loadedAsset) => this.asset=loadedAsset };
             (this.use) ? props["use"] = this.use : null;
-            return createElement('entity', {props})
+            return createElement('entity', {props, on })
         },
     };
+
+    // If we have a use value replace the prop in the asset to return the name of the layer by default
+    if(src){
+        console.log(`using ${use} as prop default`);
+        delete mixin.props.src;
+        mixin.props.src = {
+            type: String,
+            default: src,
+        };
+    }
 
     // If we have a use value replace the prop in the asset to return the name of the layer by default
     if(use){
