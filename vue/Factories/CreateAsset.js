@@ -2,6 +2,7 @@
 import Entity from "../Components/Entity";
 import AnimationEntity from '../Mixins/AnimationEntity';
 import nameFromPath from "../Components/Filters/Filename";
+import Position from "../../Helpers/Position";
 
 /**
  *
@@ -45,7 +46,7 @@ let createAsset = function(data = {}) {
             },
         },
 
-        data() { return { asset }; },
+        data() { return { asset, positions: {} }; },
 
         computed:{
             layers() {
@@ -60,13 +61,12 @@ let createAsset = function(data = {}) {
         methods:{
             onLoaded(loadedAsset){
                 this.asset=loadedAsset;
-                console.log('layers is', {...this.layers});
 
                 //this.$options.components = { ...this.$options.components, ...this.layers };
                 Object.keys(this.layers).map((key) => {
                     this.$options.components[key] = this.layers[key];
+                    this.positions[key] = new Position();
                 });
-                //console.log('loaded event handler', { ...this.$options.components });
             },
         },
 
@@ -80,8 +80,9 @@ let createAsset = function(data = {}) {
          */
         render: function (createElement) {
             let props = { ...this.$props };
+            let on = { loaded: this.onLoaded };
             (this.use) ? props["use"] = this.use : null;
-            return createElement('entity', { props })
+            return createElement('entity', { props, on })
         },
     };
 

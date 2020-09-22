@@ -87,10 +87,8 @@ export default {
     },
 
     data() {
-        let dimensions = new Position();
-
         return {
-            dimensions,
+            dimensions: new Position(),
             transform: new DOMMatrix(),
             mutations: {},
             animationDirty: true,
@@ -142,6 +140,14 @@ export default {
          */
         position() {
             let center = this.centerPosition;
+
+            // calculate asset dimensions if not already done
+            if(this.dimensions) {
+                if (this.dimensions.width == null && this.dimensions.height == null) {
+                    this.calculateAssetDimensions();
+                }
+            }
+
             return new Position({
                 x: this.x,
                 y: this.y,
@@ -264,11 +270,6 @@ export default {
          * @returns {*|DOMMatrix}
          */
         getTransformation() {
-            // calculate asset dimensions if not already done
-            if(this.dimensions.width == null && this.dimensions.height == null) {
-                this.calculateAssetDimensions();
-            }
-
             let m = this.position.getDefaultTransformMatrix();
 
             // compute any mutator matricies we have specified

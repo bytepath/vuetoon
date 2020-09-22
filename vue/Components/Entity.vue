@@ -75,15 +75,17 @@
              * Bottom Left [0,1000] [500,1000] //Bottom right
              */
             viewBox() {
-                let viewbox = null;
+                let viewBox = null;
 
                 if (this.assetDimensions) {
-                    let viewBox = new Position({
+                    console.log("has asset dimensions", this);
+                    viewBox = new Position({
                         x: this.assetDimensions.x,
                         y: this.assetDimensions.y,
                         width: (this.assetDimensions.width - this.assetDimensions.x),
                         height: (this.assetDimensions.height - this.assetDimensions.y),
                     });
+
 
                     if (this.camera) {
 
@@ -109,9 +111,11 @@
                         });
                     }
                 }
+                else {
+                    console.log("no assset dimensions", this);
+                }
 
-
-                return viewbox;
+                return viewBox;
             },
 
             viewboxString() {
@@ -158,7 +162,6 @@
                     this.assetDimensions = {...asset.viewBox};
                 }
                 setTimeout(this.lookAtAsset, 0);
-                console.log("entity loaded", this);
                 this.$emit("loaded", asset);
             },
 
@@ -173,8 +176,8 @@
 
                         // Move the asset into the position of the camera by multiplying by the inverse of its bbox
                         // X y positions
-                        this.position.height = bbox.height;
-                        this.position.width = bbox.width;
+                        this.dimensions.height = bbox.height;
+                        this.dimensions.width = bbox.width;
 
                         // Set camera position to the BBox of this element
                         this.assetDimensions.x = bbox.x;
