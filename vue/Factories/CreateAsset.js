@@ -1,39 +1,83 @@
-/**
- * Factory function to create a new asset
- * @param src the file path to the SVG image
- * @param use the name of the layer/group that we want to create the entity with
- * @returns {{mixins: [*], components: {Entity: *}, data(): *, name: (*|string), render: (function(*): *)}|{src: *, use: *}}
- */
-import Asset from "../Mixins/Asset"
+
 import Entity from "../Components/Entity";
 import AnimationEntity from '../Mixins/AnimationEntity';
 import nameFromPath from "../Components/Filters/Filename";
 
-let createAsset = function(src, use = null) {
-    console.log("create asset", src, use, this);
-    let retval = {};
+/**
+ *
+ * @param src
+ * @param useOrComponent
+ * @param component
+ * @returns {{src: *, use: *}|{components: {Entity: *}, data(): *, render: (function(*): *), props: {camera: {default: null, type: *}}}}
+ */
+let createAsset = function(data = {}) {
+    let src = null;
+    let use = null;
 
-    let component = {
-        ...Asset,
-        data() {
-            return {src};
+
+    if(data.hasOwnProperty("src"))
+    {
+        console.log("source is ddddd", data.src);
+        src = data.src;
+    }
+
+    if(data.hasOwnProperty("layer")){
+        console.log("layer is", data.layer);
+        use = data.layer;
+    }
+
+    let mixin = {
+        props:{
+            /**
+             * The internal id inside the SVG that we want to use. Leave blank to use the whole asset
+             */
+            use: {
+                type: String,
+                default: null
+            },
         },
+
+        data() {
+            return {src, use};
+        },
+        mixins: [AnimationEntity],
         components: { Entity },
-        //src,
+
+        /**
+         * Equivalent to
+         * <template>
+         *      <entity v-bind="$props" :src="src" :use="use" />
+         * </template>
+         */
+        render: function (createElement) {
+            let props = {...this.$props, src: this.src};
+            (this.use) ? props["use"] = this.use : null;
+            return createElement('entity', {props})
+        },
     };
 
     // If we have a use value replace the prop in the asset to return the name of the layer by default
     if(use){
         console.log(`using ${use} as prop default`);
-        delete component.props.use;
-        component.props.use = {
+        delete mixin.props.use;
+        mixin.props.use = {
             type: String,
             default: use,
         };
     }
 
-    delete component.name;
-    return component;
+    let retval = { ...data };
+    delete retval.src;
+    delete retval.layer;
+
+    if(retval.hasOwnProperty("mixins")){
+        retval.mixins.push(mixin);
+    }
+    else {
+        retval.mixins = [mixin];
+    }
+
+    return retval;
 }
 
 export default createAsset;

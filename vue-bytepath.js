@@ -22,7 +22,7 @@ import spin from './vue/Components/Animations/spin';
 import acceleratesTranslation from './vue/Mutators/AcceleratesTranslation';
 
 // Factories
-import createEntity from "./vue/Factories/CreateEntity";
+import CreateAsset from "./vue/Factories/CreateAsset";
 
 // Helpers
 import Position from "./Helpers/Position";
@@ -30,7 +30,7 @@ import Position from "./Helpers/Position";
 const Bytepath = {
     AnimationEntity,
     entity,
-    createEntity,
+    CreateAsset,
     Position,
     mixins: {
         playbackTimer,

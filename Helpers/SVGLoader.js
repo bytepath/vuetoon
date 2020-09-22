@@ -33,8 +33,16 @@ let loader = class SVGLoader {
         delete this.loadedAssets[SrcToKey(src)];
     }
 
-    load(src, asset) {
-        console.log("SVG LOADER LOAD", src);
+    load(src, asset = null) {
+        if(src === null){
+            console.log("null source provided to asset loader", src, asset);
+        };
+
+        if(asset === null){
+            console.log("null asset id provided to asset loader", src, asset);
+        };
+
+        console.log("SVG LOADER LOAD", src, asset);
         let file = SrcToKey(src);
         if(!this.fileIsLoaded(src)) {
             console.log(file, "not loaded yet");
@@ -46,6 +54,12 @@ let loader = class SVGLoader {
                 .catch((error) => console.log('asset err', error));
 
             this.loadedAssets[file] = {id: asset, promise, data: null, viewBox: null, layers: {}};
+        }
+
+        // If the file was loaded without an asset id it has not been rendered on the screen. Set the ID to this asset
+        if(this.loadedAssets[file].id == null && asset !== null) {
+            console.log("found null asset id setting to ", asset, file);
+            this.loadedAssets[file].id = asset;
         }
 
         return this.loadedAssets[file].promise;

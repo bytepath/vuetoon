@@ -10,6 +10,15 @@ export default {
         debug:{
             type: Boolean,
             default: false,
-        }
+        },
+
+        /**
+         * position rect with {x,y,width,height}
+         * If provided the camera will be moved to this location
+         */
+        camera: {
+            type: Object,
+            default: null
+        },
     },
 }

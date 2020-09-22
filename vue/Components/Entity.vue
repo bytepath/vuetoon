@@ -15,10 +15,8 @@
 <script>
     import AssetLoader from "./Loaders/AssetLoader";
     import AnimationEntity from "../Mixins/AnimationEntity";
-    import CreateAsset from "../Factories/CreateAsset";
     import Position from "../../Helpers/Position";
 
-    console.log("new position", new Position({x: 400}).getDefaultTransformMatrix());
     export default {
         name: 'entity',
         mixins: [AnimationEntity],
@@ -188,15 +186,6 @@
             },
         },
         components: {AssetLoader},
-
-        /**
-         * The following methods are used to instantiate an entity using an external asset
-         * and are automatically removed by vue when creating a component
-         */
-        src: null,
-        fromAsset(src) {
-            return CreateAsset(src);
-        },
     }
 </script>
 
