@@ -8,11 +8,12 @@
  * loadedAssets has the syntax { src: "id-that-loaded-this-file" } where src is a filename/url
  */
 const axios = require('axios');
-let loadedAssets = {};
-import SrcToKey from "../Filters/SanitizedPath";
+let inst = null;
+import SrcToKey from "../vue/Components/Filters/SanitizedPath";
 
 let loader = class SVGLoader {
     constructor() {
+        this.loadedAssets = {};
     }
 
     /**
@@ -20,30 +21,34 @@ let loader = class SVGLoader {
      * use the <use> tag of the SVG spec to clone the tag with id = loadedAssets[this.src]
      */
     isFileLoaded(src) {
-        return Object.prototype.hasOwnProperty.call(loadedAssets, SrcToKey(src));
+        let result = Object.prototype.hasOwnProperty.call(this.loadedAssets, SrcToKey(src));
+        console.log("has file been loaded", result, SrcToKey(src), { ...this.loadedAssets });
+        return result;
     }
 
     /**
      * Remove asset from suste,
      */
     deleteAsset(src) {
-        delete loadedAssets[SrcToKey(src)];
+        delete this.loadedAssets[SrcToKey(src)];
     }
 
-    load(src) {
+    load(src, asset) {
+        console.log("SVG LOADER LOAD", src);
         let file = SrcToKey(src);
         if(!this.isFileLoaded(src)) {
-            let promise = axios.get(this.src)
+            console.log(file, "not loaded yet");
+            let promise = axios.get(src)
                 .then((response) => {
                     // Set this :src file as downloaded in the global list
-                    this.processLoadedImage(response.data);
+                    this.processLoadedImage(response.data, src, asset);
                 })
                 .catch((error) => console.log('asset err', error));
 
-            loadedAssets[file] = {id: this.asset, promise, data: null, viewBox: null, layers: {}};
+            this.loadedAssets[file] = {id: asset, promise, data: null, viewBox: null, layers: {}};
         }
 
-        return loadedAssets[file].promise;
+        return this.loadedAssets[file].promise;
     }
 
     /**
@@ -51,7 +56,8 @@ let loader = class SVGLoader {
      * @param {String} html The representing a single element
      * @return {Element}
      */
-    processLoadedImage(svg) {
+    processLoadedImage(svg, src, asset) {
+        console.log("processing image");
         // Convert the string into dom elements
         var template = document.createElement('template');
         template.innerHTML = svg;
@@ -68,7 +74,7 @@ let loader = class SVGLoader {
             };
         }
 
-        let file = loadedAssets[SrcToKey(src)];
+        let file = this.loadedAssets[SrcToKey(src)];
         let rawLayers = [];
         file.viewBox = viewBox;
         template.content.firstElementChild.removeAttribute('viewBox');
@@ -78,14 +84,25 @@ let loader = class SVGLoader {
             rawLayers.push(element.id);
 
             // Ensure this ID is unique in the dom by adding the asset tag
-            element.setAttribute("id", this.asset + element.id);
+            element.setAttribute("id", asset + element.id);
         });
 
         // Save a copy of the layers we found in this image in the global var
-        file.layers = this.rawLayers.filter((layer) => (layer.charAt(0) !== "_"));
+        file.layers = rawLayers.filter((layer) => (layer.charAt(0) !== "_"));
 
         // Save the processed tags in the global variable;
         file.data = template.content.firstElementChild;
     }
 }
+
+if(!inst)
+{
+    console.log("new SVG Loader");
+    inst = new loader();
+}
+else {
+    console.log("SVG Loader already inst");
+}
+
+export default inst;
 
