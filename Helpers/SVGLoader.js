@@ -10,6 +10,7 @@
 const axios = require('axios');
 let inst = null;
 import SrcToKey from "../vue/Components/Filters/SanitizedPath";
+import CreateAsset from "../vue/Factories/CreateAsset";
 
 let loader = class SVGLoader {
     constructor() {
@@ -90,6 +91,7 @@ let loader = class SVGLoader {
 
         let file = this.loadedAssets[SrcToKey(src)];
         let rawLayers = [];
+        let layers = {};
         file.viewBox = viewBox;
         template.content.firstElementChild.removeAttribute('viewBox');
 
@@ -101,8 +103,13 @@ let loader = class SVGLoader {
             element.setAttribute("id", asset + element.id);
         });
 
+        // Filter layers we don't want
+        rawLayers.filter((layer) => (layer.charAt(0) !== "_")).map((layer) => {
+            layers[layer] = CreateAsset({ src, layer: asset });
+        });
+
         // Save a copy of the layers we found in this image in the global var
-        file.layers = rawLayers.filter((layer) => (layer.charAt(0) !== "_"));
+        file.layers = layers;
 
         // Save the processed tags in the global variable;
         file.data = template.content.firstElementChild;

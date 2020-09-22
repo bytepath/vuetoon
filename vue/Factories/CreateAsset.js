@@ -27,6 +27,8 @@ let createAsset = function(data = {}) {
     }
 
     let mixin = {
+        mixins: [AnimationEntity],
+
         props:{
             /**
              * The internal id inside the SVG that we want to use. Leave blank to use the whole asset
@@ -46,7 +48,17 @@ let createAsset = function(data = {}) {
         },
 
         data() { return { asset }; },
-        mixins: [AnimationEntity],
+
+        computed:{
+            layers() {
+                if(this.asset) {
+                    return this.asset.layers;
+                }
+
+                return {};
+            }
+        },
+
         components: { Entity },
 
         /**
