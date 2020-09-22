@@ -17,12 +17,10 @@ let createAsset = function(data = {}) {
 
     if(data.hasOwnProperty("src"))
     {
-        console.log("source is ddddd", data.src);
         src = data.src;
     }
 
     if(data.hasOwnProperty("layer")){
-        console.log("layer is", data.layer);
         use = data.layer;
     }
 
@@ -55,8 +53,21 @@ let createAsset = function(data = {}) {
                     return this.asset.layers;
                 }
 
-                return {};
-            }
+                return null;
+            },
+        },
+
+        methods:{
+            onLoaded(loadedAsset){
+                this.asset=loadedAsset;
+                console.log('layers is', {...this.layers});
+
+                //this.$options.components = { ...this.$options.components, ...this.layers };
+                Object.keys(this.layers).map((key) => {
+                    this.$options.components[key] = this.layers[key];
+                });
+                //console.log('loaded event handler', { ...this.$options.components });
+            },
         },
 
         components: { Entity },
@@ -68,16 +79,14 @@ let createAsset = function(data = {}) {
          * </template>
          */
         render: function (createElement) {
-            let props = {...this.$props, src: this.src};
-            let on = { loaded: (loadedAsset) => this.asset=loadedAsset };
+            let props = { ...this.$props };
             (this.use) ? props["use"] = this.use : null;
-            return createElement('entity', {props, on })
+            return createElement('entity', { props })
         },
     };
 
     // If we have a use value replace the prop in the asset to return the name of the layer by default
     if(src){
-        console.log(`using ${use} as prop default`);
         delete mixin.props.src;
         mixin.props.src = {
             type: String,
@@ -87,7 +96,6 @@ let createAsset = function(data = {}) {
 
     // If we have a use value replace the prop in the asset to return the name of the layer by default
     if(use){
-        console.log(`using ${use} as prop default`);
         delete mixin.props.use;
         mixin.props.use = {
             type: String,

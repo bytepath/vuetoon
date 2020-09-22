@@ -68,7 +68,6 @@
          */
         created() {
             this.loader.load(this.src, this.asset).then((response) => {
-                console.log("loaded asset callback in created");
                 this.loadedAsset = this.loader.loadedAssets[this.assetKey];
 
                 if(this.loader.loadedAssets[this.assetKey].id == this.asset){
@@ -76,7 +75,10 @@
                 }
 
                 // Emit a loaded event so that parent classes can act on that
+                console.log("file loaded");
                 this.$emit("loaded", this.loadedAsset);
+                this.$parent.$emit("loaded", this.loadedAsset);
+
             });
         },
 

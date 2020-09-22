@@ -158,7 +158,7 @@
                     this.assetDimensions = {...asset.viewBox};
                 }
                 setTimeout(this.lookAtAsset, 0);
-                console.log("asset loaded", asset);
+                console.log("entity loaded", this);
                 this.$emit("loaded", asset);
             },
 
@@ -166,7 +166,6 @@
              * Moves the "camera" to look directly at the asset we are puling from a larger scene
              */
             lookAtAsset() {
-                console.log("looking at", 'g' + this.usedAsset);
                 let element = document.getElementById('g' + this.usedAsset);
                 if (element) {
                     if (typeof element.getBBox == "function") {

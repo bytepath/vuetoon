@@ -23,7 +23,6 @@ let loader = class SVGLoader {
      */
     fileIsLoaded(src) {
         let result = Object.prototype.hasOwnProperty.call(this.loadedAssets, SrcToKey(src));
-        console.log("has file been loaded", result, SrcToKey(src), { ...this.loadedAssets });
         return result;
     }
 
@@ -34,19 +33,16 @@ let loader = class SVGLoader {
         delete this.loadedAssets[SrcToKey(src)];
     }
 
+    /**
+     * Load file from URL
+     * @param src file url
+     * @param asset the ID responsible for drawing this file to the dom
+     * @returns { Promise }
+     */
     load(src, asset = null) {
-        if(src === null){
-            console.log("null source provided to asset loader", src, asset);
-        };
-
-        if(asset === null){
-            console.log("null asset id provided to asset loader", src, asset);
-        };
-
-        console.log("SVG LOADER LOAD", src, asset);
         let file = SrcToKey(src);
         if(!this.fileIsLoaded(src)) {
-            console.log(file, "not loaded yet");
+            //console.log(file, "not loaded yet");
             let promise = axios.get(src)
                 .then((response) => {
                     // Set this :src file as downloaded in the global list
@@ -59,7 +55,7 @@ let loader = class SVGLoader {
 
         // If the file was loaded without an asset id it has not been rendered on the screen. Set the ID to this asset
         if(this.loadedAssets[file].id == null && asset !== null) {
-            console.log("found null asset id setting to ", asset, file);
+            //console.log("found null asset id setting to ", asset, file);
             this.loadedAssets[file].id = asset;
         }
 
@@ -72,7 +68,6 @@ let loader = class SVGLoader {
      * @return {Element}
      */
     processLoadedImage(svg, src, asset) {
-        console.log("processing image");
         // Convert the string into dom elements
         var template = document.createElement('template');
         template.innerHTML = svg;
@@ -105,7 +100,7 @@ let loader = class SVGLoader {
 
         // Filter layers we don't want
         rawLayers.filter((layer) => (layer.charAt(0) !== "_")).map((layer) => {
-            layers[layer] = CreateAsset({ src, layer: asset });
+            layers[layer] = CreateAsset({ src, layer });
         });
 
         // Save a copy of the layers we found in this image in the global var
@@ -118,11 +113,7 @@ let loader = class SVGLoader {
 
 if(!inst)
 {
-    console.log("new SVG Loader");
     inst = new loader();
-}
-else {
-    console.log("SVG Loader already inst");
 }
 
 export default inst;
