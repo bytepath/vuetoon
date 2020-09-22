@@ -20,7 +20,7 @@ let loader = class SVGLoader {
      * Check loadedAssets variable to see if someone else has already loaded the requested file. If so, we can
      * use the <use> tag of the SVG spec to clone the tag with id = loadedAssets[this.src]
      */
-    isFileLoaded(src) {
+    fileIsLoaded(src) {
         let result = Object.prototype.hasOwnProperty.call(this.loadedAssets, SrcToKey(src));
         console.log("has file been loaded", result, SrcToKey(src), { ...this.loadedAssets });
         return result;
@@ -36,7 +36,7 @@ let loader = class SVGLoader {
     load(src, asset) {
         console.log("SVG LOADER LOAD", src);
         let file = SrcToKey(src);
-        if(!this.isFileLoaded(src)) {
+        if(!this.fileIsLoaded(src)) {
             console.log(file, "not loaded yet");
             let promise = axios.get(src)
                 .then((response) => {

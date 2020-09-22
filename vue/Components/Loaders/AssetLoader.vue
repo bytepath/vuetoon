@@ -68,6 +68,10 @@
          */
         created() {
             // Asset was previously loaded by someone else so just hook into that instead of loading the same file again
+            if(!this.loader.fileIsLoaded(this.src)){
+                this.loadedTheFile = true;
+            }
+
             this.loader.load(this.src, this.asset).then((response) => {
                 console.log("loaded asset callback in created");
                 this.loadedAsset = this.loader.loadedAssets[this.assetKey];
