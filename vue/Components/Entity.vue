@@ -3,12 +3,9 @@
          :preserveAspectRatio="preserveAspectRatio">
         <asset-loader v-if="src" :src="src" :asset="asset" @loaded="assetLoaded" v-slot="{ href }">
             <g :id="'g' + usedAsset" :transform="assetMatrix">
-                <use v-if="href" :href="href + ((use)?use:'')"/>
+                <slot :position="position" :asset="usedAsset" :href="href + ((use)?use:'')"/>
             </g>
         </asset-loader>
-        <template v-if="debug">
-            <rect v-if="debug" :x="centerPosition.x - 5" :y="centerPosition.y - 5" width="10" height="10" fill="blue"/>
-        </template>
     </svg>
 </template>
 
@@ -110,8 +107,7 @@
                             height: (br.y),
                         });
                     }
-                }
-                else {
+                } else {
                     console.log("no assset dimensions", this);
                 }
 
