@@ -12,6 +12,7 @@ import Layer from "../Components/SVG/Layer";
  * @returns {{src: *, use: *}|{components: {Entity: *}, data(): *, render: (function(*): *), props: {camera: {default: null, type: *}}}}
  */
 let createAsset = function (data = {}) {
+    console.log("create asset", data);
     let src = null;
     let use = null;
     let asset = null;
@@ -67,19 +68,6 @@ let createAsset = function (data = {}) {
         },
 
         components: {Entity, Layer},
-
-        // /**
-        //  * Equivalent to
-        //  * <template>
-        //  *      <entity v-bind="$props" :src="src" :use="use" />
-        //  * </template>
-        //  */
-        // render: function (createElement) {
-        //     let props = {...this.$props};
-        //     let on = {loaded: this.onLoaded};
-        //     (this.use) ? props["use"] = this.use : null;
-        //     return createElement('entity', {props, on})
-        // },
 
         /**
          * Equivalent to

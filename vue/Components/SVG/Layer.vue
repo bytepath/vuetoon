@@ -12,13 +12,17 @@
             }
         },
 
+        created(){
+            console.log("layer created", this.layer);
+        },
+
         mixins: [AnimationEnity],
         components: { Entity }
     };
 </script>
 
 <template>
-    <g  id="hhhhhhhh" :transform="transform">
+    <g :transform="transform">
         <use :href="'#' + position.component.id"/>
     </g>
 </template>

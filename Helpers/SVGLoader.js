@@ -100,7 +100,7 @@ let loader = class SVGLoader {
 
         // Filter layers we don't want
         rawLayers.filter((layer) => (layer.charAt(0) !== "_")).map((layer) => {
-            layers[layer] = CreateAsset({ src, layer });
+            layers[layer] = null;
         });
 
         // Save a copy of the layers we found in this image in the global var
