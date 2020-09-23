@@ -47,7 +47,7 @@ export default class Animation {
         // Iterate through the list of actions and execute any within keyframe range
         didSomething |= this.getActionsForFrame(frame, (action) => {
             //console.log("hello from action process func", action.handler, context);
-            return (action.handler) ? action.handler(context, new Tween(frame, action.start, action.end)) : false;
+            return (action.handler) ? action.handler({ keyframe, context, tween: new Tween(frame, action.start, action.end)}) : false;
         });
 
         return didSomething;
