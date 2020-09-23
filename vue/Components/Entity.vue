@@ -1,9 +1,8 @@
 <template>
-    <svg :id="'svg' + usedAsset" :width="w" :height="h" :transform="transform" :viewBox="viewboxString"
-         >
+    <svg :id="'svg' + usedAsset" :width="w" :height="h" :viewBox="viewboxString">
         <asset-loader v-if="src" :src="src" :asset="asset" @loaded="assetLoaded" v-slot="{ href }">
             <g :id="'g' + usedAsset" :transform="assetMatrix">
-                <slot :position="position" :asset="usedAsset" :href="href + ((use)?use:'')"/>
+                <slot :transform="transform" :position="position" :asset="usedAsset" :href="href + ((use)?use:'')"/>
             </g>
         </asset-loader>
     </svg>

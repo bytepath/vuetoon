@@ -132,4 +132,8 @@ export default class Position {
         // retval = retval.multiply(inverse);
         return retval;
     }
+
+    toString() {
+        return this.getDefaultTransformMatrix().toString();
+    }
 }

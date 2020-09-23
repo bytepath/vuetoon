@@ -14,6 +14,16 @@ export default {
         },
 
         /**
+         * Pass in all position variables at once to make things easier
+         */
+        position:{
+            type: Object,
+            default(){
+                return new Position();
+            }
+        },
+
+        /**
          * X position
          */
         x: {
@@ -89,7 +99,6 @@ export default {
     data() {
         return {
             dimensions: new Position(),
-            transform: new DOMMatrix(),
             mutations: {},
             animationDirty: true,
         };
@@ -138,15 +147,16 @@ export default {
          * Computes actual position of entity
          * @returns Object
          */
-        position() {
+        transform() {
             let center = this.centerPosition;
 
             // calculate asset dimensions if not already done
-            if(this.dimensions){
-            if(this.dimensions.width == null && this.dimensions.height == null) {
-                this.calculateAssetDimensions();
+            if(this.dimensions) {
+                if (this.dimensions.width == null && this.dimensions.height == null) {
+                    this.calculateAssetDimensions();
+                }
             }
-}
+
             return new Position({
                 x: this.x,
                 y: this.y,
@@ -269,7 +279,7 @@ export default {
          * @returns {*|DOMMatrix}
          */
         getTransformation() {
-            let m = this.position.getDefaultTransformMatrix();
+            let m = this.transform.getDefaultTransformMatrix();
 
             // compute any mutator matricies we have specified
             Object.values(this.mutations).forEach((mutation) => {
@@ -285,7 +295,7 @@ export default {
          */
         computeTransformation() {
             if (this.animationDirty) {
-                this.transform = this.getTransformation();
+                this.getTransformation();
                 this.animationDirty = false;
             }
         },
