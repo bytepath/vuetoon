@@ -3,7 +3,8 @@
          :width="w" :height="h"
          :transform="transform"
          :viewBox="viewboxString"
-         :preserveAspectRatio="$attrs.aspect">
+         :preserveAspectRatio="$attrs.aspect"
+        :overflow="overflow">
         <asset-loader v-if="src" :src="src" :owner="assetID" @loaded="assetLoaded" v-slot="{ href }">
             <g :id="'g' + assetID" :transform="assetMatrix">
                 <slot :position="position" :href="href"/>
@@ -36,6 +37,14 @@
             camera: {
                 type: Object,
                 default: null
+            },
+
+            /**
+             * What to do if this entity goes outside it's clip boundaries. Default we just continue drawing it
+             */
+            overflow:{
+                type: String,
+                default: "visible"
             },
         },
         data() {

@@ -77,7 +77,7 @@
                 // Emit a loaded event so that parent classes can act on that
                 console.log("file loaded");
                 this.$emit("loaded", this.loadedAsset);
-                this.$parent.$emit("loaded", this.loadedAsset);
+                //this.$parent.$emit("loaded", this.loadedAsset);
 
             });
         },

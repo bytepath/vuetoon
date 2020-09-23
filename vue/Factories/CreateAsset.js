@@ -12,7 +12,6 @@ import Layer from "../Components/SVG/Layer";
  * @returns {{src: *, use: *}|{components: {Entity: *}, data(): *, render: (function(*): *), props: {camera: {default: null, type: *}}}}
  */
 let createAsset = function (data = {}) {
-    console.log("create asset", data);
     let src = null;
     let layers = null;
     let image = null;
@@ -50,9 +49,16 @@ let createAsset = function (data = {}) {
             return {image, layers: null};
         },
 
+        mounted() {
+            this.$children[0].$on('loaded', this.onLoaded);
+        },
+
+        destroyed() {
+            this.$children[0].$off();
+        },
+
         computed:{
           filteredLayers(){
-              console.log("filtering layers", this.showLayers);
               if(!this.layers){
                   return {};
               }
@@ -72,7 +78,12 @@ let createAsset = function (data = {}) {
 
         methods: {
 
+            /**
+             * Image resource has finished loading so we should process into usable layers
+             * @param loadedAsset the loaded image object
+             */
             onLoaded(loadedAsset) {
+                console.log("asset on loaded", this);
                 this.image = loadedAsset;
                 let layers = {};
                 Object.keys(this.image.layers).map((layer) => {
@@ -99,11 +110,9 @@ let createAsset = function (data = {}) {
          */
         render: function (createElement) {
             let props = {...this.$props};
-            let on = {loaded: this.onLoaded};
             let children = [];
 
             Object.keys(this.filteredLayers).map((layer, i) => {
-                console.log("renderless layer loop", layer, this.layers);
                 let element = createElement('layer', {
                     props: {
                         position: this.layers[layer],
@@ -113,7 +122,7 @@ let createAsset = function (data = {}) {
                 children.push(element);
             });
 
-            return createElement('entity', {props, on}, children);
+            return createElement('entity', {props}, children);
         },
 
     };
