@@ -1,9 +1,9 @@
 <template>
-    <svg :id="'svg' + usedAsset" :width="w" :height="h" :transform="transform" :viewBox="viewboxString"
+    <svg :id="'svg' + assetID" :width="w" :height="h" :transform="transform" :viewBox="viewboxString"
          >
-        <asset-loader v-if="src" :src="src" :asset="asset" @loaded="assetLoaded" v-slot="{ href }">
-            <g :id="'g' + usedAsset" :transform="assetMatrix">
-                <slot :position="position" :asset="usedAsset" :href="href + ((use)?use:'')"/>
+        <asset-loader v-if="src" :src="src" :owner="assetID" @loaded="assetLoaded" v-slot="{ href }">
+            <g :id="'g' + assetID" :transform="assetMatrix">
+                <slot :position="position" :href="href"/>
             </g>
         </asset-loader>
     </svg>
@@ -24,14 +24,6 @@
             src: {
                 type: String,
                 default: null,
-            },
-
-            /**
-             * The internal id inside the SVG that we want to use. Leave blank to use the whole asset
-             */
-            use: {
-                type: String,
-                default: null
             },
 
             /**
@@ -138,18 +130,10 @@
              * The ID that should be used on the loaded svg file, should we be the component responsible for doing that
              * @returns String
              */
-            asset() {
+            assetID() {
                 let asset = (this.name) ? `__${this._uid}-${this.name}` : `__${this._uid}`;
                 return asset;
             },
-
-            /**
-             * The ID of the DOM asset we are using to draw this entity.
-             * @returns String
-             */
-            usedAsset() {
-                return (this.use) ? (this.asset + this.use) : this.asset;
-            }
         },
         methods: {
             /**
@@ -168,7 +152,7 @@
              * Moves the "camera" to look directly at the asset we are puling from a larger scene
              */
             lookAtAsset() {
-                let element = document.getElementById('g' + this.usedAsset);
+                let element = document.getElementById('g' + this.assetID);
                 if (element) {
                     if (typeof element.getBBox == "function") {
                         let bbox = element.getBBox();

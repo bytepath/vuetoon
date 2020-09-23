@@ -1,4 +1,3 @@
-
 import Entity from "../Components/Entity";
 import AnimationEntity from '../Mixins/AnimationEntity';
 import nameFromPath from "../Components/Filters/Filename";
@@ -12,24 +11,23 @@ import Layer from "../Components/SVG/Layer";
  * @param component
  * @returns {{src: *, use: *}|{components: {Entity: *}, data(): *, render: (function(*): *), props: {camera: {default: null, type: *}}}}
  */
-let createAsset = function(data = {}) {
+let createAsset = function (data = {}) {
     let src = null;
     let use = null;
     let asset = null;
 
-    if(data.hasOwnProperty("src"))
-    {
+    if (data.hasOwnProperty("src")) {
         src = data.src;
     }
 
-    if(data.hasOwnProperty("layer")){
+    if (data.hasOwnProperty("layer")) {
         use = data.layer;
     }
 
     let mixin = {
         mixins: [AnimationEntity],
 
-        props:{
+        props: {
             /**
              * The internal id inside the SVG that we want to use. Leave blank to use the whole asset
              */
@@ -47,37 +45,27 @@ let createAsset = function(data = {}) {
             },
         },
 
-        data() { return { asset, positions: {} }; },
+        data() {
+            return {asset, layers: {}};
+        },
 
-        computed:{
-            layers() {
-                if(this.asset) {
-                    retval = {};
-
-                    Object.keys(this.asset.layers).map((layer) => {
-                        console.log("computing layers", layer, this.asset);
-                        retval[layer] = new LayeredPosition({}, {
-                            name: layer,
-                            id: this.asset.id + layer,
-                            ...this.asset.layers[layer]
-                        });
+        methods: {
+            onLoaded(loadedAsset) {
+                this.asset = loadedAsset;
+                let layers = {};
+                Object.keys(this.asset.layers).map((layer) => {
+                    layers[layer] = new LayeredPosition({}, {
+                        name: layer,
+                        id: this.asset.id + layer,
+                        ...this.asset.layers[layer]
                     });
+                });
 
-                    console.log("retval", retval);
-                    return retval;
-                }
-
-                return null;
+                this.layers = layers;
             },
         },
 
-        methods:{
-            onLoaded(loadedAsset){
-                this.asset=loadedAsset;
-            },
-        },
-
-        components: { Entity, Layer },
+        components: {Entity, Layer},
 
         /**
          * Equivalent to
@@ -86,15 +74,15 @@ let createAsset = function(data = {}) {
          * </template>
          */
         render: function (createElement) {
-            let props = { ...this.$props };
-            let on = { loaded: this.onLoaded };
+            let props = {...this.$props};
+            let on = {loaded: this.onLoaded};
             (this.use) ? props["use"] = this.use : null;
-            return createElement('entity', { props, on })
+            return createElement('entity', {props, on})
         },
     };
 
     // If we have a use value replace the prop in the asset to return the name of the layer by default
-    if(src){
+    if (src) {
         delete mixin.props.src;
         mixin.props.src = {
             type: String,
@@ -103,7 +91,7 @@ let createAsset = function(data = {}) {
     }
 
     // If we have a use value replace the prop in the asset to return the name of the layer by default
-    if(use){
+    if (use) {
         delete mixin.props.use;
         mixin.props.use = {
             type: String,
@@ -111,14 +99,13 @@ let createAsset = function(data = {}) {
         };
     }
 
-    let retval = { ...data };
+    let retval = {...data};
     delete retval.src;
     delete retval.layer;
 
-    if(retval.hasOwnProperty("mixins")){
+    if (retval.hasOwnProperty("mixins")) {
         retval.mixins.push(mixin);
-    }
-    else {
+    } else {
         retval.mixins = [mixin];
     }
 

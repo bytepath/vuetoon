@@ -101,6 +101,11 @@ export default {
             dimensions: new Position(),
             mutations: {},
             animationDirty: true,
+
+            /**
+             * The values used to transform this asset
+             */
+            transform: new Position(),
         };
     },
 
@@ -117,6 +122,11 @@ export default {
          * mark as dirty so we re calculate the transform matrix
          */
         dimensions: {
+            handler() {
+                this.positionChanged();
+            }, deep: true
+        },
+        position: {
             handler() {
                 this.positionChanged();
             }, deep: true
@@ -143,34 +153,7 @@ export default {
 
     computed: {
 
-        /**
-         * Computes actual position of entity
-         * @returns Object
-         */
-        transform() {
-            let center = this.centerPosition;
 
-            // calculate asset dimensions if not already done
-            if(this.dimensions) {
-                if (this.dimensions.width == null && this.dimensions.height == null) {
-                    this.calculateAssetDimensions();
-                }
-            }
-
-            return new Position({
-                x: this.x,
-                y: this.y,
-                angle: this.a,
-                scaleX: this.sx,
-                scaleY: this.sy,
-                skewX: 0,
-                skewY: 0,
-                centerX: center.x,
-                centerY: center.y,
-                width: this.w,
-                height: this.h,
-            });
-        },
 
         /**
          * Returns the position this asset is using as center
@@ -208,11 +191,43 @@ export default {
     },
 
     methods: {
+        /**
+         * Computes actual position of entity
+         * @returns Object
+         */
+        getPosition() {
+            console.log("getting transformation", this.position);
+
+            let center = this.centerPosition;
+
+            // calculate asset dimensions if not already done
+            if(this.dimensions) {
+                if (this.dimensions.width == null && this.dimensions.height == null) {
+                    this.calculateAssetDimensions();
+                }
+            }
+
+            return new Position({
+                x: this.x + this.position.x,
+                y: this.y + this.position.y,
+                angle: this.a + this.position.angle,
+                scaleX: this.sx + this.position.scaleX,
+                scaleY: this.sy + this.position.scaleY,
+                skewX: 0,
+                skewY: 0,
+                centerX: center.x + this.position.centerX,
+                centerY: center.y + this.position.centerY,
+                width: this.w  + this.position.width,
+                height: this.h + this.position.height,
+            });
+        },
 
         /**
          * Called when the position variable or position props change
          */
         positionChanged() {
+            console.log("position changed mixin");
+
             this.animationDirty = true;
             requestAnimationFrame(this.computeTransformation);
         },
@@ -279,7 +294,8 @@ export default {
          * @returns {*|DOMMatrix}
          */
         getTransformation() {
-            let m = this.transform.getDefaultTransformMatrix();
+            console.log("re drawing");
+            let m = this.getPosition().getDefaultTransformMatrix();
 
             // compute any mutator matricies we have specified
             Object.values(this.mutations).forEach((mutation) => {
@@ -295,7 +311,7 @@ export default {
          */
         computeTransformation() {
             if (this.animationDirty) {
-                this.getTransformation();
+                this.transform = this.getTransformation();
                 this.animationDirty = false;
             }
         },

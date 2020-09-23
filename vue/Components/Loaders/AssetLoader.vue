@@ -1,7 +1,7 @@
 <template>
     <g>
         <defs>
-            <symbol :id="asset" v-if="assetData" v-html="assetString"></symbol>
+            <symbol :id="owner" v-if="assetData" v-html="assetString"></symbol>
         </defs>
         <slot :loaded="loaded" :href="'#' + loadedAssetId" />
     </g>
@@ -33,9 +33,9 @@
             },
 
             /**
-             * The ID that should be used on the loaded svg file
+             * The id of the asset that requested this asset
              */
-            asset: {
+            owner: {
                 type: String,
                 required: true,
             }
@@ -67,10 +67,10 @@
          * use the <use> tag of the SVG spec to clone the tag with id = loadedAssets[this.src]
          */
         created() {
-            this.loader.load(this.src, this.asset).then((response) => {
+            this.loader.load(this.src, this.owner).then((response) => {
                 this.loadedAsset = this.loader.loadedAssets[this.assetKey];
 
-                if(this.loader.loadedAssets[this.assetKey].id == this.asset){
+                if(this.loader.loadedAssets[this.assetKey].id == this.owner){
                     this.loadedTheFile = true;
                 }
 
