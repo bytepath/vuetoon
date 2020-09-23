@@ -24,7 +24,7 @@ export default {
 
     data(){
         return {
-            animations: this.loadAnimation(),
+
         };
     },
 
@@ -35,45 +35,34 @@ export default {
     },
 
     computed:{
-
+        animations() {
+            return {
+                default: [],
+            };
+        },
 
         currentAnimation(){
             // Check to see if the animation controls have specified an animation to play
             if(this.anim) {
                 // Check to see if this entity has an animation with the name in the controls
                 if (Object.prototype.hasOwnProperty.call(this.animations, this.anim)) {
-                    //console.log("new animation", this.anim);
-                    return new Animation(this.anim, this.animations[this.anim], this.repeat);
+                    console.log("new animation", this.anim, this.animations);
+                    return new Animation(this.anim, this.loadAnimation(this.anim), this.repeat);
                 }
             }
 
-            return new Animation('default', this.animations.default, this.repeat);
+            return new Animation('default', this.loadAnimation(this.animations.default), this.repeat);
         },
     },
 
     methods: {
-        loadAnimation(){
-            let animations = {};
-            Object.entries(this.componentAnimations()).forEach(([name, data]) => {
-                let anim = AnimationDataFactory.createFromUserAnimation(name, data);
-                animations[name] = anim;
-                //console.log("load animation found", name, anim);
-            });
-
-            return animations;
+        loadAnimation(anim){
+            console.log("loading animation", anim, this.animations[anim]);
+            return AnimationDataFactory.createFromUserAnimation(anim, this.animations[anim]);
         },
 
         keyframeChanged(keyframe) {
             this.currentAnimation.computeFrame(keyframe, this);
-        },
-
-        /**
-         * Returns a list of animations for this component.
-         */
-        componentAnimations(){
-            return {
-                default: [],
-            };
         },
     },
 }

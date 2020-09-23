@@ -15,6 +15,7 @@ let createAsset = function (data = {}) {
     let src = null;
     let layers = null;
     let image = null;
+    let animations = null;
 
     if (data.hasOwnProperty("src")) {
         src = data.src;
@@ -22,6 +23,11 @@ let createAsset = function (data = {}) {
 
     if (data.hasOwnProperty("layers")) {
         layers = data.layers;
+    }
+
+    if (data.hasOwnProperty("animations")) {
+        animations = data.animations;
+        console.log("oh wow custom animations", animations);
     }
 
     let mixin = {
@@ -58,7 +64,9 @@ let createAsset = function (data = {}) {
         },
 
         computed:{
-          filteredLayers(){
+            animations,
+
+            filteredLayers(){
               if(!this.layers){
                   return {};
               }

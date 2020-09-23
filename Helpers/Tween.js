@@ -58,10 +58,10 @@ export default class Tween {
         let e = end.slice(1).match(/.{1,2}/g).map((val) => parseInt(val, 16));
         let retval = [];
         [0,1,2].map((i) => retval.push(Math.abs(this.integer(s[0], e[0])).toString(16).toUpperCase()));
-        console.log("retval", retval);
+        //console.log("retval", retval);
         retval =  retval = "#" + retval.join("");
-        console.log(retval);
-        console.log();
+        //console.log(retval);
+        //console.log();
 
         return retval;
     }
