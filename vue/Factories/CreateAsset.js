@@ -50,6 +50,7 @@ let createAsset = function (data = {}) {
         },
 
         methods: {
+
             onLoaded(loadedAsset) {
                 this.asset = loadedAsset;
                 let layers = {};
@@ -67,18 +68,50 @@ let createAsset = function (data = {}) {
 
         components: {Entity, Layer},
 
+        // /**
+        //  * Equivalent to
+        //  * <template>
+        //  *      <entity v-bind="$props" :src="src" :use="use" />
+        //  * </template>
+        //  */
+        // render: function (createElement) {
+        //     let props = {...this.$props};
+        //     let on = {loaded: this.onLoaded};
+        //     (this.use) ? props["use"] = this.use : null;
+        //     return createElement('entity', {props, on})
+        // },
+
         /**
          * Equivalent to
          * <template>
-         *      <entity v-bind="$props" :src="src" :use="use" />
+         *      <entity v-bind="$props" :src="src" :use="use">
+         *          <layer v-for="(layer, i) in layers" :key="i" :position="layer" />
+         *      </entity>
          * </template>
          */
         render: function (createElement) {
             let props = {...this.$props};
             let on = {loaded: this.onLoaded};
             (this.use) ? props["use"] = this.use : null;
-            return createElement('entity', {props, on})
+
+            let children = [];
+
+            if (this.layers) {
+                Object.keys(this.layers).map((layer, i) => {
+                    console.log("renderless layer loop", layer, this.layers);
+                    let element = createElement('layer', {
+                        props: {
+                            position: this.layers[layer],
+                            key: i,
+                        }
+                    });
+                    children.push(element);
+                });
+            }
+
+            return createElement('entity', {props, on}, children);
         },
+
     };
 
     // If we have a use value replace the prop in the asset to return the name of the layer by default
