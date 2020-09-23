@@ -71,7 +71,11 @@ export default {
             this.timerId = false;
         },
 
-        running(){
+        /**
+         * Update the timers frame number somehow
+         * @param timeDiff the difference in milliseconds between this and prev frame
+         */
+        running(timeDiff = 0){
             // Do something here in your child component/mixin target
         },
 
@@ -86,8 +90,9 @@ export default {
 
             if(this.fps > 0) {
                 let frametime = 1000 / this.fps;
-                if ((time - this.$options.prevFrameTime >= frametime)) {
-                    this.running();
+                let timeDiff = time - this.$options.prevFrameTime;
+                if ((timeDiff >= frametime)) {
+                    this.running(Math.floor(timeDiff));
                     this.$options.prevFrameTime = time;
                 }
             }

@@ -3,32 +3,18 @@
 
     export default {
         mixins: [PlaybackTimer],
-        props: {
-            timeout:{
-                type: Number,
-                default: 33,
-            },
-
-            interval: {
-                type: Number,
-                default: 33
-            }
-        },
+        props: {},
 
         methods: {
             createTimer(){
                 this.timerId = true;
                 this.newTimeout();
             },
-
-            clearTimer(){
-                cancelAnimationFrame(this.timerId);
-            },
-
-            running(){
+            
+            running(timeDiff = 0){
                 //console.log("running");
                 if(this.shouldTick) {
-                    this.frame += this.interval;
+                    this.frame += timeDiff;
                 }
             },
 
@@ -39,7 +25,8 @@
             // Create a new timeout that when finished will run the running function of this control
             newTimeout() {
                 if(this.fps > 0) {
-                    this.timerId = requestAnimationFrame(this.timeStep);
+                    requestAnimationFrame(this.timeStep);
+                    this.timerId = true;
                 }
             }
         },
