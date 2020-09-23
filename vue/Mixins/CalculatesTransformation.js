@@ -171,14 +171,28 @@ export default {
          * The width of the asset
          */
         w(){
-            return (this.width) ? this.width : this.dimensions.width;
+            if(this.position.width !== null) {
+                return this.position.width;
+            }
+            else if(this.width !== null) {
+                return this.width;
+            }
+
+            return this.dimensions.width;
         },
 
         /**
          * The height of the asset
          */
         h(){
-            return (this.height) ? this.height : this.dimensions.height;
+            if(this.position.height !== null) {
+                return this.position.height;
+            }
+            else if(this.height !== null) {
+                return this.height;
+            }
+
+            return this.dimensions.height;
         },
 
         // /**
@@ -196,8 +210,6 @@ export default {
          * @returns Object
          */
         getPosition() {
-            console.log("getting transformation", this.position);
-
             let center = this.centerPosition;
 
             // calculate asset dimensions if not already done
@@ -226,8 +238,6 @@ export default {
          * Called when the position variable or position props change
          */
         positionChanged() {
-            console.log("position changed mixin");
-
             this.animationDirty = true;
             requestAnimationFrame(this.computeTransformation);
         },
@@ -294,7 +304,6 @@ export default {
          * @returns {*|DOMMatrix}
          */
         getTransformation() {
-            console.log("re drawing");
             let m = this.getPosition().getDefaultTransformMatrix();
 
             // compute any mutator matricies we have specified

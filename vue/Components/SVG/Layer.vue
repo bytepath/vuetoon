@@ -12,17 +12,6 @@
             }
         },
 
-        methods:{
-            /**
-             * Called when the position variable or position props change
-             */
-            positionChanged() {
-                console.log("position changed layer");
-                this.animationDirty = true;
-                requestAnimationFrame(this.computeTransformation);
-            },
-        },
-
         mixins: [AnimationEnity],
         components: { Entity }
     };

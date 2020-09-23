@@ -1,6 +1,9 @@
 <template>
-    <svg :id="'svg' + assetID" :width="w" :height="h" :transform="transform" :viewBox="viewboxString"
-         >
+    <svg :id="'svg' + assetID"
+         :width="w" :height="h"
+         :transform="transform"
+         :viewBox="viewboxString"
+         :preserveAspectRatio="$attrs.aspect">
         <asset-loader v-if="src" :src="src" :owner="assetID" @loaded="assetLoaded" v-slot="{ href }">
             <g :id="'g' + assetID" :transform="assetMatrix">
                 <slot :position="position" :href="href"/>
@@ -157,9 +160,7 @@
                     if (typeof element.getBBox == "function") {
                         let bbox = element.getBBox();
 
-                        console.log("bbox", bbox);
-                        // Move the asset into the position of the camera by multiplying by the inverse of its bbox
-                        // X y positions
+                        // Set the width of this entity using the size of its bbox
                         this.dimensions.height = bbox.height;
                         this.dimensions.width = bbox.width;
 
