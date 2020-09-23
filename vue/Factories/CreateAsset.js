@@ -46,7 +46,7 @@ let createAsset = function (data = {}) {
         },
 
         data() {
-            return {asset, layers: {}};
+            return {asset, layers: null};
         },
 
         methods: {
