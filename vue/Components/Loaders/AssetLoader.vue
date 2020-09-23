@@ -3,7 +3,7 @@
         <defs>
             <symbol :id="asset" v-if="assetData" v-html="assetString"></symbol>
         </defs>
-        <slot :loaded="loaded" :href="loadedAssetId" />
+        <slot :loaded="loaded" :href="'#' + loadedAssetId" />
     </g>
 </template>
 

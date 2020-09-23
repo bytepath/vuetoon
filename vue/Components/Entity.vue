@@ -118,7 +118,9 @@
             viewboxString() {
                 if (this.viewBox) {
                     let b = this.viewBox;
-                    return `${b.x} ${b.y} ${b.width} ${b.height}`;
+                    if(b.width > 0 && b.height > 0) {
+                        return `${b.x} ${b.y} ${b.width} ${b.height}`;
+                    }
                 }
 
                 return null;
@@ -171,6 +173,7 @@
                     if (typeof element.getBBox == "function") {
                         let bbox = element.getBBox();
 
+                        console.log("bbox", bbox);
                         // Move the asset into the position of the camera by multiplying by the inverse of its bbox
                         // X y positions
                         this.dimensions.height = bbox.height;

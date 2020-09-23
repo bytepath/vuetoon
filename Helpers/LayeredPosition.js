@@ -6,6 +6,6 @@ export default class LayeredPosition extends Position {
      */
     constructor(position, layer) {
         super(position);
-        this.layer = layer;
+        this.component = layer;
     }
 }
