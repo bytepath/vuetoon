@@ -47,7 +47,26 @@ let createAsset = function (data = {}) {
         },
 
         data() {
-            return {asset, layers: null};
+            return {asset, layers: null, showLayers: []};
+        },
+
+        computed:{
+          filteredLayers(){
+              if(!this.layers){
+                  return {};
+              }
+
+              if(this.showLayers.length === 0){
+                  return this.layers;
+              }
+
+              return Object.keys(this.layers)
+              .filter(layer => this.showLayers.includes(layer))
+              .reduce((obj, layer) => {
+                  obj[layer] = this.layers[layer];
+                  return obj;
+              }, {});
+          }
         },
 
         methods: {
@@ -73,7 +92,7 @@ let createAsset = function (data = {}) {
          * Equivalent to
          * <template>
          *      <entity v-bind="$props" :src="src" :use="use">
-         *          <layer v-for="(layer, i) in layers" :key="i" :position="layer" />
+         *          <layer v-for="(layer, i) in filteredLayers" :key="i" :position="layer" />
          *      </entity>
          * </template>
          */
@@ -85,7 +104,7 @@ let createAsset = function (data = {}) {
             let children = [];
 
             if (this.layers) {
-                Object.keys(this.layers).map((layer, i) => {
+                Object.keys(this.filteredLayers).map((layer, i) => {
                     console.log("renderless layer loop", layer, this.layers);
                     let element = createElement('layer', {
                         props: {
