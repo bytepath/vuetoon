@@ -14,15 +14,15 @@ import Layer from "../Components/SVG/Layer";
 let createAsset = function (data = {}) {
     console.log("create asset", data);
     let src = null;
-    let use = null;
-    let asset = null;
+    let layers = null;
+    let image = null;
 
     if (data.hasOwnProperty("src")) {
         src = data.src;
     }
 
-    if (data.hasOwnProperty("layer")) {
-        use = data.layer;
+    if (data.hasOwnProperty("layers")) {
+        layers = data.layers;
     }
 
     let mixin = {
@@ -30,28 +30,29 @@ let createAsset = function (data = {}) {
 
         props: {
             /**
-             * The internal id inside the SVG that we want to use. Leave blank to use the whole asset
-             */
-            use: {
-                type: String,
-                default: null
-            },
-
-            /**
              * The file path to the asset we need to load. Optional if you don't need to load an asset
              */
             src: {
                 type: String,
                 default: null,
             },
+
+            /**
+             * We will only display the layers that are specified here, or all layers if array is empty
+             */
+            showLayers: {
+                type: Array,
+                default(){ return []; },
+            }
         },
 
         data() {
-            return {asset, layers: null, showLayers: []};
+            return {image, layers: null};
         },
 
         computed:{
           filteredLayers(){
+              console.log("filtering layers", this.showLayers);
               if(!this.layers){
                   return {};
               }
@@ -72,13 +73,13 @@ let createAsset = function (data = {}) {
         methods: {
 
             onLoaded(loadedAsset) {
-                this.asset = loadedAsset;
+                this.image = loadedAsset;
                 let layers = {};
-                Object.keys(this.asset.layers).map((layer) => {
+                Object.keys(this.image.layers).map((layer) => {
                     layers[layer] = new LayeredPosition({}, {
                         name: layer,
-                        id: this.asset.id + layer,
-                        ...this.asset.layers[layer]
+                        id: this.image.id + layer,
+                        ...this.image.layers[layer]
                     });
                 });
 
@@ -86,12 +87,12 @@ let createAsset = function (data = {}) {
             },
         },
 
-        components: {Entity, Layer},
+        components: { Entity, Layer },
 
         /**
          * Equivalent to
          * <template>
-         *      <entity v-bind="$props" :src="src" :use="use">
+         *      <entity v-bind="$props" :src="src">
          *          <layer v-for="(layer, i) in filteredLayers" :key="i" :position="layer" />
          *      </entity>
          * </template>
@@ -99,22 +100,18 @@ let createAsset = function (data = {}) {
         render: function (createElement) {
             let props = {...this.$props};
             let on = {loaded: this.onLoaded};
-            (this.use) ? props["use"] = this.use : null;
-
             let children = [];
 
-            if (this.layers) {
-                Object.keys(this.filteredLayers).map((layer, i) => {
-                    console.log("renderless layer loop", layer, this.layers);
-                    let element = createElement('layer', {
-                        props: {
-                            position: this.layers[layer],
-                            key: i,
-                        }
-                    });
-                    children.push(element);
+            Object.keys(this.filteredLayers).map((layer, i) => {
+                console.log("renderless layer loop", layer, this.layers);
+                let element = createElement('layer', {
+                    props: {
+                        position: this.layers[layer],
+                        key: i,
+                    }
                 });
-            }
+                children.push(element);
+            });
 
             return createElement('entity', {props, on}, children);
         },
@@ -130,18 +127,19 @@ let createAsset = function (data = {}) {
         };
     }
 
-    // If we have a use value replace the prop in the asset to return the name of the layer by default
-    if (use) {
-        delete mixin.props.use;
-        mixin.props.use = {
-            type: String,
-            default: use,
+    // If we have a use value we only want to display these layers on the screen. use can be an array or a string
+    if (layers) {
+        delete mixin.props.showLayers;
+
+        mixin.props.showLayers = {
+            type: Array,
+            default(){ return layers; },
         };
     }
 
     let retval = {...data};
     delete retval.src;
-    delete retval.layer;
+    delete retval.layers;
 
     if (retval.hasOwnProperty("mixins")) {
         retval.mixins.push(mixin);

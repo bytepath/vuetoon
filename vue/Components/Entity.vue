@@ -70,7 +70,6 @@
                 let viewBox = null;
 
                 if (this.assetDimensions) {
-                    console.log("has asset dimensions", this);
                     viewBox = new Position({
                         x: this.assetDimensions.x,
                         y: this.assetDimensions.y,
@@ -102,10 +101,7 @@
                             height: (br.y),
                         });
                     }
-                } else {
-                    console.log("no assset dimensions", this);
                 }
-
 
                 return viewBox;
             },
