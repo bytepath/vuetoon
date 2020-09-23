@@ -142,12 +142,11 @@ export default {
             let center = this.centerPosition;
 
             // calculate asset dimensions if not already done
-            if(this.dimensions) {
-                if (this.dimensions.width == null && this.dimensions.height == null) {
-                    this.calculateAssetDimensions();
-                }
+            if(this.dimensions){
+            if(this.dimensions.width == null && this.dimensions.height == null) {
+                this.calculateAssetDimensions();
             }
-
+}
             return new Position({
                 x: this.x,
                 y: this.y,
