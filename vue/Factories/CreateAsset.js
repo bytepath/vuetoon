@@ -2,7 +2,7 @@
 import Entity from "../Components/Entity";
 import AnimationEntity from '../Mixins/AnimationEntity';
 import nameFromPath from "../Components/Filters/Filename";
-import Position from "../../Helpers/Position";
+import LayeredPosition from "../../Helpers/LayeredPosition";
 
 /**
  *
@@ -51,7 +51,16 @@ let createAsset = function(data = {}) {
         computed:{
             layers() {
                 if(this.asset) {
-                    return this.asset.layers;
+                    retval = {};
+
+                    Object.keys(this.asset.layers).map((layer) => {
+                        console.log("computing layers", layer, this.asset.layers[layer]);
+                        retval[layer] = new LayeredPosition({}, this.asset.layers[layer]);
+                    });
+
+
+                    console.log("retval", retval);
+                    return retval;
                 }
 
                 return null;
@@ -61,12 +70,6 @@ let createAsset = function(data = {}) {
         methods:{
             onLoaded(loadedAsset){
                 this.asset=loadedAsset;
-
-                //this.$options.components = { ...this.$options.components, ...this.layers };
-                Object.keys(this.layers).map((key) => {
-                    this.$options.components[key] = this.layers[key];
-                    this.positions[key] = new Position();
-                });
             },
         },
 

@@ -1,8 +1,9 @@
 <template>
-    <svg :id="'svg' + usedAsset" :width="w" :height="h" :viewBox="viewboxString">
+    <svg :id="'svg' + usedAsset" :width="w" :height="h" :transform="transform" :viewBox="viewboxString"
+         >
         <asset-loader v-if="src" :src="src" :asset="asset" @loaded="assetLoaded" v-slot="{ href }">
             <g :id="'g' + usedAsset" :transform="assetMatrix">
-                <slot :transform="transform" :position="position" :asset="usedAsset" :href="href + ((use)?use:'')"/>
+                <slot :position="position" :asset="usedAsset" :href="href + ((use)?use:'')"/>
             </g>
         </asset-loader>
     </svg>
@@ -170,6 +171,8 @@
                     if (typeof element.getBBox == "function") {
                         let bbox = element.getBBox();
 
+                        // Move the asset into the position of the camera by multiplying by the inverse of its bbox
+                        // X y positions
                         this.dimensions.height = bbox.height;
                         this.dimensions.width = bbox.width;
 
