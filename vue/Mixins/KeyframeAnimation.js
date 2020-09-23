@@ -41,7 +41,7 @@ export default {
             };
         },
 
-        currentAnimation(){
+        animation(){
             // Check to see if the animation controls have specified an animation to play
             if(this.anim) {
                 // Check to see if this entity has an animation with the name in the controls
@@ -62,7 +62,7 @@ export default {
         },
 
         keyframeChanged(keyframe) {
-            this.currentAnimation.computeFrame(keyframe, this);
+            this.animation.computeFrame(keyframe, this);
         },
     },
 }
