@@ -10,7 +10,7 @@
                 this.timerId = true;
                 this.newTimeout();
             },
-            
+
             running(timeDiff = 0){
                 //console.log("running");
                 if(this.shouldTick) {

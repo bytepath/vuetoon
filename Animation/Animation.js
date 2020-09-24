@@ -6,6 +6,7 @@ export default class Animation {
         this.animation = AnimationData;
         this.repeat = repeat;
         this.timesRepeated = 0;
+        this.previousFrame = 0;
     }
 
     /**
@@ -31,9 +32,10 @@ export default class Animation {
 
         // Should we repeat the animation
         let end = this.animation.end;
-        if (end) {
-            let numRuns = Math.floor(keyframe / end);
+        if (end && this.repeat) {
+            let numRuns = Math.trunc(keyframe / end);
             if (numRuns > this.timesRepeated) {
+                console.log("need to repeat", numRuns, this.timesRepeated, keyframe, this);
                 this.resetAnimation(context);
                 this.timesRepeated = numRuns;
             }
@@ -50,6 +52,7 @@ export default class Animation {
             return (action.handler) ? action.handler({ keyframe, context, tween: new Tween(frame, action.start, action.end)}) : false;
         });
 
+        this.previousFrame = keyframe;
         return didSomething;
     }
 
@@ -63,6 +66,9 @@ export default class Animation {
             let end = (action.end) ? action.end : Number.MAX_SAFE_INTEGER;
 
             // If this action is within its execution range then we need to execute it
+
+            //if ((keyframe <= start)
+
             if ((keyframe >= start) && (keyframe <= end)) {
                 if (callback) {
                     callback(action);
@@ -75,9 +81,18 @@ export default class Animation {
     }
 
     resetAnimation(context) {
+        console.log("reset animation");
         return Object.values(this.animation.data.actions.reverse()).filter((action) => {
             if (action.reset){
+                console.log("calling reset func");
                 action.reset(context);
+            }
+
+            // Call handler from the earliest position of the animation frame
+            if(action.handler){
+                let args = { keyframe: action.start, context, tween: new Tween(action.start, action.start, action.end)};
+                console.log("handler func", args);
+                action.handler(args);
             }
         });
     }
