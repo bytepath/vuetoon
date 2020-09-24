@@ -101,14 +101,12 @@ let retval = class Animation {
 
     getActionsForFrame(keyframe, playbackDirection = 1, callback = null) {
 
-
-        let processFunc = (callback) ? callback : () => {
-        };
-
+        let processFunc = (callback) ? callback : () => {};
         let actions = Object.values(this.animation.data.actions);
 
         // If keyframe is moving left on timeline (rewinding) we should iterate thru actions from right to left
         if (playbackDirection < 0) {
+            console.log("reversing actions");
             actions = actions.reverse();
         }
 
