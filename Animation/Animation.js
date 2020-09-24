@@ -1,12 +1,16 @@
 import Tween from "../Helpers/Tween";
 
-export default class Animation {
+let retval = class Animation {
     constructor(name, AnimationData, repeat = false) {
         this.name = name;
         this.animation = AnimationData;
         this.repeat = repeat;
         this.timesRepeated = 0;
         this.previousFrame = 0;
+
+        this.INITIAL = 0;
+        this.REWIND = -1;
+        this.FASTFORWARD = 1;
     }
 
     /**
@@ -44,35 +48,105 @@ export default class Animation {
         // internal keyframe can vary from "user" keyframe if repeat = true so we need to calculate that
         let frame = this.calculateAnimationKeyframe(keyframe);
 
-        //console.log("animation compute frame", this.name, keyframe, frame);
+        /**
+         Determine the direction of playback. Direction can be three states:
+         Animation.INITIAL = 0 = Animation has never been played
+         Animation.INITIAL = 0 = Animation is moving left along timeline toward frame START
+         Animation.INITIAL = 0 = Animation is moving right along timeline toward frame END
+         */
+        let direction = keyframe - this.previousFrame;
+        if (direction > 0) {
+            direction = this.FASTFORWARD;
+        }
+        if (direction < 0) {
+            direction = this.REWIND;
+        } else {
+            direction = this.INITIAL;
+        }
+
+        let callBack = (action, forceFrame = null) => {
+            let frame = (this.forceFrame) ? this.forceFrame : keyframe;
+
+            // If no start frame is specified we assume it's supposed to be zero
+            let start = action.start ? action.start : 0;
+            // If no end frame is specified assume there isn't one
+            let end = (action.end) ? action.end : Number.MAX_SAFE_INTEGER;
+
+
+            console.log("callback", frame, start, end, direction);
+            if (frame === start && direction === this.REWIND) {
+                //console.log("start frame during rewind setting position", {frame, start, action});
+                action.position = this.REWIND;
+            }
+            else if (frame === end && direction === this.FASTFORWARD) {
+                console.log("end frame during fast forward setting position", {frame, end, action});
+                action.position = this.FASTFORWARD;
+            }
+
+
+
+            return (action.handler) ? action.handler({
+                frame,
+                context,
+                tween: new Tween(frame, action.start, action.end)
+            }) : false;
+        };
 
         // Iterate through the list of actions and execute any within keyframe range
-        didSomething |= this.getActionsForFrame(frame, (action) => {
-            //console.log("hello from action process func", action.handler, context);
-            return (action.handler) ? action.handler({ keyframe, context, tween: new Tween(frame, action.start, action.end)}) : false;
-        });
+        didSomething |= this.getActionsForFrame(frame, direction, callBack);
 
         this.previousFrame = keyframe;
         return didSomething;
     }
 
-    getActionsForFrame(keyframe, callback = null) {
+    getActionsForFrame(keyframe, playbackDirection = 1, callback = null) {
+
+
+        let processFunc = (callback) ? callback : () => {
+        };
+
+        let actions = Object.values(this.animation.data.actions);
+
+        // If keyframe is moving left on timeline (rewinding) we should iterate thru actions from right to left
+        if (playbackDirection < 0) {
+            actions = actions.reverse();
+        }
+
         // Iterate through the actions
-        return Object.values(this.animation.data.actions).filter((action) => {
+        return actions.filter((action) => {
             // If no start frame is specified we assume it's supposed to be zero
             let start = action.start ? action.start : 0;
 
             // If no end frame is specified assume there isn't one
             let end = (action.end) ? action.end : Number.MAX_SAFE_INTEGER;
 
-            // If this action is within its execution range then we need to execute it
 
-            //if ((keyframe <= start)
-
-            if ((keyframe >= start) && (keyframe <= end)) {
-                if (callback) {
-                    callback(action);
+            // keyframe is BEFORE this action on the timeline, but this action has position Animation.INITIAL
+            // it means that this action did not finish playing because the keyframe jumped past it's final
+            // position. Play this frame at it's start location to ensure animation remains in sync
+            if ((playbackDirection === this.REWIND) && (keyframe < start && this.previousFrame > start)) {
+                if (action.position !== this.REWIND) {
+                    // console.log("maybe have to finish this action", action);
+                    // console.log(this.previousFrame, keyframe, start, action);
+                    processFunc(action, start);
                 }
+            }
+
+            // keyframe is AFTER this action on the timeline, but this action has position Animation.INITIAL
+            // it means that this action did not finish playing because the keyframe jumped past it's final
+            // position. Play this frame at it's end location to ensure animation remains in sync
+            else if (keyframe > end && this.previousFrame < end) {
+                if ((playbackDirection === this.FASTFORWARD) && (action.position !== this.FASTFORWARD)) {
+                    console.log("maybe have to finish this action", action);
+                    console.log(this.previousFrame, keyframe, start, action);
+                    processFunc(action, end);
+                }
+            }
+
+
+            // If this action is within its execution range then we need to execute it
+            else if ((keyframe >= start) && (keyframe <= end)) {
+                processFunc(action);
                 return true;
             }
 
@@ -83,17 +157,24 @@ export default class Animation {
     resetAnimation(context) {
         console.log("reset animation");
         return Object.values(this.animation.data.actions.reverse()).filter((action) => {
-            if (action.reset){
+            if (action.reset) {
                 console.log("calling reset func");
                 action.reset(context);
             }
 
             // Call handler from the earliest position of the animation frame
-            if(action.handler){
-                let args = { keyframe: action.start, context, tween: new Tween(action.start, action.start, action.end)};
+            if (action.handler) {
+                let args = {keyframe: action.start, context, tween: new Tween(action.start, action.start, action.end)};
                 console.log("handler func", args);
                 action.handler(args);
             }
         });
     }
 }
+
+let args = {writable: false, enumerable: true, configurable: false};
+Object.defineProperty(retval, 'INITIAL', {value: 0, ...args});
+Object.defineProperty(retval, 'REWIND', {value: -1, ...args});
+Object.defineProperty(retval, 'FASTFORWARD', {value: 1, ...args});
+
+export default retval;

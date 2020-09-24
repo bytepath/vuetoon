@@ -17,43 +17,43 @@ export default class Tween {
      * @returns {number} a number between start and end depending on keyframe location
      */
     number(start, end){
-        console.log("tween num", {start, end, startframe: this.startFrame, endframe: this.endFrame, keyframe: this.keyframe});
+        //console.log("tween num", {start, end, startframe: this.startFrame, endframe: this.endFrame, keyframe: this.keyframe});
         if(start === end){
             return start;
         }
 
         if(this.keyframe >= this.endFrame){
-            console.log("tween num return end");
+         //   console.log("tween num return end");
             return end;
         }
 
         if(this.keyframe <= this.startFrame){
-            console.log("tween num return start");
+        //    console.log("tween num return start");
             return start;
         }
 
         // The difference between start and end number
         let numberDiff = end - start;
-        console.log("diff", numberDiff);
+        //console.log("diff", numberDiff);
         // The difference between the start and end animation frame
         let frameDiff = this.endFrame - this.startFrame;
-        console.log("framediff", frameDiff);
+        //console.log("framediff", frameDiff);
 
         // The amount we need to increase or decrease each frame
         let numbersPerFrame = numberDiff / frameDiff;
-        console.log("numPerframe", numbersPerFrame);
+        //console.log("numPerframe", numbersPerFrame);
 
         //let retval = (this.keyframe - this.startFrame) * numbersPerFrame;
         let retval = start + (this.keyframe * numbersPerFrame);
 
         if(retval > end){
-            console.log("return end", end);
-            console.log();
+           // console.log("return end", end);
+          //  console.log();
 
             return end;
         }
-        console.log("return", retval);
- console.log();
+       // console.log("return", retval);
+// console.log();
         return retval;
     }
 
@@ -84,7 +84,7 @@ export default class Tween {
      */
     integer(start, end){
         let ret =  Math.ceil(this.number(start, end));
-        console.log("tween int ret", ret);
+        //console.log("tween int ret", ret);
         return ret;
     }
 
@@ -118,7 +118,7 @@ export default class Tween {
         let s = start.slice(1).match(/.{1,2}/g).map((val) => parseInt(val, 16));
         let e = end.slice(1).match(/.{1,2}/g).map((val) => parseInt(val, 16));
         let retval = [];
-        console.log({s,e});
+        //console.log({s,e});
         [0,1,2].map((i) => {
             let dec = this.integer(s[i], e[i]);
             let value = this.decimalToHexString(dec);
@@ -127,13 +127,13 @@ export default class Tween {
                 value = "00";
             }
 
-            console.log("value is", value, dec);
+            //console.log("value is", value, dec);
             retval.push(value);
         });
-        console.log("retval", retval);
+        //console.log("retval", retval);
         retval =  retval = "#" + retval.join("");
-        console.log(retval);
-        console.log();
+        //console.log(retval);
+        //console.log();
 
         return retval;
     }
