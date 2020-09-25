@@ -10,7 +10,6 @@
 const axios = require('axios');
 let inst = null;
 import SrcToKey from "../vue/Components/Filters/SanitizedPath";
-import CreateAsset from "../vue/Factories/CreateAsset";
 
 let loader = class SVGLoader {
     constructor() {

@@ -15,7 +15,7 @@ export default {
             /**
              *  Determine the start frame of this animation.
              */
-            if(anim.hasOwnProperty('start')){
+            if(Object.prototype.hasOwnProperty.call(anim, "start")) {
                 if(anim.start < start){
                     start = anim.start;
                 }
@@ -24,7 +24,7 @@ export default {
             /**
              *  Determine the end frame of this animation. Note than an animation does not need an end frame
              */
-            if(anim.hasOwnProperty('end')){
+            if(Object.prototype.hasOwnProperty.call(anim,'end')) {
                 if(!end){
                     end = anim.end;
                 }
@@ -34,7 +34,6 @@ export default {
             }
         });
 
-        // Note that meta isn't added to the final obj. Not sure if I want to leave that or not yet
-        return new AnimationData(name, { actions }, start, end, false);
+        return new AnimationData(name, { actions, meta }, start, end, false);
     }
 };

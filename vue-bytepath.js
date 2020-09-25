@@ -15,8 +15,8 @@ import entityDiv from './vue/Components/Dom/EntityDiv';
 import entity from './vue/Components/Entity';
 
 // Animations
-import bounce from './vue/Components/Animations/bounce';
-import spin from './vue/Components/Animations/spin';
+import bounce from './vue/Components/Animations/Bounce';
+import spin from './vue/Components/Animations/Spin';
 
 // Mutators
 import acceleratesTranslation from './vue/Mutators/AcceleratesTranslation';
@@ -31,6 +31,8 @@ const Bytepath = {
     AnimationEntity,
     entity,
     CreateAsset,
+    CreateEntity: CreateAsset,
+
     Position,
     mixins: {
         playbackTimer,
@@ -57,17 +59,6 @@ const Bytepath = {
     dom:{
         entityDiv
     },
-
-
-    // The default init function
-    init(modules = ['keyframer', 'transformer']){
-        return this.initAsMixin();
-    },
-
-    // Force bytepath to init as mixin
-    initAsMixin(modules = null) {
-        return AnimationEntity;
-    }
 }
 
 export default Bytepath;

@@ -16,6 +16,22 @@
   "devDependencies": {
     "axios": "^0.19"
   },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {
+      "vue/no-side-effects-in-computed-properties": "warn"
+    }
+  },
   "author": "Andrew Reddin",
   "license": "MIT"
 }

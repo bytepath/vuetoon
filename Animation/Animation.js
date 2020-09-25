@@ -51,21 +51,21 @@ let retval = class Animation {
         /**
          Determine the direction of playback. Direction can be three states:
          Animation.INITIAL = 0 = Animation has never been played
-         Animation.INITIAL = 0 = Animation is moving left along timeline toward frame START
-         Animation.INITIAL = 0 = Animation is moving right along timeline toward frame END
+         Animation.REWIND = 0 = Animation is moving left along timeline toward frame START
+         Animation.FASTFORWARD = 0 = Animation is moving right along timeline toward frame END
          */
         let direction = keyframe - this.previousFrame;
         if (direction > 0) {
             direction = this.FASTFORWARD;
         }
-        if (direction < 0) {
+        else if (direction < 0) {
             direction = this.REWIND;
         } else {
             direction = this.INITIAL;
         }
 
         let callBack = (action, forceFrame = null) => {
-            let frame = (this.forceFrame) ? this.forceFrame : keyframe;
+            let frame = (forceFrame) ? forceFrame : keyframe;
 
             // If no start frame is specified we assume it's supposed to be zero
             let start = action.start ? action.start : 0;
@@ -73,9 +73,8 @@ let retval = class Animation {
             let end = (action.end) ? action.end : Number.MAX_SAFE_INTEGER;
 
 
-            console.log("callback", frame, start, end, direction);
             if (frame === start && direction === this.REWIND) {
-                //console.log("start frame during rewind setting position", {frame, start, action});
+                console.log("start frame  rewind ", {frame, start, action});
                 action.position = this.REWIND;
             }
             else if (frame === end && direction === this.FASTFORWARD) {
@@ -86,7 +85,7 @@ let retval = class Animation {
 
 
             return (action.handler) ? action.handler({
-                frame,
+                keyframe: frame,
                 context,
                 tween: new Tween(frame, action.start, action.end)
             }) : false;
@@ -106,8 +105,8 @@ let retval = class Animation {
 
         // If keyframe is moving left on timeline (rewinding) we should iterate thru actions from right to left
         if (playbackDirection < 0) {
-            console.log("reversing actions");
-            actions = actions.reverse();
+            //console.log("reversing actions");
+           // actions = actions.reverse();
         }
 
         // Iterate through the actions
@@ -122,9 +121,9 @@ let retval = class Animation {
             // keyframe is BEFORE this action on the timeline, but this action has position Animation.INITIAL
             // it means that this action did not finish playing because the keyframe jumped past it's final
             // position. Play this frame at it's start location to ensure animation remains in sync
-            if ((playbackDirection === this.REWIND) && (keyframe < start && this.previousFrame > start)) {
-                if (action.position !== this.REWIND) {
-                    // console.log("maybe have to finish this action", action);
+            if ((keyframe < start && this.previousFrame > start)) {
+                if ((playbackDirection === this.REWIND) && (action.position !== this.REWIND)) {
+                     console.log("maybe have to finish start", action);
                     // console.log(this.previousFrame, keyframe, start, action);
                     processFunc(action, start);
                 }
@@ -135,7 +134,7 @@ let retval = class Animation {
             // position. Play this frame at it's end location to ensure animation remains in sync
             else if (keyframe > end && this.previousFrame < end) {
                 if ((playbackDirection === this.FASTFORWARD) && (action.position !== this.FASTFORWARD)) {
-                    console.log("maybe have to finish this action", action);
+                    console.log("maybe have to finish end", action);
                     console.log(this.previousFrame, keyframe, start, action);
                     processFunc(action, end);
                 }
@@ -163,8 +162,8 @@ let retval = class Animation {
             // Call handler from the earliest position of the animation frame
             if (action.handler) {
                 let args = {keyframe: action.start, context, tween: new Tween(action.start, action.start, action.end)};
-                console.log("handler func", args);
                 action.handler(args);
+                action.position = 0;
             }
         });
     }

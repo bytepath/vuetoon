@@ -29,6 +29,14 @@ export default class Position {
     }
 
     /**
+     * Returns a matrix that represents this position
+     * @returns {DOMMatrix}
+     */
+    get matrix() {
+        return this.getDefaultTransformMatrix();
+    }
+
+    /**
      * Multiplies point (x, y) by the matrix representation of this position
      * @param x
      * @param y
@@ -50,8 +58,8 @@ export default class Position {
         let angle = (this.angle % 360);
         let x = this.x;
         let y = this.y;
-        let skewX = this.skewX;
-        let skewY = this.skewY;
+        //let skewX = this.skewX;
+        //let skewY = this.skewY;
         let cx = this.centerX;
         let cy = this.centerY;
         let scaleX = (this.scaleX === 0) ? 1 : this.scaleX;

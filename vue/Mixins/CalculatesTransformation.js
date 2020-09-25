@@ -111,7 +111,7 @@ export default {
 
     mounted() {
         this.animationDirty = true;
-        window.addEventListener('DOMContentLoaded', (event) => {
+        window.addEventListener('DOMContentLoaded', () => {
             this.computeTransformation();
         });
     },
@@ -160,10 +160,17 @@ export default {
          * @returns {{x: number, y: number}}
          */
         centerPosition() {
+            // These variables are here to force vue to recompute center when these values change
+            // eslint-disable-next-line
             let height = this.dimensions.height;
+            // eslint-disable-next-line
             let width = this.dimensions.width;
+            // eslint-disable-next-line
             let cx = this.cx;
+            // eslint-disable-next-line
             let cy = this.cy;
+
+
             return this.getCenterPosition();
         },
 
@@ -304,7 +311,19 @@ export default {
          * @returns {*|DOMMatrix}
          */
         getTransformation() {
-            let m = this.getPosition().getDefaultTransformMatrix();
+            let matrix = new DOMMatrix();
+
+            // Check if the matrix prop is a matrix or a position
+            if(this.matrix){
+                if(({}).toString.call(this.matrix).match(/\s([a-zA-Z]+)/)[1] == "DOMMatrix") {
+                    matrix = this.matrix;
+                }
+                else {
+                    matrix = this.matrix.matrix;
+                }
+            }
+
+            let m = this.getPosition().getDefaultTransformMatrix(matrix);
 
             // compute any mutator matricies we have specified
             Object.values(this.mutations).forEach((mutation) => {
