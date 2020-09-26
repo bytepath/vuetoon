@@ -9,11 +9,6 @@
                 <g :id="'g' + assetID" :transform="transform">
                     <slot :position="position" :href="href"/>
                 </g>
-
-                <rect :x="position.centerX" :y="position.centerY" width="10" height="10" fill="red" />
-                <g :transform="transform">
-                    <rect :x="position.centerX" :y="position.centerY" width="10" height="10" fill="blue" />
-                </g>
             </g>
         </asset-loader>
     </svg>

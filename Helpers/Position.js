@@ -70,7 +70,8 @@ export default class Position {
         let scaleX = (this.scaleX === 0) ? 1 : this.scaleX;
         let scaleY = (this.scaleY === 0) ? 1 : this.scaleY;
 
-        return compose(scale(scaleX, scaleY, (cx + x), (cy + y)), rotateDEG(angle, (cx + x), (cy + y)), translate(x + cx,y + cy));
+        console.log('ham ham', cx, cy);
+        return compose(scale(scaleX, scaleY, (cx + x), (cy + y)), rotateDEG(angle, (cx + x), (cy + y)), translate(x,y));
     }
 
     transformedCenter(){
