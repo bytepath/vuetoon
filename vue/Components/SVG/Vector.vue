@@ -15,9 +15,9 @@
 </template>
 
 <script>
-    import AssetLoader from "./Loaders/AssetLoader";
-    import AnimationEntity from "../Mixins/AnimationEntity";
-    import Position from "../../Helpers/Position";
+    import AssetLoader from "../Loaders/AssetLoader";
+    import AnimationEntity from "../../Mixins/AnimationEntity";
+    import Position from "../../../Helpers/Position";
 
     export default {
         name: 'Vector',

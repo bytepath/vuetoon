@@ -58,8 +58,6 @@ export default class Position {
      * @returns {DOMMatrix}
      */
     getDefaultTransformMatrix(projection = null) {
-        //let retval = identity;
-
         let angle = (this.angle % 360);
         let x = this.x;
         let y = this.y;
@@ -70,7 +68,6 @@ export default class Position {
         let scaleX = (this.scaleX === 0) ? 1 : this.scaleX;
         let scaleY = (this.scaleY === 0) ? 1 : this.scaleY;
 
-        console.log('ham ham', cx, cy);
         return compose(scale(scaleX, scaleY, (cx + x), (cy + y)), rotateDEG(angle, (cx + x), (cy + y)), translate(x,y));
     }
 

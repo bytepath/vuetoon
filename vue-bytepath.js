@@ -12,7 +12,7 @@ import reset from "./vue/Components/Timers/KeyframeReset";
 
 // DOM
 import entityDiv from './vue/Components/Dom/EntityDiv';
-import entity from './vue/Components/Entity';
+import vector from './vue/Components/SVG/Vector';
 
 // Animations
 import bounce from './vue/Components/Animations/Bounce';
@@ -27,9 +27,11 @@ import CreateAsset from "./vue/Factories/CreateAsset";
 // Helpers
 import Position from "./Helpers/Position";
 
+// Samples
+import balloon from "./vue/Components/Animations/Assets/Balloon";
+
 const Bytepath = {
     AnimationEntity,
-    entity,
     CreateAsset,
     CreateEntity: CreateAsset,
 
@@ -61,7 +63,13 @@ const Bytepath = {
     },
 
     graphics: {
-        vector: entity,
+        vector,
+    },
+
+    samples: {
+        assets: {
+            balloon
+        },
     },
 }
 

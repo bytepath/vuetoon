@@ -1,4 +1,4 @@
-import Entity from "../Components/Entity";
+import Vector from "../Components/SVG/Vector";
 import AnimationEntity from '../Mixins/AnimationEntity';
 import nameFromPath from "../Components/Filters/Filename";
 import LayeredPosition from "../../Helpers/LayeredPosition";
@@ -29,6 +29,11 @@ let createAsset = function (data = {}) {
         animations = data.animations;
         console.log("oh wow custom animations", animations);
     }
+    else {
+        animations = () => {
+            return { default: [] };
+        };
+    }
 
     let mixin = {
         mixins: [AnimationEntity],
@@ -56,7 +61,9 @@ let createAsset = function (data = {}) {
         },
 
         mounted() {
-            this.$children[0].$on('loaded', this.onLoaded);
+            if(this.$children[0]) {
+                this.$children[0].$on('loaded', this.onLoaded);
+            }
         },
 
         destroyed() {
@@ -106,7 +113,7 @@ let createAsset = function (data = {}) {
             },
         },
 
-        components: { Entity, Layer },
+        components: { Vector, Layer },
 
         /**
          * Equivalent to

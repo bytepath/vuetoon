@@ -1,7 +1,5 @@
 <script>
     import AnimationEnity from "../../Mixins/AnimationEntity";
-    import Entity from "../Entity";
-    import Position from "../../../Helpers/Position";
 
     export default {
         name: 'layer',
@@ -13,12 +11,11 @@
         },
 
         mixins: [AnimationEnity],
-        components: { Entity }
     };
 </script>
 
 <template>
     <g :transform="transform">
-        <use :href="'#' + position.component.id" />
+        <use :href="'#' + position.component.id"></use>
     </g>
 </template>
