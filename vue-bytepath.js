@@ -59,6 +59,10 @@ const Bytepath = {
     dom:{
         entityDiv
     },
+
+    graphics: {
+        vector: entity,
+    },
 }
 
 export default Bytepath;

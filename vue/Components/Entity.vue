@@ -5,8 +5,8 @@
          :viewBox="viewboxString"
          :preserveAspectRatio="$attrs.aspect"
         :overflow="overflow">
-        <asset-loader v-if="src" :src="src" :owner="assetID" @loaded="assetLoaded" v-slot="{ href }">
-            <g :id="'g' + assetID" :transform="assetMatrix">
+        <asset-loader :src="src" :owner="assetID" @loaded="assetLoaded" v-slot="{ href }">
+            <g :id="'g' + assetID">
                 <slot :position="position" :href="href"/>
             </g>
         </asset-loader>
@@ -19,7 +19,7 @@
     import Position from "../../Helpers/Position";
 
     export default {
-        name: 'entity',
+        name: 'Vector',
         mixins: [AnimationEntity],
         props: {
             /**

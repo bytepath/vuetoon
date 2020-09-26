@@ -323,6 +323,19 @@ export default {
                 }
             }
 
+            if(this.$el) {
+                console.log("el");
+                if(this.$el.parentNode) {
+                    console.log("par");
+                    // eslint-disable-next-line
+                    if (typeof this.$el.parentNode.getScreenCTM == "function") {
+                        let m = this.$el.parentNode.getScreenCTM();
+                        matrix = new DOMMatrix([m.a, m.b, m.c, m.d, m.e, m.f]);
+                        console.log("parent", matrix);
+                    }
+                }
+            }
+
             let m = this.getPosition().getDefaultTransformMatrix(matrix);
 
             // compute any mutator matricies we have specified

@@ -17,8 +17,8 @@
      * There is a global variable called loadedAssets that holds the list of loaded assets
      * loadedAssets has the syntax { src: "id-that-loaded-this-file" } where src is a filename/url
      */
-    const axios = require('axios');
     import SanitizedPath from "../Filters/SanitizedPath";
+    /* eslint-disable-next-line */
     let loadedAssets = {};
     import Loader from "../../../Helpers/SVGLoader";
 
@@ -29,7 +29,7 @@
              */
             src: {
                 type: String,
-                required: true,
+                default: null,
             },
 
             /**
@@ -67,7 +67,7 @@
          * use the <use> tag of the SVG spec to clone the tag with id = loadedAssets[this.src]
          */
         created() {
-            this.loader.load(this.src, this.owner).then((response) => {
+            this.loader.load(this.src, this.owner).then(() => {
                 this.loadedAsset = this.loader.loadedAssets[this.assetKey];
 
                 if(this.loader.loadedAssets[this.assetKey].id == this.owner){
@@ -79,7 +79,7 @@
                 this.$emit("loaded", this.loadedAsset);
                 //this.$parent.$emit("loaded", this.loadedAsset);
 
-            });
+            }).catch(() => {});
         },
 
         /**

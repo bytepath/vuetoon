@@ -1,3 +1,4 @@
+/* eslint-disable */
 export default class Position {
     /**
      * Theres gotta be a better way to do this?
@@ -109,18 +110,18 @@ export default class Position {
         // let m = this.$el.getScreenCTM();
         // let psc = 1 + (1 - m.d);
 
-        if (scaleX !== 1 || scaleY !== 1) {
-            transformTranslation.scaleSelf((1 / scaleX), (1 / scaleY));
-        }
+        // if (scaleX !== 1 || scaleY !== 1) {
+        //     transformTranslation.scaleSelf((1 / scaleX), (1 / scaleY));
+        // }
 
         // if(skewY + skewX !== 0){
         //     transformTranslation.skewXSelf(1/skewX);
         //     transformTranslation.skewYSelf(1/skewY);
         // }
 
-        if (angle !== 0) {
-            transformTranslation.rotateSelf(0, 0, 360 - angle);
-        }
+        // if (angle !== 0) {
+        //     transformTranslation.rotateSelf(0, 0, 360 - angle);
+        // }
 
         point = point.matrixTransform(transformTranslation);
         translation = translation.translate(point.x, point.y);
@@ -132,12 +133,12 @@ export default class Position {
          */
         retval = retval.multiply(matrix);
         retval = retval.multiplySelf(center);
-        retval.scaleSelf(scaleX, scaleY);
+        //retval.scaleSelf(scaleX, scaleY);
         retval.rotateSelf(0, 0, angle);
         retval.multiplySelf(center.inverse());
+        retval = retval.multiply(matrix.inverse());
 
-        retval.multiplySelf(translation);
-        // retval = retval.multiply(inverse);
+        //retval.multiplySelf(translation);
         return retval;
     }
 

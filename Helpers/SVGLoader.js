@@ -38,7 +38,11 @@ let loader = class SVGLoader {
      * @param asset the ID responsible for drawing this file to the dom
      * @returns { Promise }
      */
-    load(src, asset = null) {
+    load(src = null, asset = null) {
+        if(!src){
+            return Promise.reject({ 'msg': 'src is null' });
+        }
+
         let file = SrcToKey(src);
         if(!this.fileIsLoaded(src)) {
             //console.log(file, "not loaded yet");

@@ -75,6 +75,7 @@ export default {
          * Update the timers frame number somehow
          * @param timeDiff the difference in milliseconds between this and prev frame
          */
+        // eslint-disable-next-line
         running(timeDiff = 0){
             // Do something here in your child component/mixin target
         },
