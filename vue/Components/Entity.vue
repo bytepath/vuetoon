@@ -1,13 +1,19 @@
 <template>
     <svg :id="'svg' + assetID"
          :width="w" :height="h"
-         :transform="transform"
          :viewBox="viewboxString"
          :preserveAspectRatio="$attrs.aspect"
         :overflow="overflow">
         <asset-loader :src="src" :owner="assetID" @loaded="assetLoaded" v-slot="{ href }">
-            <g :id="'g' + assetID">
-                <slot :position="position" :href="href"/>
+            <g>
+                <g :id="'g' + assetID" :transform="transform">
+                    <slot :position="position" :href="href"/>
+                </g>
+
+                <rect :x="position.centerX" :y="position.centerY" width="10" height="10" fill="red" />
+                <g :transform="transform">
+                    <rect :x="position.centerX" :y="position.centerY" width="10" height="10" fill="blue" />
+                </g>
             </g>
         </asset-loader>
     </svg>

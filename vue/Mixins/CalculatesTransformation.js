@@ -209,6 +209,17 @@ export default {
         // debugTransform() {
         //     return this.transform.toString();
         // },
+
+
+        dog(){
+            let c = this.centerPosition;
+            console.log('ddddd', c, c.transformedCenter());
+            return {
+                cx: c.x,
+                cy: c.y,
+
+            };
+        }
     },
 
     methods: {
@@ -271,7 +282,7 @@ export default {
                 retval.y = this.dimensions.height / 2;
             }
 
-            return retval;
+            return new Position(retval);
         },
 
         /**
@@ -311,39 +322,39 @@ export default {
          * @returns {*|DOMMatrix}
          */
         getTransformation() {
-            let matrix = new DOMMatrix();
+            // let matrix = new DOMMatrix();
+            //
+            // // Check if the matrix prop is a matrix or a position
+            // if(this.matrix){
+            //     if(({}).toString.call(this.matrix).match(/\s([a-zA-Z]+)/)[1] == "DOMMatrix") {
+            //         matrix = this.matrix;
+            //     }
+            //     else {
+            //         matrix = this.matrix.matrix;
+            //     }
+            // }
 
-            // Check if the matrix prop is a matrix or a position
-            if(this.matrix){
-                if(({}).toString.call(this.matrix).match(/\s([a-zA-Z]+)/)[1] == "DOMMatrix") {
-                    matrix = this.matrix;
-                }
-                else {
-                    matrix = this.matrix.matrix;
-                }
-            }
+            // if(this.$el) {
+            //     console.log("el");
+            //     if(this.$el.parentNode) {
+            //         console.log("par");
+            //         // eslint-disable-next-line
+            //         if (typeof this.$el.parentNode.getScreenCTM == "function") {
+            //             let m = this.$el.parentNode.getScreenCTM();
+            //             matrix = new DOMMatrix([m.a, m.b, m.c, m.d, m.e, m.f]);
+            //             console.log("parent", matrix);
+            //         }
+            //     }
+            // }
 
-            if(this.$el) {
-                console.log("el");
-                if(this.$el.parentNode) {
-                    console.log("par");
-                    // eslint-disable-next-line
-                    if (typeof this.$el.parentNode.getScreenCTM == "function") {
-                        let m = this.$el.parentNode.getScreenCTM();
-                        matrix = new DOMMatrix([m.a, m.b, m.c, m.d, m.e, m.f]);
-                        console.log("parent", matrix);
-                    }
-                }
-            }
+           // let m = this.getPosition().getDefaultTransformMatrix();
 
-            let m = this.getPosition().getDefaultTransformMatrix(matrix);
+            // // compute any mutator matricies we have specified
+            // Object.values(this.mutations).forEach((mutation) => {
+            //     m = mutation.apply(this, [m]);
+            // });
 
-            // compute any mutator matricies we have specified
-            Object.values(this.mutations).forEach((mutation) => {
-                m = mutation.apply(this, [m]);
-            });
-
-            return m;
+            return this.getPosition().toString();
         },
 
         /**
