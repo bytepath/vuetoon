@@ -331,15 +331,7 @@ export default {
                 }
             }
 
-
-           // let m = this.getPosition().getDefaultTransformMatrix();
-
-            // // compute any mutator matricies we have specified
-            // Object.values(this.mutations).forEach((mutation) => {
-            //     m = mutation.apply(this, [m]);
-            // });
-
-            return this.getPosition().toSVG(matrix);
+            return this.getPosition().toSVG(matrix, this.mutations);
         },
 
         /**

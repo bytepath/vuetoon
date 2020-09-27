@@ -140,7 +140,7 @@ let createAsset = function (data = {}) {
                 children.push(element);
             });
 
-            return createElement('entity', {props}, children);
+            return createElement('vector', {props}, children);
         },
 
     };

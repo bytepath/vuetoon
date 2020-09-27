@@ -29,28 +29,6 @@
                 }
             },
 
-            createTimer(){
-                window.addEventListener('scroll', this.debounceRunning);
-                this.timerId = true;
-            },
-
-            clearTimer() {
-                window.removeEventListener('scroll', this.debounceRunning);
-                this.timerId = null;
-            },
-
-            debounceRunning(){
-              debounce(this.running, 100)();
-            },
-
-            running(){
-                this.scroll = window.scrollY;
-                this.frame = Math.floor(this.scroll * this.scale);
-            },
-
-            timerType(){
-                return "ResponsiveScroll";
-            }
         },
     }
 </script>

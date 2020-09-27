@@ -1,3 +1,5 @@
+import { translate } from 'transformation-matrix';
+
 export default {
     props: {
         /**
@@ -25,16 +27,19 @@ export default {
 
     methods:{
         AcceleratesTranslation(matrix) {
-            let accelerate = new DOMMatrix();
+            let e = 0;
+            let f = 0;
             if (this.mx) {
-                accelerate.e = matrix.e * this.mx;
+                e = matrix.e * this.mx;
             }
 
             if (this.my) {
-                accelerate.f = matrix.f * this.my;
+                f = matrix.f * this.my;
             }
 
-            return matrix.multiply(accelerate);
+            let retval = translate(e, f);
+            console.log("accel return", retval);
+            return retval;
         }
     },
     components:{}

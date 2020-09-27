@@ -30,6 +30,7 @@ import Position from "./Helpers/Position";
 // Samples
 import balloon from "./vue/Components/Animations/Assets/Balloon";
 import human from "./vue/Components/Animations/Assets/Human/Human";
+import pointyBackground from "./vue/Components/Animations/Scenes/Partials/PointyBackground";
 
 const Bytepath = {
     AnimationEntity,
@@ -72,6 +73,11 @@ const Bytepath = {
             balloon,
             human,
         },
+        scenes: {
+            partials: {
+                pointyBackground,
+            }
+        }
     },
 }
 

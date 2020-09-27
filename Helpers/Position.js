@@ -65,7 +65,7 @@ export default class Position {
      * @param projection
      * @returns {DOMMatrix}
      */
-    getDefaultTransformMatrix(projection = null) {
+    getDefaultTransformMatrix(projection = null, mutations = {}) {
         let angle = (this.angle % 360);
         let x = this.x;
         let y = this.y;
@@ -87,7 +87,18 @@ export default class Position {
             args.unshift(projection);
         }
 
-        return compose.apply(null, args);
+        let retval = compose.apply(null, args);
+        args = [];
+        //console.log("retval is", retval);
+        Object.keys(mutations).map((func) => {
+            let v = mutations[func](retval);
+            args.push(v);
+        });
+
+        args = [...args, retval];
+        //console.log("args", );
+        console.log("returning", retval, compose.apply(null, args));
+        return compose.apply(null, [...args, retval]);
     }
 
     transformedCenter(){
@@ -98,7 +109,7 @@ export default class Position {
         return toSVG(this.getDefaultTransformMatrix());
     }
 
-    toSVG(projection = null){
-        return toSVG(this.getDefaultTransformMatrix(projection));
+    toSVG(projection = null, mutations = {}){
+        return toSVG(this.getDefaultTransformMatrix(projection, mutations));
     }
 }
