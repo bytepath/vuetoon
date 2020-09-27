@@ -9,7 +9,7 @@ export default {
          * If not null we use this instead of the parent's projection matrix
          */
         matrix: {
-            type: DOMMatrix,
+            type: Object,
             default: null
         },
 
@@ -322,30 +322,15 @@ export default {
          * @returns {*|DOMMatrix}
          */
         getTransformation() {
-            // let matrix = new DOMMatrix();
-            //
-            // // Check if the matrix prop is a matrix or a position
-            // if(this.matrix){
-            //     if(({}).toString.call(this.matrix).match(/\s([a-zA-Z]+)/)[1] == "DOMMatrix") {
-            //         matrix = this.matrix;
-            //     }
-            //     else {
-            //         matrix = this.matrix.matrix;
-            //     }
-            // }
+            let matrix = this.matrix;
 
-            // if(this.$el) {
-            //     console.log("el");
-            //     if(this.$el.parentNode) {
-            //         console.log("par");
-            //         // eslint-disable-next-line
-            //         if (typeof this.$el.parentNode.getScreenCTM == "function") {
-            //             let m = this.$el.parentNode.getScreenCTM();
-            //             matrix = new DOMMatrix([m.a, m.b, m.c, m.d, m.e, m.f]);
-            //             console.log("parent", matrix);
-            //         }
-            //     }
-            // }
+            // Check if the matrix prop is a matrix or a position
+            if(this.matrix){
+                if(matrix.constructor.name == "Position") {
+                    matrix = matrix.matrix;
+                }
+            }
+
 
            // let m = this.getPosition().getDefaultTransformMatrix();
 
@@ -354,7 +339,7 @@ export default {
             //     m = mutation.apply(this, [m]);
             // });
 
-            return this.getPosition().toString();
+            return this.getPosition().toSVG(matrix);
         },
 
         /**

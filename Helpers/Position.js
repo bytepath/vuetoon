@@ -1,5 +1,5 @@
 /* eslint-disable */
-import {scale, rotateDEG, translate, compose, identity, toSVG, applyToPoint } from 'transformation-matrix';
+import {scale, rotateDEG, translate, compose, inverse, toSVG, applyToPoint } from 'transformation-matrix';
 
 export default class Position {
     /**
@@ -40,6 +40,14 @@ export default class Position {
     }
 
     /**
+     * Returns the inverse of the matrix that represents this position
+     * @returns {DOMMatrix}
+     */
+    get inverse() {
+        return inverse(this.getDefaultTransformMatrix());
+    }
+
+    /**
      * Multiplies point (x, y) by the matrix representation of this position
      * @param x
      * @param y
@@ -68,7 +76,18 @@ export default class Position {
         let scaleX = (this.scaleX === 0) ? 1 : this.scaleX;
         let scaleY = (this.scaleY === 0) ? 1 : this.scaleY;
 
-        return compose(scale(scaleX, scaleY, (cx + x), (cy + y)), rotateDEG(angle, (cx + x), (cy + y)), translate(x,y));
+        let args = [
+            scale(scaleX, scaleY, (cx + x), (cy + y)),
+            rotateDEG(angle, (cx + x), (cy + y)),
+            translate(x,y)
+        ];
+
+        // Add the projection matrix if one was provided
+        if(projection){
+            args.unshift(projection);
+        }
+
+        return compose.apply(null, args);
     }
 
     transformedCenter(){
@@ -77,5 +96,9 @@ export default class Position {
 
     toString() {
         return toSVG(this.getDefaultTransformMatrix());
+    }
+
+    toSVG(projection = null){
+        return toSVG(this.getDefaultTransformMatrix(projection));
     }
 }

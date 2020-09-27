@@ -171,10 +171,12 @@
                         this.dimensions.width = bbox.width;
 
                         // Set camera position to the BBox of this element
-                        this.assetDimensions.x = bbox.x;
-                        this.assetDimensions.y = bbox.y;
-                        this.assetDimensions.width = bbox.width + bbox.x;
-                        this.assetDimensions.height = bbox.height + bbox.y;
+                        if(this.assetDimensions) {
+                            this.assetDimensions.x = bbox.x;
+                            this.assetDimensions.y = bbox.y;
+                            this.assetDimensions.width = bbox.width + bbox.x;
+                            this.assetDimensions.height = bbox.height + bbox.y;
+                        }
                     }
                 }
             },

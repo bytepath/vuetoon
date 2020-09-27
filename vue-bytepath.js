@@ -29,6 +29,7 @@ import Position from "./Helpers/Position";
 
 // Samples
 import balloon from "./vue/Components/Animations/Assets/Balloon";
+import human from "./vue/Components/Animations/Assets/Human/Human";
 
 const Bytepath = {
     AnimationEntity,
@@ -68,7 +69,8 @@ const Bytepath = {
 
     samples: {
         assets: {
-            balloon
+            balloon,
+            human,
         },
     },
 }

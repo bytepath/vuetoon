@@ -30,6 +30,7 @@
                             name: 'bounceyman',
                             start: 0,
                             handler({ context, keyframe }) {
+                                //console.log("bounceyman");
                                 let val = Math.sin(keyframe/1000) * (context.$props.mx * 100);
                                 context.animPosition.x = val;
                             }
@@ -41,7 +42,7 @@
 
         render() {
             return this.$scopedSlots.default({
-                matrix: this.animPosition.matrix,
+                position: this.animPosition,
             })
         }
     })

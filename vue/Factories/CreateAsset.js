@@ -63,6 +63,7 @@ let createAsset = function (data = {}) {
         },
 
         mounted() {
+            console.log("children", this.$children);
             if(this.$children[0]) {
                 this.$children[0].$on('loaded', this.onLoaded);
             }
