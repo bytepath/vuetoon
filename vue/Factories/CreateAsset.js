@@ -1,6 +1,5 @@
 import Vector from "../Components/SVG/Vector";
 import AnimationEntity from '../Mixins/AnimationEntity';
-import nameFromPath from "../Components/Filters/Filename";
 import LayeredPosition from "../../Helpers/LayeredPosition";
 import Layer from "../Components/SVG/Layer";
 
@@ -17,14 +16,17 @@ let createAsset = function (data = {}) {
     let image = null;
     let animations = null;
 
+    // eslint-disable-next-line
     if (data.hasOwnProperty("src")) {
         src = data.src;
     }
 
+    // eslint-disable-next-line
     if (data.hasOwnProperty("layers")) {
         layers = data.layers;
     }
 
+    // eslint-disable-next-line
     if (data.hasOwnProperty("animations")) {
         animations = data.animations;
         console.log("oh wow custom animations", animations);
@@ -165,6 +167,7 @@ let createAsset = function (data = {}) {
     delete retval.src;
     delete retval.layers;
 
+    // eslint-disable-next-line
     if (retval.hasOwnProperty("mixins")) {
         retval.mixins.push(mixin);
     } else {
