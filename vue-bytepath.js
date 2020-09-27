@@ -18,9 +18,6 @@ import vector from './vue/Components/SVG/Vector';
 import bounce from './vue/Components/Animations/Bounce';
 import spin from './vue/Components/Animations/Spin';
 
-// Mutators
-import acceleratesTranslation from './vue/Mutators/AcceleratesTranslation';
-
 // Factories
 import CreateAsset from "./vue/Factories/CreateAsset";
 
@@ -54,10 +51,6 @@ const Bytepath = {
     animations: {
         bounce,
         spin,
-    },
-
-    mutators: {
-        acceleratesTranslation,
     },
 
     dom:{

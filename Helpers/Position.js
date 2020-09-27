@@ -87,18 +87,7 @@ export default class Position {
             args.unshift(projection);
         }
 
-        let retval = compose.apply(null, args);
-        args = [];
-        //console.log("retval is", retval);
-        Object.keys(mutations).map((func) => {
-            let v = mutations[func](retval);
-            args.push(v);
-        });
-
-        args = [...args, retval];
-        //console.log("args", );
-        console.log("returning", retval, compose.apply(null, args));
-        return compose.apply(null, [...args, retval]);
+        return compose.apply(null, args);
     }
 
     transformedCenter(){
