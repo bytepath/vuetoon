@@ -22,9 +22,12 @@ let retval = class Animation {
      */
     calculateAnimationKeyframe(keyframe) {
         // If this animation should repeat then we return the modulo of the end keyframe
-        if ((this.repeat) && (this.animation.end)) {
+        if (this.animation.end) {
+            //console.log("repeat keyframe", this);
             return keyframe % this.animation.end;
         }
+
+        //console.log("normal keyframe", this);
 
         return keyframe;
     }
@@ -39,7 +42,7 @@ let retval = class Animation {
         if (end && this.repeat) {
             let numRuns = Math.trunc(keyframe / end);
             if (numRuns > this.timesRepeated) {
-                console.log("need to repeat", numRuns, this.timesRepeated, keyframe, this);
+                //console.log("need to repeat", numRuns, this.timesRepeated, keyframe, this);
                 this.resetAnimation(context);
                 this.timesRepeated = numRuns;
             }
@@ -65,7 +68,7 @@ let retval = class Animation {
         }
 
         let callBack = (action, forceFrame = null) => {
-            let frame = (forceFrame) ? forceFrame : keyframe;
+            let currentFrame = (forceFrame) ? forceFrame : frame;
 
             // If no start frame is specified we assume it's supposed to be zero
             let start = action.start ? action.start : 0;
@@ -87,7 +90,7 @@ let retval = class Animation {
             return (action.handler) ? action.handler({
                 keyframe: frame,
                 context,
-                tween: new Tween(frame, action.start, action.end)
+                tween: new Tween(currentFrame, action.start, action.end)
             }) : false;
         };
 
@@ -152,7 +155,6 @@ let retval = class Animation {
     }
 
     resetAnimation(context) {
-        console.log("reset animation");
         return Object.values(this.animation.data.actions.reverse()).filter((action) => {
             if (action.reset) {
                 console.log("calling reset func");

@@ -4,13 +4,10 @@
          :viewBox="viewboxString"
          :preserveAspectRatio="$attrs.aspect"
         :overflow="overflow">
-        <asset-loader :src="src" :owner="assetID" @loaded="assetLoaded" v-slot="{ href }">
-            <g>
-                <g :id="'g' + assetID" :transform="transform">
-                    <slot :position="position" :href="href"/>
-                </g>
-            </g>
-        </asset-loader>
+        <asset-loader :src="src" :owner="assetID" @loaded="assetLoaded" />
+        <g :id="'g' + assetID" :transform="transform">
+            <slot :position="position" :href="href"/>
+        </g>
     </svg>
 </template>
 
@@ -51,15 +48,14 @@
         data() {
             return {
                 /**
-                 * The transformation matrix for the loaded asset
-                 * @var DOMMatrix
-                 */
-                em: new DOMMatrix(),
-
-                /**
                  * A rectangle representing the area of the user coordinate system we want to display
                  */
                 assetDimensions: null,
+
+                /**
+                 * The href we can use to find the loaded asset
+                 */
+                href: null,
             };
         },
 
@@ -105,8 +101,8 @@
                         this.dimensions.height = br.y * (this.camera.scaleY);
 
                         return new Position({
-                            x: Math.abs(tl.x),
-                            y: Math.abs(tl.y),
+                            x: (tl.x),
+                            y: (tl.y),
                             width: (br.x),
                             height: (br.y),
                         });
@@ -128,14 +124,6 @@
             },
 
             /**
-             * The transformation matrix for the loaded asset returned as a string
-             * @returns String
-             */
-            assetMatrix() {
-                return this.em.toString();
-            },
-
-            /**
              * The ID that should be used on the loaded svg file, should we be the component responsible for doing that
              * @returns String
              */
@@ -150,8 +138,17 @@
              * to point {0, 0} so that we are "looking" at it
              */
             assetLoaded(asset) {
+                console.log("asset loaded", { ...this });
+
+                this.href = "#" + asset.id;
+
                 if (asset.viewBox) {
                     this.assetDimensions = {...asset.viewBox};
+                    console.log("viewbox", {...asset});
+
+                }
+                else{
+                    console.log("no viewbox bra");
                 }
                 setTimeout(this.lookAtAsset, 0);
                 this.$emit("loaded", asset);
@@ -171,12 +168,10 @@
                         this.dimensions.width = bbox.width;
 
                         // Set camera position to the BBox of this element
-                        if(this.assetDimensions) {
                             this.assetDimensions.x = bbox.x;
                             this.assetDimensions.y = bbox.y;
                             this.assetDimensions.width = bbox.width + bbox.x;
                             this.assetDimensions.height = bbox.height + bbox.y;
-                        }
                     }
                 }
             },
