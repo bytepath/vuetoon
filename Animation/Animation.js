@@ -24,7 +24,9 @@ let retval = class Animation {
         // If this animation should repeat then we return the modulo of the end keyframe
         if (this.animation.end) {
             //console.log("repeat keyframe", this);
-            return keyframe % this.animation.end;
+            if(this.repeat || (keyframe < this.animation.end)) {
+                return keyframe % this.animation.end;
+            }
         }
 
         //console.log("normal keyframe", this);
