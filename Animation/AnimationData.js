@@ -25,12 +25,28 @@ let retval = class AnimationData {
          *
          * Animation.FASTFORWARD:: value = 1
          * This animation has been played at least once with keyframe value increasing (Ex:  frame 10 to frame 11)
+         *
+         * Animation.INFINITY:: value = 2
+         * This animation plays indefinitely because it doesn't have an end value
          */
-        this.data = { actions: [] };
+        this.data = {actions: []};
+        let i = 0;
         data.actions.map((action) => {
-            this.data.actions.push({ ...action, position: Animation.INITIAL });
+
+            let newAction = {
+                ...action,
+                position: Animation.INITIAL,
+                index: i,
+                previousFrame: 0
+            };
+
+            // Add infinity action if no end
+
+
+            this.data.actions.push(newAction);
+            i++;
         });
     }
-}
+};
 
 export default retval;
