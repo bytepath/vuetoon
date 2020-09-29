@@ -1,4 +1,5 @@
 import Animation from "./Animation";
+import Tween from "../Helpers/Tween";
 
 let retval = class AnimationData {
     constructor(name, data, start = 0, end = null, repeat = false) {
@@ -47,6 +48,55 @@ let retval = class AnimationData {
             i++;
         });
     }
+
+    /**
+     * Returns a function that can be used to play this animation by providing a context
+     * @param action
+     * @param keyframe
+     * @returns {function({context: *}): *}
+     */
+    play(action, keyframe = 0) {
+        return (context) => {
+            if (!action.handler) return;
+
+            action.previousFrame = keyframe;
+            return action.handler({
+                context,
+                keyframe,
+                tween: new Tween(keyframe, action.start, action.end),
+            });
+        };
+    }
+
+    /**
+     * Returns a function that can be used to play this animation by providing a context
+     * Forces keyframe to be action end property
+     * @param action
+     * @param keyframe
+     * @returns {function({context: *}): *}
+     */
+    fastForward(action) {
+        return (context) => {
+            if (!action.handler) return;
+
+            action.previousFrame = action.end;
+            return action.handler({
+                context,
+                keyframe: action.end,
+                tween: new Tween(action.end, action.start, action.end),
+            });
+        };
+    }
+
+    /**
+     * Returns a function that can be used to play this animation by providing a context
+     * Forces keyframe to be action start property
+     * @param action
+     * @param keyframe
+     * @returns {function({context: *}): *}
+     */
+    // rewind(action) {
+    // }
 };
 
 export default retval;

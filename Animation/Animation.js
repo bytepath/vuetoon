@@ -1,4 +1,4 @@
-// eslint-disable
+/* eslint-disable */
 
 import Tween from "../Helpers/Tween";
 
@@ -63,7 +63,7 @@ let retval = class Animation {
         }
 
         // internal keyframe can vary from "user" keyframe if repeat = true so we need to calculate that
-        let frame = this.calculateAnimationKeyframe(keyframe);
+        let computedFrame = this.calculateAnimationKeyframe(keyframe);
 
         /**
          Determine the direction of playback. Direction can be three states:
@@ -81,14 +81,14 @@ let retval = class Animation {
         }
 
 
-        //let callback = this.getActionRunner(context, frame);
+        //let callback = this.getActionRunner(context, computedFrame);
         let callback = null;
         // Iterate through the list of actions and execute any within keyframe range
-        let actions = this.getActionsForFrame(frame, direction, callback);
+        //let actions = this.getActionsForFrame(computedFrame, direction, callback);
 
-        actions.map((action) => {
-            this.playAnimationFrame(context, action, frame, direction);
-        }, this);
+        // eslint-disable-line
+        let animationFrame = this.movePlaybackTo(computedFrame, direction);
+        this.playAnimationFrame(context, animationFrame);
 
         this.previousFrame = (keyframe > end) ? end : keyframe;
         return didSomething;
@@ -98,82 +98,88 @@ let retval = class Animation {
     /**
      * Play the specified frame
      * @param context
-     * @param action
-     * @param keyframe
-     * @param playbackDirection
-     * @returns {boolean}
+     * @param frame an array of functions representing all of the animations that need to run this frame
      */
     // eslint-disable-next-line
-    playAnimationFrame(context, action, keyframe = 0, playbackDirection = 1) {
-        // If no start frame is specified we assume it's supposed to be zero
-        let start = action.start ? action.start : 0;
-        // If no end frame is specified assume there isn't one
-        let end = (action.end) ? action.end : Number.MAX_SAFE_INTEGER;
-
-        // Run action handler function if it exists
-        if(action.handler) {
-            action.handler({keyframe, context, tween: new Tween(keyframe, start, end)});
-
-            // If we have reached the beginning or end of animation playback we set the playback position
-            if(keyframe === start || keyframe === end){
-                if(action.position !== this.INFINITY) {
-                    action.position = playbackDirection;
-                    action.previousFrame = keyframe;
-                }
-            }
+    playAnimationFrame(context, frame) {
+        if(frame.length > 0) {
+            frame.map((action) => {
+                action(context);
+            });
         }
     }
 
 
 
 
-
     /**
-     * Fast forward the animation playback position to the specified animation frame
-     * @param frame
+     * Returns an array functions that must be ran in order from left to right to ensure animation is in the correct
+     * state
+     * @param keyframe the frame we are moving to
+     * @param direction the direction we are moving
      *
-     * @optimize We currently run ALL previous frames to ensure valid state but we really only need to run the PREVIOUS
-     * animation assuming we do this every time
+     * @optimize We currently check ALL previous actions to ensure valid state but we could probably do this a faster way
      */
-    // eslint-disable-next-line
-    fastForwardTo(context, action) {}
+    movePlaybackTo(keyframe, playbackDirection = 1) {
+        let actions = this.animation.data.actions;
+        if (actions.length > 0) {
+            console.log();
+        }
+        if (!playbackDirection) {
+            actions = actions.reverse();
+        }
 
-    // eslint-disable-next-line
-    rewindTo(context, action){}
+        let retval = {
+            current: [],
+            outdated: [],
+        };
 
-    movePlaybackTo(context, action, playbackDirection) {
-        let index = action.index;
-        // Check to ensure the animation playback position is in the correct place
-        if (index !== 0) {
-            let previousAction = this.animation.data.actions[index - 1];
-            // Check to make sure we finished running the previous frame
+        actions.map((action) => {
+            // If no start frame is specified we assume it's supposed to be zero
+            let start = action.start ? action.start : 0;
 
-            // Multiple animations can run at the same time so we need to make sure it has actually finished
-            // If position of previous action doesnt equal playback direction it means it didnt finish yet
-            if (previousAction.position !== playbackDirection) {
+            // If no end frame is specified assume there isn't one
+            let end = (action.end) ? action.end : Number.MAX_SAFE_INTEGER;
 
-                // Is the previous action set to run forever so this is fine
+            let index = action.index;
+            // Check to ensure the animation playback position is in the correct place
+            if (index !== 0) {
+                let previousAction = this.animation.data.actions[index - 1];
+
+                // Check to ensure we finished the previous action
                 if (previousAction.position !== this.INFINITY) {
-                    console.log("didnt finish action", previousAction, "direction", playbackDirection);
 
-                    if(previousAction.end < 99999) {
+                    if (playbackDirection === this.FASTFORWARD) {
 
-                        // Recursively play all previous animations
-                        let useFrame = previousAction.start;
-                        if (playbackDirection == this.FASTFORWARD) {
-                            useFrame = previousAction.end;
+                        if (previousAction.previousFrame !== previousAction.end) {
+                            if(keyframe > previousAction.end) {
+                                return retval.outdated.push(this.animation.fastForward(previousAction));
+                            }
+
                         }
-
-                        this.playAnimationFrame(context, previousAction, useFrame, playbackDirection);
                     }
-                }
-                else {
-                    console.log("found infinity action", previousAction);
+                    else {
+                        // We didnt reach the final frame of this animation so run its last frame to keep
+                        // state in sync
+                        if (previousAction.previousFrame !== previousAction.start) {
+                           // return retval.outdated.push(this.animation.rewind(previousAction));
+                        }
+                    }
                 }
             }
 
-        }
-        console.log();
+            // If this action is within its execution range then we keep it
+            if ((keyframe >= start) && (keyframe <= end)) {
+                if(action.handler) {
+                    return retval.current.push(this.animation.play(action, keyframe));
+                }
+            }
+
+        }, this);
+
+
+        // Return all actions that need to be ran
+        return [ ...retval.outdated, ...retval.current];
     }
 
     resetAnimation(context) {
