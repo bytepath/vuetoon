@@ -137,7 +137,7 @@ let retval = class AnimationPlayer {
             // Check to ensure we finished the previous action
             if (action.position !== this.INFINITY) {
 
-                if (direction === this.FASTFORWARD) {
+                if (direction >= this.FASTFORWARD) {
 
                     if (action.previousFrame !== action.end) {
                         if (keyframe > action.end) {
@@ -180,7 +180,7 @@ let retval = class AnimationPlayer {
     // eslint-disable-next-line
     playFinalFrame(context) {
         if (this.previousFrame !== this.animation.end) {
-            let animationFrame = this.movePlaybackTo(this.animation.end);
+            let animationFrame = this.movePlaybackTo(this.animation.end, this.FASTFORWARD);
             this.processAnimationFrame(context, animationFrame);
             this.previousFrame = this.animation.end;
         }
@@ -194,7 +194,7 @@ let retval = class AnimationPlayer {
     // eslint-disable-next-line
     playStartFrame(context) {
         if (this.previousFrame !== this.animation.start) {
-            let animationFrame = this.movePlaybackTo(this.animation.start);
+            let animationFrame = this.movePlaybackTo(this.animation.start, this.REWIND);
             this.processAnimationFrame(context, animationFrame);
             this.previousFrame = this.animation.start;
         }

@@ -14,7 +14,6 @@ let createAsset = function (data = {}) {
     let src = null;
     let layers = null;
     let image = null;
-    let animations = null;
 
     // eslint-disable-next-line
     if (data.hasOwnProperty("src")) {
@@ -24,17 +23,6 @@ let createAsset = function (data = {}) {
     // eslint-disable-next-line
     if (data.hasOwnProperty("layers")) {
         layers = data.layers;
-    }
-
-    // eslint-disable-next-line
-    if (data.hasOwnProperty("animations")) {
-        animations = data.animations;
-        console.log("oh wow custom animations", animations);
-    }
-    else {
-        animations = () => {
-            return { default: [] };
-        };
     }
 
     let mixin = {
@@ -73,8 +61,6 @@ let createAsset = function (data = {}) {
         },
 
         computed:{
-            animations,
-
             filteredLayers(){
               if(!this.layers){
                   return {};
@@ -100,7 +86,6 @@ let createAsset = function (data = {}) {
              * @param loadedAsset the loaded image object
              */
             onLoaded(loadedAsset) {
-                console.log("asset on loaded", this);
                 this.image = loadedAsset;
                 let layers = {};
                 Object.keys(this.image.layers).map((layer) => {
@@ -143,6 +128,13 @@ let createAsset = function (data = {}) {
         },
 
     };
+
+
+    // If we have custom animations then we add them here
+    // eslint-disable-next-line
+    if (data.hasOwnProperty("animations")) {
+        mixin.computed['animations'] = data.animations;
+    }
 
     // If we have a use value replace the prop in the asset to return the name of the layer by default
     if (src) {

@@ -43,19 +43,16 @@ export default {
                 if (this.anim) {
                     // Check to see if this entity has an animation with the name in the controls
                     if (Object.prototype.hasOwnProperty.call(this.animations, this.anim)) {
-                        console.log("new animation", this.anim, this.animations);
                         return this.loadAnimation(this.anim);
                     }
                 }
 
                 // Check if there is a default animation
                 if (Object.prototype.hasOwnProperty.call(this.animations, 'default')) {
-                    console.log("default anim");
                     return this.loadAnimation('default');
                 }
             }
 
-            console.log("has no animations", this);
             return null;
         },
     },
@@ -63,7 +60,6 @@ export default {
     methods: {
         loadAnimation(anim) {
             if(this.animations) {
-                console.log("loading animation", anim, this.animations[anim]);
                 let actions = AnimationDataFactory.createFromUserAnimation(anim, this.animations[anim]);
                 return new Animation(this.anim, actions, this.repeat);
             }
