@@ -12,7 +12,7 @@ export default {
         // The name of the animation we want to run
         anim: {
             type: String,
-            default: "default"
+            default: null
         },
 
         // Force the animation to continually repeat
@@ -22,47 +22,57 @@ export default {
         }
     },
 
-    data(){
-        return {
-
-        };
+    data() {
+        return {};
     },
 
-    watch:{
-        keyframe(){
+    watch: {
+        keyframe() {
             this.keyframeChanged(this.keyframe);
         },
     },
 
-    computed:{
+    computed: {
         animations() {
-            return {
-                default: [],
-            };
+            return null;
         },
 
-        animation(){
-            // Check to see if the animation controls have specified an animation to play
-            if(this.anim) {
-                // Check to see if this entity has an animation with the name in the controls
-                if (Object.prototype.hasOwnProperty.call(this.animations, this.anim)) {
-                    console.log("new animation", this.anim, this.animations);
-                    return new Animation(this.anim, this.loadAnimation(this.anim), this.repeat);
+        animation() {
+            if(this.animations) {
+                // Check to see if the animation controls have specified an animation to play
+                if (this.anim) {
+                    // Check to see if this entity has an animation with the name in the controls
+                    if (Object.prototype.hasOwnProperty.call(this.animations, this.anim)) {
+                        console.log("new animation", this.anim, this.animations);
+                        return this.loadAnimation(this.anim);
+                    }
+                }
+
+                // Check if there is a default animation
+                if (Object.prototype.hasOwnProperty.call(this.animations, 'default')) {
+                    console.log("default anim");
+                    return this.loadAnimation('default');
                 }
             }
 
-            return new Animation('default', this.loadAnimation(this.animations.default), this.repeat);
+            console.log("has no animations", this);
+            return null;
         },
     },
 
     methods: {
-        loadAnimation(anim){
-            console.log("loading animation", anim, this.animations[anim]);
-            return AnimationDataFactory.createFromUserAnimation(anim, this.animations[anim]);
+        loadAnimation(anim) {
+            if(this.animations) {
+                console.log("loading animation", anim, this.animations[anim]);
+                let actions = AnimationDataFactory.createFromUserAnimation(anim, this.animations[anim]);
+                return new Animation(this.anim, actions, this.repeat);
+            }
         },
 
         keyframeChanged(keyframe) {
-            this.animation.computeFrame(keyframe, this);
+            if(this.animation) {
+                this.animation.computeFrame(keyframe, this);
+            }
         },
     },
 }
