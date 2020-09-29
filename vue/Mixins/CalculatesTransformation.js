@@ -209,17 +209,6 @@ export default {
         // debugTransform() {
         //     return this.transform.toString();
         // },
-
-
-        dog(){
-            let c = this.centerPosition;
-            console.log('ddddd', c, c.transformedCenter());
-            return {
-                cx: c.x,
-                cy: c.y,
-
-            };
-        }
     },
 
     methods: {

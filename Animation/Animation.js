@@ -57,7 +57,7 @@ let retval = class AnimationPlayer {
         if (computedFrame !== null) {
             let delta = keyframe - this.previousKeyframe;
             if(delta === 0) return;
-            
+
             this.previousKeyframe = keyframe;
 
             // Should we repeat the animation
@@ -75,7 +75,7 @@ let retval = class AnimationPlayer {
             // If this is a valid keyframe for this animation then process the frame
             if (computedFrame) {
                 let animationFrame = this.movePlaybackTo(computedFrame, delta);
-                this.processAnimationFrame(context, animationFrame.sendme);
+                this.processAnimationFrame(context, animationFrame);
 
             } else {
                 this.playFinalFrame(context);
@@ -167,9 +167,9 @@ let retval = class AnimationPlayer {
 
         }, this);
 
-        retval.sendme = [...retval.outdated, ...retval.current];
+        //retval.sendme = [...retval.outdated, ...retval.current];
         // Return all actions that need to be ran
-        return retval;
+        return [...retval.outdated, ...retval.current];
     }
 
     /**
