@@ -44,7 +44,7 @@ export default class Tween {
         //console.log("numPerframe", numbersPerFrame);
 
         //let retval = (this.keyframe - this.startFrame) * numbersPerFrame;
-        let retval = start + (this.keyframe * numbersPerFrame);
+        let retval = start + ( (this.keyframe - this.startFrame) * numbersPerFrame);
 
         if(retval > end){
            // console.log("return end", end);
