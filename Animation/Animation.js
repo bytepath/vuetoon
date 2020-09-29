@@ -1,8 +1,4 @@
-/* eslint-disable */
-
-import Tween from "../Helpers/Tween";
-
-let retval = class Animation {
+let retval = class AnimationPlayer {
     constructor(name, AnimationData, repeat = false) {
         this.name = name;
         this.animation = AnimationData;
@@ -17,22 +13,22 @@ let retval = class Animation {
     }
 
     /**
-     * Converts user keyframes (that continue on with increasing numbers forever) to animation keyframes, which if set
-     * to repeat, loops back to the beginning when we reach the end of the animation
+     * Converts user keyframes (that continue on with increasing numbers forever) to animation keyframes.
+     * Returns null if invalid keyframe for this animation
      *
      * @param keyframe
-     * @returns number
+     * @returns Integer|null
      */
     calculateAnimationKeyframe(keyframe) {
         // If this animation should repeat then we return the modulo of the end keyframe
         if (this.animation.end) {
-            //console.log("repeat keyframe", this);
             if (this.repeat || (keyframe < this.animation.end)) {
                 return keyframe % this.animation.end;
             }
-        }
 
-        //console.log("normal keyframe", this);
+            // If we aren't set to repeat and we are past the end we don't need to do anything
+            return null;
+        }
 
         return keyframe;
     }
@@ -48,9 +44,6 @@ let retval = class Animation {
      */
     computeFrame(keyframe, context) {
 
-        // Did we do anything in this frame (and therefore need to redraw, etc)
-        let didSomething = false;
-
         // Should we repeat the animation
         let end = this.animation.end;
         if (end && this.repeat) {
@@ -65,33 +58,44 @@ let retval = class Animation {
         // internal keyframe can vary from "user" keyframe if repeat = true so we need to calculate that
         let computedFrame = this.calculateAnimationKeyframe(keyframe);
 
-        /**
-         Determine the direction of playback. Direction can be three states:
-         Animation.INITIAL = 0 = Animation has never been played
-         Animation.REWIND = 0 = Animation is moving left along timeline toward frame START
-         Animation.FASTFORWARD = 0 = Animation is moving right along timeline toward frame END
-         */
-        let direction = keyframe - this.previousFrame;
-        if (direction > 0) {
-            direction = this.FASTFORWARD;
-        } else if (direction < 0) {
-            direction = this.REWIND;
-        } else {
-            direction = this.INITIAL;
+        // If this is a valid keyframe for this animation then process the frame
+        if(computedFrame) {
+            let animationFrame = this.movePlaybackTo(computedFrame);
+            this.processAnimationFrame(context, animationFrame);
+            this.previousFrame = (keyframe > end) ? end : keyframe;
+
         }
+        else {
+            this.playFinalFrame(context);
+        }
+    }
 
+    /**
+     * Moves to and plays the last frame of the animation
+     * @param context
+     * @param frame an array of functions representing all of the animations that need to run this frame
+     */
+    // eslint-disable-next-line
+    playFinalFrame(context) {
+        if(this.previousFrame !== this.animation.end) {
+            let animationFrame = this.movePlaybackTo(this.animation.end);
+            this.processAnimationFrame(context, animationFrame);
+            this.previousFrame = this.animation.end;
+        }
+    }
 
-        //let callback = this.getActionRunner(context, computedFrame);
-        let callback = null;
-        // Iterate through the list of actions and execute any within keyframe range
-        //let actions = this.getActionsForFrame(computedFrame, direction, callback);
-
-        // eslint-disable-line
-        let animationFrame = this.movePlaybackTo(computedFrame, direction);
-        this.playAnimationFrame(context, animationFrame);
-
-        this.previousFrame = (keyframe > end) ? end : keyframe;
-        return didSomething;
+    /**
+     * Moves to and plays the first frame of the animation
+     * @param context
+     * @param frame an array of functions representing all of the animations that need to run this frame
+     */
+    // eslint-disable-next-line
+    playStartFrame(context) {
+        if(this.previousFrame !== this.animation.start) {
+            let animationFrame = this.movePlaybackTo(this.animation.start);
+            this.processAnimationFrame(context, animationFrame);
+            this.previousFrame = this.animation.start;
+        }
     }
 
 
@@ -101,16 +105,13 @@ let retval = class Animation {
      * @param frame an array of functions representing all of the animations that need to run this frame
      */
     // eslint-disable-next-line
-    playAnimationFrame(context, frame) {
+    processAnimationFrame(context, frame) {
         if(frame.length > 0) {
             frame.map((action) => {
                 action(context);
             });
         }
     }
-
-
-
 
     /**
      * Returns an array functions that must be ran in order from left to right to ensure animation is in the correct
@@ -120,11 +121,26 @@ let retval = class Animation {
      *
      * @optimize We currently check ALL previous actions to ensure valid state but we could probably do this a faster way
      */
-    movePlaybackTo(keyframe, playbackDirection = 1) {
+    movePlaybackTo(keyframe) {
+
         let actions = this.animation.data.actions;
-        if (actions.length > 0) {
-            console.log();
+        if (actions.length == 0) {
+            return [];
         }
+
+        /**
+         Determine the direction of playback. Direction can be three states:
+         Animation.INITIAL = 0 = Animation has never been played
+         Animation.REWIND = 0 = Animation is moving left along timeline toward frame START
+         Animation.FASTFORWARD = 0 = Animation is moving right along timeline toward frame END
+         */
+        let playbackDirection = keyframe - this.previousFrame;
+        if (playbackDirection >= 0) {
+            playbackDirection = this.FASTFORWARD;
+        } else if (playbackDirection < 0) {
+            playbackDirection = this.REWIND;
+        }
+
         if (!playbackDirection) {
             actions = actions.reverse();
         }
@@ -141,32 +157,30 @@ let retval = class Animation {
             // If no end frame is specified assume there isn't one
             let end = (action.end) ? action.end : Number.MAX_SAFE_INTEGER;
 
-            let index = action.index;
             // Check to ensure the animation playback position is in the correct place
-            if (index !== 0) {
-                let previousAction = this.animation.data.actions[index - 1];
 
                 // Check to ensure we finished the previous action
-                if (previousAction.position !== this.INFINITY) {
+                if (action.position !== this.INFINITY) {
 
                     if (playbackDirection === this.FASTFORWARD) {
 
-                        if (previousAction.previousFrame !== previousAction.end) {
-                            if(keyframe > previousAction.end) {
-                                return retval.outdated.push(this.animation.fastForward(previousAction));
+                        if (action.previousFrame !== action.end) {
+                            if(keyframe > action.end) {
+                                return retval.outdated.push(this.animation.fastForward(action));
                             }
-
                         }
                     }
                     else {
                         // We didnt reach the final frame of this animation so run its last frame to keep
                         // state in sync
-                        if (previousAction.previousFrame !== previousAction.start) {
-                           // return retval.outdated.push(this.animation.rewind(previousAction));
+                        if (action.previousFrame !== action.start) {
+                            if(keyframe < action.start) {
+                                return retval.outdated.push(this.animation.rewind(action));
+                            }
                         }
                     }
                 }
-            }
+
 
             // If this action is within its execution range then we keep it
             if ((keyframe >= start) && (keyframe <= end)) {
@@ -183,62 +197,16 @@ let retval = class Animation {
     }
 
     resetAnimation(context) {
-        return Object.values(this.animation.data.actions.reverse()).filter((action) => {
+        // Call each reset function if it exists
+        let actions = Object.values(this.animation.data.actions.reverse());
+        actions.filter((action) => {
             if (action.reset) {
                 console.log("calling reset func");
                 action.reset(context);
             }
-
-            // Call handler from the earliest position of the animation frame
-            if (action.handler) {
-                let args = {keyframe: action.start, context, tween: new Tween(action.start, action.start, action.end)};
-                action.handler(args);
-                action.position = 0;
-            }
         }, this);
-    }
 
-    /**
-     * Returns a list of actions we need to run on this keyframe
-     * @param keyframe
-     * @param playbackDirection
-     * @param callback
-     * @returns {(*|NotificationAction)[]}
-     */
-    getActionsForFrame(keyframe, playbackDirection = 1, callback = null) {
-        let actions = Object.values(this.animation.data.actions);
-
-        // If keyframe is moving left on timeline (rewinding) we should iterate thru actions from right to left
-        if (playbackDirection < 0) {
-            //console.log("reversing actions");
-            actions = actions.reverse();
-        }
-
-        // Iterate through the actions
-        let i = -1;
-        return actions.filter((action) => {
-            i++;
-            i = Math.abs(i);
-            //console.log("I is", i, action);
-
-            // If no start frame is specified we assume it's supposed to be zero
-            let start = action.start ? action.start : 0;
-
-            // If no end frame is specified assume there isn't one
-            let end = (action.end) ? action.end : Number.MAX_SAFE_INTEGER;
-
-            // If this action is within its execution range then we keep it
-            if ((keyframe >= start) && (keyframe <= end)) {
-                // If a callback has been provided then
-                if (callback) {
-                    callback.apply(this, [action]);
-                }
-
-                return true;
-            }
-
-            return false;
-        }, this);
+        this.playStartFrame(context, true);
     }
 }
 

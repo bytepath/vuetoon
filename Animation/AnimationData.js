@@ -95,8 +95,18 @@ let retval = class AnimationData {
      * @param keyframe
      * @returns {function({context: *}): *}
      */
-    // rewind(action) {
-    // }
+    rewind(action) {
+        return (context) => {
+            if (!action.handler) return;
+
+            action.previousFrame = action.start;
+            return action.handler({
+                context,
+                keyframe: action.start,
+                tween: new Tween(action.start, action.start, action.end),
+            });
+        };
+    }
 };
 
 export default retval;
