@@ -20,5 +20,26 @@ export default {
             type: Object,
             default: null
         },
+
+        /**
+         * Default color of this asset.
+         *
+         */
+        color: {
+            type: Object,
+            default: null,
+        },
     },
+
+    data() {
+        return {
+            defaultColor: (this.color) ? this.color : "#FC0FC0",
+        };
+    },
+
+    watch: {
+        color(){
+            this.defaultColor = this.color;
+        }
+    }
 }

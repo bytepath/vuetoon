@@ -3,16 +3,10 @@
     import Position from '../../../../Helpers/Position';
 
     export default CreateAsset({
-        props: {
-            color: {
-                type: String,
-                default: '#FB7272'
-            },
-        },
+        color: '#FB7272',
 
         data() {
             return {
-                defaultColor: this.color,
                 basket: new Position({
                     width: 100,
                     height: 100,
@@ -21,12 +15,6 @@
                     scaleX: 4,
                 }),
             }
-        },
-
-        watch: {
-            color(){
-                this.defaultColor = this.color;
-            },
         },
     });
 </script>

@@ -136,6 +136,19 @@ let createAsset = function (data = {}) {
         mixin.computed['animations'] = data.animations;
     }
 
+    // If we have custom color then we want to add it as a prop
+    // eslint-disable-next-line
+    if (data.hasOwnProperty("color")) {
+        console.log("found a color prop", data.color);
+        let c = {
+            type: String,
+            default: data.color,
+        };
+
+        console.log(c);
+        mixin.props['color'] = c;
+    }
+
     // If we have a use value replace the prop in the asset to return the name of the layer by default
     if (src) {
         delete mixin.props.src;

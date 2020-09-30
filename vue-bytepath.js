@@ -20,6 +20,7 @@ import spin from './vue/Components/Animations/Spin';
 
 // Factories
 import CreateAsset from "./vue/Factories/CreateAsset";
+import CreateKeyframe from "./vue/Factories/CreateKeyframe";
 
 // Helpers
 import Position from "./Helpers/Position";
@@ -33,6 +34,7 @@ const Bytepath = {
     AnimationEntity,
     CreateAsset,
     CreateEntity: CreateAsset,
+    CreateKeyframe,
 
     Position,
     mixins: {
