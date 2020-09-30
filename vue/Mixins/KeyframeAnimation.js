@@ -11,7 +11,7 @@ export default {
 
         // The name of the animation we want to run
         anim: {
-            type: String,
+            type: String|Object,
             default: null
         },
 
@@ -38,6 +38,13 @@ export default {
         },
 
         animation() {
+            if (this.anim !== null) {
+                /* eslint-disable-next-line */
+                if(typeof this.anim == "object"){
+                    return this.anim;
+                }
+            }
+
             if(this.animations) {
                 // Check to see if the animation controls have specified an animation to play
                 if (this.anim) {
