@@ -24,12 +24,13 @@ let retval = class AnimationPlayer {
      * Returns null if invalid keyframe for this animation
      *
      * @param keyframe
+     * @param forceRepeat force this animation frame to be a repeating frame
      * @returns Integer|null
      */
-    calculateAnimationKeyframe(keyframe) {
+    calculateAnimationKeyframe(keyframe, forceRepeat = false) {
         // If this animation should repeat then we return the modulo of the end keyframe
         if (this.animation.end) {
-            if (this.repeat || (keyframe < this.animation.end)) {
+            if ( (this.repeat || forceRepeat) || (keyframe < this.animation.end)) {
                 return keyframe % this.animation.end;
             }
 
@@ -52,7 +53,7 @@ let retval = class AnimationPlayer {
     computeFrame(keyframe, context) {
 
         // internal keyframe can vary from "user" keyframe if repeat = true so we need to calculate that
-        let computedFrame = this.calculateAnimationKeyframe(keyframe);
+        let computedFrame = this.calculateAnimationKeyframe(keyframe, context.repeat);
 
         if (computedFrame !== null) {
             let delta = keyframe - this.previousKeyframe;
@@ -62,7 +63,8 @@ let retval = class AnimationPlayer {
 
             // Should we repeat the animation
             let end = this.animation.end;
-            if (end && this.repeat) {
+            // if context repeat is set then this is a repeat
+            if (end && (this.repeat || context.repeat)) {
                 let numRuns = Math.trunc(keyframe / end);
                 if (numRuns > this.timesRepeated) {
                     //console.log("need to repeat", numRuns, this.timesRepeated, keyframe, this);
