@@ -111,7 +111,10 @@ export default {
 
     mounted() {
         this.animationDirty = true;
+        this.computeTransformation();
+
         window.addEventListener('DOMContentLoaded', () => {
+            this.animationDirty = true;
             this.computeTransformation();
         });
     },

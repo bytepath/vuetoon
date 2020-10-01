@@ -11,7 +11,7 @@ export default {
 
         // The name of the animation we want to run
         anim: {
-            type: String|Object,
+            type: String | Object,
             default: null
         },
 
@@ -24,6 +24,10 @@ export default {
 
     data() {
         return {};
+    },
+
+    mounted() {
+        this.keyframeChanged(this.keyframe);
     },
 
     watch: {
@@ -40,12 +44,12 @@ export default {
         animation() {
             if (this.anim !== null) {
                 /* eslint-disable-next-line */
-                if(typeof this.anim == "object"){
+                if (typeof this.anim == "object") {
                     return this.anim;
                 }
             }
 
-            if(this.animations) {
+            if (this.animations) {
                 // Check to see if the animation controls have specified an animation to play
                 if (this.anim) {
                     // Check to see if this entity has an animation with the name in the controls
@@ -66,14 +70,16 @@ export default {
 
     methods: {
         loadAnimation(anim) {
-            if(this.animations) {
+            if(this.animations[anim] == null) return null;
+
+            if (this.animations) {
                 let actions = AnimationDataFactory.createFromUserAnimation(anim, this.animations[anim]);
                 return new Animation(this.anim, actions, this.repeat);
             }
         },
 
         keyframeChanged(keyframe) {
-            if(this.animation) {
+            if (this.animation) {
                 this.animation.computeFrame(keyframe, this);
             }
         },

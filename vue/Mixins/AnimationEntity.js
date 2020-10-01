@@ -26,7 +26,7 @@ export default {
          *
          */
         color: {
-            type: Object,
+            type: String,
             default: null,
         },
     },

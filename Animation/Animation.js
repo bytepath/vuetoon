@@ -30,7 +30,7 @@ let retval = class AnimationPlayer {
     calculateAnimationKeyframe(keyframe, forceRepeat = false) {
         // If this animation should repeat then we return the modulo of the end keyframe
         if (this.animation.end) {
-            if ( (this.repeat || forceRepeat) || (keyframe < this.animation.end)) {
+            if ((this.repeat || forceRepeat) || (keyframe < this.animation.end)) {
                 return keyframe % this.animation.end;
             }
 
@@ -57,25 +57,27 @@ let retval = class AnimationPlayer {
 
         if (computedFrame !== null) {
             let delta = keyframe - this.previousKeyframe;
-            if(delta === 0) return;
+            if (delta === 0) return;
 
             this.previousKeyframe = keyframe;
 
-            // Should we repeat the animation
-            let end = this.animation.end;
-            // if context repeat is set then this is a repeat
-            if (end && (this.repeat || context.repeat)) {
-                let numRuns = Math.trunc(keyframe / end);
-                if (numRuns > this.timesRepeated) {
-                    //console.log("need to repeat", numRuns, this.timesRepeated, keyframe, this);
-                    this.resetAnimation(context);
-                    this.timesRepeated = numRuns;
+
+            // Should we repeat the animation? We only repeat if we are moving forward
+            if(delta >= 0) {
+                let end = this.animation.end;
+                // if context repeat is set then this is a repeat
+                if (end && (this.repeat || context.repeat)) {
+                    let numRuns = Math.trunc(keyframe / end);
+                    if (numRuns > this.timesRepeated) {
+                        //console.log("need to repeat", numRuns, this.timesRepeated, keyframe, this);
+                        this.resetAnimation(context);
+                        this.timesRepeated = numRuns;
+                    }
                 }
             }
 
-
             // If this is a valid keyframe for this animation then process the frame
-            if (computedFrame) {
+            if (computedFrame !== null) {
                 let animationFrame = this.movePlaybackTo(computedFrame, delta);
                 this.processAnimationFrame(context, animationFrame);
 
@@ -92,7 +94,6 @@ let retval = class AnimationPlayer {
      * @param context
      * @param frame an array of functions representing all of the animations that need to run this frame
      */
-    // eslint-disable-next-line
     processAnimationFrame(context, frame) {
         if (frame.length > 0) {
             frame.map((action) => {
@@ -104,12 +105,21 @@ let retval = class AnimationPlayer {
     /**
      * Returns an array functions that must be ran in order from left to right to ensure animation is in the correct
      * state
-     * @param keyframe the frame we are moving to
+     * @param frame INT the frame number we are moving to
      * @param direction the direction we are moving
      *
      * @optimize We currently check ALL previous actions to ensure valid state but we could probably do this a faster way
      */
-    movePlaybackTo(keyframe, direction = 1) {
+    movePlaybackTo(frame, direction = 1) {
+
+        if(frame <= 10) {
+            console.log();
+        }
+
+        let keyframe = frame;
+        if(keyframe < 0) {
+            keyframe = 0;
+        }
 
         let actions = this.animation.data.actions;
         if (actions.length == 0) {
@@ -123,8 +133,6 @@ let retval = class AnimationPlayer {
         let retval = {
             current: [],
             outdated: [],
-            invalid: [],
-            sendme: [],
         };
 
         actions.map((action) => {
@@ -135,7 +143,6 @@ let retval = class AnimationPlayer {
             let end = (action.end) ? action.end : Number.MAX_SAFE_INTEGER;
 
             // Check to ensure the animation playback position is in the correct place
-
             // Check to ensure we finished the previous action
             if (action.position !== this.INFINITY) {
 
@@ -147,14 +154,12 @@ let retval = class AnimationPlayer {
                         }
                     }
                 } else {
-                    // We didnt reach the final frame of this animation so run its last frame to keep
-                    // state in sync
+                    // We didnt reach the final frame of this animation
+                    // so run its last frame to keep state in sync
                     if (action.previousFrame !== action.start) {
                         if (keyframe < action.start) {
                             return retval.outdated.push(this.animation.rewind(action));
                         }
-                    } else {
-                        retval.invalid.push(this.animation.rewind(action));
                     }
                 }
             }
@@ -169,7 +174,6 @@ let retval = class AnimationPlayer {
 
         }, this);
 
-        //retval.sendme = [...retval.outdated, ...retval.current];
         // Return all actions that need to be ran
         return [...retval.outdated, ...retval.current];
     }
@@ -179,7 +183,6 @@ let retval = class AnimationPlayer {
      * @param context
      * @param frame an array of functions representing all of the animations that need to run this frame
      */
-    // eslint-disable-next-line
     playFinalFrame(context) {
         if (this.previousFrame !== this.animation.end) {
             let animationFrame = this.movePlaybackTo(this.animation.end, this.FASTFORWARD);
@@ -193,7 +196,6 @@ let retval = class AnimationPlayer {
      * @param context
      * @param frame an array of functions representing all of the animations that need to run this frame
      */
-    // eslint-disable-next-line
     playStartFrame(context) {
         if (this.previousFrame !== this.animation.start) {
             let animationFrame = this.movePlaybackTo(this.animation.start, this.REWIND);

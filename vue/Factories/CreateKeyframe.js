@@ -6,8 +6,6 @@
  * @returns {{handler: *, start: *, end: *}|{handler: *, start: *, end: null}}
  */
 export default function keyframe(start = 0, end = null, handler = null) {
-    console.log("number of arguments", arguments.length);
-
     // If we just pass in a handler func
     if(typeof start === "function"){
         return {
