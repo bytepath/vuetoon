@@ -126,8 +126,11 @@ let retval = class AnimationPlayer {
             return [];
         }
 
+        /**
+         * @optimize replace reverse hack with pointer based iterator
+         */
         if (direction < 0) {
-            actions = actions.reverse();
+            actions = [...actions].reverse();
         }
 
         let retval = {
@@ -209,7 +212,7 @@ let retval = class AnimationPlayer {
         this.playStartFrame(context, true);
 
         // Call each reset function if it exists
-        let actions = Object.values(this.animation.data.actions.reverse());
+        let actions = [ ...this.animation.data.actions ].reverse();
         actions.filter((action) => {
             if (action.reset) {
                 console.log("calling reset func");
