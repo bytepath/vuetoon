@@ -62,19 +62,10 @@ let retval = class AnimationPlayer {
             this.previousKeyframe = keyframe;
 
 
-            // Should we repeat the animation? We only repeat if we are moving forward
-            if(delta >= 0) {
-                let end = this.animation.end;
-                // if context repeat is set then this is a repeat
-                if (end && (this.repeat || context.repeat)) {
-                    let numRuns = Math.trunc(keyframe / end);
-                    if (numRuns > this.timesRepeated) {
-                        //console.log("need to repeat", numRuns, this.timesRepeated, keyframe, this);
-                        this.resetAnimation(context);
-                        this.timesRepeated = numRuns;
-                    }
-                }
+            if (this.hasAnimationRepeated() || context.repeat) {
+                this.resetAnimation(context);
             }
+
 
             // If this is a valid keyframe for this animation then process the frame
             if (computedFrame !== null) {
@@ -88,6 +79,23 @@ let retval = class AnimationPlayer {
 
         this.currentFrame = keyframe;
     }
+
+
+    hasAnimationRepeated(keyframe, direction = 1) {
+        // We only repeat if we are moving forward
+        if (direction >= this.FASTFORWARD) {
+            if (this.animation.end && this.repeat) {
+                let numRuns = Math.trunc(keyframe / this.animation.end);
+                if (numRuns > this.timesRepeated) {
+                    this.timesRepeated = numRuns;
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
 
     /**
      * Play the specified frame
@@ -112,12 +120,12 @@ let retval = class AnimationPlayer {
      */
     movePlaybackTo(frame, direction = 1) {
 
-        if(frame <= 10) {
+        if (frame <= 10) {
             console.log();
         }
 
         let keyframe = frame;
-        if(keyframe < 0) {
+        if (keyframe < 0) {
             keyframe = 0;
         }
 
@@ -212,7 +220,7 @@ let retval = class AnimationPlayer {
         this.playStartFrame(context, true);
 
         // Call each reset function if it exists
-        let actions = [ ...this.animation.data.actions ].reverse();
+        let actions = [...this.animation.data.actions].reverse();
         actions.filter((action) => {
             if (action.reset) {
                 console.log("calling reset func");
