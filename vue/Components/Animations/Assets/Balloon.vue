@@ -12,6 +12,7 @@
 
         data() {
             return {
+                isBalloon: true,
                 basket: new Position({
                     width: 100,
                     height: 100,

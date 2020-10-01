@@ -45,7 +45,7 @@ export default {
             if (this.anim !== null) {
                 /* eslint-disable-next-line */
                 if (typeof this.anim == "object") {
-                    return this.anim;
+                    return this.loadAnimation(this.anim);
                 }
             }
 
@@ -70,12 +70,17 @@ export default {
 
     methods: {
         loadAnimation(anim) {
-            if(this.animations[anim] == null) return null;
+            if(anim === null) return;
+            if(typeof anim === "string" && this.animations){
+                if(this.animations[anim] == null) return null;
 
-            if (this.animations) {
                 let actions = AnimationDataFactory.createFromUserAnimation(anim, this.animations[anim]);
                 return new Animation(this.anim, actions, this.repeat);
             }
+            
+            // This is an animation passed to us by a parent component
+            let actions = AnimationDataFactory.createFromUserAnimation('renderless', anim);
+            return new Animation('renderless', actions, this.repeat);            
         },
 
         keyframeChanged(keyframe) {
