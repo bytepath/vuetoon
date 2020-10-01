@@ -34,7 +34,7 @@ let retval = class AnimationPlayer {
                 return keyframe % this.animation.end;
             }
 
-            // If we aren't set to repeat and we are past the end we don't need to do anything
+            // If we aren't set to repeat and we are past the end we have finished our animation
             return null;
         }
 
@@ -55,6 +55,7 @@ let retval = class AnimationPlayer {
         // internal keyframe can vary from "user" keyframe if repeat = true so we need to calculate that
         let computedFrame = this.calculateAnimationKeyframe(keyframe, context.repeat);
 
+        // If computed frame returns null it means this animation should be completed
         if (computedFrame !== null) {
             let delta = keyframe - this.previousKeyframe;
             if (delta === 0) return;
@@ -66,21 +67,22 @@ let retval = class AnimationPlayer {
                 this.resetAnimation(context);
             }
 
-
-            // If this is a valid keyframe for this animation then process the frame
-            if (computedFrame !== null) {
-                let animationFrame = this.movePlaybackTo(computedFrame, delta);
-                this.processAnimationFrame(context, animationFrame);
-
-            } else {
-                this.playFinalFrame(context);
-            }
+            let animationFrame = this.movePlaybackTo(computedFrame, delta);
+            this.processAnimationFrame(context, animationFrame);
+        } else {
+            this.playFinalFrame(context);
         }
 
         this.currentFrame = keyframe;
     }
 
 
+    /**
+     * Did this animation repeat between now and the last time it was ran
+     * @param keyframe
+     * @param direction
+     * @returns {boolean}
+     */
     hasAnimationRepeated(keyframe, direction = 1) {
         // We only repeat if we are moving forward
         if (direction >= this.FASTFORWARD) {
@@ -195,7 +197,7 @@ let retval = class AnimationPlayer {
      * @param frame an array of functions representing all of the animations that need to run this frame
      */
     playFinalFrame(context) {
-        if (this.previousFrame !== this.animation.end) {
+        if (!this.animation.hasFinishedPlaying()) {
             let animationFrame = this.movePlaybackTo(this.animation.end, this.FASTFORWARD);
             this.processAnimationFrame(context, animationFrame);
             this.previousFrame = this.animation.end;

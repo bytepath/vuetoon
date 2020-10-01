@@ -107,6 +107,22 @@ let retval = class AnimationData {
             });
         };
     }
+
+    /**
+     * Has this animation finished playing
+     * @returns {boolean}
+     */
+    hasFinishedPlaying() {
+        for (var i = 0; i < this.data.actions.length; i++) {
+            let action = this.data.actions[i];
+            let end = (action.end) ? action.end : null;
+            if (action.previousFrame !== end) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 };
 
 export default retval;
