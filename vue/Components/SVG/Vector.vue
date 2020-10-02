@@ -2,7 +2,7 @@
     <svg :id="'svg' + assetID"
          :width="w" :height="h"
          :viewBox="viewboxString"
-         :preserveAspectRatio="$attrs.aspect"
+         :preserveAspectRatio="preserveAspectRatio"
          :overflow="overflow">
         <asset-loader :src="src" :owner="assetID" @loaded="assetLoaded"/>
         <g :id="'g' + assetID" :transform="transform">
@@ -54,7 +54,11 @@
 
         computed: {
             preserveAspectRatio() {
-                //return "xMinYMin slice";
+                // If we are manipulating the camera preserveAspectRatio does some wonky shit
+                // if(this.camera) {
+                //     return "none";
+                // }
+
                 return "none";
             },
 
@@ -68,20 +72,30 @@
             viewBox() {
 
                  if (this.camera) {
-                //
-                //     // //console.log("camera", this.camera);
-                //     viewBox.centerX = this.assetDimensions.width / 2;
-                //     viewBox.centerY = this.assetDimensions.height / 2;
-                //     viewBox.scaleX = 1 / this.camera.scaleX;
-                //     viewBox.scaleY = 1 / this.camera.scaleY;
-                //     viewBox.x = this.camera.x * (this.assetDimensions.width / (this.camera.scaleX << 2));
-                //     viewBox.y = this.camera.y * (this.assetDimensions.height / (this.camera.scaleY << 2));
-                //     //
-                //     let tl = viewBox.multiplyPoint(this.assetDimensions.x, this.assetDimensions.y);
-                //     let br = viewBox.multiplyPoint(this.assetDimensions.width, this.assetDimensions.height);
-                //     //
-                //     // this.dimensions.width = br.x * (this.camera.scaleX);
-                //     // this.dimensions.height = br.y * (this.camera.scaleY);
+                     let viewBox = new Position({ ...this.camera });
+                     if (this.assetDimensions) {
+
+                         viewBox.centerX = this.assetDimensions.width / (2 * this.camera.scaleX);
+                         viewBox.centerY = this.assetDimensions.height / (2 * this.camera.scaleY);
+                         viewBox.scaleX = 1 / this.camera.scaleX;
+                         viewBox.scaleY = 1 / this.camera.scaleY;
+                        // viewBox.x = this.camera.x * (this.assetDimensions.width / (this.camera.scaleX << 2));
+                        //  viewBox.y = this.camera.y * (this.assetDimensions.height / (this.camera.scaleY << 2));
+                         //
+                         let tl = viewBox.multiplyPoint(this.assetDimensions.x, this.assetDimensions.y);
+                         let br = viewBox.multiplyPoint(this.assetDimensions.width, this.assetDimensions.height);
+                             return new Position({
+                                 x: (tl.x),
+                                 y: (tl.y),
+                                 width: (br.x),
+                                 height: (br.y),
+                              });
+
+                         this.dimensions.width = br.x * (this.camera.scaleX);
+                         this.dimensions.height = br.y * (this.camera.scaleY);
+                     }
+                    //
+
                 //
                 //     // return new Position({
                 //     //     x: (tl.x),
