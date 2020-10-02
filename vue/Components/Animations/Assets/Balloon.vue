@@ -8,6 +8,7 @@
     import Position from '../../../../Helpers/Position';
 
     export default CreateAsset({
+        name: "balloon",
         color: '#FB7272',
 
         data() {

@@ -25,12 +25,14 @@ import CreateKeyframe from "./vue/Factories/CreateKeyframe";
 // Helpers
 import Position from "./Helpers/Position";
 
-// Samples
+// Sample Assets
 import balloon from "./vue/Components/Animations/Assets/Balloon";
 import animatedBalloon from "./vue/Components/Animations/Assets/AnimatedBalloon";
-
 import human from "./vue/Components/Animations/Assets/Human/Human";
 import pointyBackground from "./vue/Components/Animations/Scenes/Partials/PointyBackground";
+
+// Sample Animations
+import doABarrelRoll from "./vue/Components/Animations/Animations/DoABarrelRoll";
 
 const Bytepath = {
     AnimationEntity,
@@ -66,6 +68,10 @@ const Bytepath = {
     },
 
     samples: {
+        animations: {
+            doABarrelRoll
+        },
+
         assets: {
             balloon,
             animatedBalloon,

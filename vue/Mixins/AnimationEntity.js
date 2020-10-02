@@ -1,5 +1,6 @@
 import CalculatesTransformation from "./CalculatesTransformation";
 import KeyframeAnimation from "./KeyframeAnimation";
+import Position from "../../Helpers/Position";
 
 export default {
     mixins: [ KeyframeAnimation, CalculatesTransformation ],
@@ -32,8 +33,11 @@ export default {
     },
 
     data() {
+        let positions = { default: new Position() };
         return {
             defaultColor: (this.color) ? this.color : "#FC0FC0",
+            positions,
+            defaultPosition: positions.default,
         };
     },
 

@@ -1,8 +1,9 @@
+<!-- DoABarrelRoll.vue -->
 <script>
-    import Bytepath from 'bytepath';
-    let _k = Bytepath.CreateKeyframe;
+    import _k from '../../../Factories/CreateKeyframe';
+    import CreateAsset from '../../../Factories/CreateAsset';
 
-    export default Bytepath.CreateAsset({
+    export default CreateAsset({
         name: "DoABarrelRoll",
         animations() {
             return {

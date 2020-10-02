@@ -52,20 +52,20 @@
                 loopThenLand:
                     [
                         // Translate X from 100 to 500
-                        _k(0, 970, ({context, tween}) => context.balloonPos.x = tween.number(100, 500)),
+                        _k(0, 970, ({context, tween}) => context.defaultPosition.x = tween.number(100, 500)),
 
                         // From 100 to 970 rotate with our center position set to 100, 0 so we do a big circle
                         _k(100, 970, ({context, tween}) => {
-                            context.balloonPos.angle = 360 - tween.number(0, 360);
-                            context.position.centerX = 100;
-                            context.position.centerY = 0;
+                            context.defaultPosition.angle = 360 - tween.number(0, 360);
+                            context.defaultPosition.centerX = 100;
+                            context.defaultPosition.centerY = 0;
                         }),
 
                         // Move very quickly on X direction.
-                        _k(970, 1000, ({context, tween}) => context.balloonPos.x = tween.number(500, 850)),
+                        _k(970, 1000, ({context, tween}) => context.defaultPosition.x = tween.number(500, 850)),
 
                         // Land the balloon next to the lighthouse
-                        _k(1000, 1200, ({context, tween}) => context.balloonPos.y = tween.number(0, 620)),
+                        _k(1000, 1200, ({context, tween}) => context.defaultPosition.y = tween.number(0, 620)),
                     ],
 
                 /**
@@ -86,5 +86,5 @@
 </script>
 
 <template>
-    <balloon :color="defaultColor" :position="balloonPos"/>
+    <balloon :color="defaultColor" :keyframe="keyframe" :position="defaultPosition" />
 </template>

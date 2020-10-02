@@ -42,7 +42,9 @@ let createAsset = function (data = {}) {
              */
             showLayers: {
                 type: Array,
-                default(){ return []; },
+                default() {
+                    return [];
+                },
             }
         },
 
@@ -51,7 +53,7 @@ let createAsset = function (data = {}) {
         },
 
         mounted() {
-            if(this.$children[0]) {
+            if (this.$children[0]) {
                 this.$children[0].$on('loaded', this.onLoaded);
             }
         },
@@ -60,23 +62,23 @@ let createAsset = function (data = {}) {
             this.$children[0].$off();
         },
 
-        computed:{
-            filteredLayers(){
-              if(!this.layers){
-                  return {};
-              }
+        computed: {
+            filteredLayers() {
+                if (!this.layers) {
+                    return {};
+                }
 
-              if(this.showLayers.length === 0){
-                  return this.layers;
-              }
+                if (this.showLayers.length === 0) {
+                    return this.layers;
+                }
 
-              return Object.keys(this.layers)
-              .filter(layer => this.showLayers.includes(layer))
-              .reduce((obj, layer) => {
-                  obj[layer] = this.layers[layer];
-                  return obj;
-              }, {});
-          }
+                return Object.keys(this.layers)
+                    .filter(layer => this.showLayers.includes(layer))
+                    .reduce((obj, layer) => {
+                        obj[layer] = this.layers[layer];
+                        return obj;
+                    }, {});
+            }
         },
 
         methods: {
@@ -100,32 +102,44 @@ let createAsset = function (data = {}) {
             },
         },
 
-        components: { Vector, Layer },
+        components: {Vector, Layer},
 
-        /**
-         * Equivalent to
-         * <template>
-         *      <entity v-bind="$props" :src="src">
-         *          <layer v-for="(layer, i) in filteredLayers" :key="i" :position="layer" />
-         *      </entity>
-         * </template>
-         */
-        render: function (createElement) {
-            let props = {...this.$props};
-            let children = [];
+        // /**
+        //  * Equivalent to
+        //  * <template>
+        //  *      <entity v-bind="$props" :src="src">
+        //  *          <layer v-for="(layer, i) in filteredLayers" :key="i" :position="layer" />
+        //  *      </entity>
+        //  * </template>
+        //  */
+        // render: function (createElement) {
+        //     let props = {...this.$props};
+        //     let children = [];
+        //
+        //     Object.keys(this.filteredLayers).map((layer, i) => {
+        //         let element = createElement('layer', {
+        //             props: {
+        //                 position: this.layers[layer],
+        //                 key: i,
+        //             }
+        //         });
+        //         children.push(element);
+        //     });
+        //
+        //     console.log("renderless func lol");
+        //
+        //     return createElement('vector', {props}, children);
+        // },
 
-            Object.keys(this.filteredLayers).map((layer, i) => {
-                let element = createElement('layer', {
-                    props: {
-                        position: this.layers[layer],
-                        key: i,
-                    }
-                });
-                children.push(element);
-            });
+        render() {
+            let props = {
+                position: this.defaultPosition,
+                color: this.defaultColor,
+            };
 
-            return createElement('vector', {props}, children);
-        },
+            console.log("bradley renderless lol");
+            return this.$scopedSlots.default(props);
+        }
 
     };
 
@@ -164,7 +178,9 @@ let createAsset = function (data = {}) {
 
         mixin.props.showLayers = {
             type: Array,
-            default(){ return layers; },
+            default() {
+                return layers;
+            },
         };
     }
 
