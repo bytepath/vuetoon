@@ -3,8 +3,8 @@
          :width="w" :height="h"
          :viewBox="viewboxString"
          :preserveAspectRatio="$attrs.aspect"
-        :overflow="overflow">
-        <asset-loader :src="src" :owner="assetID" @loaded="assetLoaded" />
+         :overflow="overflow">
+        <asset-loader :src="src" :owner="assetID" @loaded="assetLoaded"/>
         <g :id="'g' + assetID" :transform="transform">
             <slot :position="position" :href="href"/>
         </g>
@@ -29,18 +29,9 @@
             },
 
             /**
-             * position rect with {x,y,width,height}
-             * If provided the camera will be moved to this location
-             */
-            camera: {
-                type: Object,
-                default: null
-            },
-
-            /**
              * What to do if this entity goes outside it's clip boundaries. Default we just continue drawing it
              */
-            overflow:{
+            overflow: {
                 type: String,
                 default: "visible"
             },
@@ -115,7 +106,7 @@
             viewboxString() {
                 if (this.viewBox) {
                     let b = this.viewBox;
-                    if(b.width > 0 && b.height > 0) {
+                    if (b.width > 0 && b.height > 0) {
                         return `${b.x} ${b.y} ${b.width} ${b.height}`;
                     }
                 }
@@ -132,13 +123,26 @@
                 return asset;
             },
         },
+
+        mounted() {
+            if (this.src === null) {
+                let bbox = this.getSelfDimensions();
+                this.assetDimensions = new Position({
+                    x: bbox.x,
+                    y: bbox.y,
+                    width: bbox.width + bbox.x,
+                    height: bbox.height + bbox.y,
+                });
+            }
+        },
+
         methods: {
             /**
              * Called when asset has been loaded by the asset loader component. Moves whatever we are trying to look at
              * to point {0, 0} so that we are "looking" at it
              */
             assetLoaded(asset) {
-                console.log("asset loaded", { ...this });
+                console.log("asset loaded", {...this});
 
                 this.href = "#" + asset.id;
 
@@ -146,19 +150,24 @@
                     this.assetDimensions = {...asset.viewBox};
                     console.log("viewbox", {...asset});
 
-                }
-                else{
+                } else {
                     console.log("no viewbox bra");
                 }
                 setTimeout(this.lookAtAsset, 0);
                 this.$emit("loaded", asset);
             },
 
+            getSelfDimensions() {
+                return this.$el.getBBox();
+            },
+
             /**
              * Moves the "camera" to look directly at the asset we are puling from a larger scene
              */
             lookAtAsset() {
-                let element = document.getElementById('g' + this.assetID);
+                let lookAtID = 'g' + this.assetID;
+                console.log("lookat", lookAtID);
+                let element = document.getElementById(lookAtID);
                 if (element) {
                     if (typeof element.getBBox == "function") {
                         let bbox = element.getBBox();
@@ -168,11 +177,13 @@
                         this.dimensions.width = bbox.width;
 
                         // Set camera position to the BBox of this element
-                            this.assetDimensions.x = bbox.x;
-                            this.assetDimensions.y = bbox.y;
-                            this.assetDimensions.width = bbox.width + bbox.x;
-                            this.assetDimensions.height = bbox.height + bbox.y;
+                        this.assetDimensions.x = bbox.x;
+                        this.assetDimensions.y = bbox.y;
+                        this.assetDimensions.width = bbox.width + bbox.x;
+                        this.assetDimensions.height = bbox.height + bbox.y;
                     }
+                } else {
+                    console.log("couldnt find an element with ", lookAtID, this);
                 }
             },
         },

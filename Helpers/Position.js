@@ -54,10 +54,7 @@ export default class Position {
      * @returns {DOMPoint}
      */
     multiplyPoint(x = 0, y = 0) {
-        let point = new DOMPoint(x, y);
-        let matrix = this.getDefaultTransformMatrix();
-        point = point.matrixTransform(matrix);
-        return new DOMPoint(point.x, point.y);
+        return applyToPoint(this.getDefaultTransformMatrix(), { x, y });
     }
 
     /**
