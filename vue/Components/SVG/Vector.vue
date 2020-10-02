@@ -12,6 +12,8 @@
 </template>
 
 <script>
+    /* eslint-disable */
+
     import AssetLoader from "../Loaders/AssetLoader";
     import AnimationEntity from "../../Mixins/AnimationEntity";
     import Position from "../../../Helpers/Position";
@@ -64,9 +66,34 @@
              * Bottom Left [0,1000] [500,1000] //Bottom right
              */
             viewBox() {
-                let viewBox = null;
+
+                 if (this.camera) {
+                //
+                //     // //console.log("camera", this.camera);
+                //     viewBox.centerX = this.assetDimensions.width / 2;
+                //     viewBox.centerY = this.assetDimensions.height / 2;
+                //     viewBox.scaleX = 1 / this.camera.scaleX;
+                //     viewBox.scaleY = 1 / this.camera.scaleY;
+                //     viewBox.x = this.camera.x * (this.assetDimensions.width / (this.camera.scaleX << 2));
+                //     viewBox.y = this.camera.y * (this.assetDimensions.height / (this.camera.scaleY << 2));
+                //     //
+                //     let tl = viewBox.multiplyPoint(this.assetDimensions.x, this.assetDimensions.y);
+                //     let br = viewBox.multiplyPoint(this.assetDimensions.width, this.assetDimensions.height);
+                //     //
+                //     // this.dimensions.width = br.x * (this.camera.scaleX);
+                //     // this.dimensions.height = br.y * (this.camera.scaleY);
+                //
+                //     // return new Position({
+                //     //     x: (tl.x),
+                //     //     y: (tl.y),
+                //     //     width: (br.x),
+                //     //     height: (br.y),
+                //     // });
+                     return this.camera;
+                }
 
                 if (this.assetDimensions) {
+                    let viewBox = null;
                     viewBox = new Position({
                         x: this.assetDimensions.x,
                         y: this.assetDimensions.y,
@@ -74,33 +101,9 @@
                         height: (this.assetDimensions.height - this.assetDimensions.y),
                     });
 
-
-                    if (this.camera) {
-
-                        //console.log("camera", this.camera);
-                        viewBox.centerX = this.assetDimensions.width / this.camera.scaleX;
-                        viewBox.centerY = this.assetDimensions.height / this.camera.scaleY;
-                        viewBox.scaleX = 1 / this.camera.scaleX;
-                        viewBox.scaleY = 1 / this.camera.scaleY;
-                        viewBox.x = this.camera.x * (this.assetDimensions.width / (this.camera.scaleX << 2));
-                        viewBox.y = this.camera.y * (this.assetDimensions.height / (this.camera.scaleY << 2));
-
-                        let tl = viewBox.multiplyPoint(this.assetDimensions.x, this.assetDimensions.y);
-                        let br = viewBox.multiplyPoint(this.assetDimensions.width, this.assetDimensions.height);
-
-                        this.dimensions.width = br.x * (this.camera.scaleX);
-                        this.dimensions.height = br.y * (this.camera.scaleY);
-
-                        return new Position({
-                            x: (tl.x),
-                            y: (tl.y),
-                            width: (br.x),
-                            height: (br.y),
-                        });
-                    }
+                    return viewBox;
                 }
 
-                return viewBox;
             },
 
             viewboxString() {

@@ -27,13 +27,13 @@
                  * This is the amimation from the docs that scrolls the balloon from X=0 to X=100.
                  * Using a functional style we can fit the whole animation on a single line.
                  */
-                babystep: [ _k(0, 100, ({context, keyframe}) => context.balloonPos.x = keyframe) ],
+                babystep: [ _k(0, 100, ({context, keyframe}) => context.defaultPosition.x = keyframe) ],
 
                 /**
                  * Rotates in place for infinity seconds
                  */
                 spin: [ _k(0, 1000, ({context, tween}) => {
-                    context.balloonPos.angle = tween.number(0, 360);
+                    context.defaultPosition.angle = tween.number(0, 360);
                 })],
 
                 /**
@@ -41,8 +41,8 @@
                  */
                 circle: [
                     _k(0, ({context, keyframe}) => {
-                        context.balloonPos.x = Math.sin(keyframe / 100) * 300;
-                        context.balloonPos.y = Math.cos(keyframe / 100) * 300;
+                        context.defaultPosition.x = Math.sin(keyframe / 100) * 300;
+                        context.defaultPosition.y = Math.cos(keyframe / 100) * 300;
                     }),
                 ],
 
@@ -65,7 +65,7 @@
                         _k(970, 1000, ({context, tween}) => context.defaultPosition.x = tween.number(500, 850)),
 
                         // Land the balloon next to the lighthouse
-                        _k(1000, 1200, ({context, tween}) => context.defaultPosition.y = tween.number(0, 620)),
+                        _k(1000, 1200, ({context, tween}) => context.defaultPosition.y = tween.number(0, 1150)),
                     ],
 
                 /**
@@ -86,5 +86,5 @@
 </script>
 
 <template>
-    <balloon :color="defaultColor" :keyframe="keyframe" :position="defaultPosition" />
+    <balloon :color="defaultColor" :sx="$props.sx" :sy="$props.sy" :keyframe="keyframe" :position="defaultPosition" />
 </template>

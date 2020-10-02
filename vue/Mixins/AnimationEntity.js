@@ -38,6 +38,7 @@ export default {
             defaultColor: (this.color) ? this.color : "#FC0FC0",
             positions,
             defaultPosition: positions.default,
+            defaultCamera: new Position(),
         };
     },
 
