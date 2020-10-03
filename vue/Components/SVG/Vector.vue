@@ -98,7 +98,7 @@
              * Computes the preserveAspectRatio attribute for this svg
              */
             preserveAspectRatio() {
-                if(this.camera) {
+                if (this.camera) {
                     return "none";
                 }
 
@@ -142,6 +142,9 @@
              * Bottom Left [0,1000] [500,1000] //Bottom right
              */
             viewBox() {
+               // if(!this.src && (!this.assetDimensions)){
+                    this.calculateSelfDimensions();
+                //}
 
                 if (this.camera) {
                     let viewBox = new Position({...this.camera});
@@ -205,13 +208,7 @@
 
         mounted() {
             if (this.src === null) {
-                let bbox = this.getSelfDimensions();
-                this.assetDimensions = new Position({
-                    x: bbox.x,
-                    y: bbox.y,
-                    width: bbox.width + bbox.x,
-                    height: bbox.height + bbox.y,
-                });
+                this.calculateSelfDimensions();
             }
         },
 
@@ -236,8 +233,18 @@
                 this.$emit("loaded", asset);
             },
 
-            getSelfDimensions() {
-                return this.$el.getBBox();
+            calculateSelfDimensions() {
+                if(this.$el) {
+                    if (this.$el.getBBox) {
+                        let bbox = this.$el.getBBox();
+                        this.assetDimensions = new Position({
+                            x: bbox.x,
+                            y: bbox.y,
+                            width: bbox.width + bbox.x,
+                            height: bbox.height + bbox.y,
+                        });
+                    }
+                }
             },
 
             /**

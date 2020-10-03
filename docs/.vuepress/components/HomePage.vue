@@ -11,7 +11,7 @@
 </script>
 
 <template>
-    <scroll :speed="10" :fps="10" v-slot="{ keyframe }" auto-play>
-            <ocean-scene class="text-blue-300" :keyframe="keyframe"/>
+    <scroll v-slot="{ keyframe }" auto-play>
+            <ocean-scene style="fill:#90CDF4;" class="text-blue-300" :keyframe="keyframe"/>
     </scroll>
 </template>
