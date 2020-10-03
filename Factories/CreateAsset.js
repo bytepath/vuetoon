@@ -135,10 +135,9 @@ let createAsset = function (data = {}) {
             let props = {
                 position: this.defaultPosition,
                 color: this.defaultColor,
-                matrix: this.getViewportMatrix(),
+                //matrix: this.getViewportMatrix(),
             };
 
-            console.log("bradley renderless lol", this.getViewportMatrix());
             return this.$scopedSlots.default(props);
         }
 

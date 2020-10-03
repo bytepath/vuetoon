@@ -7,6 +7,7 @@
     import BigFish from "../../Assets/Fish/BigFish";
     import Octopus from "../../Assets/Fish/Octopus";
     import DoABarrelRoll from "../../Animations/DoABarrelRoll";
+    import Pig from "../../Assets/Animals/Pig";
 
     export default Bytepath.CreateAsset({
         name: "ocean-scene",
@@ -37,6 +38,7 @@
             BigFish,
             Octopus,
             DoABarrelRoll,
+            Pig
         },
 
         animations() {
@@ -62,7 +64,11 @@
             <reset :keyframe="keyframe" :start="0" v-slot="reset">
                 <sky :show-viewbox="false" :keyframe="reset.keyframe">
                     <do-a-barrel-roll :keyframe="reset.keyframe" v-slot="barrel">
-                        <balloon :x="-225" :y="500" :sx="0.5" :sy="0.5" v-bind="barrel"  />
+                        <g>
+                            <balloon :x="-225" :y="500" :sx="0.5" :sy="0.5" v-bind="barrel" v-slot="balloon">
+                                <pig  :x="-1400" :y="-500" />
+                            </balloon>
+                        </g>
                     </do-a-barrel-roll>
                     <slot />
                 </sky>
