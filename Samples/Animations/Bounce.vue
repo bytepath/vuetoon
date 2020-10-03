@@ -1,6 +1,6 @@
 <script>
     import CreateAsset from '../../Factories/CreateAsset';
-    import Position from "../../../Helpers/Position";
+    import Position from "../../Helpers/Position";
 
     export default CreateAsset({
         props:{

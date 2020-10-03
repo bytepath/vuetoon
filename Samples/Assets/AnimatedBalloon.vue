@@ -4,9 +4,9 @@
      * The directory structure is a bit different than other examples because its in the bytepath core.
      * Dont think too much about this.
      */
-    import CreateAsset from '../../../Factories/CreateAsset';
-    import Position from '../../../../Helpers/Position';
-    import _k from '../../../Factories/CreateKeyframe';
+    import CreateAsset from '../../Factories/CreateAsset';
+    import Position from '../../Helpers/Position';
+    import _k from '../../Factories/CreateKeyframe';
     import Balloon from "./Balloon";
 
     export default CreateAsset({

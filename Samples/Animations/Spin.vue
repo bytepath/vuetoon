@@ -1,9 +1,7 @@
 <script>
-    import KeyframeAnimation from '../../Mixins/KeyframeAnimation';
+    import CreateAsset from "../../Factories/CreateAsset";
 
-    export default {
-        mixins: [ KeyframeAnimation ],
-
+    export default CreateAsset({
         props:{
             ma: {
                 type: Number,
@@ -15,16 +13,9 @@
         },
 
         created(){
-            this._verbose = true;
-            console.log("playing spin", this);
-            this.animation.play();
         },
 
-        mounted(){
-            if(this.$el) {
-                console.log(this.$el.getBoundingClientRect());
-            }
-        },
+
 
         methods:{
             componentAnimations() {
@@ -34,7 +25,7 @@
                         frames: {
                             0: {
                                 action: [
-                                    this.rotateLinear(this.ma)
+                                    //this.rotateLinear(this.ma)
                                 ]
                             },
                         },
@@ -42,11 +33,5 @@
                 };
             },
         },
-    }
+    });
 </script>
-
-<template>
-    <g :transform="transform">
-        <slot />
-    </g>
-</template>

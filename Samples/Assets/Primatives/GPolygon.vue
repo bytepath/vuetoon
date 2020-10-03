@@ -1,5 +1,4 @@
 <script>
-    import AnimationEntity from "../Mixins/AnimationEntity";
     import CalculatesTransformation from "../Mixins/CalculatesTransformation";
     export default {
         mixins: [

@@ -1,7 +1,7 @@
 <!-- DoABarrelRoll.vue -->
 <script>
-    import _k from '../../../Factories/CreateKeyframe';
-    import CreateAsset from '../../../Factories/CreateAsset';
+    import _k from '../../Factories/CreateKeyframe';
+    import CreateAsset from '../../Factories/CreateAsset';
 
     export default CreateAsset({
         name: "DoABarrelRoll",

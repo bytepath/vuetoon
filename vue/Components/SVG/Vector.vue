@@ -79,9 +79,7 @@
                          viewBox.centerY = this.assetDimensions.height / (2 * this.camera.scaleY);
                          viewBox.scaleX = 1 / this.camera.scaleX;
                          viewBox.scaleY = 1 / this.camera.scaleY;
-                        // viewBox.x = this.camera.x * (this.assetDimensions.width / (this.camera.scaleX << 2));
-                        //  viewBox.y = this.camera.y * (this.assetDimensions.height / (this.camera.scaleY << 2));
-                         //
+
                          let tl = viewBox.multiplyPoint(this.assetDimensions.x, this.assetDimensions.y);
                          let br = viewBox.multiplyPoint(this.assetDimensions.width, this.assetDimensions.height);
 
@@ -95,16 +93,6 @@
                              height: (br.y),
                          });
                      }
-                    //
-
-                //
-                //     // return new Position({
-                //     //     x: (tl.x),
-                //     //     y: (tl.y),
-                //     //     width: (br.x),
-                //     //     height: (br.y),
-                //     // });
-                     return this.camera;
                 }
 
                 if (this.assetDimensions) {
