@@ -11,6 +11,8 @@
     export default Bytepath.CreateAsset({
         name: "ocean-scene",
         layers: [],
+        viewport: true,
+
         props: {
             // Do we show the underwater crabs and plants or no
             crabs: {
@@ -60,7 +62,7 @@
             <reset :keyframe="keyframe" :start="0" v-slot="reset">
                 <sky :show-viewbox="false" :keyframe="reset.keyframe">
                     <do-a-barrel-roll :keyframe="reset.keyframe" v-slot="barrel">
-                        <balloon :show-viewbox="false" width="auto" height="auto" v-bind="barrel"  />
+                        <human :show-viewbox="false" width="auto" height="auto" v-bind="barrel"  />
                     </do-a-barrel-roll>
                     <slot />
                 </sky>

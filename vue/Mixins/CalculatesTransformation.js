@@ -202,7 +202,11 @@ export default {
                 return this.height;
             }
 
-            return this.dimensions.height;
+            if(this.camera) {
+                return this.dimensions.height;
+            }
+
+            return 'auto';
         },
 
         // /**

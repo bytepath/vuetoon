@@ -162,6 +162,21 @@ let createAsset = function (data = {}) {
 
         console.log(c);
         mixin.props['color'] = c;
+        delete data.color;
+    }
+
+    // If we have custom color then we want to add it as a prop
+    // eslint-disable-next-line
+    if (data.hasOwnProperty("viewport")) {
+        console.log("found a viewport prop", data.viewport);
+        let c = {
+            type: Boolean,
+            default: data.viewport,
+        };
+
+        console.log(c);
+        mixin.props['show-viewbox'] = c;
+        delete data.viewport;
     }
 
     // If we have a use value replace the prop in the asset to return the name of the layer by default

@@ -11,7 +11,12 @@ NEED TEST
 
 - CreateAsset is for making assets 
 
-- CreateScene for making scenes but all it does is force show viewbox and width height auto like mentioned earlier
+- CreateAsset is also for making scenes, 
+in bytepath.creatasset just set
+viewport = true
+as one of the object properties
+
+- can force any asset to be a scene by giving them a camera, an alignment, or show-viewbox prop
 
 - align prop.   used to align if you dont fit the scene   
         NEEDS A TEST
@@ -41,3 +46,5 @@ NEED TEST
         NEEDS A TEST
         
         
+
+
