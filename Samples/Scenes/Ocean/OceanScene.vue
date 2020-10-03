@@ -65,7 +65,7 @@
                 <sky :show-viewbox="false" :keyframe="reset.keyframe">
                     <do-a-barrel-roll :keyframe="reset.keyframe" v-slot="barrel">
                         <g>
-                            <balloon :x="-225" :y="500" :sx="0.5" :sy="0.5" v-bind="barrel" v-slot="balloon">
+                            <balloon :x="-225" :y="500" :sx="0.5" :sy="0.5" v-bind="barrel">
                                 <pig  :x="-1400" :y="-500" />
                             </balloon>
                         </g>

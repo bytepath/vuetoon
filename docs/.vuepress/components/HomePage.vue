@@ -2,8 +2,15 @@
     import Bytepath from "bytepath";
     import OceanScene from "../../../Samples/Scenes/Ocean/OceanScene";
     import Farm from "../../../Samples/Scenes/Farm/Farm";
+    import UnderwaterFilter from "../../../Samples/Filters/UnderwaterFilter";
 
     export default {
+        data(){
+            return {
+                underwater: UnderwaterFilter,
+            };
+        },
+
         components: {
             OceanScene,
             Farm,

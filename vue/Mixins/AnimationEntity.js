@@ -14,6 +14,14 @@ export default {
         },
 
         /**
+         * Add a filter to this vector
+         */
+        filter: {
+            type: Object,
+            default: null,
+        },
+
+        /**
          * position rect with {x,y,width,height}
          * If provided the camera will be moved to this location
          */

@@ -5,6 +5,9 @@
          :preserveAspectRatio="preserveAspectRatio"
          :overflow="overflow">
         <asset-loader :src="src" :owner="assetID" @loaded="assetLoaded"/>
+        <g v-if="filter">
+            <component v-if="filter" :is="filter" />
+        </g>
         <g :id="'g' + assetID" :transform="transform">
             <slot :position="position" :href="href"/>
         </g>
