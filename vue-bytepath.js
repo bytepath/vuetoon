@@ -27,7 +27,6 @@ import Position from "./Helpers/Position";
 
 // Sample Assets
 import balloon from "./Samples/Assets/Balloon";
-import animatedBalloon from "./Samples/Assets/AnimatedBalloon";
 import human from "./Samples/Assets/Human/Human";
 import pointyBackground from "./Samples/Scenes/Partials/PointyBackground";
 
@@ -74,7 +73,6 @@ const Bytepath = {
 
         assets: {
             balloon,
-            animatedBalloon,
             human,
         },
         scenes: {

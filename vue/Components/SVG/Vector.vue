@@ -156,8 +156,8 @@
                         let tl = viewBox.multiplyPoint(this.assetDimensions.x, this.assetDimensions.y);
                         let br = viewBox.multiplyPoint(this.assetDimensions.width, this.assetDimensions.height);
 
-                        this.dimensions.width = br.x * (this.camera.scaleX);
-                        this.dimensions.height = br.y * (this.camera.scaleY);
+                        this.dimensions.width = 'auto'; //br.x * (this.camera.scaleX);
+                        this.dimensions.height = 'auto'; //br.y * (this.camera.scaleY);
 
                         return new Position({
                             x: (tl.x),

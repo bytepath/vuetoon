@@ -137,7 +137,7 @@ let createAsset = function (data = {}) {
                 color: this.defaultColor,
             };
 
-            console.log("bradley renderless lol");
+            console.log("bradley renderless lol", this.$parent);
             return this.$scopedSlots.default(props);
         }
 

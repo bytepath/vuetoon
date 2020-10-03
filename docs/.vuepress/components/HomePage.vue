@@ -1,6 +1,6 @@
 <script>
     import Bytepath from "bytepath";
-     import OceanScene from "../../../Samples/Scenes/Ocean/OceanScene";
+    import OceanScene from "../../../Samples/Scenes/Ocean/OceanScene";
 
     export default {
         components: {
@@ -11,13 +11,11 @@
 </script>
 
 <template>
-        <div id="app" style="width: 100%; height: 100vh; fill:#90CDF4;">
-            <scroll :fps="60" v-slot="{ keyframe }" auto-play>
-                <div>
-                    <ocean-scene class="text-blue-300" :keyframe="keyframe" />
-                    <ocean-scene style="position:absolute;top:2900px;left:-22px;" class="text-blue-300" :cx="692" :cy="1500" :a="90" :y="0" :x="0" :keyframe="keyframe" />
-                </div>
-            </scroll>
-            <div style="height: 1000vh;" ></div>
+    <scroll :speed="10" :fps="10" v-slot="{ keyframe }" auto-play>
+        <div id="app" style="position:relative; width: 100%; height: 100vh; fill:#90CDF4;">
+            <ocean-scene style="position:absolute;" width="auto" height="auto" align="topleft" align-strategy="slice" class="text-blue-300"
+                         :keyframe="keyframe"/>
+            <div style="height: 1000vh;"></div>
         </div>
+    </scroll>
 </template>
