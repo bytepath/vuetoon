@@ -37,6 +37,44 @@
                 type: String,
                 default: "visible"
             },
+
+            /**
+             *  The alignment strategy for this svg. Corresponds to an option available to the SVG preserveAspectRatio
+             *  See https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/preserveAspectRatio
+             *
+             *  Note: Meet and Slice are handled by the fit prop
+             *  Options:
+             *  null:  preserveAspectRatio="none"
+             *  top-left: xMinYMin
+             *  top: xMidYMin
+             *  top-right: xMaxYMin
+             *  left: xMinYMid
+             *  middle: xMidYMid
+             *  right: xMaxYMid
+             *  bottom-left: xMinYMax
+             *  bottom: xMidYMax
+             *  bottom-right: xMaxYMax
+             */
+            align: {
+                type: String,
+                default: null
+            },
+
+            /**
+             *  Corresponds to meet or slice options of preserveAspectRatio
+             *  See https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/preserveAspectRatio
+             *
+             *  Note: Meet and Slice are handled by the fit prop
+             *  Options:
+             *  null:  adds empty string to preserveAspectRatio computed value
+             *  meet:   adds 'meet' to preserveAspectRatio computed value
+             *  slice:  adds 'slice' to preserveAspectRatio computed value
+             */
+            alignStrategy: {
+                type: String,
+                default: null,
+            }
+
         },
         data() {
             return {
@@ -53,12 +91,47 @@
         },
 
         computed: {
+            /**
+             * Computes the preserveAspectRatio attribute for this svg
+             */
             preserveAspectRatio() {
-                // If we are manipulating the camera preserveAspectRatio does some wonky shit
-                // if(this.camera) {
-                //     return "none";
-                // }
+                if (this.align) {
 
+                    // Convert the human friendly alignment options to SVG
+                    let commands = {
+                        'none': "none",
+                        'top-left': 'xMinYMin',
+                        'topleft': 'xMinYMin',
+                        'top': 'xMidYMin',
+                        'top-right': 'xMaxYMin',
+                        'topright': 'xMaxYMin',
+                        'left': 'xMinYMid',
+                        'middle': 'xMidYMid',
+                        'right': 'xMaxYMid',
+                        'bottom-left': 'xMinYMax',
+                        'bottomleft': 'xMinYMax',
+                        'bottom': 'xMidYMax',
+                        'bottom-right': 'xMaxYMax',
+                        'bottomright': 'xMaxYMax',
+                    };
+
+                    if (Object.prototype.hasOwnProperty.call(commands, this.align)) {
+                        let retval = commands[this.align];
+
+                        if (this.alignStrategy) {
+                            switch (this.alignStrategy) {
+                                case 'meet':
+                                    retval += ' meet';
+                                    break;
+                                case 'slice':
+                                    retval += ' slice';
+                                    break;
+                            }
+                        }
+
+                        return retval;
+                    }
+                }
                 return "none";
             },
 
@@ -71,28 +144,28 @@
              */
             viewBox() {
 
-                 if (this.camera) {
-                     let viewBox = new Position({ ...this.camera });
-                     if (this.assetDimensions) {
+                if (this.camera) {
+                    let viewBox = new Position({...this.camera});
+                    if (this.assetDimensions) {
 
-                         viewBox.centerX = this.assetDimensions.width / (2 * this.camera.scaleX);
-                         viewBox.centerY = this.assetDimensions.height / (2 * this.camera.scaleY);
-                         viewBox.scaleX = 1 / this.camera.scaleX;
-                         viewBox.scaleY = 1 / this.camera.scaleY;
+                        viewBox.centerX = this.assetDimensions.width / (2 * this.camera.scaleX);
+                        viewBox.centerY = this.assetDimensions.height / (2 * this.camera.scaleY);
+                        viewBox.scaleX = 1 / this.camera.scaleX;
+                        viewBox.scaleY = 1 / this.camera.scaleY;
 
-                         let tl = viewBox.multiplyPoint(this.assetDimensions.x, this.assetDimensions.y);
-                         let br = viewBox.multiplyPoint(this.assetDimensions.width, this.assetDimensions.height);
+                        let tl = viewBox.multiplyPoint(this.assetDimensions.x, this.assetDimensions.y);
+                        let br = viewBox.multiplyPoint(this.assetDimensions.width, this.assetDimensions.height);
 
-                         this.dimensions.width = br.x * (this.camera.scaleX);
-                         this.dimensions.height = br.y * (this.camera.scaleY);
+                        this.dimensions.width = br.x * (this.camera.scaleX);
+                        this.dimensions.height = br.y * (this.camera.scaleY);
 
-                         return new Position({
-                             x: (tl.x),
-                             y: (tl.y),
-                             width: (br.x),
-                             height: (br.y),
-                         });
-                     }
+                        return new Position({
+                            x: (tl.x),
+                            y: (tl.y),
+                            width: (br.x),
+                            height: (br.y),
+                        });
+                    }
                 }
 
                 if (this.assetDimensions) {

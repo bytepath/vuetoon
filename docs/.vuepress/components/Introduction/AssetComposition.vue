@@ -3,12 +3,13 @@
 
     export default {
         data() {
-            return { x: 50, y: 0, angle: 0 };
+            return {x: 50, y: 0, angle: 0};
         },
 
         components: {
             balloon: Bytepath.samples.assets.balloon,
             human: Bytepath.samples.assets.human,
+            vector: Bytepath.graphics.vector,
         }
     }
 </script>
@@ -20,12 +21,15 @@
         <input type="range" v-model.number="angle" min="0" max="360">Angle = {{ angle }}<br/>
 
         <!-- Here human and balloon are two distinct asets -->
-        <human :x="0"  />
-        <balloon :x="25"  />
+        <vector>
+            <human :x="100" :y="900" width="100" height="100" align="topleft"/>
+            <balloon :x="200" width="300" height="200" align="topleft"/>
 
-        <!-- Here balloon and human have been combined to make a single asset -->
-        <balloon :x="x" :y="y" :a="angle" v-slot="balloon">
-            <human :position="balloon.position" :sx="2" :sy="2" aspect="xMidYMax meet"/>
-        </balloon>
+            <!-- Here balloon and human have been combined to make a single asset -->
+            <balloon  color="blue" :x="500 + x" :y="y" width="300" height="200" align="topleft" :a="angle">
+                <human align="topleft" :x="1200" :y="3500" width="100" height="100" align-strategy="meet"/>
+            </balloon>
+        </vector>
+
     </div>
 </template>

@@ -30,6 +30,44 @@ export default {
             type: String,
             default: null,
         },
+
+        /**
+         *  MUST BE PASSED TO INNER VECTOR COMPONENT TO WORK
+         *  The alignment strategy for this svg. Corresponds to an option available to the SVG preserveAspectRatio
+         *  See https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/preserveAspectRatio
+         *
+         *  Note: Meet and Slice are handled by the fit prop
+         *  Options:
+         *  null:  preserveAspectRatio="none"
+         *  top-left: xMinYMin
+         *  top: xMidYMin
+         *  top-right: xMaxYMin
+         *  left: xMinYMid
+         *  middle: xMidYMid
+         *  right: xMaxYMid
+         *  bottom-left: xMinYMax
+         *  bottom: xMidYMax
+         *  bottom-right: xMaxYMax
+         */
+        align: {
+            type: String,
+            default: null
+        },
+
+        /**
+         *  MUST BE PASSED TO INNER VECTOR COMPONENT TO WORK
+         *  Corresponds to meet or slice options of preserveAspectRatio
+         *  See https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/preserveAspectRatio
+         *
+         *  Options:
+         *  null:  adds empty string to preserveAspectRatio computed value
+         *  meet:   adds 'meet' to preserveAspectRatio computed value
+         *  slice:  adds 'slice' to preserveAspectRatio computed value
+         */
+        alignStrategy: {
+            type: String,
+            default: null,
+        }
     },
 
     data() {
