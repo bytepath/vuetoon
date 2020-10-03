@@ -57,7 +57,7 @@
              */
             align: {
                 type: String,
-                default: null
+                default: null,
             },
 
             /**
@@ -72,7 +72,7 @@
              */
             alignStrategy: {
                 type: String,
-                default: null,
+                default: 'slice',
             }
 
         },
@@ -156,8 +156,8 @@
                         let tl = viewBox.multiplyPoint(this.assetDimensions.x, this.assetDimensions.y);
                         let br = viewBox.multiplyPoint(this.assetDimensions.width, this.assetDimensions.height);
 
-                        this.dimensions.width = 'auto'; //br.x * (this.camera.scaleX);
-                        this.dimensions.height = 'auto'; //br.y * (this.camera.scaleY);
+                        this.dimensions.width = br.x * (this.camera.scaleX);
+                        this.dimensions.height = br.y * (this.camera.scaleY);
 
                         return new Position({
                             x: (tl.x),
@@ -183,7 +183,7 @@
             },
 
             viewboxString() {
-                if (this.viewBox) {
+                if (this.viewBox && this.showViewbox) {
                     let b = this.viewBox;
                     if (b.width > 0 && b.height > 0) {
                         return `${b.x} ${b.y} ${b.width} ${b.height}`;

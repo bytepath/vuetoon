@@ -60,7 +60,7 @@
             <reset :keyframe="keyframe" :start="0" v-slot="reset">
                 <sky :keyframe="reset.keyframe">
                     <do-a-barrel-roll :keyframe="reset.keyframe" v-slot="barrel">
-                        <balloon width="200" height="200" v-bind="barrel"  />
+                        <balloon :show-viewbox="false" width="auto" height="auto" v-bind="barrel"  />
                     </do-a-barrel-roll>
                     <slot />
                 </sky>

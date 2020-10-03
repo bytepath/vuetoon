@@ -2,6 +2,7 @@
  * Code that handles computing transformation matricies goes here
  */
 import Position from "../../Helpers/Position";
+import { fromObject } from "transformation-matrix";
 
 export default {
     props: {
@@ -83,7 +84,6 @@ export default {
          * The width of this asset. Optional if you want to use the size of the loaded asset
          */
         width: {
-            type: Number|String,
             default: null
         },
 
@@ -91,7 +91,6 @@ export default {
          * The height of this asset. Optional if you want to use the size of the loaded asset
          */
         height: {
-            type: Number|String,
             default: null
         },
     },
@@ -155,9 +154,6 @@ export default {
     },
 
     computed: {
-
-
-
         /**
          * Returns the position this asset is using as center
          * @returns {{x: number, y: number}}
@@ -215,6 +211,21 @@ export default {
     },
 
     methods: {
+        getViewportMatrix() {
+            if(this.$parent) {
+                if(this.$parent.$el) {
+                    if(typeof this.$parent.$el.getCTM === 'function'){
+                        console.log();
+                        let ret = fromObject(this.$parent.$el.getCTM());
+                        return ret;
+                    }
+                }
+            }
+
+            return null;
+        },
+
+
         /**
          * Computes actual position of entity
          * @returns Object

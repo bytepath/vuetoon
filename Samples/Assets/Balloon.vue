@@ -27,7 +27,8 @@
 
 <template>
     <vector :id="'balloon' + _uid" v-bind="$props">
-        <g transform="scale(0.25 0.25)">
+        <!-- <g transform="scale(0.25 0.25)"> -->
+        <g>
             <g id="balloon">
                 <path stroke="rgb(74, 85, 104)" stroke-width="5" stroke-linecap="round"
                       :style="{ 'fill': defaultColor }"

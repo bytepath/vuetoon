@@ -67,7 +67,16 @@ export default {
         alignStrategy: {
             type: String,
             default: null,
-        }
+        },
+
+        /**
+         * MUST BE PASSED TO VECTOR TO WORK
+         * If false the viewbox attribute will not be added
+         */
+        showViewbox: {
+            type: Boolean,
+            default: true,
+        },
     },
 
     data() {
