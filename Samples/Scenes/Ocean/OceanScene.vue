@@ -58,7 +58,7 @@
     <vector :id="'ocean-scene'+_uid" v-bind="$props">
         <g>
             <reset :keyframe="keyframe" :start="0" v-slot="reset">
-                <sky :keyframe="reset.keyframe">
+                <sky :show-viewbox="false" :keyframe="reset.keyframe">
                     <do-a-barrel-roll :keyframe="reset.keyframe" v-slot="barrel">
                         <balloon :show-viewbox="false" width="auto" height="auto" v-bind="barrel"  />
                     </do-a-barrel-roll>

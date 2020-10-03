@@ -21,7 +21,7 @@
         <input type="range" v-model.number="angle" min="0" max="360">Angle = {{ angle }}<br/>
 
         <!-- Here human and balloon are two distinct asets -->
-        <vector>
+        <vector :show-viewport="true">
             <human :x="100" :y="900" width="100" height="100" align="topleft"/>
             <balloon :x="200" width="300" height="200" align="topleft"/>
 

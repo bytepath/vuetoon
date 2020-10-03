@@ -55,18 +55,19 @@ export default {
         },
 
         /**
-         *  MUST BE PASSED TO INNER VECTOR COMPONENT TO WORK
          *  Corresponds to meet or slice options of preserveAspectRatio
          *  See https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/preserveAspectRatio
-         *
+         *  if false we use Slice,  if true we use meet
          *  Options:
-         *  null:  adds empty string to preserveAspectRatio computed value
-         *  meet:   adds 'meet' to preserveAspectRatio computed value
-         *  slice:  adds 'slice' to preserveAspectRatio computed value
+         *  null:  adds none string to preserveAspectRatio computed value
+         *  true:   adds 'meet' to preserveAspectRatio computed value
+         *  false:  adds 'slice' to preserveAspectRatio computed value
+         *  @testme
+         *
          */
-        alignStrategy: {
-            type: String,
-            default: null,
+        fit: {
+            type: Boolean,
+            default: false,
         },
 
         /**
@@ -75,7 +76,7 @@ export default {
          */
         showViewbox: {
             type: Boolean,
-            default: true,
+            default: false,
         },
     },
 

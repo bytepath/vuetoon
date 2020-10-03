@@ -184,7 +184,11 @@ export default {
                 return this.width;
             }
 
-            return this.dimensions.width;
+            if(this.camera) {
+                 return this.dimensions.width;
+            }
+
+            return 'auto';
         },
 
         /**

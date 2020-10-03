@@ -54,6 +54,8 @@
              *  bottom-left: xMinYMax
              *  bottom: xMidYMax
              *  bottom-right: xMaxYMax
+             *  @testme
+             *
              */
             align: {
                 type: String,
@@ -63,16 +65,17 @@
             /**
              *  Corresponds to meet or slice options of preserveAspectRatio
              *  See https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/preserveAspectRatio
-             *
-             *  Note: Meet and Slice are handled by the fit prop
+             *  if false we use Slice,  if true we use meet
              *  Options:
-             *  null:  adds empty string to preserveAspectRatio computed value
-             *  meet:   adds 'meet' to preserveAspectRatio computed value
-             *  slice:  adds 'slice' to preserveAspectRatio computed value
+             *  null:  adds none string to preserveAspectRatio computed value
+             *  true:   adds 'meet' to preserveAspectRatio computed value
+             *  false:  adds 'slice' to preserveAspectRatio computed value
+             *  @testme
+             *
              */
-            alignStrategy: {
-                type: String,
-                default: 'slice',
+            fit: {
+                type: Boolean,
+                default: false,
             }
 
         },
@@ -95,8 +98,11 @@
              * Computes the preserveAspectRatio attribute for this svg
              */
             preserveAspectRatio() {
-                if (this.align) {
+                if(this.camera) {
+                    return "none";
+                }
 
+                if (this.align) {
                     // Convert the human friendly alignment options to SVG
                     let commands = {
                         'none': "none",
@@ -118,15 +124,8 @@
                     if (Object.prototype.hasOwnProperty.call(commands, this.align)) {
                         let retval = commands[this.align];
 
-                        if (this.alignStrategy) {
-                            switch (this.alignStrategy) {
-                                case 'meet':
-                                    retval += ' meet';
-                                    break;
-                                case 'slice':
-                                    retval += ' slice';
-                                    break;
-                            }
+                        if (this.fit !== null) {
+                            retval += (this.fit) ? ' meet' : ' slice';
                         }
 
                         return retval;
@@ -183,7 +182,8 @@
             },
 
             viewboxString() {
-                if (this.viewBox && this.showViewbox) {
+                // Camera needs a viewbox to operate properly so we need to show it if you provide a camera
+                if (this.viewBox && (this.showViewbox || this.camera)) {
                     let b = this.viewBox;
                     if (b.width > 0 && b.height > 0) {
                         return `${b.x} ${b.y} ${b.width} ${b.height}`;
