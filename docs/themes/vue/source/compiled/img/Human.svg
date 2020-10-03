@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1363 2000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="leftleg" class="fill-current">
+        <g transform="matrix(1,0,0,1,-228.34,-27.9425)">
+            <rect x="346.646" y="857.56" width="120.657" height="363.338" style="fill:rgb(0,26,255);"/>
+        </g>
+        <g transform="matrix(1,0,0,1,-303.376,-3.20293)">
+            <rect x="292.272" y="1136.01" width="242.91" height="65.161" style="fill:rgb(16,20,50);"/>
+        </g>
+    </g>
+    <g id="rightleg">
+        <g transform="matrix(1,0,0,1,-55.9611,-24.2739)">
+            <rect x="346.646" y="857.56" width="120.657" height="363.338" style="fill:rgb(0,26,255);"/>
+        </g>
+        <rect x="292.272" y="1136.01" width="242.91" height="65.161" style="fill:rgb(16,20,50);"/>
+    </g>
+    <g id="leftarm" transform="matrix(-0.966532,0,0,1,493.486,-3.99179)">
+        <g  transform="matrix(0.3901,0,0,0.24104,292.695,334.714)">
+            <rect x="116.567" y="428.595" width="297.797" height="410.784" style="fill:rgb(255,0,1);"/>
+        </g>
+        <rect x="451.06" y="435.96" width="225.08" height="95.926" style="fill:rgb(255,228,0);"/>
+    </g>
+    <g id="rightarm">
+        <g  serif:id="body" transform="matrix(0.3901,0,0,0.24104,292.695,334.714)">
+            <rect x="116.567" y="428.595" width="297.797" height="410.784" style="fill:rgb(255,0,1);"/>
+        </g>
+        <rect x="451.06" y="435.96" width="225.08" height="95.926" style="fill:rgb(255,228,0);"/>
+        <rect x="676.833" y="413.055" width="80.492" height="133.753" style="fill:rgb(255,228,0);"/>
+    </g>
+    <g id="body" class="">
+        <rect  serif:id="body" x="116.567" y="428.595" width="297.797" height="410.784" style=""/>
+    </g>
+    <g id="face">
+        <ellipse cx="254.502" cy="307.178" rx="132.717" ry="129.99" style="fill:rgb(255,228,0);"/>
+        <ellipse cx="196.255" cy="266.87" rx="29.715" ry="28.389"/>
+        <ellipse cx="312.184" cy="268.605" rx="28.693" ry="33.602"/>
+        <ellipse cx="236.653" cy="363.2" rx="69.97" ry="13.558" style="fill:rgb(255,0,1);"/>
+    </g>
+</svg>

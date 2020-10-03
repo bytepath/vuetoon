@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "description": "A component based javascript animation and keyframe library",
   "main": "vue-bytepath.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "vector",
     "animation",
@@ -13,8 +10,50 @@
     "keyframe",
     "vue"
   ],
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "build:dev": "vue-cli-service build --mode development",
+    "build:dev:watch": "vue-cli-service build --mode development --watch",
+    "test:unit": "vue-cli-service test:unit",
+    "test:watch": "vue-cli-service test:unit src/**/*.spec.js bytepathnpm/**/*.spec.js --watch",
+    "lint": "vue-cli-service lint",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "docs:build:debug": "vuepress build vuepress --mode=development"
+  },
+  "dependencies": {
+    "axios": "^0.20.0",
+    "core-js": "^3.6.5",
+    "fast-check": "^2.4.0",
+    "transformation-matrix": "^2.4.0",
+    "vue": "^2.6.11",
+    "vuepress-plugin-dehydrate": "^1.1.5"
+  },
   "devDependencies": {
-    "axios": "^0.19"
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-unit-mocha": "^4.5.6",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/test-utils": "^1.1.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.3.0",
+    "chai": "^4.1.2",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-jest": "^3.0.7",
+    "vue-template-compiler": "^2.6.11",
+    "vuepress": "^1.6.0",
+    "vuepress-plugin-container": "^2.1.5",
+    "vuepress-plugin-table-of-contents": "^1.1.7"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
   },
   "eslintConfig": {
     "root": true,
@@ -29,12 +68,47 @@
       "parser": "babel-eslint"
     },
     "rules": {
-      "vue/no-side-effects-in-computed-properties": "warn"
-    }
+      "vue/no-side-effects-in-computed-properties": "warn",
+      "vue/no-unused-components": "warn"
+    },
+    "overrides": [
+      {
+        "files": [
+          "**/*.{j,t}s?(x)",
+          "**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "mocha": true
+        }
+      }
+    ]
   },
-  "author": "Andrew Reddin",
-  "license": "MIT",
-  "dependencies": {
-    "transformation-matrix": "^2.4.0"
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "jest": {
+    "testMatch": [
+      "<rootDir>/(src|bytepathnpm|docs|tests)/**/*.spec.(ts|tsx|js)|**/__tests__/*.(ts|tsx|js))"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,vue}",
+      "!**/node_modules/**",
+      "!**/bytepathnpm/**"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "transform": {
+      ".*\\.(vue)$": "vue-jest",
+      ".*\\.(js)$": "babel-jest"
+    }
   }
 }
