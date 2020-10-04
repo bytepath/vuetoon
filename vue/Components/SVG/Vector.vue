@@ -3,11 +3,12 @@
          :width="w" :height="h"
          :viewBox="viewboxString"
          :preserveAspectRatio="preserveAspectRatio"
-         :overflow="overflow">
+         :overflow="overflow"
+        :filter="filterID">
         <asset-loader :src="src" :owner="assetID" @loaded="assetLoaded"/>
-        <g v-if="filter">
-            <component v-if="filter" :is="filter" />
-        </g>
+        <defs v-if="filter">
+            <component :id="'filter' + assetID" v-if="filter" :keyframe="keyframe" :is="filter" />
+        </defs>
         <g :id="'g' + assetID" :transform="transform">
             <slot :position="position" :href="href"/>
         </g>
@@ -207,6 +208,17 @@
                 let asset = (this.name) ? `__${this._uid}-${this.name}` : `__${this._uid}`;
                 return asset;
             },
+
+            /**
+             * The ID of the filter attached to this vector
+             */
+            filterID() {
+                if(this.filter) {
+                    return `url(#filter${this.assetID})`;
+                }
+
+                return null;
+            }
         },
 
         mounted() {
