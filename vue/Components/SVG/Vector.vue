@@ -80,8 +80,16 @@
             fit: {
                 type: Boolean,
                 default: false,
-            }
+            },
 
+            /**
+             * position rect with {x,y,width,height}
+             * If provided the camera will be moved to this location
+             */
+            camera: {
+                type: Object,
+                default: null
+            },
         },
         data() {
             return {
@@ -233,17 +241,12 @@
              * to point {0, 0} so that we are "looking" at it
              */
             assetLoaded(asset) {
-                console.log("asset loaded", {...this});
-
                 this.href = "#" + asset.id;
 
                 if (asset.viewBox) {
                     this.assetDimensions = {...asset.viewBox};
-                    console.log("viewbox", {...asset});
-
-                } else {
-                    console.log("no viewbox bra");
                 }
+
                 setTimeout(this.lookAtAsset, 0);
                 this.$emit("loaded", asset);
             },
@@ -267,7 +270,7 @@
              */
             lookAtAsset() {
                 let lookAtID = 'g' + this.assetID;
-                console.log("lookat", lookAtID);
+
                 let element = document.getElementById(lookAtID);
                 if (element) {
                     if (typeof element.getBBox == "function") {

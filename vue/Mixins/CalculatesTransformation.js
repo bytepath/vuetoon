@@ -208,14 +208,6 @@ export default {
 
             return 'auto';
         },
-
-        // /**
-        //  * Prints the current transformation matrix to the vue dev tools
-        //  * @returns {*}
-        //  */
-        // debugTransform() {
-        //     return this.transform.toString();
-        // },
     },
 
     methods: {

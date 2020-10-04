@@ -1,9 +1,6 @@
-import CalculatesTransformation from "./CalculatesTransformation";
-import KeyframeAnimation from "./KeyframeAnimation";
 import Position from "../../Helpers/Position";
 
 export default {
-    mixins: [ KeyframeAnimation, CalculatesTransformation ],
     props: {
         /**
          * if true debug info will be rendered for this component
@@ -21,7 +18,14 @@ export default {
             default: null,
         },
 
-
+        /**
+         * position rect with {x,y,width,height}
+         * If provided the camera will be moved to this location
+         */
+        camera: {
+            type: Object,
+            default: null
+        },
 
         /**
          * Default color of this asset.
