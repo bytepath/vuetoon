@@ -19,12 +19,12 @@
     /* eslint-disable */
 
     import AssetLoader from "../Loaders/AssetLoader";
-    import AnimationEntity from "../../Mixins/AnimationEntity";
+    import CalculatesTransformation from "../../Mixins/CalculatesTransformation";
     import Position from "../../../Helpers/Position";
 
     export default {
         name: 'Vector',
-        mixins: [AnimationEntity],
+        mixins: [CalculatesTransformation],
         props: {
             /**
              * The file path to the asset we need to load. Optional if you don't need to load an asset
