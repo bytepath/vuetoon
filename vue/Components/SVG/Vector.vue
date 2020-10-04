@@ -43,6 +43,14 @@
             },
 
             /**
+             * If false the viewbox attribute will not be added to the generated SVG tag
+             */
+            showViewbox: {
+                type: Boolean,
+                default: false,
+            },
+
+            /**
              *  The alignment strategy for this svg. Corresponds to an option available to the SVG preserveAspectRatio
              *  See https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/preserveAspectRatio
              *
@@ -99,6 +107,7 @@
                 default: null,
             },
         },
+
         data() {
             return {
                 /**

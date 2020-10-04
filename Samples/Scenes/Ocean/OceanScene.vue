@@ -81,7 +81,7 @@
             </reset>
 
             <reset :keyframe="keyframe" :start="1100" v-slot="reset">
-                <underwater style="fill: red;" :keyframe="reset.keyframe" :crabs="crabs" transform="translate(0 1600)">
+                <underwater style="fill: red;" :keyframe="reset.keyframe" transform="translate(0 1600)">
                     <slot name="underwater" >
                         <yellow-fish :x="-800" :y="-100" :sy="(reset.keyframe / 600)" :sx="(reset.keyframe / 350)" />
                         <yellow-fish :x="-700 + reset.keyframe" :my="0.4" :mx="1" :y="550"/>
