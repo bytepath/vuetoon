@@ -16,7 +16,7 @@ export default [
             context.layers.leftarm.centerY = 200;
 
             context.layers.rightarm.angle =  300;
-            context.layers.rightarm.centerX = 125;
+            context.layers.rightarm.centerX = 175;
             context.layers.rightarm.centerY = 225;
         },
     },

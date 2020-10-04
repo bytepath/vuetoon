@@ -206,7 +206,7 @@ So balloon has 5 premade animations
 <<< @/docs/.vuepress/components/Animation/MultipleAnimations.vue
 
 <ClientOnly>
-<Demo :end="2500" v-slot="{ keyframe }">
+<Demo :end="3000" v-slot="{ keyframe }">
 <Animation-MultipleAnimations :keyframe="keyframe" />
 </Demo>    
 </ClientOnly>
