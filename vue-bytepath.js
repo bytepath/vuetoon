@@ -33,6 +33,13 @@ import pointyBackground from "./Samples/Scenes/Partials/PointyBackground";
 // Sample Animations
 import doABarrelRoll from "./Samples/Animations/DoABarrelRoll";
 
+// Sample Filters
+import enterTheMatrix from "./Samples/Filters/EnterTheMatrix";
+import limeFilter from "./Samples/Filters/LimeFilter";
+import peachFilter from "./Samples/Filters/PeachFilter";
+import dropShadow from "./Samples/Filters/DropShadow";
+import underwater from "./Samples/Filters/UnderwaterFilter";
+
 const Bytepath = {
     AnimationEntity,
     CreateAsset,
@@ -75,11 +82,20 @@ const Bytepath = {
             balloon,
             human,
         },
+
         scenes: {
             partials: {
                 pointyBackground,
             }
-        }
+        },
+
+        filters: {
+            enterTheMatrix,
+            limeFilter,
+            peachFilter,
+            dropShadow,
+            underwater
+        },
     },
 }
 

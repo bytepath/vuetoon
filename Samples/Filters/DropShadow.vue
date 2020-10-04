@@ -10,8 +10,8 @@
 
         data() {
             return {
-                offsetX: 20,
-                offsetY: 20,
+                offsetX: -20,
+                offsetY: -20,
                 red: 1,
                 green: 1,
                 blue: 1,

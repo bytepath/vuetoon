@@ -13,7 +13,7 @@ let sidebar = {
         {
             title: 'Art Assets',
             collapsable: false,
-            children: ['assetcomposition', 'importingassets', 'assetreuse'],
+            children: ['assetcomposition', 'importingassets', 'assetreuse', 'filters'],
         },
         {
             title: 'Keyframe Animation',

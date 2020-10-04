@@ -1,5 +1,25 @@
-Filters allow you to add special effects that utilize the GPU in your user's machine. 
+---
+title: Filters
+---
+Filters allow you to add special effects to your animiations  
 
-Access them through the :filters prop of an animation entity
+Pass a filter to your animations through the :filter prop of an animation entity and it will automatically be loaded and the final rendered output of that
+component (and any sub components) will pass through whatever filter you have provided before being rendered on screen
 
-these are not really very user friendly yet and will improve in a future release
+<<< @/docs/.vuepress/components/UsingFilters/FilterExample.vue
+
+<ClientOnly>
+<Demo :end="2500" v-slot="{ keyframe }">
+<UsingFilters-FilterExample :keyframe="keyframe" />
+</Demo> 
+</ClientOnly>
+
+
+Filters accept all of the same props as an asset including keyframe and can also have animations, just like an asset can.
+
+:::tip
+Currently, Filters are more of a proof of concept to show that this is possible and creating your own filters is a bit of a chore.
+Thus, for the current release, consider it not possible to create custom filters.
+Expect this to improve in future releases
+:::
+
