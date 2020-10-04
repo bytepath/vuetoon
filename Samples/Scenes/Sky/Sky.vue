@@ -22,7 +22,7 @@
 </script>
 
 <template>
-    <vector v-bind="$props">
+    <vector v-bind="$attrs">
         <pointy-background>
             <cloud  :x=" (keyframe /100) * (keyframe % 1610) " :y="400"/>
             <cloud  :x="-1000 + (keyframe >> 8) * (keyframe % 1610) " :y="900"/>

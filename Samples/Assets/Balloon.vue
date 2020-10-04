@@ -26,8 +26,7 @@
 </script>
 
 <template>
-    <vector :id="'balloon' + _uid" v-bind="$props">
-        <!-- <g transform="scale(0.25 0.25)"> -->
+    <vector :id="'balloon' + _uid" v-bind="$attrs">
         <g>
             <g id="balloon">
                 <path stroke="rgb(74, 85, 104)" stroke-width="5" stroke-linecap="round"

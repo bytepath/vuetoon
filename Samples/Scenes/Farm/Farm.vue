@@ -10,7 +10,7 @@
 </script>
 
 <template>
-    <vector  :style="{fill: defaultColor }" v-bind="$props" v-slot="">
+    <vector  :style="{fill: defaultColor }" v-bind="$attrs" v-slot="">
         <layer v-for="(layer, i) in filteredLayers" :key="i" :position="layer" />
     </vector>
 </template>

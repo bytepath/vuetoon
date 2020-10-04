@@ -1,5 +1,5 @@
 <script>
-    import AnimationEnity from "../../Mixins/AnimationEntity";
+    import CalculatesTransformation from "../../Mixins/CalculatesTransformation";
 
     export default {
         name: 'layer',
@@ -10,7 +10,7 @@
             }
         },
 
-        mixins: [AnimationEnity],
+        mixins: [ CalculatesTransformation ],
     };
 </script>
 

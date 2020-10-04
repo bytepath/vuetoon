@@ -16,7 +16,7 @@
 </script>
 
 <template>
-    <vector v-bind="$props" aspect="xMidYMax meet">
+    <vector v-bind="$attrs" aspect="xMidYMax meet">
         <rect width="50" height="50" :fill="color" />
     </vector>
 </template>

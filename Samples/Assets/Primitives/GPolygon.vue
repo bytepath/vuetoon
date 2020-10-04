@@ -21,7 +21,7 @@
 </script>
 
 <template>
-    <polygon v-bind="$props" :transform="transform"></polygon>
+    <polygon v-bind="$attrs" :transform="transform"></polygon>
 </template>
 
 <style scoped>

@@ -1,9 +1,8 @@
-import CalculatesTransformation from "./CalculatesTransformation";
 import KeyframeAnimation from "./KeyframeAnimation";
 import Position from "../../Helpers/Position";
 
 export default {
-    mixins: [ KeyframeAnimation, CalculatesTransformation ],
+    mixins: [ KeyframeAnimation ],
     props: {
         /**
          * Default color of this asset.

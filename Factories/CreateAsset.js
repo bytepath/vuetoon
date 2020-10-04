@@ -107,7 +107,7 @@ let createAsset = function (data = {}) {
         // /**
         //  * Equivalent to
         //  * <template>
-        //  *      <entity v-bind="$props" :src="src">
+        //  *      <entity v-bind="$attrs" :src="src">
         //  *          <layer v-for="(layer, i) in filteredLayers" :key="i" :position="layer" />
         //  *      </entity>
         //  * </template>
