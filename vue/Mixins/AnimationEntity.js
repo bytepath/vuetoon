@@ -6,24 +6,6 @@ export default {
     mixins: [ KeyframeAnimation, CalculatesTransformation ],
     props: {
         /**
-         * if true debug info will be rendered for this component
-         */
-        debug:{
-            type: Boolean,
-            default: false,
-        },
-
-        /**
-         * Add a filter to this vector
-         */
-        filter: {
-            type: Object,
-            default: null,
-        },
-
-
-
-        /**
          * Default color of this asset.
          *
          */
