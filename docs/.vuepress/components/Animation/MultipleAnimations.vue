@@ -1,10 +1,8 @@
 <!-- MultipleAnimations.vue -->
 <script>
     import Bytepath from "bytepath";
-    let _k = Bytepath.CreateKeyframe;
 
     export default Bytepath.CreateAsset({
-
         components: {
             human: Bytepath.samples.assets.human,
         }
