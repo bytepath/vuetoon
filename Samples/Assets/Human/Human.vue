@@ -5,14 +5,14 @@
     import dance from "./FirstAnimation";
     import punch from "./Punch";
     import kick from "./Kick";
-    import chicken from "./FaceDance";
+    import flap from "./FaceDance";
 
     export default CreateAsset({
         name: "human",
         src,
         layers: [],
         animations() {
-            return { default: null, dance, punch, kick, chicken };
+            return { dance, punch, kick, flap };
         },
     });
 </script>
