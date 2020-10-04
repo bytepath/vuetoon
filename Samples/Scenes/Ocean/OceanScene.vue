@@ -8,9 +8,10 @@
     import Octopus from "../../Assets/Fish/Octopus";
     import DoABarrelRoll from "../../Animations/DoABarrelRoll";
     import Pig from "../../Assets/Animals/Pig";
-    import UnderwaterFilter from "../../Filters/UnderwaterFilter";
-    import DropShadow from "../../Filters/DropShadow";
-    import EnterTheMatrix from "../../Filters/EnterTheMatrix";
+    // import UnderwaterFilter from "../../Filters/UnderwaterFilter";
+    // import DropShadow from "../../Filters/DropShadow";
+    // import EnterTheMatrix from "../../Filters/EnterTheMatrix";
+    import Lime from "../../Filters/PeachFilter";
 
     export default Bytepath.CreateAsset({
         name: "ocean-scene",
@@ -28,7 +29,7 @@
         data() {
             return {
                 balloonPos: new Bytepath.Position({}),
-                useFilter: EnterTheMatrix,
+                useFilter: Lime,
             };
         },
 
@@ -43,8 +44,8 @@
             Octopus,
             DoABarrelRoll,
             Pig,
-            UnderwaterFilter,
-            DropShadow,
+            //UnderwaterFilter,
+            //DropShadow,
         },
 
         animations() {
