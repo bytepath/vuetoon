@@ -7,18 +7,18 @@
         name: "octopus",
         layers: ["octopus"],
 
-        animations(){
-            return {
-                default: [
-                    {
-                        start: 0,
-                        handler() {
-                            console.log("octopus lol");
-                        }
-                    },
-                ],
-            }
-        },
+        // animations(){
+        //     return {
+        //         default: [
+        //             {
+        //                 start: 0,
+        //                 handler() {
+        //                     //console.log("octopus lol");
+        //                 }
+        //             },
+        //         ],
+        //     }
+        // },
     });
 </script>
 

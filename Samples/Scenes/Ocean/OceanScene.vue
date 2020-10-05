@@ -8,6 +8,7 @@
     import Octopus from "../../Assets/Fish/Octopus";
     import DoABarrelRoll from "../../Animations/DoABarrelRoll";
     import Pig from "../../Assets/Animals/Pig";
+    import KeyframeVisible from "../../../vue/Components/Timers/KeyframeVisible";
 
     export default Bytepath.CreateAsset({
         name: "ocean-scene",
@@ -39,6 +40,7 @@
             Octopus,
             DoABarrelRoll,
             Pig,
+            KeyframeVisible,
             //UnderwaterFilter,
             //DropShadow,
         },
@@ -86,7 +88,9 @@
                         <yellow-fish :x="-800" :y="-100" :sy="(reset.keyframe / 600)" :sx="(reset.keyframe / 350)" />
                         <yellow-fish :x="-700 + reset.keyframe" :my="0.4" :mx="1" :y="550"/>
 
-                        <octopus :keyframe="keyframe" :x="keyframe" :repeat="'hidden'" />
+                        <keyframe-visible :keyframe="keyframe" v-slot="visible">
+                        <octopus color="blue" :x="-500 + visible.keyframe" />
+                        </keyframe-visible>
 
                         <big-fish :x="1500 - reset.keyframe" :my="0.5" :y="125"/>
                         <yellow-fish :x="-900 + reset.keyframe" :my="0.2" :mx="1.8" :y="625"/>

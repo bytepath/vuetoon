@@ -104,6 +104,7 @@ let retval = class AnimationPlayer {
 
     /**
      * Returns the final frame of the animation
+     * @TESTME
      */
     getFinalFrame() {
         if (this.forceFinalFrame) {

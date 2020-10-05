@@ -1,6 +1,6 @@
 import AnimationDataFactory from "../../Animation/AnimationDataFactory";
 import Animation from "../../Animation/Animation";
-import IsElementVisible from "../../Helpers/IsElementVisible";
+//import IsElementVisible from "../../Helpers/IsElementVisible";
 
 export default {
     props: {
@@ -73,6 +73,10 @@ export default {
     },
 
     methods: {
+        shouldCalculateVisibility(){
+            return true;
+        },
+
         loadAnimation(anim) {
             if(anim === null) return;
             if(typeof anim === "string" && this.animations){
@@ -90,20 +94,20 @@ export default {
         keyframeChanged(keyframe) {
             if (this.animation) {
 
-                // If this is a repeat on hidden we check if element is visible here
-                if(this.repeat === 'hidden') {
-                    console.log("checking if hidden.... previouslyVisible:", this.wasVisible);
-                    let isVisible = IsElementVisible(this.$el);
-                    this.wasVisible = ((this.wasVisible | isVisible) == true);
-
-                    // If element is not on screen, but was previously on screen, set the current
-                    // frame as final which will cause the animation to repeat
-                    if((!isVisible) && (this.wasVisible)) {
-                        console.log("should repeat", this.wasVisible );
-                        //this.animation.setFinalFrame(keyframe, this);
-
-                    }
-                }
+                // // If this is a repeat on hidden we check if element is visible here
+                // if(this.repeat === 'hidden') {
+                //     console.log("checking if hidden.... previouslyVisible:", this.wasVisible);
+                //     let isVisible = IsElementVisible(this.$el);
+                //     this.wasVisible = ((this.wasVisible | isVisible) == true);
+                //
+                //     // If element is not on screen, but was previously on screen, set the current
+                //     // frame as final which will cause the animation to repeat
+                //     if((!isVisible) && (this.wasVisible)) {
+                //         console.log("should repeat", this.wasVisible );
+                //         this.animation.setFinalFrame(keyframe, this);
+                //
+                //     }
+                // }
 
                 this.animation.computeFrame(keyframe, this);
             }
