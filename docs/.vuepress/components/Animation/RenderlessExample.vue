@@ -19,7 +19,7 @@
 </script>
 
 <template>
-    <vector v-bind="$attrs">
+    <vector v-bind="$props">
         <human :keyframe="keyframe" :sx="0.1" :sy="0.1" :x="-350" :y="-290" v-bind="barrelroll" />
         <balloon v-bind="barrelroll"/>
 

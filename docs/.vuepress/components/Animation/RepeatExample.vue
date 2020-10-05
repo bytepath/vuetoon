@@ -18,7 +18,7 @@
 
 <template>
     <div>
-        <vector v-bind="$attrs">
+        <vector v-bind="$props">
             <animated-balloon :keyframe="currentFrame"/>
         </vector>
         <input type="range" v-model.number="currentFrame" min="0" max="2501">
