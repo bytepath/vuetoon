@@ -32,9 +32,10 @@ let retval = class AnimationPlayer {
      */
     calculateAnimationKeyframe(keyframe, forceRepeat = false) {
         // If this animation should repeat then we return the modulo of the end keyframe
-        if (this.animation.end) {
-            if ((this.repeat || forceRepeat) || (keyframe < this.animation.end)) {
-                return keyframe % this.animation.end;
+        let finalFrame = this.getFinalFrame();
+        if (finalFrame) {
+            if ((this.repeat || forceRepeat) || (keyframe < finalFrame)) {
+                return keyframe % finalFrame;
             }
 
             // If we aren't set to repeat and we are past the end we have finished our animation
@@ -105,6 +106,14 @@ let retval = class AnimationPlayer {
      * Returns the final frame of the animation
      */
     getFinalFrame() {
+        if (this.forceFinalFrame) {
+            if(!this.animation.end) {
+                return this.forceFinalFrame;
+            }
+
+            return (this.forceFinalFrame > this.animation.end) ? this.animation.end : this.forceFinalFrame;
+        }
+
         return this.animation.end;
     }
 
