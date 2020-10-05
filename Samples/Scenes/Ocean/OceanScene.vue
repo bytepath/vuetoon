@@ -61,7 +61,7 @@
 </script>
 
 <template>
-    <vector :id="'ocean-scene'+_uid" v-bind="$attrs">
+    <vector :id="'ocean-scene'+_uid" v-bind="$props" overflow="hidden">
         <g>
             <reset :keyframe="keyframe" :start="0" v-slot="reset">
                 <sky :show-viewbox="false" :keyframe="reset.keyframe">

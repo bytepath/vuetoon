@@ -1,9 +1,10 @@
 import KeyframeAnimation from "./KeyframeAnimation";
 import Position from "../../Helpers/Position";
 import AcceptsTransformProps from "./AcceptsTransformProps";
+import AcceptsViewportProps from "./AcceptsViewportProps";
 
 export default {
-    mixins: [ KeyframeAnimation, AcceptsTransformProps ],
+    mixins: [ KeyframeAnimation, AcceptsTransformProps, AcceptsViewportProps ],
     props: {
         /**
          * Default color of this asset.

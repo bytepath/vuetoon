@@ -100,7 +100,7 @@ export default {
                  return this.dimensions.width;
             }
 
-            return 'auto';
+            return null;
         },
 
         /**
@@ -118,7 +118,7 @@ export default {
                 return this.dimensions.height;
             }
 
-            return 'auto';
+            return null;
         },
     },
 
