@@ -61,10 +61,10 @@
 </script>
 
 <template>
-    <vector :id="'ocean-scene'+_uid" v-bind="$props" overflow="hidden">
+    <vector :id="'ocean-scene'+_uid" v-bind="$props">
         <g>
             <reset :keyframe="keyframe" :start="0" v-slot="reset">
-                <sky :show-viewbox="false" :keyframe="reset.keyframe">
+                <sky :keyframe="reset.keyframe">
                     <do-a-barrel-roll :keyframe="reset.keyframe" v-slot="barrel">
                         <g>
                             <balloon :x="-225" :y="500" :sx="0.5" :sy="0.5" v-bind="barrel">

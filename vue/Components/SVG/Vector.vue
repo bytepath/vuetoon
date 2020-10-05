@@ -109,10 +109,6 @@
              * Bottom Left [0,1000] [500,1000] //Bottom right
              */
             viewBox() {
-               // if(!this.src && (!this.assetDimensions)){
-                    this.calculateSelfDimensions();
-                //}
-
                 if (this.camera) {
                     let viewBox = new Position({...this.camera});
                     if (this.assetDimensions) {
