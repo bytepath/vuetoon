@@ -61,7 +61,7 @@
 </script>
 
 <template>
-    <vector :id="'ocean-scene'+_uid" v-bind="$props">
+    <vector :id="'ocean-scene'+_uid" width="auto" height="auto" overflow="hidden" v-bind="$props">
         <g>
             <reset :keyframe="keyframe" :start="0" v-slot="reset">
                 <sky :keyframe="reset.keyframe">
@@ -85,6 +85,8 @@
                     <slot name="underwater" >
                         <yellow-fish :x="-800" :y="-100" :sy="(reset.keyframe / 600)" :sx="(reset.keyframe / 350)" />
                         <yellow-fish :x="-700 + reset.keyframe" :my="0.4" :mx="1" :y="550"/>
+
+                        <octopus :keyframe="keyframe" :x="keyframe" :repeat="'hidden'" />
 
                         <big-fish :x="1500 - reset.keyframe" :my="0.5" :y="125"/>
                         <yellow-fish :x="-900 + reset.keyframe" :my="0.2" :mx="1.8" :y="625"/>

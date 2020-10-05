@@ -6,6 +6,9 @@ let retval = class AnimationPlayer {
         this.timesRepeated = 0;
         this.previousKeyframe = 0;
 
+        // If not null will force final animation frame to be this instead of whatever it's supposed to be
+        this.forceFinalFrame = null;
+
         /**
          Determine the direction of playback. Direction can be three states:
          Animation.INITIAL = 0 = Animation has never been played
@@ -98,6 +101,20 @@ let retval = class AnimationPlayer {
         return false;
     }
 
+    /**
+     * Returns the final frame of the animation
+     */
+    getFinalFrame() {
+        return this.animation.end;
+    }
+
+    /**
+     * Sets the final frame of this animation. Overrides default end frame (if it exists)
+     * @param frame
+     */
+    setFinalFrame(frame) {
+        this.forceFinalFrame = frame;
+    }
 
     /**
      * Play the specified frame

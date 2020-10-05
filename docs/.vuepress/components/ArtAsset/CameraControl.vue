@@ -6,7 +6,9 @@
         <input type="range" v-model.number="myCamera.y" :min="0" :max="1200"> Y = {{ myCamera.y }}
         <input type="range" v-model.number="zoom" :min="0" :max="10"> Zoom = {{ zoom }}
 
-        <ocean-scene align="topleft" :fit="false" :show-viewbox="true" :camera="myCamera" :keyframe="currentFrame"/>
+        <clock v-slot="clock">
+            <ocean-scene align="topleft" :fit="false" :show-viewbox="true" :camera="myCamera" :keyframe="clock.keyframe"/>
+        </clock>
     </div>
 </template>
 

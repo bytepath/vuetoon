@@ -7,8 +7,18 @@
         name: "octopus",
         layers: ["octopus"],
 
-
-        components:{},
+        animations(){
+            return {
+                default: [
+                    {
+                        start: 0,
+                        handler() {
+                            console.log("octopus lol");
+                        }
+                    },
+                ],
+            }
+        },
     });
 </script>
 

@@ -29,7 +29,7 @@ const defaultValue = () => new Promise((resolve) => {
 /** ****************
  * TESTS
  **************** */
-describe('KeyframeAnimation.vue', () => {
+describe('KeyframeAnimation.js', () => {
   beforeEach(defaultValue);
 
   it('can be mounted', () => {

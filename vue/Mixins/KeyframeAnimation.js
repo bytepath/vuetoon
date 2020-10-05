@@ -1,5 +1,6 @@
 import AnimationDataFactory from "../../Animation/AnimationDataFactory";
 import Animation from "../../Animation/Animation";
+import IsElementVisible from "../../Helpers/IsElementVisible";
 
 export default {
     props: {
@@ -17,13 +18,16 @@ export default {
 
         // Force the animation to continually repeat
         repeat: {
-            type: Boolean,
+            type: Boolean|String,
             default: false,
         }
     },
 
     data() {
-        return {};
+        return {
+            // If true this element has been visible on the screen at least once
+            wasVisible: false,
+        };
     },
 
     mounted() {
@@ -77,14 +81,30 @@ export default {
                 let actions = AnimationDataFactory.createFromUserAnimation(anim, this.animations[anim]);
                 return new Animation(this.anim, actions, this.repeat);
             }
-            
+
             // This is an animation passed to us by a parent component
             let actions = AnimationDataFactory.createFromUserAnimation('renderless', anim);
-            return new Animation('renderless', actions, this.repeat);            
+            return new Animation('renderless', actions, this.repeat);
         },
 
         keyframeChanged(keyframe) {
             if (this.animation) {
+
+                // If this is a repeat on hidden we check if element is visible here
+                if(this.repeat === 'hidden') {
+                    console.log("checking if hidden.... previouslyVisible:", this.wasVisible);
+                    let isVisible = IsElementVisible(this.$el);
+                    this.wasVisible = ((this.wasVisible | isVisible) == true);
+
+                    // If element is not on screen, but was previously on screen, set the current
+                    // frame as final which will cause the animation to repeat
+                    if((!isVisible) && (this.wasVisible)) {
+                        console.log("should repeat", this.wasVisible );
+                        //this.animation.setFinalFrame(keyframe, this);
+
+                    }
+                }
+
                 this.animation.computeFrame(keyframe, this);
             }
         },
