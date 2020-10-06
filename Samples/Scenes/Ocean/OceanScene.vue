@@ -41,8 +41,6 @@
             DoABarrelRoll,
             Pig,
             KeyframeVisible,
-            //UnderwaterFilter,
-            //DropShadow,
         },
 
         animations() {
@@ -63,7 +61,7 @@
 </script>
 
 <template>
-    <vector :id="'ocean-scene'+_uid" width="auto" height="auto" overflow="hidden" v-bind="$props">
+    <vector :id="'ocean-scene'+_uid" overflow="hidden" v-bind="$props">
         <g>
             <reset :keyframe="keyframe" :start="0" v-slot="reset">
                 <sky :keyframe="reset.keyframe">
@@ -76,27 +74,6 @@
                     </do-a-barrel-roll>
                     <slot />
                 </sky>
-            </reset>
-
-            <reset :keyframe="keyframe" :start="1100" v-slot="reset">
-                <coast :keyframe="reset.keyframe" transform="translate(0 1105)"/>
-            </reset>
-
-            <reset :keyframe="keyframe" :start="1100" v-slot="reset">
-                <underwater style="fill: red;" :keyframe="reset.keyframe" transform="translate(0 1600)">
-                    <slot name="underwater" >
-                        <yellow-fish :x="-800" :y="-100" :sy="(reset.keyframe / 600)" :sx="(reset.keyframe / 350)" />
-                        <yellow-fish :x="-700 + reset.keyframe" :my="0.4" :mx="1" :y="550"/>
-
-                        <keyframe-visible :keyframe="keyframe" v-slot="visible">
-                            <octopus color="blue" :y="-visible.keyframe" :x="-500 + (visible.keyframe / 2)" />
-                        </keyframe-visible>
-
-                        <big-fish :x="1500 - reset.keyframe" :my="0.5" :y="125"/>
-                        <yellow-fish :x="-900 + reset.keyframe" :my="0.2" :mx="1.8" :y="625"/>
-                        <big-fish :x="1900 - reset.keyframe" :y="400" :my="0" :mx="1.5"/>
-                    </slot>
-                </underwater>
             </reset>
         </g>
     </vector>

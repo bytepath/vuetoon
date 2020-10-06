@@ -45,8 +45,7 @@
         <input type="radio" id="peach" v-model.number="index" value="5"/>Peach Gram<br/>
         <input type="radio" id="nofilter" v-model.number="index" value="0"/>None<br/>
 
-        <svg style="fill: #90CDF4" width="500" viewBox="0 0 1384 1700">
-            <ocean-scene align="topleft" :filter="useFilter" :keyframe="keyframe"/>
-        </svg>
+
+            <ocean-scene :show-viewbox="true" align="topleft" :filter="useFilter" :keyframe="keyframe"/>
     </div>
 </template>

@@ -2,13 +2,10 @@
     import Bytepath from "bytepath";
     import OceanScene from "../../../Samples/Scenes/Ocean/OceanScene";
     import Farm from "../../../Samples/Scenes/Farm/Farm";
-    import UnderwaterFilter from "../../../Samples/Filters/UnderwaterFilter";
 
     export default {
         data(){
-            return {
-                underwater: UnderwaterFilter,
-            };
+            return {};
         },
 
         components: {
@@ -23,10 +20,7 @@
 <template>
     <div>
     <scroll v-slot="{ keyframe }" auto-play>
-        <div>
-            <ocean-scene style="fill:#90CDF4;" class="text-blue-300" :keyframe="keyframe"/>
-            <farm />
-        </div>
+        <ocean-scene  :width="500" :height="500" :show-viewbox="true" style="fill:#90CDF4;"  :keyframe="keyframe"/>
     </scroll>
     <div style="height:125vh;"></div>
     </div>
