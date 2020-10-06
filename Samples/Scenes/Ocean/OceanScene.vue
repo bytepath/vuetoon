@@ -110,7 +110,7 @@
                     },
 
                     {
-                        start: 2386,
+                        start: 2550,
                         end: 3300,
                         // eslint-disable-next-line
                         handler({context, tween, keyframe}) {
@@ -120,7 +120,7 @@
                             context.pigPos.scaleY = tween.number(1, 0.5);
                         }
                     },
-                    
+
                     {
                         start: 2672,
                         end: 3300,
