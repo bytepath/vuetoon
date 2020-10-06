@@ -30,7 +30,7 @@ let sidebar = {
             children: [{
                 title: 'User Input',
                 children: ['mouseinput', 'keyboardinput'],
-            }, 'domtransformations', 'matrixprop', 'positionclass', 'sampleassets', 'fastforwardandrewind', 'animationreuse'],
+            }, 'domtransformations', 'matrixprop', 'positionclass', 'sampleassets', 'animationreuse'],
         }
     ],
 };
