@@ -11,7 +11,7 @@
 </script>
 
 <template>
-    <g :id="'ocean' + _uid" v-once>
+    <g :id="'ocean' + _uid">
         <rocks />
         <g transform="translate(900 -75)">
             <lighthouse />

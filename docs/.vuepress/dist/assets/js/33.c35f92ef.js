@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[33],{441:function(t,e,r){"use strict";r.r(e);var i={components:{vector:r(301).a.graphics.vector}},n=r(41),s=Object(n.a)(i,(function(){var t=this.$createElement,e=this._self._c||t;return e("svg",{attrs:{width:"500",height:"100"}},[e("vector",{attrs:{width:10,height:10}},[e("rect",{attrs:{width:"100",height:"50",fill:"red"}})])],1)}),[],!1,null,null,null);e.default=s.exports}}]);
+//# sourceMappingURL=33.c35f92ef.js.map

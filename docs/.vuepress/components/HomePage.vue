@@ -21,9 +21,10 @@
     <div>
         <div style="height: 75vh;"></div>
         <scroll v-slot="{ keyframe }" auto-play>
-            <svg viewBox="0 0 1384 10000">
+            <svg viewBox="0 0 1380 10000" >
+                <farm :y="2500"/>
+                <rect x="0" y="1500" width="1380" height="1000" style="fill: #E3DAA6;" />
                 <ocean-scene :show-viewbox="false" style="fill:#90CDF4;" :keyframe="keyframe"/>
-                <farm :y="2800"/>
             </svg>
         </scroll>
         <div style="height: 75vh;"></div>
