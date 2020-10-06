@@ -18,13 +18,11 @@
 
 <template>
     <svg width="auto" height="500" viewBox="0 0 1384 1000">
-        <vector :show-viewbox="true" v-bind="$props" overflow="hidden">
-                <underwater>
-                    <keyframe-visible :keyframe="keyframe" v-slot="visible">
-                        <octopus color="blue" :x="-500 + (visible.keyframe)"/>
-                    </keyframe-visible>
-                </underwater>
-        </vector>
+        <underwater :show-viewbox="true" v-bind="$props" overflow="hidden">
+            <keyframe-visible :keyframe="keyframe" v-slot="visible">
+                <octopus color="blue" :x="-500 + (visible.keyframe)"/>
+            </keyframe-visible>
+        </underwater>
     </svg>
 </template>
 
