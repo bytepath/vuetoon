@@ -89,7 +89,7 @@
                         <yellow-fish :x="-700 + reset.keyframe" :my="0.4" :mx="1" :y="550"/>
 
                         <keyframe-visible :keyframe="keyframe" v-slot="visible">
-                        <octopus color="blue" :x="-500 + (visible.keyframe / 2)" />
+                            <octopus color="blue" :y="-visible.keyframe" :x="-500 + (visible.keyframe / 2)" />
                         </keyframe-visible>
 
                         <big-fish :x="1500 - reset.keyframe" :my="0.5" :y="125"/>

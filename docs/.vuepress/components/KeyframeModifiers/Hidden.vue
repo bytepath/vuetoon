@@ -1,0 +1,33 @@
+<script>
+    import Bytepath from "bytepath";
+    import Underwater from "../../../../Samples/Scenes/Underwater/Underwater";
+    import Octopus from "../../../../Samples/Assets/Fish/Octopus";
+    import KeyframeVisible from "../../../../vue/Components/Timers/KeyframeVisible";
+
+    export default Bytepath.CreateAsset({
+        name: "ocean-scene",
+        layers: [],
+        viewport: true,
+        components: {
+            Underwater,
+            Octopus,
+            KeyframeVisible,
+        },
+    });
+</script>
+
+<template>
+    <svg width="auto" height="500" viewBox="0 0 1384 1000">
+        <vector :show-viewbox="true" v-bind="$props" overflow="hidden">
+                <underwater>
+                    <keyframe-visible :keyframe="keyframe" v-slot="visible">
+                        <octopus color="blue" :x="-500 + (visible.keyframe)"/>
+                    </keyframe-visible>
+                </underwater>
+        </vector>
+    </svg>
+</template>
+
+
+
+

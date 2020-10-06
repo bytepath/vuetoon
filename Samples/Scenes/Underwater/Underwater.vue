@@ -1,7 +1,8 @@
 <script>
     import Background from "./Background";
+    import CreateAsset from "../../../Factories/CreateAsset";
 
-    export default {
+    export default CreateAsset({
         props:{
             // Do we show the crabs and plants or no
             crabs: {
@@ -13,12 +14,12 @@
         components: {
             Background,
         }
-    }
+    })
 </script>
 
 <template>
-    <g :id="'underwater' + _uid">
-        <background :crabs="crabs" />
+    <vector :id="'underwater-'+_uid" v-bind="$props">
+        <background />
         <slot />
-    </g>
+    </vector>
 </template>

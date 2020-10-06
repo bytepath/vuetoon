@@ -17,13 +17,9 @@
 
         data() {
             return {
-                currentFrame: 1,
+                currentFrame: 0,
             };
         },
-
-        mounted() {
-            this.currentFrame = 0;
-        }
     }
 </script>
 
