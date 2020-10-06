@@ -14,7 +14,6 @@ export default {
             retval = 0;
 
             if(this.$el){
-                console.log("visible has el");
                 retval = IsElementVisible(this.$el);
             }
 

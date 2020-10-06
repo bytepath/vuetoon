@@ -1,7 +1,7 @@
 import CalculatesVisibility from "../../Mixins/CalculatesVisibility";
 
 export default {
-    mixins: [ CalculatesVisibility ],
+    mixins: [CalculatesVisibility],
     props: {
         keyframe: {
             type: Number,
@@ -13,51 +13,55 @@ export default {
         return {
             // Child is visible on this frame
             visibleOnKeyframe: null,
-            hasReset: false,
+            repeatAt: Number.MAX_SAFE_INTEGER,
         };
     },
 
-    computed:{
+    computed: {
         /**
-         * Determines the "reset" keyframe amount by subtracting the real frame amount from the reset point
-         * Will never be < 0
          * @returns {number}
          */
-        computedKeyframe(){
-            if(!this.wasVisible) {
-                return this.keyframe;
-            }
-
-            if(!this.hasReset) {
+        computedKeyframe() {
+            let currentFrame = (this.repeatAt) ? (this.keyframe % this.repeatAt) : this.keyframe;
+            if(this.repeatAt === Number.MAX_SAFE_INTEGER) {
                 if (this.isVisible()) {
+
+
+                    // If this is the first time this asset has been visible then set whatever the current
+                    // keyframe is
                     if (this.visibleOnKeyframe === null) {
-                        this.visibleOnKeyframe = this.keyframe;
-                    } else {
-                        if (this.keyframe > this.visibleOnKeyframe) {
-                            this.visibleOnKeyframe = this.keyframe;
+                        this.visibleOnKeyframe = currentFrame;
+                    }
+
+                    // This is not the first time this asset has been visible so we only set keyframe if
+                    // its greater than the current highest visible frame. Remember we are just trying
+                    // to figure out which frame we go off screen
+                    else {
+                        if (currentFrame > this.visibleOnKeyframe) {
+                            this.visibleOnKeyframe = currentFrame;
                         }
+                    }
+
+                    return currentFrame;
+                }
+
+                // Asset is NOT visible
+                else {
+
+                    if (this.wasVisible) {
+                        this.repeatAt = this.visibleOnKeyframe;
+                        this.visibleOnKeyframe = null;
+                        this.wasVisible = false;
                     }
                 }
             }
 
-            if(this.visibleOnKeyframe !== null) {
-                if(this.keyframe <= this.visibleOnKeyframe) {
-                    return this.keyframe;
-                }
-
-                this.hasReset = true;
-                let retval = this.keyframe % this.visibleOnKeyframe;
-                if(this.keyframe >= this.visibleOnKeyframe && retval === 0)
-                this.wasVisible = false;
-                return retval;
-            }
-
-            return 0;
-        }
+            return currentFrame;
+        },
     },
 
     render() {
-        return this.$scopedSlots.default({ keyframe: this.computedKeyframe })
+        return this.$scopedSlots.default({keyframe: this.computedKeyframe})
     }
 }
 

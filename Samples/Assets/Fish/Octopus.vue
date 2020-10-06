@@ -6,24 +6,11 @@
         src: svg,
         name: "octopus",
         layers: ["octopus"],
-
-        // animations(){
-        //     return {
-        //         default: [
-        //             {
-        //                 start: 0,
-        //                 handler() {
-        //                     //console.log("octopus lol");
-        //                 }
-        //             },
-        //         ],
-        //     }
-        // },
     });
 </script>
 
 <template>
-    <vector :style="{fill: color}" v-bind="$props" v-slot="">
+    <vector :style="{fill: color}" v-bind="$props" >
         <layer v-for="(layer, i) in filteredLayers" :key="i" :position="layer" />
     </vector>
 </template>
