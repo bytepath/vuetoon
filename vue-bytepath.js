@@ -14,6 +14,9 @@ import repeat from "./vue/Components/Timers/KeyframeRepeat";
 
 // DOM
 import entityDiv from './vue/Components/Dom/EntityDiv';
+
+// SVG
+import scene from "./vue/Components/SVG/Scene";
 import vector from './vue/Components/SVG/Vector';
 
 // Animations
@@ -76,6 +79,7 @@ const Bytepath = {
 
     graphics: {
         vector,
+        scene,
     },
 
     samples: {
