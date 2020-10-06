@@ -8,7 +8,9 @@ import playbackTimer from "./vue/Mixins/PlaybackTimer";
 import clock from "./vue/Components/Timers/ClockTimer";
 import scroll from "./vue/Components/Timers/ScrollTimer";
 import responsiveScroll from "./vue/Components/Timers/ResponsiveScrollTimer";
-import reset from "./vue/Components/Timers/KeyframeReset";
+import delay from "./vue/Components/Timers/KeyframeDelay";
+import visible from "./vue/Components/Timers/KeyframeVisible";
+import repeat from "./vue/Components/Timers/KeyframeRepeat";
 
 // DOM
 import entityDiv from './vue/Components/Dom/EntityDiv';
@@ -57,7 +59,9 @@ const Bytepath = {
         clock,
         scroll,
         responsiveScroll,
-        reset
+        delay,
+        visible,
+        repeat,
     },
 
     animations: {

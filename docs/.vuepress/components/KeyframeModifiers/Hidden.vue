@@ -5,7 +5,7 @@
     import KeyframeVisible from "../../../../vue/Components/Timers/KeyframeVisible";
 
     export default Bytepath.CreateAsset({
-        name: "ocean-scene",
+        name: "HiddenExample",
         layers: [],
         viewport: true,
         components: {
@@ -25,7 +25,3 @@
         </underwater>
     </svg>
 </template>
-
-
-
-

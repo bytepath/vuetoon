@@ -16,9 +16,9 @@ let sidebar = {
             children: ['assetcomposition', 'importingassets', 'assetreuse', 'filters'],
         },
         {
-            title: 'Keyframe Animation',
+            title: 'Animation',
             collapsable: false,
-            children: ['keyframeanimations', 'tween'],
+            children: ['keyframeanimations', 'tween', 'keyframemodifiers'],
         },
 
         {

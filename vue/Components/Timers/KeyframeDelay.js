@@ -9,7 +9,7 @@ export default {
         // The location that we start calculating this keyframe
         start: {
             type: Number,
-            required: true,
+            default: 0,
         },
 
         // The location that that we stop calculating the keyframe. If null we ignore it
