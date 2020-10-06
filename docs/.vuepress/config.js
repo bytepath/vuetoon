@@ -8,7 +8,7 @@ let sidebar = {
         {
             title: 'The Basics',
             collapsable: false,
-            children: ['basictransformations', 'basicanimations']
+            children: ['basictransformations']
         },
         {
             title: 'Art Assets',
@@ -54,16 +54,6 @@ module.exports = {
                 defaultTitle: "",
                 before: info => `<div class="theorem"><p class="title">${info}</p>`,
                 after: '</div>',
-            },
-        ],
-        ['vuepress-plugin-dehydrate',
-            {
-                // remove scripts
-                noScript: [
-                    // support glob patterns
-                    'guide/*.html',
-                    '**/static.html',
-                ],
             },
         ],
     ],

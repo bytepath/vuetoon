@@ -19,14 +19,17 @@
     <svg width="auto" height="500" viewBox="0 0 1384 1000">
         <underwater :show-viewbox="true" v-bind="$props" overflow="hidden">
             <g>
+                <!-- Start animating at frame 0 -->
                 <keyframe-delay :keyframe="keyframe" v-slot="delay">
                     <octopus color="blue" :y="-300" :x="delay.keyframe"/>
                 </keyframe-delay>
 
+                <!-- Start at frame 500 -->
                 <keyframe-delay :start="500" :keyframe="keyframe" v-slot="delay">
                     <octopus color="blue" :y="-50" :x="delay.keyframe"/>
                 </keyframe-delay>
 
+                <!-- Starts at frame 1000 -->
                 <keyframe-delay :start="1000" :keyframe="keyframe" v-slot="delay">
                     <octopus color="blue" :y="200" :x="delay.keyframe"/>
                 </keyframe-delay>

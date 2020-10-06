@@ -11,7 +11,7 @@
         },
 
         components: {
-            balloon: Bytepath.samples.assets.balloon,
+            balloon: Bytepath.samples.assets.tinyBalloon.tinyBalloon,
         }
     }
 </script>

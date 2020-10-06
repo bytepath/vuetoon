@@ -7,7 +7,7 @@
         },
 
         components: {
-            balloon: Bytepath.samples.assets.balloon,
+            balloon: Bytepath.samples.assets.tinyBalloon.tinyBalloon,
             human: Bytepath.samples.assets.human,
         }
     }
@@ -20,12 +20,12 @@
         <input type="range" v-model.number="angle" min="0" max="360">Angle = {{ angle }}<br/>
 
         <!-- Here human and balloon are two distinct asets -->
-        <human :x="0"  />
-        <balloon :x="25"  />
+        <human :x="0" :show-viewbox="true" width="100" height="100" :align="'topleft'" :fit="true" />
+        <balloon :x="25" :show-viewbox="true" width="100" height="100" :align="'topleft'" :fit="true" />
 
         <!-- Here balloon and human have been combined to make a single asset -->
-        <balloon :x="x" :y="y" :a="angle" v-slot="balloon">
-            <human :position="balloon.position" :sx="2" :sy="2" aspect="xMidYMax meet"/>
+        <balloon :x="x" :y="y" :a="angle" v-slot="balloon" width="100" height="100" :align="'topleft'" :fit="true">
+            <human :show-viewbox="true" :position="balloon.position" :align="'none'" />
         </balloon>
     </div>
 </template>

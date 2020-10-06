@@ -15,7 +15,7 @@ Bytepath is a framework for building vector graphics and animations in your web 
 - **For Developers** 
     - Bytepath has been designed to be used by web developers and makes the assumption that you have no experience with computer graphics.
 
-    - BytePath is built on top of Vue.js. The same skills you've perfected to make awesome websites can now be used to create computer graphics. Anything you can do in vue, you can do here (slots, $emit, Mouse/Keyboard Events, props, mixins, etc) 
+    - BytePath is built on top of <a href="https://www.vuejs.org">Vue.js</a>. The same skills you've perfected to make awesome websites can now be used to create computer graphics. Anything you can do in vue, you can do here (slots, $emit, Mouse/Keyboard Events, props, mixins, etc) 
     
     - Art assets are single file Vue.js components allowing you to store your art, code, and animations in a single reusable module. 
     
@@ -33,8 +33,8 @@ Bytepath is a framework for building vector graphics and animations in your web 
 
 
 ## Getting Started
-Installation
-The official guide assumes an intermediate level knowledge of HTML, CSS, and JavaScript, and the Vue.js framework. If you are totally new to frontend development, it might not be the best idea to jump right into a framework as your first step - grasp the basics then come back! Prior experience with other frameworks helps, but is not required.
+<a class="button" href="installation.html">Installation</a>
+<p class="tip">The official guide assumes an intermediate level knowledge of HTML, CSS, and JavaScript, and the Vue.js framework. If you are totally new to frontend development, it might not be the best idea to jump right into a framework as your first step - grasp the basics then come back! Prior experience with other frameworks helps, but is not required.</p>
 
 ## Rendering Our First Vector Graphic
 
@@ -47,7 +47,7 @@ Internally, &lt;vector&gt; is just a really fancy &lt;svg&gt;, so any valid &lt;
 <Introduction-Rectangle />
 </ClientOnly>
 
-- tip: It's helpful to be familiar with the &lt;svg&gt; tag, but if you aren't, dont worry! You won't be manually building assets like this in real projects unless you have a specific reason to do so.
+<p class="tip">It's helpful to be familiar with the &lt;svg&gt; tag, but if you aren't, dont worry! You won't be manually building assets like this in real projects unless you have a specific reason to do so.</p>
 
 ## Component Based Assets
 
@@ -71,5 +71,5 @@ Bytepath ships with sample assets you can use right out of the box. Lets try imp
 <Introduction-BalloonSample />
 </ClientOnly>
 
-- Check out the full list of assets available HERE
+<p class="tip success">Check out the full list of assets available HERE</p>
 

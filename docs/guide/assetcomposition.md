@@ -1,5 +1,5 @@
 ---
-title: Asset Composition
+title: Combining Assets To Make New Assets
 type: bytepath
 order: 3
 ---
@@ -12,11 +12,9 @@ Assets can be composed together in other components to create new assets.
 
 
 ## Scene Composition
-<div class="scrimba"><a href="https://scrimba.com/p/pXKqta/cEQe4SJ" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
 
 
 ## Vehicle Composition
-<div class="scrimba"><a href="https://scrimba.com/p/pXKqta/cEQe4SJ" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
 
 In the example below we import two sample assets, balloon and human. By including human as a slotted component on balloon, and binding the balloon's slot props, The human asset can use the balloon as a "vehicle", moving around the screen as a single asset. 
 Try moving the sliders below and watch the assets move together. 
@@ -59,7 +57,6 @@ Try moving the sliders below and watch the assets move together.
 <ArtAsset-VehicleComposition />
 </ClientOnly>
 
-<p class="tip success">I</p>
 
 ## How This Works
 

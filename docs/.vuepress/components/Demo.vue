@@ -1,10 +1,7 @@
 <script>
-    import Bytepath from "bytepath";
     import KeyframeSlider from "./KeyframeSlider";
     export default {
-
-
-
+        name: "Demo",
         props: {
             title: {
                 type: String,

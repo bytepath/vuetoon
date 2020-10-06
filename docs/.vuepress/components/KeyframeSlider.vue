@@ -1,8 +1,6 @@
 <script>
-    import Bytepath from "bytepath";
-
     export default {
-
+        name: "KeyframeSlider",
         props: {
             start: {
                 type: Number,
