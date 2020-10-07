@@ -39,6 +39,7 @@
             DoABarrelRoll,
             Pig,
             KeyframeVisible,
+            clock: Bytepath.timers.clock,
         },
 
         animations() {
@@ -148,9 +149,11 @@
                 </sky>
             </delay>
 
-            <delay :keyframe="keyframe" :start="1100" v-slot="reset">
-                <underwater :y="1600" :position="underwaterPosition" :keyframe="reset.keyframe" overflow="hidden" />
+            <clock :fps="15" :keyframe="keyframe" :start="1500" :end="3275" v-slot="clock">
+            <delay :keyframe="keyframe" :start="1100" v-slot="octopus">
+                <underwater :y="1600" :position="underwaterPosition"  :octopus-keyframe="octopus.keyframe" :keyframe="clock.keyframe" overflow="hidden" />
             </delay>
+            </clock>
 
             <do-a-barrel-roll :keyframe="keyframe" v-slot="barrel">
                 <balloon overflow="visible" :x="-225" :y="500" :sx="0.5" :sy="0.5" v-bind="barrel">

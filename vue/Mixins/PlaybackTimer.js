@@ -44,6 +44,10 @@ export default {
     },
 
     computed:{
+
+    },
+
+    methods: {
         // Determines whether we should start the timer or not
         shouldTick() {
             if(this.pause){
@@ -58,9 +62,7 @@ export default {
 
             return (this.keyframe >= start) && (this.keyframe < end);
         },
-    },
 
-    methods: {
         createTimer(){
             // Instantiate your tracking event that will control the animation
             this.timerId = true;
@@ -85,16 +87,18 @@ export default {
         },
 
         timeStep(time) {
-            if(!this.$options.prevFrameTime) {
-                this.$options.prevFrameTime = time;
-            }
-
-            if(this.fps > 0) {
-                let frametime = 1000 / this.fps;
-                let timeDiff = time - this.$options.prevFrameTime;
-                if ((timeDiff >= frametime)) {
-                    this.running(Math.floor(timeDiff));
+            if(this.shouldTick()) {
+                if (!this.$options.prevFrameTime) {
                     this.$options.prevFrameTime = time;
+                }
+
+                if (this.fps > 0) {
+                    let frametime = 1000 / this.fps;
+                    let timeDiff = time - this.$options.prevFrameTime;
+                    if ((timeDiff >= frametime)) {
+                        this.running(Math.floor(timeDiff));
+                        this.$options.prevFrameTime = time;
+                    }
                 }
             }
 
