@@ -188,8 +188,8 @@ export default {
                 retval.x = this.cx;
             } else if (this.position.centerX !== null) { // Then use position
                     retval.x = this.position.centerX;
-            } else if (this.dimensions.width) { // If no position use half the width
-                retval.x = this.dimensions.width / 2;
+            } else if (this.dimensions.centerX) { // If no position use half the width
+                retval.x = this.dimensions.centerX;
             }
 
             // Center Y
@@ -197,7 +197,7 @@ export default {
                 retval.y = this.cy;
             } else if (this.position.centerY !== null) { // Then use position
                 retval.y = this.position.centerY;
-            } else if (this.dimensions.height) { // If no position use half the height
+            } else if (this.dimensions.centerY) { // If no position use half the height
                 retval.y = this.dimensions.height / 2;
             }
 

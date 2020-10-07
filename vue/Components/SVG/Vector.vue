@@ -202,6 +202,9 @@
                 this.$emit("loaded", asset);
             },
 
+            /**
+             * @refactor This function and lookAtAsset really should be one method
+             */
             calculateSelfDimensions() {
                 if(this.$el) {
                     if (this.$el.getBBox) {
@@ -212,6 +215,15 @@
                             width: bbox.width + bbox.x,
                             height: bbox.height + bbox.y,
                         });
+
+
+                        // Set the width of this entity using the size of its bbox
+                        this.dimensions.height = bbox.height;
+                        this.dimensions.width = bbox.width;
+
+                        // Set the center position
+                        this.dimensions.centerX = (bbox.width + bbox.x) / 2;
+                        this.dimensions.centerY = (bbox.height + bbox.y) / 2;
                     }
                 }
             },
@@ -230,6 +242,10 @@
                         // Set the width of this entity using the size of its bbox
                         this.dimensions.height = bbox.height;
                         this.dimensions.width = bbox.width;
+
+                        // Set the center position
+                        this.dimensions.centerX = (bbox.width + bbox.x) / 2;
+                        this.dimensions.centerY = (bbox.height + bbox.y) / 2;
 
                         // Set camera position to the BBox of this element
                         this.assetDimensions.x = bbox.x;

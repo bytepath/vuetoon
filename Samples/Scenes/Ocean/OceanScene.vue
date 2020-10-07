@@ -22,7 +22,10 @@
 
         data() {
             return {
-                pigPos: new Bytepath.Position({}),
+                pigPos: new Bytepath.Position({
+                    centerX: 750,
+                    centerY: 450,
+                }),
                 underwaterPosition: new Bytepath.Position(),
             };
         },
@@ -46,9 +49,6 @@
                         end: 1650,
                         // eslint-disable-next-line
                         handler({context, tween, keyframe}) {
-                            context.pigPos.centerX = 750;
-                            context.pigPos.centerY = 450;
-
                             context.pigPos.angle = 360 - tween.number(0, 90);
                             context.pigPos.y = tween.number(0, 1200);
                         }
@@ -77,8 +77,6 @@
                         end: 2000,
                         // eslint-disable-next-line
                         handler({context, tween, keyframe}) {
-                            context.pigPos.centerX = 750;
-                            context.pigPos.centerY = 450;
                             context.pigPos.angle = 360 - tween.number(90, 145);
                         }
                     },
@@ -97,8 +95,6 @@
                         end: 3280,
                         // eslint-disable-next-line
                         handler({context, tween, keyframe}) {
-                            context.pigPos.centerX = 750;
-                            context.pigPos.centerY = 450;
                             context.pigPos.angle = 360 - tween.number(145, 90);
                         }
                     },
