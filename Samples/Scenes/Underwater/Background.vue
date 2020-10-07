@@ -20,7 +20,7 @@
             <g clip-path="url(#_clip1)">
                 <g id="redo" transform="matrix(0.880411,0,0,0.817725,0,164.047)" >
                     <g transform="matrix(0.999376,0,0,2.31834,0.0450274,-199.88)">
-                        <rect x="-0.045" y="-0.476" width="1363.85" height="560.957" style="fill:url(#_Linear2);stroke:rgb(77,208,225);stroke-width:0.56px;"/>
+                        <rect x="-0.045" y="-0.476" width="1363.85" height="400" style="fill:url(#_Linear2);stroke:rgb(77,208,225);stroke-width:0.56px;"/>
                     </g>
                     <g transform="matrix(1,0,0,1,19.8984,-195.353)">
                         <path d="M537.2,865L523.752,750.528L486.838,675.879L481.471,598.383L440.865,513.528L435.033,449.133L376.892,331.411L279.517,282.438L259.529,169.922L278.443,55.934L294.693,-3.949L1363.47,-0.156L1363.28,866.286L598.498,940.868L537.2,865Z" style="fill:rgb(11,82,98);stroke:rgb(11,82,98);stroke-width:1px;"/>

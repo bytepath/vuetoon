@@ -3,9 +3,6 @@
     import Coast from "../Coast/Coast";
     import Underwater from "../Underwater/Underwater";
     import Sky from "../Sky/Sky";
-    import YellowFish from "../../Assets/Fish/YellowFish";
-    import BigFish from "../../Assets/Fish/BigFish";
-    import Octopus from "../../Assets/Fish/Octopus";
     import DoABarrelRoll from "../../Animations/DoABarrelRoll";
     import Pig from "../../Assets/Animals/Pig";
     import KeyframeVisible from "../../../vue/Components/Timers/KeyframeVisible";
@@ -36,9 +33,6 @@
             Coast,
             Sky,
             Underwater,
-            YellowFish,
-            BigFish,
-            Octopus,
             DoABarrelRoll,
             Pig,
             KeyframeVisible,
@@ -116,6 +110,10 @@
                         handler({context, tween, keyframe}) {
                             context.underwaterPosition.scaleX = tween.number(1, 0.0001);
                             context.underwaterPosition.scaleY = tween.number(1, 0.0001);
+                            context.underwaterPosition.x = tween.number(0, 100);
+                            context.underwaterPosition.angle = tween.number(0, 360);
+                            context.underwaterPosition.y = tween.number(0, 1000);
+
                             context.pigPos.scaleX = tween.number(1, 0.5);
                             context.pigPos.scaleY = tween.number(1, 0.5);
                         }
@@ -155,19 +153,7 @@
             </delay>
 
             <delay :keyframe="keyframe" :start="1100" v-slot="reset">
-                <underwater :y="1600" :position="underwaterPosition" :keyframe="reset.keyframe">
-                    <slot name="underwater" >
-                        <yellow-fish :x="-700 + reset.keyframe" :my="0.4" :mx="1" :y="100"/>
-
-                        <delay :start="1400" :keyframe="keyframe" v-slot="visible">
-                            <octopus :y="-800 + (visible.keyframe / 2)" color="blue" :x="-300 + (visible.keyframe / 2)" />
-                        </delay>
-
-                        <big-fish :x="1500 - reset.keyframe" :my="0.5" :y="125"/>
-                        <yellow-fish :x="-900 + reset.keyframe" :my="0.2" :mx="1.8" :y="0"/>
-                        <big-fish :x="1900 - reset.keyframe" :y="400" :my="0" :mx="1.5"/>
-                    </slot>
-                </underwater>
+                <underwater :y="1600" :position="underwaterPosition" :keyframe="reset.keyframe" overflow="hidden" />
             </delay>
 
             <do-a-barrel-roll :keyframe="keyframe" v-slot="barrel">
