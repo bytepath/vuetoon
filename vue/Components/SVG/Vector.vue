@@ -4,10 +4,10 @@
          :viewBox="viewboxString"
          :preserveAspectRatio="preserveAspectRatio"
          :overflow="overflow"
-        :filter="filterID">
+         :filter="filterID">
         <asset-loader :src="src" :owner="assetID" @loaded="assetLoaded"/>
         <defs v-if="filter">
-            <component :id="'filter' + assetID" v-if="filter" :keyframe="keyframe" :is="filter" />
+            <component :id="'filter' + assetID" v-if="filter" :keyframe="keyframe" :is="filter"/>
         </defs>
         <g :id="'g' + assetID" :transform="transform">
             <slot :position="position" :href="href"/>
@@ -36,7 +36,6 @@
             },
 
 
-
             /**
              * Add a filter to this vector
              */
@@ -61,6 +60,36 @@
         },
 
         computed: {
+            /**
+             * Determines whether this vector should add the viewbox attibute to its tag
+             * @returns boolean
+             */
+            shouldShowViewbox() {
+                /**
+                 * We always show the viewbox if showviewbox is true
+                 */
+                if(this.showViewbox === true){
+                    return true;
+                }
+
+                /**
+                 * If this is the top mounted vector element then we show viewbox unless the
+                 * :show-viewbox prop is set to false
+                 */
+                if(this.$el) {
+                    if(Object.prototype.hasOwnProperty.call(this.$el, "farthestViewportElement")) {
+                        if(this.$el.farthestViewportElement === null) {
+                            return (this.showViewbox !== false);
+                        }
+                    }
+                }
+
+                // if (this.viewBox && (this.showViewbox || this.camera)) {
+                //
+                // }
+                return false;
+            },
+
             /**
              * Computes the preserveAspectRatio attribute for this svg
              */
@@ -145,15 +174,15 @@
                     return viewBox;
                 }
 
+                return null;
             },
 
             viewboxString() {
                 // Camera needs a viewbox to operate properly so we need to show it if you provide a camera
-                if (this.viewBox && (this.showViewbox || this.camera)) {
+                //if (this.viewBox && (this.showViewbox || this.camera)) {
+                if (this.shouldShowViewbox && this.viewBox) {
                     let b = this.viewBox;
-                    if (b.width > 0 && b.height > 0) {
-                        return `${b.x} ${b.y} ${b.width} ${b.height}`;
-                    }
+                    return `${b.x} ${b.y} ${b.width} ${b.height}`;
                 }
 
                 return null;
@@ -172,7 +201,7 @@
              * The ID of the filter attached to this vector
              */
             filterID() {
-                if(this.filter) {
+                if (this.filter) {
                     return `url(#filter${this.assetID})`;
                 }
 
@@ -206,7 +235,7 @@
              * @refactor This function and lookAtAsset really should be one method
              */
             calculateSelfDimensions() {
-                if(this.$el) {
+                if (this.$el) {
                     if (this.$el.getBBox) {
                         let bbox = this.$el.getBBox();
                         this.assetDimensions = new Position({

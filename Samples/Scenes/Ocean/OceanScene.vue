@@ -6,6 +6,7 @@
     import DoABarrelRoll from "../../Animations/DoABarrelRoll";
     import Pig from "../../Assets/Animals/Pig";
     import KeyframeVisible from "../../../vue/Components/Timers/KeyframeVisible";
+    import Cow from "../Farm/Cow";
 
     export default Bytepath.CreateAsset({
         name: "ocean-scene",
@@ -38,6 +39,7 @@
             Underwater,
             DoABarrelRoll,
             Pig,
+            Cow,
             KeyframeVisible,
             clock: Bytepath.timers.clock,
         },
@@ -141,6 +143,7 @@
             <delay :keyframe="keyframe" :start="0" v-slot="reset">
                 <sky :keyframe="reset.keyframe">
                     <g>
+                        <cow width="200" height="100" :x="1700" :y="1650" :show-viewbox="true"  />
                         <delay :keyframe="keyframe" :start="1100" v-slot="reset">
                             <coast :keyframe="reset.keyframe" transform="translate(0 1105)"/>
                         </delay>
@@ -157,7 +160,7 @@
 
             <do-a-barrel-roll :keyframe="keyframe" v-slot="barrel">
                 <balloon overflow="visible" :x="-225" :y="500" :sx="0.5" :sy="0.5" v-bind="barrel">
-                    <pig  :x="-1400" :y="-500" overflow="visible" :position="pigPos" />
+                    <pig  :show-viewbox="true"  overflow="visible" />
                 </balloon>
             </do-a-barrel-roll>
         </g>

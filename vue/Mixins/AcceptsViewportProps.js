@@ -64,5 +64,5 @@ export default {
             type: Object,
             default: null
         }
-    }
+    },
 };

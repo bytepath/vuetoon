@@ -70,7 +70,7 @@ let createAsset = function (data = {}) {
                 }
 
                 if (this.showLayers.length === 0) {
-                    return this.layers;
+                    return this.layers[0];
                 }
 
                 return Object.keys(this.layers)
