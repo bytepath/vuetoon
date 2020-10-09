@@ -18,6 +18,7 @@
 <script>
     /* eslint-disable */
 
+    import { fromObject, applyToPoint } from "transformation-matrix";
     import AssetLoader from "../Loaders/AssetLoader";
     import CalculatesTransformation from "../../Mixins/CalculatesTransformation";
     import AcceptsViewportProps from "../../Mixins/AcceptsViewportProps";
@@ -156,7 +157,6 @@
                 if(this.$el) {
                     if(this.$el.tagName === 'svg') {
                         if(this.$el.farthestViewportElement === null) {
-                            console.log("should show is ", (this.showViewbox !== false));
                             return (this.showViewbox !== false);
                         }
                     }
@@ -221,6 +221,37 @@
                 this.strViewbox = (this.shouldShowViewbox()) ? this.viewbox.toViewbox() : null;
             },
 
+
+            /**
+             * Returns the position this asset is using as center
+             * @returns {{x: number, y: number}}
+             */
+            getCenterPosition(){
+                // Defaults to 0,0
+                let retval = { x:0, y:0 };
+
+                // Center X
+                if (this.cx !== null) { // Use Prop first
+                    retval.x = this.cx;
+                } else if (this.position.centerX !== null) { // Then use position
+                    retval.x = this.position.centerX;
+                } else { // If no position use half the width
+                    retval.x = (this.viewbox.width / 2) + this.viewbox.x;
+                }
+
+                // Center Y
+                if (this.cy !== null) { // Use Prop first
+                    retval.y = this.cy;
+                } else if (this.position.centerY !== null) { // Then use position
+                    retval.y = this.position.centerY;
+                } else { // If no position use half the height
+                    retval.y = (this.viewbox.height / 2) + this.viewbox.y;
+                }
+
+                return new Position(retval);
+            },
+
+
             /**
              * Called when asset has been loaded by the asset loader component. Moves whatever we are trying to look at
              * to point {0, 0} so that we are "looking" at it
@@ -243,9 +274,7 @@
              * @refactor This function and lookAtAsset really should be one method
              */
             calculateSelfDimensions() {
-                console.log("self check el");
                 if (this.$el) {
-                    console.log('has el check bbox');
                     if (this.$el.getBBox) {
                         let bbox = this.$el.getBBox();
                         this.assetDimensions = new Position({
@@ -263,7 +292,6 @@
                         // Set the center position
                         this.dimensions.centerX = (bbox.width + bbox.x) / 2;
                         this.dimensions.centerY = (bbox.height + bbox.y) / 2;
-                        console.log("has bbox", bbox);
                     }
                 }
             },

@@ -125,13 +125,11 @@ let createAsset = function (data = {}) {
     // If we have custom color then we want to add it as a prop
     // eslint-disable-next-line
     if (data.hasOwnProperty("color")) {
-        console.log("found a color prop", data.color);
         let c = {
             type: String,
             default: data.color,
         };
 
-        console.log(c);
         mixin.props['color'] = c;
         delete data.color;
     }

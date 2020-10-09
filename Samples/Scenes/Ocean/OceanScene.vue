@@ -140,7 +140,7 @@
         <clock :fps="15" :keyframe="keyframe" :start="0" :end="3275" v-slot="clock">
         <g>
 
-            <cow :show-viewbox="true" :a="clock.keyframe / 20" :cx="225" :cy="700" align="topleft" :fit="true" :x="0" :y="6500" width="300" height="300" />
+            <cow :show-viewbox="true" :a="clock.keyframe / 20"  align="topleft" :fit="true" :x="0" :y="0" width="300" height="300" />
             <delay :keyframe="keyframe" :start="0" v-slot="reset">
                 <sky :keyframe="reset.keyframe">
                     <g>
@@ -158,7 +158,7 @@
 
             <do-a-barrel-roll :keyframe="keyframe" v-slot="barrel">
                 <balloon  :x="-225" :y="500" :sx="0.5" :sy="0.5" v-bind="barrel">
-                    <pig :x="15" :position="pigPos" :y="210" />
+                    <pig width="90" height="80"  align="topleft" :fit="false"  :x="40" :y="270" :position="pigPos" />
                 </balloon>
             </do-a-barrel-roll>
         </g>

@@ -2,7 +2,6 @@
  * Code that handles computing transformation matricies goes here
  */
 import Position from "../../Helpers/Position";
-import { fromObject, applyToPoint } from "transformation-matrix";
 import AcceptsTransformProps from "./AcceptsTransformProps";
 
 export default {
@@ -109,6 +108,16 @@ export default {
     },
 
     methods: {
+
+
+        /**
+         * Called when the position variable or position props change
+         */
+        positionChanged() {
+            this.animationDirty = true;
+            requestAnimationFrame(this.computeTransformation);
+        },
+
         /**
          * Computes actual position of entity
          * @returns Object
@@ -132,11 +141,23 @@ export default {
         },
 
         /**
-         * Called when the position variable or position props change
+         * Called by request animation frame. We check for dirty changes before running this as computing matricies is
+         * a slow operation that we want to avoid if we can
          */
-        positionChanged() {
-            this.animationDirty = true;
-            requestAnimationFrame(this.computeTransformation);
+        computeTransformation() {
+            if (this.animationDirty) {
+                let matrix = this.matrix;
+
+                // Check if the matrix prop is a matrix or a position
+                if(this.matrix){
+                    if(matrix.constructor.name == "Position") {
+                        matrix = matrix.matrix;
+                    }
+                }
+
+                this.transform = this.getPosition().toSVG(matrix, this.mutations);
+                this.animationDirty = false;
+            }
         },
 
         /**
@@ -144,70 +165,13 @@ export default {
          * @returns {{x: number, y: number}}
          */
         getCenterPosition(){
-            // Defaults to 0,0
-            let retval = { x:0, y:0 };
-
-            // Center X
-            if (this.cx !== null) { // Use Prop first
-                retval.x = this.cx;
-            } else if (this.position.centerX !== null) { // Then use position
-                    retval.x = this.position.centerX;
-            } else if (this.dimensions.centerX) { // If no position use half the width
-                retval.x = this.dimensions.centerX;
-            }
-
-            // Center Y
-            if (this.cy !== null) { // Use Prop first
-                retval.y = this.cy;
-            } else if (this.position.centerY !== null) { // Then use position
-                retval.y = this.position.centerY;
-            } else if (this.dimensions.centerY) { // If no position use half the height
-                retval.y = this.dimensions.height / 2;
-            }
-
-            let pos = new Position(retval);
-
-            if(this.$el) {
-                /* eslint-disable */
-                 let ctm = fromObject(this.$el.getCTM());
-                 let screenUnits = applyToPoint(ctm, { x:pos.x, y:pos.y });
-                //
-                 pos.skewX = screenUnits.x;
-                 pos.skewY = screenUnits.y;
-
-                //pos.x = screenUnits.x;
-                //pos.y = screenUnits.y;
-            }
-
-            return pos;
+            let file = "CalculatesTransformation.js";
+            let msg = "Don't use default getCenterPosition function, instead override with your own functionality";
+            console.warn(`${file}: ${msg}`);
+            return new Position();
         },
 
-        /**
-         * Returns a matrix representing this entity
-         * @returns {*|DOMMatrix}
-         */
-        getTransformation() {
-            let matrix = this.matrix;
 
-            // Check if the matrix prop is a matrix or a position
-            if(this.matrix){
-                if(matrix.constructor.name == "Position") {
-                    matrix = matrix.matrix;
-                }
-            }
 
-            return this.getPosition().toSVG(matrix, this.mutations);
-        },
-
-        /**
-         * Called by request animation frame. We check for dirty changes before running this as computing matricies is
-         * a slow operation that we want to avoid if we can
-         */
-        computeTransformation() {
-            if (this.animationDirty) {
-                this.transform = this.getTransformation();
-                this.animationDirty = false;
-            }
-        },
     },
 }
