@@ -136,14 +136,14 @@
 </script>
 
 <template>
-    <scene  :id="'dogsocean-scene'+_uid" v-bind="$props">
+    <scene  :id="'dogsocean-scene'+_uid" v-bind="$props" overflow="visible">
+        <clock :fps="15" :keyframe="keyframe" :start="0" :end="3275" v-slot="clock">
         <g>
 
-
+            <cow :show-viewbox="true" :a="clock.keyframe / 20" :cx="225" :cy="700" align="topleft" :fit="true" :x="0" :y="6500" width="300" height="300" />
             <delay :keyframe="keyframe" :start="0" v-slot="reset">
                 <sky :keyframe="reset.keyframe">
                     <g>
-                        <cow   align="topleft"   />
                         <delay :keyframe="keyframe" :start="1100" v-slot="reset">
                             <coast :keyframe="reset.keyframe" transform="translate(0 1105)"/>
                         </delay>
@@ -152,18 +152,17 @@
                 </sky>
             </delay>
 
-            <clock :fps="15" :keyframe="keyframe" :start="1500" :end="3275" v-slot="clock">
             <delay :keyframe="keyframe" :start="1100" v-slot="octopus">
-                <underwater :y="1900" :position="underwaterPosition"  :octopus-keyframe="octopus.keyframe" :keyframe="clock.keyframe" overflow="hidden" />
+                <underwater :y="1599" :position="underwaterPosition"  :octopus-keyframe="octopus.keyframe" :keyframe="clock.keyframe" />
             </delay>
-            </clock>
 
             <do-a-barrel-roll :keyframe="keyframe" v-slot="barrel">
-                <balloon overflow="visible" :x="-225" :y="500" :sx="0.5" :sy="0.5" v-bind="barrel">
-                    <pig  overflow="visible" />
+                <balloon  :x="-225" :y="500" :sx="0.5" :sy="0.5" v-bind="barrel">
+                    <pig :x="15" :position="pigPos" :y="210" />
                 </balloon>
             </do-a-barrel-roll>
         </g>
+        </clock>
     </scene>
 </template>
 

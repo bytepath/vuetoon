@@ -16,6 +16,6 @@
 
 <template>
     <g :transform="transform">
-        <use :href="'#' + position.component.id"></use>
+        <use :href="'#' + position.component.id" ></use>
     </g>
 </template>

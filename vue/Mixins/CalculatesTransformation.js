@@ -2,7 +2,7 @@
  * Code that handles computing transformation matricies goes here
  */
 import Position from "../../Helpers/Position";
-import { fromObject } from "transformation-matrix";
+import { fromObject, applyToPoint } from "transformation-matrix";
 import AcceptsTransformProps from "./AcceptsTransformProps";
 
 export default {
@@ -10,7 +10,6 @@ export default {
     data() {
         return {
             dimensions: new Position(),
-            mutations: {},
             animationDirty: true,
 
             /**
@@ -23,11 +22,6 @@ export default {
     mounted() {
         this.animationDirty = true;
         this.computeTransformation();
-
-        window.addEventListener('DOMContentLoaded', () => {
-            this.animationDirty = true;
-            this.computeTransformation();
-        });
     },
 
     watch: {
@@ -115,34 +109,12 @@ export default {
     },
 
     methods: {
-        getViewportMatrix() {
-            if(this.$parent) {
-                if(this.$parent.$el) {
-                    if(typeof this.$parent.$el.getCTM === 'function'){
-                        console.log();
-                        let ret = fromObject(this.$parent.$el.getCTM());
-                        return ret;
-                    }
-                }
-            }
-
-            return null;
-        },
-
-
         /**
          * Computes actual position of entity
          * @returns Object
          */
         getPosition() {
             let center = this.centerPosition;
-
-            // calculate asset dimensions if not already done
-            if(this.dimensions) {
-                if (this.dimensions.width == null && this.dimensions.height == null) {
-                    this.calculateAssetDimensions();
-                }
-            }
 
             return new Position({
                 x: this.x + this.position.x,
@@ -173,7 +145,7 @@ export default {
          */
         getCenterPosition(){
             // Defaults to 0,0
-            let retval = {x: 0, y: 0,};
+            let retval = { x:0, y:0 };
 
             // Center X
             if (this.cx !== null) { // Use Prop first
@@ -193,39 +165,21 @@ export default {
                 retval.y = this.dimensions.height / 2;
             }
 
-            return new Position(retval);
-        },
+            let pos = new Position(retval);
 
-        /**
-         * Calculates the dimensions of this asset and if successful sets the position width/height properties
-         */
-        calculateAssetDimensions(){
-            let dimensions = this.getAssetDimensions();
+            if(this.$el) {
+                /* eslint-disable */
+                 let ctm = fromObject(this.$el.getCTM());
+                 let screenUnits = applyToPoint(ctm, { x:pos.x, y:pos.y });
+                //
+                 pos.skewX = screenUnits.x;
+                 pos.skewY = screenUnits.y;
 
-            this.dimensions.width = dimensions.width;
-            this.dimensions.height = dimensions.height;
-        },
-
-        /**
-         * Returns a object representing the bounding box of this object
-         * @returns { width, height }
-         */
-        getAssetDimensions() {
-            let retval = new Position();
-            let hasBBox = (typeof ((this.$el) ? this.$el.getBBox : null) == 'function');
-            let box = null;
-            if(this.$el && hasBBox) {
-                box = this.$el.getBBox();
-                if(box.width !== 0) {
-                    retval.width = box.width;
-                }
-
-                if(box.height !== 0) {
-                    retval.height = box.height;
-                }
+                //pos.x = screenUnits.x;
+                //pos.y = screenUnits.y;
             }
 
-            return retval;
+            return pos;
         },
 
         /**
@@ -254,18 +208,6 @@ export default {
                 this.transform = this.getTransformation();
                 this.animationDirty = false;
             }
-        },
-
-        /**
-         * Register a mutation function that will be applied to the transformation of this component
-         * @param mutation
-         */
-        registerMutation(mutation) {
-            if (this._debug) {
-                //console.log("Registering mutation", mutation.name);
-            }
-
-            this.mutations[mutation.name] = mutation;
         },
     },
 }

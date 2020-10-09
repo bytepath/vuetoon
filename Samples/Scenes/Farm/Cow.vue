@@ -3,14 +3,16 @@
     import src from "./Farm.svg";
 
     export default CreateAsset({
-        name: "farm-scene",
+        name: "cow",
         src,
         layers: ['cow'],
     });
 </script>
 
 <template>
-    <vector  :show-viewbox="true"  :style="{fill: defaultColor }" v-bind="$props" v-slot="">
-        <layer v-for="(layer, i) in filteredLayers" :key="i" :position="layer" />
+    <vector width="200" height="200" :show-viewbox="true"  :style="{fill: defaultColor }" v-bind="$props" v-slot="">
+        <g>
+            <layer v-for="(layer, i) in filteredLayers" :key="i" :position="layer" />
+        </g>
     </vector>
 </template>

@@ -28,7 +28,7 @@
 </script>
 
 <template>
-    <vector :id="'underwater-'+_uid" v-bind="$props" overflow="hidden">
+    <vector :id="'underwater-'+_uid" v-bind="$props" >
         <background />
         <rect fill="#015191" width="1384" height="300" y="1100" />
         <slot >
