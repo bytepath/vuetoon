@@ -13,7 +13,7 @@ export default {
          */
         showViewbox: {
             type: Boolean,
-            default: false,
+            default: null,
         },
 
         /**

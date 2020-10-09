@@ -91,6 +91,10 @@ export default class Position {
         return applyToPoint(this.getDefaultTransformMatrix(), [this.centerX, this.centerY]);
     }
 
+    toViewbox() {
+        return `${this.x} ${this.y} ${this.width} ${this.height}`;
+    }
+
     toString() {
         return toSVG(this.getDefaultTransformMatrix());
     }

@@ -1,7 +1,7 @@
 <template>
     <svg :id="'svg' + assetID"
          :width="w" :height="h"
-         :viewBox="viewboxString"
+         :viewBox="strViewbox"
          :preserveAspectRatio="preserveAspectRatio"
          :overflow="overflow"
          :filter="filterID">
@@ -56,40 +56,20 @@
                  * The href we can use to find the loaded asset
                  */
                 href: null,
+
+                /**
+                * A position representing the default viewbox [0 0 0 0]
+                */
+                viewbox: new Position({ width: 0, height: 0 }),
+
+                /**
+                 * The string represntation of the viewbox
+                 */
+                strViewbox: null,
             };
         },
 
         computed: {
-            /**
-             * Determines whether this vector should add the viewbox attibute to its tag
-             * @returns boolean
-             */
-            shouldShowViewbox() {
-                /**
-                 * We always show the viewbox if showviewbox is true
-                 */
-                if(this.showViewbox === true){
-                    return true;
-                }
-
-                /**
-                 * If this is the top mounted vector element then we show viewbox unless the
-                 * :show-viewbox prop is set to false
-                 */
-                if(this.$el) {
-                    if(Object.prototype.hasOwnProperty.call(this.$el, "farthestViewportElement")) {
-                        if(this.$el.farthestViewportElement === null) {
-                            return (this.showViewbox !== false);
-                        }
-                    }
-                }
-
-                // if (this.viewBox && (this.showViewbox || this.camera)) {
-                //
-                // }
-                return false;
-            },
-
             /**
              * Computes the preserveAspectRatio attribute for this svg
              */
@@ -131,64 +111,6 @@
             },
 
             /**
-             * The viewbox is what svg uses to figure out what portion of the coordinate system to draw.
-             * We multiply the values against the passed in camera prop to simulate moving the camera around
-             * viewbox = [ 0 0 500 100 ]
-             * top left    [0,0]    [500, 0]   //Top Right
-             * Bottom Left [0,1000] [500,1000] //Bottom right
-             */
-            viewBox() {
-                if (this.camera) {
-                    let viewBox = new Position({...this.camera});
-                    if (this.assetDimensions) {
-
-                        viewBox.centerX = this.assetDimensions.width / (2 * this.camera.scaleX);
-                        viewBox.centerY = this.assetDimensions.height / (2 * this.camera.scaleY);
-                        viewBox.scaleX = 1 / this.camera.scaleX;
-                        viewBox.scaleY = 1 / this.camera.scaleY;
-
-                        let tl = viewBox.multiplyPoint(this.assetDimensions.x, this.assetDimensions.y);
-                        let br = viewBox.multiplyPoint(this.assetDimensions.width, this.assetDimensions.height);
-
-                        this.dimensions.width = br.x * (this.camera.scaleX);
-                        this.dimensions.height = br.y * (this.camera.scaleY);
-
-                        return new Position({
-                            x: (tl.x),
-                            y: (tl.y),
-                            width: (br.x),
-                            height: (br.y),
-                        });
-                    }
-                }
-
-                if (this.assetDimensions) {
-                    let viewBox = null;
-                    viewBox = new Position({
-                        x: this.assetDimensions.x,
-                        y: this.assetDimensions.y,
-                        width: (this.assetDimensions.width - this.assetDimensions.x),
-                        height: (this.assetDimensions.height - this.assetDimensions.y),
-                    });
-
-                    return viewBox;
-                }
-
-                return null;
-            },
-
-            viewboxString() {
-                // Camera needs a viewbox to operate properly so we need to show it if you provide a camera
-                //if (this.viewBox && (this.showViewbox || this.camera)) {
-                if (this.shouldShowViewbox && this.viewBox) {
-                    let b = this.viewBox;
-                    return `${b.x} ${b.y} ${b.width} ${b.height}`;
-                }
-
-                return null;
-            },
-
-            /**
              * The ID that should be used on the loaded svg file, should we be the component responsible for doing that
              * @returns String
              */
@@ -210,12 +132,95 @@
         },
 
         mounted() {
-            if (this.src === null) {
-                this.calculateSelfDimensions();
-            }
+            this.calculateSelfDimensions();
+            this.calculateViewport();
         },
 
         methods: {
+            /**
+             * Determines whether this vector should add the viewbox attibute to its tag
+             * @returns boolean
+             */
+            shouldShowViewbox() {
+                /**
+                 * We always show the viewbox if showviewbox is true
+                 */
+                if(this.showViewbox !== null){
+                    return this.showViewbox;
+                }
+
+                /**
+                 * If this is the top mounted vector element then we show viewbox unless the
+                 * :show-viewbox prop is set to false
+                 */
+                if(this.$el) {
+                    if(this.$el.tagName === 'svg') {
+                        if(this.$el.farthestViewportElement === null) {
+                            console.log("should show is ", (this.showViewbox !== false));
+                            return (this.showViewbox !== false);
+                        }
+                    }
+                }
+
+                // if (this.viewBox && (this.showViewbox || this.camera)) {
+                //
+                // }
+
+                return true;
+            },
+
+            /**
+             * The viewbox is what svg uses to figure out what portion of the coordinate system to draw.
+             * We multiply the values against the passed in camera prop to simulate moving the camera around
+             * viewbox = [ 0 0 500 100 ]
+             * top left    [0,0]    [500, 0]   //Top Right
+             * Bottom Left [0,1000] [500,1000] //Bottom right
+             */
+            calculateViewport() {
+                if (this.camera) {
+                    let tempBox = new Position({...this.camera});
+                    if (this.assetDimensions) {
+
+                        tempBox.centerX = this.assetDimensions.width / (2 * this.camera.scaleX);
+                        tempBox.centerY = this.assetDimensions.height / (2 * this.camera.scaleY);
+                        tempBox.scaleX = 1 / this.camera.scaleX;
+                        tempBox.scaleY = 1 / this.camera.scaleY;
+
+                        let tl = tempBox.multiplyPoint(this.assetDimensions.x, this.assetDimensions.y);
+                        let br = tempBox.multiplyPoint(this.assetDimensions.width, this.assetDimensions.height);
+
+                        this.dimensions.width = br.x * (this.camera.scaleX);
+                        this.dimensions.height = br.y * (this.camera.scaleY);
+
+                        this.viewbox = new Position({
+                            x: (tl.x),
+                            y: (tl.y),
+                            width: (br.x),
+                            height: (br.y),
+                        });
+                    }
+                }
+                else if (this.assetDimensions) {
+                    this.viewbox = new Position({
+                        x: this.assetDimensions.x,
+                        y: this.assetDimensions.y,
+                        width: (this.assetDimensions.width),
+                        height: (this.assetDimensions.height),
+                    });
+
+                    this.dimensions.width = this.assetDimensions.width;
+                    this.dimensions.height = this.assetDimensions.height;
+                }
+                else {
+                    this.viewbox = new Position({ width: 0, height: 0 });
+                    this.dimensions.width = 0;
+                    this.dimensions.height = 0;
+                }
+
+                // Set the viewbox string if needed
+                this.strViewbox = (this.shouldShowViewbox()) ? this.viewbox.toViewbox() : null;
+            },
+
             /**
              * Called when asset has been loaded by the asset loader component. Moves whatever we are trying to look at
              * to point {0, 0} so that we are "looking" at it
@@ -227,7 +232,10 @@
                     this.assetDimensions = {...asset.viewBox};
                 }
 
-                setTimeout(this.lookAtAsset, 0);
+                setTimeout(() => {
+                    this.lookAtAsset();
+                    this.calculateViewport();
+                }, 0);
                 this.$emit("loaded", asset);
             },
 
@@ -235,14 +243,16 @@
              * @refactor This function and lookAtAsset really should be one method
              */
             calculateSelfDimensions() {
+                console.log("self check el");
                 if (this.$el) {
+                    console.log('has el check bbox');
                     if (this.$el.getBBox) {
                         let bbox = this.$el.getBBox();
                         this.assetDimensions = new Position({
                             x: bbox.x,
                             y: bbox.y,
-                            width: bbox.width + bbox.x,
-                            height: bbox.height + bbox.y,
+                            width: bbox.width,
+                            height: bbox.height,
                         });
 
 
@@ -253,6 +263,7 @@
                         // Set the center position
                         this.dimensions.centerX = (bbox.width + bbox.x) / 2;
                         this.dimensions.centerY = (bbox.height + bbox.y) / 2;
+                        console.log("has bbox", bbox);
                     }
                 }
             },
@@ -279,8 +290,8 @@
                         // Set camera position to the BBox of this element
                         this.assetDimensions.x = bbox.x;
                         this.assetDimensions.y = bbox.y;
-                        this.assetDimensions.width = bbox.width + bbox.x;
-                        this.assetDimensions.height = bbox.height + bbox.y;
+                        this.assetDimensions.width = bbox.width;
+                        this.assetDimensions.height = bbox.height;
                     }
                 } else {
                     console.log("couldnt find an element with ", lookAtID, this);

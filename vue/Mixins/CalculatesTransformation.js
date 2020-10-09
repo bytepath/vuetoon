@@ -96,11 +96,7 @@ export default {
                 return this.width;
             }
 
-            if(this.camera) {
-                 return this.dimensions.width;
-            }
-
-            return null;
+            return this.dimensions.width;
         },
 
         /**
@@ -114,11 +110,7 @@ export default {
                 return this.height;
             }
 
-            if(this.camera) {
-                return this.dimensions.height;
-            }
-
-            return null;
+            return this.dimensions.height;
         },
     },
 

@@ -143,7 +143,7 @@
             <delay :keyframe="keyframe" :start="0" v-slot="reset">
                 <sky :keyframe="reset.keyframe">
                     <g>
-                        <cow width="200" height="100" :x="1700" :y="1650" :show-viewbox="true"  />
+                        <cow   align="topleft"   />
                         <delay :keyframe="keyframe" :start="1100" v-slot="reset">
                             <coast :keyframe="reset.keyframe" transform="translate(0 1105)"/>
                         </delay>
@@ -154,13 +154,13 @@
 
             <clock :fps="15" :keyframe="keyframe" :start="1500" :end="3275" v-slot="clock">
             <delay :keyframe="keyframe" :start="1100" v-slot="octopus">
-                <underwater :y="1600" :position="underwaterPosition"  :octopus-keyframe="octopus.keyframe" :keyframe="clock.keyframe" overflow="hidden" />
+                <underwater :y="1900" :position="underwaterPosition"  :octopus-keyframe="octopus.keyframe" :keyframe="clock.keyframe" overflow="hidden" />
             </delay>
             </clock>
 
             <do-a-barrel-roll :keyframe="keyframe" v-slot="barrel">
                 <balloon overflow="visible" :x="-225" :y="500" :sx="0.5" :sy="0.5" v-bind="barrel">
-                    <pig  :show-viewbox="true"  overflow="visible" />
+                    <pig  overflow="visible" />
                 </balloon>
             </do-a-barrel-roll>
         </g>
