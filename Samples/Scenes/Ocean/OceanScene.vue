@@ -23,10 +23,7 @@
 
         data() {
             return {
-                pigPos: new Bytepath.Position({
-                    centerX: 750,
-                    centerY: 450,
-                }),
+                pigPos: new Bytepath.Position({}),
                 underwaterPosition: new Bytepath.Position(),
             };
         },
