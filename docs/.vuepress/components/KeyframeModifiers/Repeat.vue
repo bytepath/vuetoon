@@ -1,7 +1,7 @@
 <script>
     import Bytepath from "bytepath";
     import Underwater from "../../../../Samples/Scenes/Underwater/Underwater";
-    import Octopus from "../../../../Samples/Assets/Fish/Octopus";
+    import Octopus from "../../../../Samples/Scenes/Underwater/Octopus";
 
     export default Bytepath.CreateAsset({
         name: "RepeatExample",

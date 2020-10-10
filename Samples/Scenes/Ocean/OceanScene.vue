@@ -50,7 +50,7 @@
                         // eslint-disable-next-line
                         handler({context, tween, keyframe}) {
                             context.pigPos.angle = 360 - tween.number(0, 90);
-                            context.pigPos.y = tween.number(0, 1200);
+                            context.pigPos.y = tween.number(0, 1600);
                         }
                     },
 
@@ -68,7 +68,7 @@
                         end: 2750,
                         // eslint-disable-next-line
                         handler({context, tween, keyframe}) {
-                            context.pigPos.y = tween.number(0, 2250);
+                            context.pigPos.y = tween.number(0, 2550);
                         }
                     },
 
@@ -100,30 +100,22 @@
                     },
 
                     {
-                        start: 2550,
-                        end: 3300,
+                        start: 2150,
+                        end: 2500,
                         // eslint-disable-next-line
                         handler({context, tween, keyframe}) {
                             context.underwaterPosition.scaleX = tween.number(1, 0.0001);
                             context.underwaterPosition.scaleY = tween.number(1, 0.0001);
                             context.underwaterPosition.x = tween.number(0, 100);
                             context.underwaterPosition.angle = tween.number(0, 360);
-                            context.underwaterPosition.y = tween.number(0, 1000);
+                            context.underwaterPosition.y = tween.number(0, 700);
 
                             context.pigPos.scaleX = tween.number(1, 0.5);
                             context.pigPos.scaleY = tween.number(1, 0.5);
                         }
                     },
 
-                    {
-                        start: 2672,
-                        end: 3300,
-                        // eslint-disable-next-line
-                        handler({context, tween, keyframe}) {
-                            context.pigPos.x = 0;
-                            context.pigPos.y = 0;
-                        }
-                    },
+
 
 
                 ]
@@ -155,7 +147,7 @@
 
             <do-a-barrel-roll :keyframe="keyframe" v-slot="barrel">
                 <balloon  :x="-225" :y="500" :sx="0.5" :sy="0.5" v-bind="barrel">
-                    <pig width="90" height="80"  align="topleft" :fit="false"  :x="40" :y="270" :position="pigPos" />
+                    <pig v-if="keyframe < 2267" width="90" height="80"  align="topleft" :fit="false"  :x="40" :y="270" :position="pigPos" />
                 </balloon>
             </do-a-barrel-roll>
         </g>
