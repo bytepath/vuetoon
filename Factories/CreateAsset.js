@@ -1,5 +1,4 @@
 import AnimationEntity from '../vue/Mixins/AnimationEntity';
-import LayeredPosition from "../Helpers/LayeredPosition";
 import Layer from "../vue/Components/SVG/Layer";
 import Vector from "../vue/Components/SVG/Vector";
 import Scene from "../vue/Components/SVG/Scene";
@@ -92,11 +91,11 @@ let createAsset = function (data = {}) {
                 this.image = loadedAsset;
                 let layers = {};
                 Object.keys(this.image.layers).map((layer) => {
-                    layers[layer] = new LayeredPosition({}, {
+                    layers[layer] = {
                         name: layer,
                         id: this.image.id + layer,
                         ...this.image.layers[layer]
-                    });
+                    };
                 });
 
                 this.layers = layers;

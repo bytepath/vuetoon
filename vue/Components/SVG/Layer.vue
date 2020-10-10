@@ -1,21 +1,24 @@
 <script>
     import CalculatesTransformation from "../../Mixins/CalculatesTransformation";
+    import Vector from "./Vector";
 
     export default {
         name: 'layer',
+        mixins: [ CalculatesTransformation ],
+
         props: {
-            position: {
+            layer: {
                 type: Object,
                 required: true,
             }
         },
 
-        mixins: [ CalculatesTransformation ],
+        components: { Vector },
     };
 </script>
 
 <template>
     <g :transform="transform">
-        <use :href="'#' + position.component.id" ></use>
+        <use :href="'#' + layer.id" ></use>
     </g>
 </template>

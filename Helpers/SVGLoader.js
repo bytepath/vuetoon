@@ -91,7 +91,7 @@ let loader = class SVGLoader {
         let rawLayers = [];
         let layers = {};
         file.viewBox = viewBox;
-        template.content.firstElementChild.removeAttribute('viewBox');
+        //template.content.firstElementChild.removeAttribute('viewBox');
 
         // Find all of the layers in this image
         template.content.firstElementChild.querySelectorAll("g[id]").forEach((element) => {

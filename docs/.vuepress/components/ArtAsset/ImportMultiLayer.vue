@@ -11,6 +11,6 @@
 
 <template>
     <vector :show-viewbox="true" height="100" width="100" :style="{fill: defaultColor }" v-bind="$props" >
-        <layer v-for="(layer, i) in filteredLayers" :key="i" :position="layer" />
+        <layer v-for="(layer, i) in filteredLayers" :key="i" :layer="layer" />
     </vector>
 </template>
