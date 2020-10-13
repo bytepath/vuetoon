@@ -63,6 +63,15 @@ export default {
         camera: {
             type: Object,
             default: null
-        }
+        },
+
+        /**
+         * If not null this is the item the camera will focus on when layers load. useful for preventing clipping
+         * from moving objects
+         */
+        lookAt: {
+            type: String,
+            default: null
+        },
     },
 };

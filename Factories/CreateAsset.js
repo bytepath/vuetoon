@@ -43,6 +43,11 @@ let createAsset = function (data = {}) {
             layer: {
                 type: String,
                 default: null,
+            },
+
+            lookAt: {
+                type: String,
+                default: null,
             }
         },
 
@@ -140,6 +145,20 @@ let createAsset = function (data = {}) {
             type: String,
             default: layer,
         };
+
+        delete data.layer;
+    }
+
+    /* eslint-disable-next-line */
+    if (data.hasOwnProperty("lookAt")) {
+        console.log("found a lookat", data.lookAt);
+        let c = {
+            type: String,
+            default: data.lookAt,
+        };
+
+        mixin.props['lookAt'] = c;
+        delete data.lookAt;
     }
 
     let retval = {...data};

@@ -11,6 +11,7 @@
         name: "underwater",
         src,
         layer: 'theart',
+        lookAt: 'background',
 
         props: {
             // Do we show the crabs and plants or no

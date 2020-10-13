@@ -23,6 +23,7 @@
     import CalculatesTransformation from "../../Mixins/CalculatesTransformation";
     import AcceptsViewportProps from "../../Mixins/AcceptsViewportProps";
     import Position from "../../../Helpers/Position";
+    import SrcToKey from "../Filters/SanitizedPath";
 
     export default {
         name: 'Vector',
@@ -263,9 +264,19 @@
                     this.assetDimensions = {...asset.viewBox};
                 }
 
+                let that = this;
                 setTimeout(() => {
-                    this.lookAtAsset();
-                    this.calculateViewport();
+                    let element;
+                    let lookAtID;
+                    if(that.lookAt === null) {
+                        lookAtID = 'g' + that.assetID;
+                        element = document.getElementById(lookAtID);
+                    }
+                    else {
+                        element = document.getElementById(SrcToKey(this.src) + this.lookAt);
+                    }
+                    that.lookAtElement(element);
+                    that.calculateViewport();
                 }, 0);
                 this.$emit("loaded", asset);
             },
@@ -299,10 +310,8 @@
             /**
              * Moves the "camera" to look directly at the asset we are puling from a larger scene
              */
-            lookAtAsset() {
-                let lookAtID = 'g' + this.assetID;
+            lookAtElement(element) {
 
-                let element = document.getElementById(lookAtID);
                 if (element) {
                     if (typeof element.getBBox == "function") {
                         let bbox = element.getBBox();
