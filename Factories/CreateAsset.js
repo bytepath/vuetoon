@@ -73,7 +73,7 @@ let createAsset = function (data = {}) {
              * @param loadedAsset the loaded image object
              */
             onLoaded(loadedAsset) {
-                this.layers = LayerExtractor(loadedAsset.data.outerHTML, this.layer);
+                this.layers = LayerExtractor(loadedAsset, this.layer);
             },
         },
 

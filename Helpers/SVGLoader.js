@@ -53,7 +53,7 @@ let loader = class SVGLoader {
                 })
                 .catch((error) => console.log('asset err', error));
 
-            this.loadedAssets[file] = {id: asset, promise, data: null, viewBox: null, layers: {}};
+            this.loadedAssets[file] = {id: asset, promise, data: null, viewBox: null, layers: {}, src, key: file};
         }
 
         // If the file was loaded without an asset id it has not been rendered on the screen. Set the ID to this asset
@@ -87,7 +87,8 @@ let loader = class SVGLoader {
             };
         }
 
-        let file = this.loadedAssets[SrcToKey(src)];
+        let key = SrcToKey(src);
+        let file = this.loadedAssets[key];
         let rawLayers = [];
         let layers = {};
         file.viewBox = viewBox;
@@ -98,7 +99,7 @@ let loader = class SVGLoader {
             rawLayers.push(element.id);
 
             // Ensure this ID is unique in the dom by adding the asset tag
-            //element.setAttribute("id", asset + element.id);
+            element.setAttribute("id", key + element.id);
         });
 
         // Filter layers we don't want

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import LayeredPosition from "./LayeredPosition";
 
 /**
@@ -5,17 +6,17 @@ import LayeredPosition from "./LayeredPosition";
  * @param {String} html The representing a single element
  * @return {Element}
  */
-export default function (svg, layer = null) {
+export default function (asset, layer = null) {
     // Convert the string into dom elements
     var template = document.createElement('template');
-    template.innerHTML = svg;
+    template.innerHTML = asset.data.outerHTML;
 
     let rawLayers = [];
     let layers = {};
 
     // Extract only a single layer and its children if provided
     if (layer !== null) {
-        let element = template.content.firstElementChild.querySelector(`g[id="${layer}"]`);
+        let element = template.content.firstElementChild.querySelector(`g[id="${asset.key}${layer}"]`);
 
         element.children.forEach((el) => {
             if (el.id) {
@@ -34,7 +35,8 @@ export default function (svg, layer = null) {
 
     // Filter layers we don't want
     rawLayers.filter((layer) => (layer.charAt(0) !== "_")).map((layer) => {
-        layers[layer] = new LayeredPosition({}, {id: layer});
+        let name = layer.split(asset.key).splice(1).join("");
+        layers[name] = new LayeredPosition({}, {name, id: layer});
     });
 
     return layers;

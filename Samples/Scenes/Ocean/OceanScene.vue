@@ -129,7 +129,6 @@
         <clock :fps="15" :keyframe="keyframe" :start="0" :end="3275" v-slot="clock">
         <g>
 
-            <cow :show-viewbox="true" :a="clock.keyframe / 20"  align="topleft" :fit="true" :x="0" :y="0" width="300" height="300" />
             <delay :keyframe="keyframe" :start="0" v-slot="reset">
                 <sky :keyframe="reset.keyframe">
                     <g>

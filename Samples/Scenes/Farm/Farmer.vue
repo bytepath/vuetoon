@@ -46,7 +46,7 @@
     <vector :show-viewbox="true" :style="{fill: defaultColor }" v-bind="$props" v-slot="">
         <g v-if="layers">
 
-            <layer :position="layers['head2']" :layer="layers['head2']" />
+            <layer :position="layers['head3']" :layer="layers['head3']" />
             <layer :position="layers['body2']" :layer="layers['body2']" />
             <layer :position="layers['rightshoulder']" :layer="layers['rightshoulder']">
                 <layer :position="layers['rightarm']" :layer="layers['rightarm']"/>
