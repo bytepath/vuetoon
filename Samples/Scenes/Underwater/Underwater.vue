@@ -34,11 +34,12 @@
 </script>
 
 <template>
-    <vector :id="'underwater-'+_uid" :style="{fill: defaultColor }" v-bind="$props" v-slot="">
+    <vector :id="'underwater-'+_uid" v-bind="$props" v-slot="">
         <template v-if="layers">
+            <rect x="0" y="0" width="1384" height="1500" :fill="defaultColor" />
             <layer :layer="layers['background']"/>
-
             <slot></slot>
+
             <repeat :repeat="7000" :keyframe="keyframe" v-slot="visible">
                 <layer :layer="layers['yellowfish']" :x="-700 + (visible.keyframe / 4)" :my="0.4" :mx="1" :y="100"/>
             </repeat>

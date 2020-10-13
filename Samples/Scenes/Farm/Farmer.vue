@@ -12,7 +12,7 @@
                 default: [
                     {
                         start: 0,
-                        end: 250,
+                        end: 500,
                         handler({context, tween}) {
                             context.layers.rightarm.angle = tween.number(75, 100);
                             context.layers.rightarm.centerX = 853;
@@ -21,11 +21,33 @@
                             context.layers.rightshoulder.angle = 67;
                             context.layers.rightshoulder.centerX = 830;
                             context.layers.rightshoulder.centerY = 810;
+
+                            context.layers.leftshoulder.angle = tween.number(0, 181);
+                            context.layers.leftshoulder.centerX = 805;
+                            context.layers.leftshoulder.centerY = 810;
+
+
+                            context.layers.leftleg.angle = 360 - tween.number(0, 80);
+                            context.layers.leftleg.centerX = 810;
+                            context.layers.leftleg.centerY = 850;
+
+                            context.layers.leftcalf.angle = tween.number(25, 90);
+                            context.layers.leftcalf.centerX = 810;
+                            context.layers.leftcalf.centerY = 885;
+
+
+                            context.layers.rightleg.angle = tween.number(0, 80);
+                            context.layers.rightleg.centerX = 815;
+                            context.layers.rightleg.centerY = 865;
+
+                            context.layers.rightcalf.angle = 360 - tween.number(270, 360);
+                            context.layers.rightcalf.centerX = 825;
+                            context.layers.rightcalf.centerY = 885;
                         },
                     },
                     {
-                        start: 250,
-                        end: 500,
+                        start: 500,
+                        end: 1000,
                         handler({context, tween}) {
                             context.layers.rightarm.angle = tween.number(100, 75);
                             context.layers.rightarm.centerX = 853;
@@ -34,6 +56,24 @@
                             context.layers.rightshoulder.angle = 67;
                             context.layers.rightshoulder.centerX = 830;
                             context.layers.rightshoulder.centerY = 810;
+
+
+                            context.layers.rightleg.angle = tween.number(280, 360);
+                            context.layers.rightleg.centerX = 815;
+                            context.layers.rightleg.centerY = 865;
+
+                            context.layers.rightcalf.angle = tween.number(0, 40);
+                            context.layers.rightcalf.centerX = 825;
+                            context.layers.rightcalf.centerY = 885;
+
+
+                            context.layers.leftleg.angle = 360 - tween.number(280, 360);
+                            context.layers.leftleg.centerX = 810;
+                            context.layers.leftleg.centerY = 850;
+
+                            context.layers.leftcalf.angle = tween.number(90, 25);
+                            context.layers.leftcalf.centerX = 810;
+                            context.layers.leftcalf.centerY = 885;
                         },
                     },
                 ],
@@ -56,11 +96,13 @@
                 <layer :position="layers['leftarm']" :layer="layers['leftarm']"/>
             </layer>
 
-            <layer :position="layers['leftleg']" :layer="layers['leftleg']" />
-            <layer :position="layers['leftcalf']" :layer="layers['leftcalf']" />
+            <layer :position="layers['leftleg']" :layer="layers['leftleg']" >
+                <layer :position="layers['leftcalf']" :layer="layers['leftcalf']" />
+            </layer>
 
-            <layer :position="layers['rightleg']" :layer="layers['rightleg']" />
-            <layer :position="layers['rightcalf']" :layer="layers['rightcalf']" />
+            <layer :position="layers['rightleg']" :layer="layers['rightleg']" >
+                <layer :position="layers['rightcalf']" :layer="layers['rightcalf']" />
+            </layer>
 
         </g>
     </vector>
