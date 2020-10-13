@@ -1,12 +1,10 @@
 <script>
     import Bytepath from 'bytepath';
-    import svg from "./underwater.svg";
+    import svg from "./underwaterartboard.svg";
 
     export default Bytepath.CreateAsset({
         src: svg,
         name: "bigfish",
-        layers: ["bigfish"],
-
 
         components:{},
     });
@@ -14,6 +12,5 @@
 
 <template>
     <vector  :style="{fill: color}" v-bind="$props">
-        <layer v-for="(layer, i) in filteredLayers" :key="i" :layer="layer"/>
     </vector>
 </template>

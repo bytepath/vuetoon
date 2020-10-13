@@ -39,23 +39,23 @@
 
             <slot></slot>
             <repeat :repeat="7000" :keyframe="keyframe" v-slot="visible">
-                <yellow-fish :x="-700 + (visible.keyframe / 4)" :my="0.4" :mx="1" :y="100"/>
+                <layer :layer="layers['yellowfish']" :x="-700 + (visible.keyframe / 4)" :my="0.4" :mx="1" :y="100"/>
             </repeat>
 
             <delay :start="300" :keyframe="octopusKeyframe" v-slot="visible">
-                <octopus :y="-800 + (visible.keyframe / 2)" color="blue" :x="-300 + (visible.keyframe / 2)"/>
+                <layer :layer="layers['octopus']" :y="-1200 + (visible.keyframe / 2)" color="blue" :x="-300 + (visible.keyframe / 2)"/>
             </delay>
 
             <repeat :repeat="7000" :keyframe="keyframe" v-slot="visible">
-                <big-fish :x="700 - (visible.keyframe / 4)" :my="0.5" :y="125"/>
+                <layer :layer="layers['bigfish']" :x="700 - (visible.keyframe / 4)" :my="0.5" :y="125"/>
             </repeat>
 
             <repeat :repeat="8000" :keyframe="keyframe" v-slot="visible">
-                <yellow-fish :x="-900 + (visible.keyframe / 4)" :my="0.2" :mx="1.8" :y="0"/>
+                <layer :layer="layers['yellowfish']" :x="-900 + (visible.keyframe / 4)" :my="0.2" :mx="1.8" :y="0"/>
             </repeat>
 
             <repeat :repeat="8000" :keyframe="keyframe" v-slot="visible">
-                <big-fish :x="1900 - visible.keyframe" :y="400" :my="0" :mx="1.5"/>
+                <layer :layer="layers['bigfish']" :x="1900 - visible.keyframe" :y="400" :my="0" :mx="1.5"/>
             </repeat>
 
             <layer :layer="layers['foreground']"/>

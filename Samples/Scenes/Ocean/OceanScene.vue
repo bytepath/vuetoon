@@ -141,7 +141,7 @@
             </delay>
 
             <delay :keyframe="keyframe" :start="1100" v-slot="octopus">
-                <underwater :y="1599" :position="underwaterPosition"  :octopus-keyframe="octopus.keyframe" :keyframe="clock.keyframe" />
+                <underwater :y="1599" :align="'topleft'" :show-viewbox="true" :position="underwaterPosition"  :octopus-keyframe="octopus.keyframe" :keyframe="clock.keyframe" />
             </delay>
 
             <do-a-barrel-roll :keyframe="keyframe" v-slot="barrel">
