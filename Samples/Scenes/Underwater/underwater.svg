@@ -6,7 +6,7 @@
         <clipPath id="_clip1">
             <rect x="-7.927" y="424.051" width="1376.07" height="1157.88"/>
         </clipPath>
-        <g clip-path="url(#_clip1)">
+        <g id="theart" clip-path="url(#_clip1)">
             <g id="background" transform="matrix(1.00956,0,0,0.682549,-6.4405,560.557)">
                 <g transform="matrix(0.999376,0,0,3.02254,0.0450274,-199.545)">
                     <rect x="-0.045" y="-0.476" width="1363.85" height="560.957" style="fill:url(#_Linear2);stroke:rgb(77,208,225);stroke-width:0.56px;"/>

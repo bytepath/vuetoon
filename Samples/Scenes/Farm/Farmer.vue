@@ -12,18 +12,30 @@
                 default: [
                     {
                         start: 0,
-                        end: 500,
+                        end: 250,
                         handler({context, tween}) {
-                            context.layers.rightarm.angle = tween.number(0, 250);
+                            context.layers.rightarm.angle = tween.number(75, 100);
                             context.layers.rightarm.centerX = 853;
                             context.layers.rightarm.centerY = 815;
 
-                            context.layers.rightshoulder.angle = tween.number(0, 250);
+                            context.layers.rightshoulder.angle = 67;
                             context.layers.rightshoulder.centerX = 830;
                             context.layers.rightshoulder.centerY = 810;
                         },
                     },
+                    {
+                        start: 250,
+                        end: 500,
+                        handler({context, tween}) {
+                            context.layers.rightarm.angle = tween.number(100, 75);
+                            context.layers.rightarm.centerX = 853;
+                            context.layers.rightarm.centerY = 815;
 
+                            context.layers.rightshoulder.angle = 67;
+                            context.layers.rightshoulder.centerX = 830;
+                            context.layers.rightshoulder.centerY = 810;
+                        },
+                    },
                 ],
             };
         },

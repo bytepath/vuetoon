@@ -10,6 +10,8 @@
     export default CreateAsset({
         name: "underwater",
         src,
+        layer: 'theart',
+
         props: {
             // Do we show the crabs and plants or no
             octopusKeyframe: {

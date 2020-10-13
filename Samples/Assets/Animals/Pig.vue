@@ -5,7 +5,7 @@
     export default CreateAsset({
         name: "pig",
         src,
-        layers: ['pig'],
+        layer: 'pig',
     });
 </script>
 

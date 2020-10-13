@@ -5,7 +5,7 @@
     <clipPath id="_clip1">
         <rect id="Artboard11" serif:id="Artboard1" x="0" y="0" width="1363" height="1700"/>
     </clipPath>
-    <g clip-path="url(#_clip1)">
+    <g id="theart" clip-path="url(#_clip1)">
         <g id="background" transform="matrix(1.0154,0,0,1.00095,-0.848575,201.906)">
             <g transform="matrix(0.999376,0,0,3.02254,0.0450274,-199.545)">
                 <rect x="-0.045" y="-0.476" width="1363.85" height="560.957" style="fill:url(#_Linear2);stroke:rgb(77,208,225);stroke-width:0.56px;"/>

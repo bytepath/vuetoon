@@ -19,6 +19,9 @@
         <template v-if="layers">
             <rect fill="#E3DAA6" y="-600" width="1384" height="605" />
             <farmer :keyframe="keyframe" :repeat="true" />
+            <layer :position="layers['background']" :layer="layers['background']" />
+            <layer :position="layers['barn']" :layer="layers['barn']" />
+
         </template>
     </vector>
 </template>
