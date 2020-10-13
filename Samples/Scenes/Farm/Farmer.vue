@@ -19,8 +19,8 @@
                             context.layers.rightarm.centerY = 815;
 
                             context.layers.rightshoulder.angle = tween.number(0, 250);
-                            context.layers.rightshoulder.centerX = 821;
-                            context.layers.rightshoulder.centerY = 817;
+                            context.layers.rightshoulder.centerX = 830;
+                            context.layers.rightshoulder.centerY = 810;
                         },
                     },
 
@@ -34,9 +34,18 @@
     <vector :show-viewbox="true" :style="{fill: defaultColor }" v-bind="$props" v-slot="">
         <g v-if="layers">
 
+            <layer :position="layers['head2']" :layer="layers['head2']" />
+            <layer :position="layers['body2']" :layer="layers['body2']" />
             <layer :position="layers['rightshoulder']" :layer="layers['rightshoulder']">
                 <layer :position="layers['rightarm']" :layer="layers['rightarm']"/>
             </layer>
+
+            <layer :position="layers['leftshoulder']" :layer="layers['leftshoulder']">
+                <layer :position="layers['leftarm']" :layer="layers['leftarm']"/>
+            </layer>
+
+            <layer :position="layers['leftleg']" :layer="layers['leftleg']" />
+            <layer :position="layers['rightleg']" :layer="layers['rightleg']" />
         </g>
     </vector>
 </template>
