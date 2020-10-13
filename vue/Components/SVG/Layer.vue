@@ -19,6 +19,7 @@
 
 <template>
     <g :transform="transform">
-        <use :href="'#' + layer.id" ></use>
+        <use :href="'#' + layer.layer.id" ></use>
+        <slot />
     </g>
 </template>

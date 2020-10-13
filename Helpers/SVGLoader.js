@@ -70,7 +70,7 @@ let loader = class SVGLoader {
      * @param {String} html The representing a single element
      * @return {Element}
      */
-    processLoadedImage(svg, src, asset) {
+    processLoadedImage(svg, src/*, asset*/) {
         // Convert the string into dom elements
         var template = document.createElement('template');
         template.innerHTML = svg;
@@ -98,7 +98,7 @@ let loader = class SVGLoader {
             rawLayers.push(element.id);
 
             // Ensure this ID is unique in the dom by adding the asset tag
-            element.setAttribute("id", asset + element.id);
+            //element.setAttribute("id", asset + element.id);
         });
 
         // Filter layers we don't want

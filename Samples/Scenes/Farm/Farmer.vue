@@ -5,14 +5,38 @@
     export default CreateAsset({
         name: "farmer",
         src,
-        layers: ['farmer'],
+        layer: 'farmer',
+
+        animations() {
+            return {
+                default: [
+                    {
+                        start: 0,
+                        end: 500,
+                        handler({context, tween}) {
+                            context.layers.rightarm.angle = tween.number(0, 250);
+                            context.layers.rightarm.centerX = 853;
+                            context.layers.rightarm.centerY = 815;
+
+                            context.layers.rightshoulder.angle = tween.number(0, 250);
+                            context.layers.rightshoulder.centerX = 821;
+                            context.layers.rightshoulder.centerY = 817;
+                        },
+                    },
+
+                ],
+            };
+        },
     });
 </script>
 
 <template>
     <vector :show-viewbox="true" :style="{fill: defaultColor }" v-bind="$props" v-slot="">
-        <g>
-            <layer v-for="(layer, i) in filteredLayers" :key="i" :layer="layer" />
+        <g v-if="layers">
+
+            <layer :position="layers['rightshoulder']" :layer="layers['rightshoulder']">
+                <layer :position="layers['rightarm']" :layer="layers['rightarm']"/>
+            </layer>
         </g>
     </vector>
 </template>

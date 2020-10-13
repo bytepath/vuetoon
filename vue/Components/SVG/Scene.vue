@@ -1,5 +1,5 @@
 <template>
-    <vector height="auto" width="auto"  v-bind="$props">
+    <vector height="auto" width="auto" v-bind="$props">
         <slot />
     </vector>
 </template>

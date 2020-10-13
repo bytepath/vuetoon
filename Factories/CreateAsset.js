@@ -2,6 +2,7 @@ import AnimationEntity from '../vue/Mixins/AnimationEntity';
 import Layer from "../vue/Components/SVG/Layer";
 import Vector from "../vue/Components/SVG/Vector";
 import Scene from "../vue/Components/SVG/Scene";
+import LayerExtractor from "../Helpers/LayerExtractor";
 
 /**
  *
@@ -12,8 +13,7 @@ import Scene from "../vue/Components/SVG/Scene";
  */
 let createAsset = function (data = {}) {
     let src = null;
-    let layers = null;
-    let image = null;
+    let layer = null;
 
     // eslint-disable-next-line
     if (data.hasOwnProperty("src")) {
@@ -21,8 +21,8 @@ let createAsset = function (data = {}) {
     }
 
     // eslint-disable-next-line
-    if (data.hasOwnProperty("layers")) {
-        layers = data.layers;
+    if (data.hasOwnProperty("layer")) {
+        layer = data.layer;
     }
 
     let mixin = {
@@ -38,18 +38,16 @@ let createAsset = function (data = {}) {
             },
 
             /**
-             * We will only display the layers that are specified here, or all layers if array is empty
+             * We will only display the layer specified here, or all layers if null
              */
-            showLayers: {
-                type: Array,
-                default() {
-                    return [];
-                },
+            layer: {
+                type: String,
+                default: null,
             }
         },
 
         data() {
-            return {image, layers: null};
+            return { layers: null};
         },
 
         mounted() {
@@ -64,20 +62,7 @@ let createAsset = function (data = {}) {
 
         computed: {
             filteredLayers() {
-                if (!this.layers) {
-                    return {};
-                }
-
-                if (this.showLayers.length === 0) {
-                    return this.layers[0];
-                }
-
-                return Object.keys(this.layers)
-                    .filter(layer => this.showLayers.includes(layer))
-                    .reduce((obj, layer) => {
-                        obj[layer] = this.layers[layer];
-                        return obj;
-                    }, {});
+                return this.layers;
             }
         },
 
@@ -88,17 +73,7 @@ let createAsset = function (data = {}) {
              * @param loadedAsset the loaded image object
              */
             onLoaded(loadedAsset) {
-                this.image = loadedAsset;
-                let layers = {};
-                Object.keys(this.image.layers).map((layer) => {
-                    layers[layer] = {
-                        name: layer,
-                        id: this.image.id + layer,
-                        ...this.image.layers[layer]
-                    };
-                });
-
-                this.layers = layers;
+                this.layers = LayerExtractor(loadedAsset.data.outerHTML, this.layer);
             },
         },
 
@@ -157,14 +132,13 @@ let createAsset = function (data = {}) {
     }
 
     // If we have a use value we only want to display these layers on the screen. use can be an array or a string
-    if (layers) {
-        delete mixin.props.showLayers;
+    if (layer) {
+        console.log("has layer prop", layer);
+        delete mixin.props.layer;
 
-        mixin.props.showLayers = {
-            type: Array,
-            default() {
-                return layers;
-            },
+        mixin.props.layer = {
+            type: String,
+            default: layer,
         };
     }
 
