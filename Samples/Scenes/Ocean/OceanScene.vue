@@ -141,12 +141,12 @@
             </delay>
 
             <delay :keyframe="keyframe" :start="1100" v-slot="octopus">
-                <underwater :y="1599" :align="'topleft'" :show-viewbox="true" :position="underwaterPosition"  :octopus-keyframe="octopus.keyframe" :keyframe="clock.keyframe" />
+                <underwater :y="1395" :align="'topleft'" :show-viewbox="true" :position="underwaterPosition"  :octopus-keyframe="octopus.keyframe" :keyframe="clock.keyframe" />
             </delay>
 
             <do-a-barrel-roll :keyframe="keyframe" v-slot="barrel">
                 <balloon  :x="-225" :y="500" :sx="0.5" :sy="0.5" v-bind="barrel">
-                    <pig v-if="keyframe < 2267" width="90" height="80"  align="topleft" :fit="false"  :x="40" :y="270" :position="pigPos" />
+                    <pig v-if="keyframe < 2267" width="90" height="80"  align="topleft" :fit="false"  :x="75" :y="450" :position="pigPos" />
                 </balloon>
             </do-a-barrel-roll>
         </g>

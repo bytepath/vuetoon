@@ -16,7 +16,7 @@ export default function (asset, layer = null) {
 
     // Extract only a single layer and its children if provided
     if (layer !== null) {
-        let element = template.content.firstElementChild.querySelector(`g[id="${asset.key}${layer}"]`);
+        let element = template.content.firstElementChild.querySelector(`[id="${asset.key}${layer}"]`);
 
         element.children.forEach((el) => {
             if (el.id) {

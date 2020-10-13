@@ -57,7 +57,11 @@
             </layer>
 
             <layer :position="layers['leftleg']" :layer="layers['leftleg']" />
+            <layer :position="layers['leftcalf']" :layer="layers['leftcalf']" />
+
             <layer :position="layers['rightleg']" :layer="layers['rightleg']" />
+            <layer :position="layers['rightcalf']" :layer="layers['rightcalf']" />
+
         </g>
     </vector>
 </template>

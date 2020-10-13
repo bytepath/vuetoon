@@ -95,7 +95,7 @@ let loader = class SVGLoader {
         //template.content.firstElementChild.removeAttribute('viewBox');
 
         // Find all of the layers in this image
-        template.content.firstElementChild.querySelectorAll("g[id]").forEach((element) => {
+        template.content.firstElementChild.querySelectorAll("[id]").forEach((element) => {
             rawLayers.push(element.id);
 
             // Ensure this ID is unique in the dom by adding the asset tag
