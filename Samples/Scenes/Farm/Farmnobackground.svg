@@ -3,7 +3,9 @@
 <svg width="100%" height="100%" viewBox="0 0 1384 1302" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
     <g id="background" transform="matrix(0.535299,0,0,1.03524,412.285,117.893)">
         <g id="sky" transform="matrix(1.86857,0,0,7.11025,-756.741,-4056.49)">
-            <rect opacity="0" x="-7.201" y="554.748" width="1383.67" height="136.052" style="fill:rgb(227,218,166);"/>
+            <g opacity="0">
+                <rect x="-7.201" y="554.748" width="1383.67" height="136.052" style="fill:rgb(227,218,166);"/>
+            </g>
         </g>
         <g id="hills" transform="matrix(1.70664,0,0,0.965958,-610.932,188.908)">
             <g transform="matrix(0.902533,0,0,1.08256,138.561,-55.2217)">

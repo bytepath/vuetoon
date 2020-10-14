@@ -273,7 +273,8 @@
                         element = document.getElementById(lookAtID);
                     }
                     else {
-                        element = document.getElementById(SrcToKey(this.src) + this.lookAt);
+                        let elid = SrcToKey(this.src) + this.lookAt;
+                        element = document.getElementById(elid);
                     }
                     that.lookAtElement(element);
                     that.calculateViewport();
@@ -288,6 +289,7 @@
                 if (this.$el) {
                     if (this.$el.getBBox) {
                         let bbox = this.$el.getBBox();
+
                         this.assetDimensions = new Position({
                             x: bbox.x,
                             y: bbox.y,

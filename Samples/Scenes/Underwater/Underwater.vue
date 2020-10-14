@@ -38,7 +38,15 @@
         <template v-if="layers">
             <rect x="0" y="0" width="1384" height="1500" :fill="defaultColor" />
             <layer :layer="layers['background']"/>
-            <slot></slot>
+
+            <foreignObject x="550" y="0" width="810" height="1450">
+                <html>
+                <body :style="[{'background-color': '#0B5262' }, {height: '1500px'}]">
+                <slot />
+                </body>
+                </html>
+            </foreignObject>
+
 
             <repeat :repeat="7000" :keyframe="keyframe" v-slot="visible">
                 <layer :layer="layers['yellowfish']" :x="-700 + (visible.keyframe / 4)" :my="0.4" :mx="1" :y="100"/>

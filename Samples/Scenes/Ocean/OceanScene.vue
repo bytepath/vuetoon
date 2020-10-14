@@ -125,7 +125,7 @@
 </script>
 
 <template>
-    <scene  :id="'dogsocean-scene'+_uid" v-bind="$props" overflow="visible">
+    <vector :show-viewbox="false"  :id="'dogsocean-scene'+_uid" v-bind="$props" overflow="visible">
         <clock :fps="15" :keyframe="keyframe" :start="0" :end="3275" v-slot="clock">
         <g>
 
@@ -141,7 +141,9 @@
             </delay>
 
             <delay :keyframe="keyframe" :start="1100" v-slot="octopus">
-                <underwater :y="1395" color="#42A7B0" :align="'topleft'" :show-viewbox="true" :position="underwaterPosition"  :octopus-keyframe="octopus.keyframe" :keyframe="clock.keyframe" />
+                <underwater :y="1395" color="#42A7B0" :align="'topleft'" :position="underwaterPosition"  :octopus-keyframe="octopus.keyframe" :keyframe="clock.keyframe">
+                    <slot />
+                </underwater>
             </delay>
 
             <do-a-barrel-roll :keyframe="keyframe" v-slot="barrel">
@@ -151,7 +153,7 @@
             </do-a-barrel-roll>
         </g>
         </clock>
-    </scene>
+    </vector>
 </template>
 
 

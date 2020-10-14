@@ -149,10 +149,6 @@ let retval = class AnimationPlayer {
      */
     movePlaybackTo(frame, direction = 1) {
 
-        if (frame <= 10) {
-            console.log();
-        }
-
         let keyframe = frame;
         if (keyframe < 0) {
             keyframe = 0;
