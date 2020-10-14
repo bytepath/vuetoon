@@ -23,6 +23,7 @@ export default {
             positions,
             defaultPosition: positions.default,
             defaultCamera: new Position(),
+            defaultOpacity: 100,
         };
     },
 

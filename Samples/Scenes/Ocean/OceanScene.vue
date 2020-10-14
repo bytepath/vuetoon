@@ -141,7 +141,7 @@
             </delay>
 
             <delay :keyframe="keyframe" :start="1100" v-slot="octopus">
-                <underwater :y="1395" color="#42A7B0" :align="'topleft'" :position="underwaterPosition"  :octopus-keyframe="octopus.keyframe" :keyframe="clock.keyframe">
+                <underwater :show-viewbox="false" :y="1595" color="#42A7B0" :align="'topleft'" :position="underwaterPosition"  :octopus-keyframe="octopus.keyframe" :keyframe="clock.keyframe">
                     <slot />
                 </underwater>
             </delay>

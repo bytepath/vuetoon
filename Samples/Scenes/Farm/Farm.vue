@@ -33,7 +33,7 @@
                     </html>
                 </foreignObject>
 
-                <layer :position="layers['background']" :layer="layers['background']" />
+                <layer id="bbbb" :position="layers['background']" :layer="layers['background']" />
                 <layer :position="layers['barn']" :layer="layers['barn']" />
                 <cow  :keyframe="clock.keyframe" :repeat="true" align="topleft" :fit="true" :x="100" :y="650" width="300" height="300" />
                 <cow  :keyframe="clock.keyframe" :repeat="true" align="topleft" :fit="true" :x="600" :y="650" width="300" height="300" />

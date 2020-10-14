@@ -133,8 +133,8 @@ export default {
                 scaleY: this.sy + this.position.scaleY,
                 skewX: 0,
                 skewY: 0,
-                centerX: center.x + this.position.centerX,
-                centerY: center.y + this.position.centerY,
+                centerX: center.x,
+                centerY: center.y,
                 width: this.w  + this.position.width,
                 height: this.h + this.position.height,
             });
