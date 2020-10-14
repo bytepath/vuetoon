@@ -8,6 +8,22 @@
             speed:{
                 type: Number,
                 default: 1
+            },
+
+            responsive: {
+                type: Boolean,
+                default: true,
+            },
+        },
+
+        mounted() {
+            this.updateViewportScale();
+            window.addEventListener('resize', this.updateViewportScale);
+        },
+
+        data() {
+            return {
+                scale: 1,
             }
         },
 
@@ -30,11 +46,24 @@
 
             running(){
                 this.frame = Math.floor(window.scrollY * this.speed);
+
+                if(this.responsive) {
+                    this.frame *= this.scale;
+                }
             },
 
             timerType(){
                 return "Scroll";
-            }
+            },
+
+            // Updates the scale factor for the output keyframe
+            updateViewportScale(){
+                if(this.$el){
+                    let m = this.$el.getScreenCTM();
+                    console.log("ve");
+                    this.scale = 1 + (1 - m.d);
+                }
+            },
         },
     }
 </script>
