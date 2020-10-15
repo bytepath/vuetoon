@@ -19,8 +19,8 @@
 
 <template>
     <div>
-        <div style="height: 75vh;"></div>
-        <scroll v-slot="{ keyframe }" auto-play>
+        <div style="height: 95vh;"></div>
+        <scroll :speed="1" v-slot="{ keyframe }" auto-play>
             <svg viewBox="0 0 1380 3800" >
 
                 <farm color="rgb(227,218,166)" :keyframe="keyframe" :y="2500">

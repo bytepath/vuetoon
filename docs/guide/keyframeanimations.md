@@ -24,12 +24,8 @@ The Balloon asset should move to X=100 and never go past that point no matter ho
 Assets have a :repeat prop that if true, will make the animation repeat from 0 if keyframe > end frame of the animation. 
 Lets toggle repeat on the simple animation we made in the previous example 
 
-```html
-<!-- line 35-37 of AnimatedBalloon.vue -->
-<template>
-    <balloon :repeat="true" color="blue" :position="balloonPos" />
-</template>
-```
+<<< @/docs/.vuepress/components/Animation/AnimatedBalloon.vue
+
 
 <ClientOnly>
 <Demo :end="1000" v-slot="{ keyframe }">

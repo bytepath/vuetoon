@@ -8,7 +8,7 @@ let sidebar = {
         {
             title: 'The Basics',
             collapsable: false,
-            children: ['basictransformations']
+            children: ['basictransformations', 'basicanimations']
         },
         {
             title: 'Art Assets',
@@ -47,6 +47,11 @@ module.exports = {
         lineNumbers: true,
     },
 
+    head: [
+        ['script', { src: "/assets/js/chunk-vendors.js" }],
+        ['script', { src: "/assets/js/app.js" }],
+    ],
+
     plugins: [
         ['vuepress-plugin-container',
             {
@@ -54,6 +59,24 @@ module.exports = {
                 defaultTitle: "",
                 before: info => `<div class="theorem"><p class="title">${info}</p>`,
                 after: '</div>',
+            },
+        ],
+        ['vuepress-plugin-container',
+            {
+                type: 'demo',
+                defaultTitle: "",
+                before: info => `<div class="demo" component="${info}">`,
+                after: '</div>',
+            },
+        ],
+        [
+            'vuepress-plugin-dehydrate',
+            {
+                // remove scripts
+                noScript: [
+                    // support glob patterns
+                    '**/*.html',
+                ],
             },
         ],
     ],

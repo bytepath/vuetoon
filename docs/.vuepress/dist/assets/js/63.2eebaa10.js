@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[63],{472:function(t,e,n){"use strict";n.r(e);var s=n(41),l=Object(s.a)({},(function(){var t=this.$createElement;return(this._self._c||t)("ContentSlotsDistributor",{attrs:{"slot-key":this.$parent.slotKey}})}),[],!1,null,null,null);e.default=l.exports}}]);
-//# sourceMappingURL=63.2eebaa10.js.map

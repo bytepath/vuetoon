@@ -14,9 +14,11 @@ This animation performs the following steps
 
 <<< @/docs/.vuepress/components/Animation/ComplicatedAnimation.vue
 
+<ClientOnly>
 <Demo :end="2500" v-slot="{ keyframe }">
 <Animation-ComplicatedAnimation :keyframe="keyframe" />
 </Demo>    
+</ClientOnly>
 
 As you start getting into things that are more and more complicated, you start having to do a lot of math to accomplish your goals and math requires spending energy thinking that could be better spent being creative and having fun. 
  - difficult to make animations do exactly what you want
@@ -31,10 +33,11 @@ Luckily, there is a solution to that.
 
 <<< @/docs/.vuepress/components/Animation/ComplicatedToTween.vue
 
+<ClientOnly>
 <Demo :end="2500" v-slot="{ keyframe }">
 <Animation-ComplicatedToTween :keyframe="keyframe" />
 </Demo>    
-
+</ClientOnly>
 
 
 ## Tweening Between Integers
@@ -63,6 +66,8 @@ You can animate colors using the tween.hex function. The color will smoothly tra
 
 The Balloon asset should change colors as keyframe increases. 
 
+<ClientOnly>
 <Demo :end="3000" v-slot:default="{ keyframe }">
 <KeyframeAnimation-Color :keyframe="keyframe" />
 </Demo>    
+</ClientOnly>

@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[28],{443:function(t,e,r){"use strict";r.r(e);var s=r(301),i=r(320),l=r.n(i),a=s.a.CreateAsset({name:"imported",src:l.a,layers:[]}),n=r(41),o=Object(n.a)(a,(function(){var t=this.$createElement,e=this._self._c||t;return e("vector",this._b({style:{fill:this.defaultColor},attrs:{"show-viewbox":!0,height:"100",width:"100"}},"vector",this.$props,!1),this._l(this.filteredLayers,(function(t,r){return e("layer",{key:r,attrs:{layer:t}})})),1)}),[],!1,null,null,null);e.default=o.exports}}]);
+//# sourceMappingURL=28.71ddaa9b.js.map

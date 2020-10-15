@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[36],{370:function(t,e,r){"use strict";r.r(e);var s=r(301),o=s.a.CreateAsset({props:{color:{type:String,default:"red"}},components:{vector:s.a.graphics.vector}}),c=r(41),a=Object(c.a)(o,(function(){var t=this.$createElement,e=this._self._c||t;return e("vector",this._b({attrs:{aspect:"xMidYMax meet"}},"vector",this.$props,!1),[e("rect",{attrs:{width:"50",height:"50",fill:this.color}})])}),[],!1,null,null,null);e.default=a.exports}}]);
-//# sourceMappingURL=36.a7b9d8a7.js.map

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Viewbox behaviour | BytePath</title>
+    <meta name="generator" content="VuePress 1.7.0">
+    <script src="/assets/js/chunk-vendors.js"></script>
+    <script src="/assets/js/app.js"></script>
+    <meta name="description" content="A Fun Animation Framework For Everyone">
+    <link rel="stylesheet" href="/assets/css/0.styles.0b713abe.css">
+  </head>
+  <body>
+    <div id="app"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">BytePath</span></a> <div class="links"><!----> <nav class="nav-links can-hide"><div class="nav-item"><a href="/guide.html" class="nav-link">
+  Docs
+</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/guide.html" class="nav-link">
+  Docs
+</a></div> <!----></nav>  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="vectors-should-set-overflow-visible-by-default"><a href="#vectors-should-set-overflow-visible-by-default" class="header-anchor">#</a> vectors should set overflow visible by default&quot;</h1> <p>#Viewbox behaviour</p> <h2 id="when-vector-is-the-top-level-svg-element"><a href="#when-vector-is-the-top-level-svg-element" class="header-anchor">#</a> When Vector is the top level svg element</h2> <div class="language- extra-class"><pre><code>- it shows viewport if show-viewport = null
+- shows viewport if show-viewport = true
+- does NOT show viewport if show-viewport=false
+- we also set the width and height values based on what we found from getBBox and display those in the 
+- svg tag as well unless they have been overridden
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">10/9/2020, 11:23:23 AM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
+  </body>
+</html>

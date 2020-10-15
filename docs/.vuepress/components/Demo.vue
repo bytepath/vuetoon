@@ -16,13 +16,26 @@
             end: {
                 type: Number,
                 default: null,
+            },
+
+            src: {
+                type: String,
+                required: true,
             }
         },
 
         data() {
             return {
                 currentFrame: 0,
+                theDemo: null,
             };
+        },
+
+        mounted() {
+            if(this.src) {
+                console.log("demo import demo is", this.src);
+                this.theDemo = this.src;
+            }
         },
 
         components: {
@@ -34,7 +47,7 @@
 <template>
     <div>
         <KeyframeSlider :start="start" :end="end" v-slot="{ keyframe }">
-            <slot :keyframe="keyframe" />
+            <component :is="theDemo" v-if="theDemo" :keyframe="keyframe" />
         </KeyframeSlider>
         <br/>
         <br/>
