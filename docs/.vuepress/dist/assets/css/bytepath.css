@@ -1,0 +1,115 @@
+
+.balloon-1[data-v-4e54d50d] {
+    fill: #f2b486;
+}
+.balloon-2[data-v-4e54d50d] {
+    fill: #c99769;
+}
+.balloon-3[data-v-4e54d50d] {
+    fill: #7ca4dc;
+}
+.balloon-4[data-v-4e54d50d] {
+    fill: #f5b78b;
+}
+.balloon-5[data-v-4e54d50d] {
+    fill: #29d400;
+}
+
+
+.balloon-1[data-v-6386cccd] {
+    fill: #f2b486;
+}
+.balloon-2[data-v-6386cccd] {
+    fill: #c99769;
+}
+.balloon-3[data-v-6386cccd] {
+    fill: #7ca4dc;
+}
+.balloon-4[data-v-6386cccd] {
+    fill: #f5b78b;
+}
+.balloon-5[data-v-6386cccd] {
+    fill: #29d400;
+}
+
+
+.lighthouse-1[data-v-b8edb09e] {
+    fill: #7b3542;
+}
+.lighthouse-2[data-v-b8edb09e] {
+    fill: #5c2c36;
+}
+.lighthouse-3[data-v-b8edb09e] {
+    fill: #392530;
+}
+.lighthouse-4[data-v-b8edb09e] {
+    fill: url(#lighthouse-gradient);
+}
+.lighthouse-5[data-v-b8edb09e] {
+    fill: url(#lighthouse-gradient-2);
+}
+.lighthouse-6[data-v-b8edb09e] {
+    fill: url(#lighthouse-gradient-3);
+}
+.lighthouse-7[data-v-b8edb09e] {
+    fill: #ded6d5;
+    stroke: #ded6d5;
+}
+.lighthouse-10[data-v-b8edb09e], .lighthouse-11[data-v-b8edb09e], .lighthouse-7[data-v-b8edb09e] {
+    stroke-miterlimit: 10;
+}
+.lighthouse-8[data-v-b8edb09e] {
+    fill: #cac6c7;
+}
+.lighthouse-9[data-v-b8edb09e] {
+    fill: #8d9195;
+}
+.lighthouse-10[data-v-b8edb09e] {
+    fill: #384349;
+}
+.lighthouse-10[data-v-b8edb09e], .lighthouse-11[data-v-b8edb09e] {
+    stroke: #000;
+}
+.lighthouse-11[data-v-b8edb09e] {
+    fill: #354147;
+}
+
+
+.rocks-1[data-v-21c00997] {
+    fill: url(#rocks-gradient);
+}
+.rocks-2[data-v-21c00997] {
+    fill: url(#rocks-gradient-2);
+}
+.rocks-3[data-v-21c00997] {
+    fill: url(#rocks-gradient-3);
+}
+.rocks-4[data-v-21c00997] {
+    fill: url(#rocks-gradient-4);
+}
+.rocks-5[data-v-21c00997] {
+    fill: url(#rocks-gradient-5);
+}
+
+
+.clouds-1[data-v-5e27742e]{
+    fill:#EBF8FF;
+    opacity:0.6;
+}
+.whit[data-v-5e27742e] { fill: #e0d8d8;
+}
+.gre[data-v-5e27742e] { fill: green;
+}
+
+
+#app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+}
+
+
+/*# sourceMappingURL=bytepath.css.map*/
