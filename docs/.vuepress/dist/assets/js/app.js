@@ -1978,6 +1978,92 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../bytepath/Samples/Assets/Human/FaceDance.js":
+/*!*****************************************************!*\
+  !*** ../bytepath/Samples/Assets/Human/FaceDance.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/**
+ * FirstAnimation.js
+ * Side note: this was the first animation that ever worked in Bytepath!
+ */
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  start: 0,
+  end: 1000,
+  handler: function handler(_ref) {
+    var context = _ref.context,
+        tween = _ref.tween;
+    context.layers.face.y = tween.number(0, 100);
+    context.layers.leftarm.angle = tween.number(0, 75);
+    context.layers.leftarm.centerX = 75;
+    context.layers.leftarm.centerY = 225;
+    context.layers.rightarm.angle = 360 - tween.number(0, 75);
+    context.layers.rightarm.centerX = 175;
+    context.layers.rightarm.centerY = 225;
+  }
+}, {
+  start: 1000,
+  end: 2000,
+  handler: function handler(_ref2) {
+    var context = _ref2.context,
+        tween = _ref2.tween;
+    context.layers.face.y = tween.number(100, 0);
+    context.layers.rightarm.angle = tween.number(285, 360);
+    context.layers.rightarm.centerX = 175;
+    context.layers.rightarm.centerY = 225;
+    context.layers.leftarm.angle = tween.number(75, 0);
+    context.layers.leftarm.centerX = 75;
+    context.layers.leftarm.centerY = 225;
+  }
+}]);
+
+/***/ }),
+
+/***/ "../bytepath/Samples/Assets/Human/FirstAnimation.js":
+/*!**********************************************************!*\
+  !*** ../bytepath/Samples/Assets/Human/FirstAnimation.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/**
+ * FirstAnimation.js
+ * Side note: this was the first animation that ever worked in Bytepath!
+ */
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  start: 0,
+  end: 500,
+  handler: function handler(_ref) {
+    var context = _ref.context,
+        tween = _ref.tween;
+    context.layers.face.x = tween.number(-50, 50);
+    context.layers.rightarm.angle = tween.number(0, 50);
+    context.layers.leftarm.y = tween.integer(0, 100);
+    context.layers.leftleg.x = tween.number(-75, 0);
+    context.layers.rightleg.x = tween.number(75, 0);
+  }
+}, {
+  start: 500,
+  end: 1000,
+  handler: function handler(_ref2) {
+    var context = _ref2.context,
+        tween = _ref2.tween;
+    context.layers.face.x = tween.number(50, -50);
+    context.layers.rightarm.angle = tween.number(50, 0);
+    context.layers.leftarm.y = tween.integer(100, 0);
+    context.layers.leftleg.x = tween.number(0, -75);
+    context.layers.rightleg.x = tween.number(0, 75);
+  }
+}]);
+
+/***/ }),
+
 /***/ "../bytepath/Samples/Assets/Human/Human.svg":
 /*!**************************************************!*\
   !*** ../bytepath/Samples/Assets/Human/Human.svg ***!
@@ -2055,6 +2141,80 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _bytepath_io_node_modules_cache_loader_dist_cjs_js_cacheDirectory_node_modules_cache_vue_loader_cacheIdentifier_28a44338_vue_loader_template_bytepath_io_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_bytepath_io_node_modules_cache_loader_dist_cjs_js_ref_0_0_bytepath_io_node_modules_vue_loader_lib_index_js_vue_loader_options_Human_vue_vue_type_template_id_41593189___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "../bytepath/Samples/Assets/Human/Kick.js":
+/*!************************************************!*\
+  !*** ../bytepath/Samples/Assets/Human/Kick.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/**
+ * Punch.js
+ * A simple punch animation for the human asset
+ */
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  start: 0,
+  end: 1000,
+  handler: function handler(_ref) {
+    var context = _ref.context,
+        tween = _ref.tween;
+    context.layers.rightleg.angle = 360 - tween.number(0, 100);
+    context.layers.rightleg.centerX = 125;
+    context.layers.rightleg.centerY = 350;
+    context.layers.leftarm.angle = 45;
+    context.layers.leftarm.centerX = 25;
+    context.layers.leftarm.centerY = 200;
+    context.layers.rightarm.angle = 300;
+    context.layers.rightarm.centerX = 175;
+    context.layers.rightarm.centerY = 225;
+  }
+}]);
+
+/***/ }),
+
+/***/ "../bytepath/Samples/Assets/Human/Punch.js":
+/*!*************************************************!*\
+  !*** ../bytepath/Samples/Assets/Human/Punch.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/**
+ * Punch.js
+ * A simple punch animation for the human asset
+ */
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  start: 0,
+  end: 1500,
+  handler: function handler(_ref) {
+    var context = _ref.context,
+        tween = _ref.tween;
+    context.layers.face.x = tween.number(-50, 50);
+    context.layers.rightarm.x = tween.integer(0, 200);
+    context.layers.leftarm.angle = tween.number(0, 90);
+    context.layers.leftarm.centerX = 75;
+    context.layers.leftarm.centerY = 200;
+  }
+}, {
+  start: 1500,
+  end: 3000,
+  handler: function handler(_ref2) {
+    var context = _ref2.context,
+        tween = _ref2.tween;
+    context.layers.face.x = tween.number(50, -50);
+    context.layers.rightarm.x = tween.integer(200, 0);
+    context.layers.leftarm.angle = tween.number(90, 0);
+    context.layers.leftarm.centerX = 75;
+    context.layers.leftarm.centerY = 200;
+  }
+}]);
 
 /***/ }),
 
@@ -4757,6 +4917,14 @@ __webpack_require__.r(__webpack_exports__);
     color: {
       type: String,
       default: null
+    },
+
+    /**
+     * Add a filter to this vector
+     */
+    filter: {
+      type: Object,
+      default: null
     }
   },
   data: function data() {
@@ -5510,14 +5678,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Factories_CreateAsset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Factories/CreateAsset */ "../bytepath/Factories/CreateAsset.js");
 /* harmony import */ var _Human_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Human.svg */ "../bytepath/Samples/Assets/Human/Human.svg");
 /* harmony import */ var _Human_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_Human_svg__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Kick__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Kick */ "../bytepath/Samples/Assets/Human/Kick.js");
+/* harmony import */ var _Punch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Punch */ "../bytepath/Samples/Assets/Human/Punch.js");
+/* harmony import */ var _FirstAnimation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FirstAnimation */ "../bytepath/Samples/Assets/Human/FirstAnimation.js");
+/* harmony import */ var _FaceDance__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FaceDance */ "../bytepath/Samples/Assets/Human/FaceDance.js");
+
+
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(_Factories_CreateAsset__WEBPACK_IMPORTED_MODULE_0__["default"])({
   name: "human",
   src: _Human_svg__WEBPACK_IMPORTED_MODULE_1___default.a,
-  layers: [],
   animations: function animations() {
     return {
+      flap: _FaceDance__WEBPACK_IMPORTED_MODULE_5__["default"],
+      punch: _Punch__WEBPACK_IMPORTED_MODULE_3__["default"],
+      kick: _Kick__WEBPACK_IMPORTED_MODULE_2__["default"],
+      dance: _FirstAnimation__WEBPACK_IMPORTED_MODULE_4__["default"],
       default: [{
         start: 0,
         end: 500,
@@ -7203,11 +7382,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].CreateAsset({
   data: function data() {
     return {
-      balloonPos: new bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].Position()
+      balloonPos: new bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].Position(),
+      curFrame: 0
     };
   },
   components: {
-    balloon: bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].samples.assets.balloon
+    balloon: bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].samples.assets.tinyBalloon.tinyBalloon
   },
   animations: function animations() {
     return {
@@ -7415,7 +7595,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].CreateAsset({
   data: function data() {
     return {
-      balloonPos: new bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].Position()
+      balloonPos: new bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].Position(),
+      curFrame: 0
     };
   },
   components: {
@@ -7446,8 +7627,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = (bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].CreateAsset({
   name: "imported",
-  src: _bytepathnpm_Samples_Assets_Human_Human_svg__WEBPACK_IMPORTED_MODULE_1___default.a,
-  layer: []
+  src: _bytepathnpm_Samples_Assets_Human_Human_svg__WEBPACK_IMPORTED_MODULE_1___default.a
 }));
 
 /***/ }),
@@ -7897,7 +8077,12 @@ var Shadow = Filters.dropShadow;
   name: "FilterExample",
   data: function data() {
     return {
-      index: 1
+      index: 1,
+      curFrame: 0,
+      cam: new bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].Position({
+        width: 1380,
+        height: 2000
+      })
     };
   },
   computed: {
@@ -8092,9 +8277,19 @@ var render = function() {
           {
             key: "default",
             fn: function() {
-              return _vm._l(_vm.filteredLayers, function(layer, i) {
-                return _c("layer", { key: i, attrs: { layer: layer } })
-              })
+              return [
+                _c(
+                  "g",
+                  { attrs: { id: "humans" } },
+                  _vm._l(_vm.filteredLayers, function(layer, i) {
+                    return _c("layer", {
+                      key: i,
+                      attrs: { position: layer, layer: layer }
+                    })
+                  }),
+                  1
+                )
+              ]
             },
             proxy: true
           }
@@ -10466,7 +10661,36 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("balloon", { attrs: { position: _vm.balloonPos } })
+  return _c(
+    "div",
+    [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model.number",
+            value: _vm.curFrame,
+            expression: "curFrame",
+            modifiers: { number: true }
+          }
+        ],
+        attrs: { type: "range", min: "0", max: "500" },
+        domProps: { value: _vm.curFrame },
+        on: {
+          __r: function($event) {
+            _vm.curFrame = _vm._n($event.target.value)
+          },
+          blur: function($event) {
+            return _vm.$forceUpdate()
+          }
+        }
+      }),
+      _vm._v("Keyframe = " + _vm._s(_vm.curFrame)),
+      _c("br"),
+      _c("balloon", { attrs: { position: _vm.balloonPos } })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -11630,140 +11854,168 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model.number",
-            value: _vm.index,
-            expression: "index",
-            modifiers: { number: true }
-          }
-        ],
-        attrs: { type: "radio", id: "matrix", value: "1" },
-        domProps: { checked: _vm._q(_vm.index, _vm._n("1")) },
-        on: {
-          change: function($event) {
-            _vm.index = _vm._n("1")
-          }
+  return _c("div", [
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model.number",
+          value: _vm.curFrame,
+          expression: "curFrame",
+          modifiers: { number: true }
         }
-      }),
-      _vm._v("Enter The Matrix"),
-      _c("br"),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model.number",
-            value: _vm.index,
-            expression: "index",
-            modifiers: { number: true }
-          }
-        ],
-        attrs: { type: "radio", id: "lime", value: "2" },
-        domProps: { checked: _vm._q(_vm.index, _vm._n("2")) },
-        on: {
-          change: function($event) {
-            _vm.index = _vm._n("2")
-          }
+      ],
+      attrs: { type: "range", min: "0", max: "2500" },
+      domProps: { value: _vm.curFrame },
+      on: {
+        __r: function($event) {
+          _vm.curFrame = _vm._n($event.target.value)
+        },
+        blur: function($event) {
+          return _vm.$forceUpdate()
         }
-      }),
-      _vm._v("Lime Gram"),
-      _c("br"),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model.number",
-            value: _vm.index,
-            expression: "index",
-            modifiers: { number: true }
-          }
-        ],
-        attrs: { type: "radio", id: "under", value: "3" },
-        domProps: { checked: _vm._q(_vm.index, _vm._n("3")) },
-        on: {
-          change: function($event) {
-            _vm.index = _vm._n("3")
-          }
+      }
+    }),
+    _vm._v("Keyframe = " + _vm._s(_vm.curFrame)),
+    _c("br"),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model.number",
+          value: _vm.index,
+          expression: "index",
+          modifiers: { number: true }
         }
-      }),
-      _vm._v("Underwater"),
-      _c("br"),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model.number",
-            value: _vm.index,
-            expression: "index",
-            modifiers: { number: true }
-          }
-        ],
-        attrs: { type: "radio", id: "shadow", value: "4" },
-        domProps: { checked: _vm._q(_vm.index, _vm._n("4")) },
-        on: {
-          change: function($event) {
-            _vm.index = _vm._n("4")
-          }
+      ],
+      attrs: { type: "radio", id: "matrix", value: "1" },
+      domProps: { checked: _vm._q(_vm.index, _vm._n("1")) },
+      on: {
+        change: function($event) {
+          _vm.index = _vm._n("1")
         }
-      }),
-      _vm._v("Drop Shadow"),
-      _c("br"),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model.number",
-            value: _vm.index,
-            expression: "index",
-            modifiers: { number: true }
-          }
-        ],
-        attrs: { type: "radio", id: "peach", value: "5" },
-        domProps: { checked: _vm._q(_vm.index, _vm._n("5")) },
-        on: {
-          change: function($event) {
-            _vm.index = _vm._n("5")
-          }
+      }
+    }),
+    _vm._v("Enter The Matrix"),
+    _c("br"),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model.number",
+          value: _vm.index,
+          expression: "index",
+          modifiers: { number: true }
         }
-      }),
-      _vm._v("Peach Gram"),
-      _c("br"),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model.number",
-            value: _vm.index,
-            expression: "index",
-            modifiers: { number: true }
-          }
-        ],
-        attrs: { type: "radio", id: "nofilter", value: "0" },
-        domProps: { checked: _vm._q(_vm.index, _vm._n("0")) },
-        on: {
-          change: function($event) {
-            _vm.index = _vm._n("0")
-          }
+      ],
+      attrs: { type: "radio", id: "lime", value: "2" },
+      domProps: { checked: _vm._q(_vm.index, _vm._n("2")) },
+      on: {
+        change: function($event) {
+          _vm.index = _vm._n("2")
         }
-      }),
-      _vm._v("None"),
-      _c("br"),
-      _c("ocean-scene", {
-        attrs: {
-          "show-viewbox": true,
-          align: "topleft",
-          filter: _vm.useFilter,
-          keyframe: _vm.keyframe
+      }
+    }),
+    _vm._v("Lime Gram"),
+    _c("br"),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model.number",
+          value: _vm.index,
+          expression: "index",
+          modifiers: { number: true }
         }
-      })
-    ],
-    1
-  )
+      ],
+      attrs: { type: "radio", id: "under", value: "3" },
+      domProps: { checked: _vm._q(_vm.index, _vm._n("3")) },
+      on: {
+        change: function($event) {
+          _vm.index = _vm._n("3")
+        }
+      }
+    }),
+    _vm._v("Underwater"),
+    _c("br"),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model.number",
+          value: _vm.index,
+          expression: "index",
+          modifiers: { number: true }
+        }
+      ],
+      attrs: { type: "radio", id: "shadow", value: "4" },
+      domProps: { checked: _vm._q(_vm.index, _vm._n("4")) },
+      on: {
+        change: function($event) {
+          _vm.index = _vm._n("4")
+        }
+      }
+    }),
+    _vm._v("Drop Shadow"),
+    _c("br"),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model.number",
+          value: _vm.index,
+          expression: "index",
+          modifiers: { number: true }
+        }
+      ],
+      attrs: { type: "radio", id: "peach", value: "5" },
+      domProps: { checked: _vm._q(_vm.index, _vm._n("5")) },
+      on: {
+        change: function($event) {
+          _vm.index = _vm._n("5")
+        }
+      }
+    }),
+    _vm._v("Peach Gram"),
+    _c("br"),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model.number",
+          value: _vm.index,
+          expression: "index",
+          modifiers: { number: true }
+        }
+      ],
+      attrs: { type: "radio", id: "nofilter", value: "0" },
+      domProps: { checked: _vm._q(_vm.index, _vm._n("0")) },
+      on: {
+        change: function($event) {
+          _vm.index = _vm._n("0")
+        }
+      }
+    }),
+    _vm._v("None"),
+    _c("br"),
+    _c(
+      "svg",
+      { attrs: { viewBox: "0 0 1380 2000" } },
+      [
+        _c("ocean-scene", {
+          attrs: {
+            width: 300,
+            height: 500,
+            "show-viewbox": true,
+            align: "topleft",
+            filter: _vm.useFilter,
+            keyframe: _vm.curFrame
+          }
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -13717,41 +13969,49 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_array_map__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_map__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var core_js_modules_es_object_entries__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.object.entries */ "./node_modules/core-js/modules/es.object.entries.js");
 /* harmony import */ var core_js_modules_es_object_entries__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_entries__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _Users_andrew_sites_bytepath_io_node_modules_babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2 */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
-/* harmony import */ var _Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
-/* harmony import */ var _Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/core-js/modules/es.promise.js */ "./node_modules/core-js/modules/es.promise.js");
-/* harmony import */ var _Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./node_modules/core-js/modules/es.object.assign.js */ "./node_modules/core-js/modules/es.object.assign.js");
-/* harmony import */ var _Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_promise_finally_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./node_modules/core-js/modules/es.promise.finally.js */ "./node_modules/core-js/modules/es.promise.finally.js");
-/* harmony import */ var _Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_promise_finally_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_promise_finally_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./App */ "./src/App.vue");
-/* harmony import */ var _examples_HomePage__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./examples/HomePage */ "./src/examples/HomePage.vue");
-/* harmony import */ var _examples_Introduction_Rectangle__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./examples/Introduction/Rectangle */ "./src/examples/Introduction/Rectangle.vue");
-/* harmony import */ var _examples_Introduction_ComponentBasedAssets__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./examples/Introduction/ComponentBasedAssets */ "./src/examples/Introduction/ComponentBasedAssets.vue");
-/* harmony import */ var _examples_Introduction_BalloonSample__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./examples/Introduction/BalloonSample */ "./src/examples/Introduction/BalloonSample.vue");
-/* harmony import */ var _examples_Introduction_AssetComposition__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./examples/Introduction/AssetComposition */ "./src/examples/Introduction/AssetComposition.vue");
-/* harmony import */ var _examples_BasicTransformations_Translation__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./examples/BasicTransformations/Translation */ "./src/examples/BasicTransformations/Translation.vue");
-/* harmony import */ var _examples_BasicTransformations_Scale__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./examples/BasicTransformations/Scale */ "./src/examples/BasicTransformations/Scale.vue");
-/* harmony import */ var _examples_BasicTransformations_Rotation__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./examples/BasicTransformations/Rotation */ "./src/examples/BasicTransformations/Rotation.vue");
-/* harmony import */ var _examples_BasicTransformations_WidthHeight__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./examples/BasicTransformations/WidthHeight */ "./src/examples/BasicTransformations/WidthHeight.vue");
-/* harmony import */ var _examples_Timers_UsingScrollTimer__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./examples/Timers/UsingScrollTimer */ "./src/examples/Timers/UsingScrollTimer.vue");
-/* harmony import */ var _examples_Timers_UsingClockTimer__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./examples/Timers/UsingClockTimer */ "./src/examples/Timers/UsingClockTimer.vue");
-/* harmony import */ var _examples_ArtAsset_Import__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./examples/ArtAsset/Import */ "./src/examples/ArtAsset/Import.vue");
-/* harmony import */ var _examples_ArtAsset_ImportLayer__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./examples/ArtAsset/ImportLayer */ "./src/examples/ArtAsset/ImportLayer.vue");
-/* harmony import */ var _examples_ArtAsset_ImportMultiLayer__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./examples/ArtAsset/ImportMultiLayer */ "./src/examples/ArtAsset/ImportMultiLayer.vue");
-/* harmony import */ var _examples_UsingFilters_FilterExample__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./examples/UsingFilters/FilterExample */ "./src/examples/UsingFilters/FilterExample.vue");
-/* harmony import */ var _examples_Animation_AnimatedBalloon__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./examples/Animation/AnimatedBalloon */ "./src/examples/Animation/AnimatedBalloon.vue");
-/* harmony import */ var _examples_Animation_CreateKeyframe__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./examples/Animation/CreateKeyframe */ "./src/examples/Animation/CreateKeyframe.vue");
-/* harmony import */ var _examples_Animation_MultiAction__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./examples/Animation/MultiAction */ "./src/examples/Animation/MultiAction.vue");
-/* harmony import */ var _examples_Animation_MultipleAnimations__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./examples/Animation/MultipleAnimations */ "./src/examples/Animation/MultipleAnimations.vue");
-/* harmony import */ var _examples_Animation_PropAnimation__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./examples/Animation/PropAnimation */ "./src/examples/Animation/PropAnimation.vue");
-/* harmony import */ var _examples_Animation_RenderlessExample__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./examples/Animation/RenderlessExample */ "./src/examples/Animation/RenderlessExample.vue");
-/* harmony import */ var _examples_Animation_SeparateAnimationFile__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./examples/Animation/SeparateAnimationFile */ "./src/examples/Animation/SeparateAnimationFile.vue");
+/* harmony import */ var core_js_modules_es_regexp_exec__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.regexp.exec */ "./node_modules/core-js/modules/es.regexp.exec.js");
+/* harmony import */ var core_js_modules_es_regexp_exec__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_exec__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_string_split__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.string.split */ "./node_modules/core-js/modules/es.string.split.js");
+/* harmony import */ var core_js_modules_es_string_split__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_split__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _Users_andrew_sites_bytepath_io_node_modules_babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2 */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
+/* harmony import */ var _Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./node_modules/core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
+/* harmony import */ var _Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./node_modules/core-js/modules/es.promise.js */ "./node_modules/core-js/modules/es.promise.js");
+/* harmony import */ var _Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./node_modules/core-js/modules/es.object.assign.js */ "./node_modules/core-js/modules/es.object.assign.js");
+/* harmony import */ var _Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_promise_finally_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./node_modules/core-js/modules/es.promise.finally.js */ "./node_modules/core-js/modules/es.promise.finally.js");
+/* harmony import */ var _Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_promise_finally_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_Users_andrew_sites_bytepath_io_node_modules_core_js_modules_es_promise_finally_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./App */ "./src/App.vue");
+/* harmony import */ var _examples_HomePage__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./examples/HomePage */ "./src/examples/HomePage.vue");
+/* harmony import */ var _examples_Demo__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./examples/Demo */ "./src/examples/Demo.vue");
+/* harmony import */ var _examples_Introduction_Rectangle__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./examples/Introduction/Rectangle */ "./src/examples/Introduction/Rectangle.vue");
+/* harmony import */ var _examples_Introduction_ComponentBasedAssets__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./examples/Introduction/ComponentBasedAssets */ "./src/examples/Introduction/ComponentBasedAssets.vue");
+/* harmony import */ var _examples_Introduction_BalloonSample__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./examples/Introduction/BalloonSample */ "./src/examples/Introduction/BalloonSample.vue");
+/* harmony import */ var _examples_Introduction_AssetComposition__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./examples/Introduction/AssetComposition */ "./src/examples/Introduction/AssetComposition.vue");
+/* harmony import */ var _examples_BasicTransformations_Translation__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./examples/BasicTransformations/Translation */ "./src/examples/BasicTransformations/Translation.vue");
+/* harmony import */ var _examples_BasicTransformations_Scale__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./examples/BasicTransformations/Scale */ "./src/examples/BasicTransformations/Scale.vue");
+/* harmony import */ var _examples_BasicTransformations_Rotation__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./examples/BasicTransformations/Rotation */ "./src/examples/BasicTransformations/Rotation.vue");
+/* harmony import */ var _examples_BasicTransformations_WidthHeight__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./examples/BasicTransformations/WidthHeight */ "./src/examples/BasicTransformations/WidthHeight.vue");
+/* harmony import */ var _examples_Timers_UsingScrollTimer__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./examples/Timers/UsingScrollTimer */ "./src/examples/Timers/UsingScrollTimer.vue");
+/* harmony import */ var _examples_Timers_UsingClockTimer__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./examples/Timers/UsingClockTimer */ "./src/examples/Timers/UsingClockTimer.vue");
+/* harmony import */ var _examples_ArtAsset_Import__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./examples/ArtAsset/Import */ "./src/examples/ArtAsset/Import.vue");
+/* harmony import */ var _examples_ArtAsset_ImportLayer__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./examples/ArtAsset/ImportLayer */ "./src/examples/ArtAsset/ImportLayer.vue");
+/* harmony import */ var _examples_ArtAsset_ImportMultiLayer__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./examples/ArtAsset/ImportMultiLayer */ "./src/examples/ArtAsset/ImportMultiLayer.vue");
+/* harmony import */ var _examples_UsingFilters_FilterExample__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./examples/UsingFilters/FilterExample */ "./src/examples/UsingFilters/FilterExample.vue");
+/* harmony import */ var _examples_Animation_AnimatedBalloon__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./examples/Animation/AnimatedBalloon */ "./src/examples/Animation/AnimatedBalloon.vue");
+/* harmony import */ var _examples_Animation_CreateKeyframe__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./examples/Animation/CreateKeyframe */ "./src/examples/Animation/CreateKeyframe.vue");
+/* harmony import */ var _examples_Animation_MultiAction__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./examples/Animation/MultiAction */ "./src/examples/Animation/MultiAction.vue");
+/* harmony import */ var _examples_Animation_MultipleAnimations__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./examples/Animation/MultipleAnimations */ "./src/examples/Animation/MultipleAnimations.vue");
+/* harmony import */ var _examples_Animation_PropAnimation__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./examples/Animation/PropAnimation */ "./src/examples/Animation/PropAnimation.vue");
+/* harmony import */ var _examples_Animation_RenderlessExample__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./examples/Animation/RenderlessExample */ "./src/examples/Animation/RenderlessExample.vue");
+/* harmony import */ var _examples_Animation_SeparateAnimationFile__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./examples/Animation/SeparateAnimationFile */ "./src/examples/Animation/SeparateAnimationFile.vue");
+
+
+
 
 
 
@@ -13790,33 +14050,34 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var components = {
-  HomePage: _examples_HomePage__WEBPACK_IMPORTED_MODULE_11__["default"],
-  "vector-rect": _examples_Introduction_Rectangle__WEBPACK_IMPORTED_MODULE_12__["default"],
-  ComponentBasedAssets: _examples_Introduction_ComponentBasedAssets__WEBPACK_IMPORTED_MODULE_13__["default"],
-  BalloonSample: _examples_Introduction_BalloonSample__WEBPACK_IMPORTED_MODULE_14__["default"],
-  AssetComposition: _examples_Introduction_AssetComposition__WEBPACK_IMPORTED_MODULE_15__["default"],
-  UsingScrollTimer: _examples_Timers_UsingScrollTimer__WEBPACK_IMPORTED_MODULE_20__["default"],
-  UsingClockTimer: _examples_Timers_UsingClockTimer__WEBPACK_IMPORTED_MODULE_21__["default"],
-  TranslationProp: _examples_BasicTransformations_Translation__WEBPACK_IMPORTED_MODULE_16__["default"],
-  ScaleProp: _examples_BasicTransformations_Scale__WEBPACK_IMPORTED_MODULE_17__["default"],
-  RotationProp: _examples_BasicTransformations_Rotation__WEBPACK_IMPORTED_MODULE_18__["default"],
-  WidthHeight: _examples_BasicTransformations_WidthHeight__WEBPACK_IMPORTED_MODULE_19__["default"],
-  'asset-import': _examples_ArtAsset_Import__WEBPACK_IMPORTED_MODULE_22__["default"],
-  'asset-import-layer': _examples_ArtAsset_ImportLayer__WEBPACK_IMPORTED_MODULE_23__["default"],
-  'asset-import-multi-layer': _examples_ArtAsset_ImportMultiLayer__WEBPACK_IMPORTED_MODULE_24__["default"],
-  FilterExample: _examples_UsingFilters_FilterExample__WEBPACK_IMPORTED_MODULE_25__["default"],
-  AnimatedBalloon: _examples_Animation_AnimatedBalloon__WEBPACK_IMPORTED_MODULE_26__["default"],
-  CreateKeyframe: _examples_Animation_CreateKeyframe__WEBPACK_IMPORTED_MODULE_27__["default"],
-  MultiAction: _examples_Animation_MultiAction__WEBPACK_IMPORTED_MODULE_28__["default"],
-  MultipleAnimations: _examples_Animation_MultipleAnimations__WEBPACK_IMPORTED_MODULE_29__["default"],
-  PropAnimation: _examples_Animation_PropAnimation__WEBPACK_IMPORTED_MODULE_30__["default"],
-  RenderlessExample: _examples_Animation_RenderlessExample__WEBPACK_IMPORTED_MODULE_31__["default"],
-  SeparateAnimationFile: _examples_Animation_SeparateAnimationFile__WEBPACK_IMPORTED_MODULE_32__["default"]
+  Demo: _examples_Demo__WEBPACK_IMPORTED_MODULE_14__["default"],
+  HomePage: _examples_HomePage__WEBPACK_IMPORTED_MODULE_13__["default"],
+  "vector-rect": _examples_Introduction_Rectangle__WEBPACK_IMPORTED_MODULE_15__["default"],
+  ComponentBasedAssets: _examples_Introduction_ComponentBasedAssets__WEBPACK_IMPORTED_MODULE_16__["default"],
+  BalloonSample: _examples_Introduction_BalloonSample__WEBPACK_IMPORTED_MODULE_17__["default"],
+  AssetComposition: _examples_Introduction_AssetComposition__WEBPACK_IMPORTED_MODULE_18__["default"],
+  UsingScrollTimer: _examples_Timers_UsingScrollTimer__WEBPACK_IMPORTED_MODULE_23__["default"],
+  UsingClockTimer: _examples_Timers_UsingClockTimer__WEBPACK_IMPORTED_MODULE_24__["default"],
+  TranslationProp: _examples_BasicTransformations_Translation__WEBPACK_IMPORTED_MODULE_19__["default"],
+  ScaleProp: _examples_BasicTransformations_Scale__WEBPACK_IMPORTED_MODULE_20__["default"],
+  RotationProp: _examples_BasicTransformations_Rotation__WEBPACK_IMPORTED_MODULE_21__["default"],
+  WidthHeight: _examples_BasicTransformations_WidthHeight__WEBPACK_IMPORTED_MODULE_22__["default"],
+  'asset-import': _examples_ArtAsset_Import__WEBPACK_IMPORTED_MODULE_25__["default"],
+  'asset-import-layer': _examples_ArtAsset_ImportLayer__WEBPACK_IMPORTED_MODULE_26__["default"],
+  'asset-import-multi-layer': _examples_ArtAsset_ImportMultiLayer__WEBPACK_IMPORTED_MODULE_27__["default"],
+  FilterExample: _examples_UsingFilters_FilterExample__WEBPACK_IMPORTED_MODULE_28__["default"],
+  AnimatedBalloon: _examples_Animation_AnimatedBalloon__WEBPACK_IMPORTED_MODULE_29__["default"],
+  CreateKeyframe: _examples_Animation_CreateKeyframe__WEBPACK_IMPORTED_MODULE_30__["default"],
+  MultiAction: _examples_Animation_MultiAction__WEBPACK_IMPORTED_MODULE_31__["default"],
+  MultipleAnimations: _examples_Animation_MultipleAnimations__WEBPACK_IMPORTED_MODULE_32__["default"],
+  PropAnimation: _examples_Animation_PropAnimation__WEBPACK_IMPORTED_MODULE_33__["default"],
+  RenderlessExample: _examples_Animation_RenderlessExample__WEBPACK_IMPORTED_MODULE_34__["default"],
+  SeparateAnimationFile: _examples_Animation_SeparateAnimationFile__WEBPACK_IMPORTED_MODULE_35__["default"]
 };
 Object.entries(components).map(function (item) {
-  vue__WEBPACK_IMPORTED_MODULE_9__["default"].component(item[0], item[1]);
+  vue__WEBPACK_IMPORTED_MODULE_11__["default"].component(item[0], item[1]);
 });
-vue__WEBPACK_IMPORTED_MODULE_9__["default"].config.productionTip = false;
+vue__WEBPACK_IMPORTED_MODULE_11__["default"].config.productionTip = false;
 
 function whenBodyLoaded(fn) {
   // see if DOM is already available
@@ -13831,9 +14092,9 @@ function whenBodyLoaded(fn) {
 
 if (document.getElementById("catdogapp")) {
   console.log("catdog app detected");
-  new vue__WEBPACK_IMPORTED_MODULE_9__["default"]({
+  new vue__WEBPACK_IMPORTED_MODULE_11__["default"]({
     render: function render(h) {
-      return h(_App__WEBPACK_IMPORTED_MODULE_10__["default"]);
+      return h(_App__WEBPACK_IMPORTED_MODULE_12__["default"]);
     }
   }).$mount("#catdogapp");
 } else {
@@ -13841,12 +14102,22 @@ if (document.getElementById("catdogapp")) {
 
   if (document) {
     whenBodyLoaded(function () {
-      console.log(Object(_Users_andrew_sites_bytepath_io_node_modules_babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_4__["default"])({}, document), document.querySelectorAll(".demo"));
+      console.log(Object(_Users_andrew_sites_bytepath_io_node_modules_babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_6__["default"])({}, document), document.querySelectorAll(".demo"));
       document.querySelectorAll(".demo").forEach(function (element) {
-        console.log("found a demo", element);
-        var app = new vue__WEBPACK_IMPORTED_MODULE_9__["default"]({
+        var args = element.getAttribute("component").split(" ");
+        /* eslint-disable-next-line */
+
+        var props = {
+          src: args[0],
+          start: args[1] ? parseInt(args[1]) : 0,
+          end: args[2] ? parseInt(args[2]) : 1000
+        };
+        console.log("found a demo", props, args);
+        var app = new vue__WEBPACK_IMPORTED_MODULE_11__["default"]({
           render: function render(h) {
-            return h(element.getAttribute('component'));
+            return h('demo', {
+              props: props
+            });
           }
         }).$mount(element);
         console.log("app is", app);
@@ -13857,7 +14128,7 @@ if (document.getElementById("catdogapp")) {
   }
 }
 
-window.vueapp = vue__WEBPACK_IMPORTED_MODULE_9__["default"];
+window.vueapp = vue__WEBPACK_IMPORTED_MODULE_11__["default"];
 
 /***/ }),
 
