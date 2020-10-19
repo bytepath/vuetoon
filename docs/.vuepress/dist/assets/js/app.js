@@ -7763,6 +7763,63 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/cache-loader/dist/cjs.js?!./node_modules/babel-loader/lib/index.js!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./src/examples/ArtAsset/CameraControl.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/examples/ArtAsset/CameraControl.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var bytepath__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bytepath */ "../bytepath/vue-bytepath.js");
+/* harmony import */ var _bytepathnpm_Samples_Scenes_Ocean_OceanScene__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../bytepathnpm/Samples/Scenes/Ocean/OceanScene */ "../bytepath/Samples/Scenes/Ocean/OceanScene.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = (bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].CreateAsset({
+  name: "CameraExample",
+  mixins: [],
+  props: {},
+  data: function data() {
+    return {
+      zoom: 1,
+      currentFrame: 0,
+      myCamera: new bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].Position({
+        scaleX: 1,
+        scaleY: 1,
+        width: 300,
+        height: 250
+      })
+    };
+  },
+  watch: {
+    zoom: function zoom() {
+      this.myCamera.scaleX = this.zoom;
+      this.myCamera.scaleY = this.zoom;
+    }
+  },
+  components: {
+    OceanScene: _bytepathnpm_Samples_Scenes_Ocean_OceanScene__WEBPACK_IMPORTED_MODULE_1__["default"],
+    timer: bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].timers.clock
+  }
+}));
+
+/***/ }),
+
 /***/ "./node_modules/cache-loader/dist/cjs.js?!./node_modules/babel-loader/lib/index.js!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./src/examples/ArtAsset/Import.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/examples/ArtAsset/Import.vue?vue&type=script&lang=js& ***!
@@ -11018,6 +11075,144 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/cache-loader/dist/cjs.js?{\"cacheDirectory\":\"node_modules/.cache/vue-loader\",\"cacheIdentifier\":\"28a44338-vue-loader-template\"}!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./src/examples/ArtAsset/CameraControl.vue?vue&type=template&id=2699ebf3&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"28a44338-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/examples/ArtAsset/CameraControl.vue?vue&type=template&id=2699ebf3& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model.number",
+            value: _vm.currentFrame,
+            expression: "currentFrame",
+            modifiers: { number: true }
+          }
+        ],
+        attrs: { type: "range", min: 0, max: 2500 },
+        domProps: { value: _vm.currentFrame },
+        on: {
+          __r: function($event) {
+            _vm.currentFrame = _vm._n($event.target.value)
+          },
+          blur: function($event) {
+            return _vm.$forceUpdate()
+          }
+        }
+      }),
+      _vm._v(" Current Frame = " + _vm._s(_vm.currentFrame) + " "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model.number",
+            value: _vm.myCamera.x,
+            expression: "myCamera.x",
+            modifiers: { number: true }
+          }
+        ],
+        attrs: { type: "range", min: 0, max: 600 },
+        domProps: { value: _vm.myCamera.x },
+        on: {
+          __r: function($event) {
+            _vm.$set(_vm.myCamera, "x", _vm._n($event.target.value))
+          },
+          blur: function($event) {
+            return _vm.$forceUpdate()
+          }
+        }
+      }),
+      _vm._v(" X = " + _vm._s(_vm.myCamera.x) + " "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model.number",
+            value: _vm.myCamera.y,
+            expression: "myCamera.y",
+            modifiers: { number: true }
+          }
+        ],
+        attrs: { type: "range", min: 0, max: 1200 },
+        domProps: { value: _vm.myCamera.y },
+        on: {
+          __r: function($event) {
+            _vm.$set(_vm.myCamera, "y", _vm._n($event.target.value))
+          },
+          blur: function($event) {
+            return _vm.$forceUpdate()
+          }
+        }
+      }),
+      _vm._v(" Y = " + _vm._s(_vm.myCamera.y) + " "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model.number",
+            value: _vm.zoom,
+            expression: "zoom",
+            modifiers: { number: true }
+          }
+        ],
+        attrs: { type: "range", min: 0, max: 10 },
+        domProps: { value: _vm.zoom },
+        on: {
+          __r: function($event) {
+            _vm.zoom = _vm._n($event.target.value)
+          },
+          blur: function($event) {
+            return _vm.$forceUpdate()
+          }
+        }
+      }),
+      _vm._v(" Zoom = " + _vm._s(_vm.zoom) + " "),
+      _c("timer", {
+        attrs: { fps: 10 },
+        scopedSlots: _vm._u([
+          {
+            key: "default",
+            fn: function(clock) {
+              return [
+                _c("ocean-scene", {
+                  attrs: {
+                    align: "topleft",
+                    fit: false,
+                    "show-viewbox": true,
+                    camera: _vm.myCamera,
+                    keyframe: clock.keyframe
+                  }
+                })
+              ]
+            }
+          }
+        ])
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/cache-loader/dist/cjs.js?{\"cacheDirectory\":\"node_modules/.cache/vue-loader\",\"cacheIdentifier\":\"28a44338-vue-loader-template\"}!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./src/examples/ArtAsset/Import.vue?vue&type=template&id=0004963a&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"28a44338-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/examples/ArtAsset/Import.vue?vue&type=template&id=0004963a& ***!
@@ -13381,6 +13576,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/examples/ArtAsset/CameraControl.vue":
+/*!*************************************************!*\
+  !*** ./src/examples/ArtAsset/CameraControl.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CameraControl_vue_vue_type_template_id_2699ebf3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CameraControl.vue?vue&type=template&id=2699ebf3& */ "./src/examples/ArtAsset/CameraControl.vue?vue&type=template&id=2699ebf3&");
+/* harmony import */ var _CameraControl_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CameraControl.vue?vue&type=script&lang=js& */ "./src/examples/ArtAsset/CameraControl.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CameraControl_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CameraControl_vue_vue_type_template_id_2699ebf3___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CameraControl_vue_vue_type_template_id_2699ebf3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "src/examples/ArtAsset/CameraControl.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./src/examples/ArtAsset/CameraControl.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./src/examples/ArtAsset/CameraControl.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_cache_loader_dist_cjs_js_ref_12_0_node_modules_babel_loader_lib_index_js_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CameraControl_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/cache-loader/dist/cjs.js??ref--12-0!../../../node_modules/babel-loader/lib!../../../node_modules/cache-loader/dist/cjs.js??ref--0-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CameraControl.vue?vue&type=script&lang=js& */ "./node_modules/cache-loader/dist/cjs.js?!./node_modules/babel-loader/lib/index.js!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./src/examples/ArtAsset/CameraControl.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_cache_loader_dist_cjs_js_ref_12_0_node_modules_babel_loader_lib_index_js_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CameraControl_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./src/examples/ArtAsset/CameraControl.vue?vue&type=template&id=2699ebf3&":
+/*!********************************************************************************!*\
+  !*** ./src/examples/ArtAsset/CameraControl.vue?vue&type=template&id=2699ebf3& ***!
+  \********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_cache_loader_dist_cjs_js_cacheDirectory_node_modules_cache_vue_loader_cacheIdentifier_28a44338_vue_loader_template_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CameraControl_vue_vue_type_template_id_2699ebf3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"28a44338-vue-loader-template"}!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/cache-loader/dist/cjs.js??ref--0-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CameraControl.vue?vue&type=template&id=2699ebf3& */ "./node_modules/cache-loader/dist/cjs.js?{\"cacheDirectory\":\"node_modules/.cache/vue-loader\",\"cacheIdentifier\":\"28a44338-vue-loader-template\"}!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./src/examples/ArtAsset/CameraControl.vue?vue&type=template&id=2699ebf3&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_cache_loader_dist_cjs_js_cacheDirectory_node_modules_cache_vue_loader_cacheIdentifier_28a44338_vue_loader_template_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CameraControl_vue_vue_type_template_id_2699ebf3___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_cache_loader_dist_cjs_js_cacheDirectory_node_modules_cache_vue_loader_cacheIdentifier_28a44338_vue_loader_template_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CameraControl_vue_vue_type_template_id_2699ebf3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./src/examples/ArtAsset/Import.vue":
 /*!******************************************!*\
   !*** ./src/examples/ArtAsset/Import.vue ***!
@@ -14961,6 +15225,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _examples_KeyframeModifiers_Repeat__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./examples/KeyframeModifiers/Repeat */ "./src/examples/KeyframeModifiers/Repeat.vue");
 /* harmony import */ var _examples_KeyframeModifiers_Hidden__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./examples/KeyframeModifiers/Hidden */ "./src/examples/KeyframeModifiers/Hidden.vue");
 /* harmony import */ var _examples_KeyframeModifiers_DelayHiddenChain__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./examples/KeyframeModifiers/DelayHiddenChain */ "./src/examples/KeyframeModifiers/DelayHiddenChain.vue");
+/* harmony import */ var _examples_ArtAsset_CameraControl__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./examples/ArtAsset/CameraControl */ "./src/examples/ArtAsset/CameraControl.vue");
 
 
 
@@ -14989,6 +15254,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
  // Art Import
+
 
 
 
@@ -15038,7 +15304,8 @@ var components = {
   DelayModifier: _examples_KeyframeModifiers_Delay__WEBPACK_IMPORTED_MODULE_39__["default"],
   RepeatModifier: _examples_KeyframeModifiers_Repeat__WEBPACK_IMPORTED_MODULE_40__["default"],
   HiddenModifier: _examples_KeyframeModifiers_Hidden__WEBPACK_IMPORTED_MODULE_41__["default"],
-  DelayHiddenChain: _examples_KeyframeModifiers_DelayHiddenChain__WEBPACK_IMPORTED_MODULE_42__["default"]
+  DelayHiddenChain: _examples_KeyframeModifiers_DelayHiddenChain__WEBPACK_IMPORTED_MODULE_42__["default"],
+  CameraControl: _examples_ArtAsset_CameraControl__WEBPACK_IMPORTED_MODULE_43__["default"]
 };
 Object.entries(components).map(function (item) {
   vue__WEBPACK_IMPORTED_MODULE_11__["default"].component(item[0], item[1]);
