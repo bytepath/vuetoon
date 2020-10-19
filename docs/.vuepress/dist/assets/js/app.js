@@ -6944,8 +6944,8 @@ __webpack_require__.r(__webpack_exports__);
       href: null,
 
       /**
-      * A position representing the default viewbox [0 0 0 0]
-      */
+       * A position representing the default viewbox [0 0 0 0]
+       */
       viewbox: new _Helpers_Position__WEBPACK_IMPORTED_MODULE_10__["default"]({
         width: 0,
         height: 0
@@ -6956,6 +6956,14 @@ __webpack_require__.r(__webpack_exports__);
        */
       strViewbox: null
     };
+  },
+  watch: {
+    camera: {
+      deep: true,
+      handler: function handler() {
+        this.calculateViewport();
+      }
+    }
   },
   computed: {
     /**
@@ -7030,8 +7038,16 @@ __webpack_require__.r(__webpack_exports__);
      */
     shouldShowViewbox: function shouldShowViewbox() {
       /**
+       * Viewbox is required for camera to work
+       */
+      if (this.camera !== null) {
+        return true;
+      }
+      /**
        * We always show the viewbox if showviewbox is true
        */
+
+
       if (this.showViewbox !== null) {
         return this.showViewbox;
       }
@@ -7774,20 +7790,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var bytepath__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bytepath */ "../bytepath/vue-bytepath.js");
 /* harmony import */ var _bytepathnpm_Samples_Scenes_Ocean_OceanScene__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../bytepathnpm/Samples/Scenes/Ocean/OceanScene */ "../bytepath/Samples/Scenes/Ocean/OceanScene.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = (bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].CreateAsset({
@@ -7808,8 +7810,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     zoom: function zoom() {
-      this.myCamera.scaleX = this.zoom;
-      this.myCamera.scaleY = this.zoom;
+      this.myCamera.scaleX = this.zoom > 0 ? this.zoom : 1;
+      this.myCamera.scaleY = this.zoom > 0 ? this.zoom : 1;
     }
   },
   components: {
@@ -9769,7 +9771,7 @@ var render = function() {
         attrs: {
           "show-viewbox": false,
           id: "dogsocean-scene" + _vm._uid,
-          overflow: "visible"
+          overflow: _vm.overflow
         }
       },
       "vector",
@@ -10693,7 +10695,7 @@ var render = function() {
   return _c(
     "div",
     { staticStyle: { fill: "#90CDF4" }, attrs: { id: "app" } },
-    [_c("demo", { attrs: { src: "delay-modifier", start: 0, end: 2500 } })],
+    [_c("demo", { attrs: { src: "camera-control", start: 0, end: 2500 } })],
     1
   )
 }
@@ -11181,26 +11183,14 @@ var render = function() {
         }
       }),
       _vm._v(" Zoom = " + _vm._s(_vm.zoom) + " "),
-      _c("timer", {
-        attrs: { fps: 10 },
-        scopedSlots: _vm._u([
-          {
-            key: "default",
-            fn: function(clock) {
-              return [
-                _c("ocean-scene", {
-                  attrs: {
-                    align: "topleft",
-                    fit: false,
-                    "show-viewbox": true,
-                    camera: _vm.myCamera,
-                    keyframe: clock.keyframe
-                  }
-                })
-              ]
-            }
-          }
-        ])
+      _c("ocean-scene", {
+        staticStyle: { fill: "#90CDF4" },
+        attrs: {
+          align: "topleft",
+          overflow: "hidden",
+          camera: _vm.myCamera,
+          keyframe: _vm.keyframe
+        }
       })
     ],
     1
