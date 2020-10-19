@@ -6425,12 +6425,14 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Factories_CreateAsset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Factories/CreateAsset */ "../bytepath/Factories/CreateAsset.js");
-/* harmony import */ var _underwater_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./underwater.svg */ "../bytepath/Samples/Scenes/Underwater/underwater.svg");
-/* harmony import */ var _underwater_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_underwater_svg__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _underwaterartboard_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./underwaterartboard.svg */ "../bytepath/Samples/Scenes/Underwater/underwaterartboard.svg");
+/* harmony import */ var _underwaterartboard_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_underwaterartboard_svg__WEBPACK_IMPORTED_MODULE_1__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(_Factories_CreateAsset__WEBPACK_IMPORTED_MODULE_0__["default"])({
-  src: _underwater_svg__WEBPACK_IMPORTED_MODULE_1___default.a,
+  src: _underwaterartboard_svg__WEBPACK_IMPORTED_MODULE_1___default.a,
+  layer: "theart",
+  lookAt: 'octopus',
   name: "octopus"
 }));
 
@@ -8154,21 +8156,25 @@ var Balloon = bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].samples.assets.ba
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var core_js_modules_es_string_repeat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.string.repeat */ "./node_modules/core-js/modules/es.string.repeat.js");
-/* harmony import */ var core_js_modules_es_string_repeat__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_repeat__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_number_constructor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.number.constructor */ "./node_modules/core-js/modules/es.number.constructor.js");
+/* harmony import */ var core_js_modules_es_number_constructor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_constructor__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var bytepath__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bytepath */ "../bytepath/vue-bytepath.js");
 
 
-/* harmony default export */ __webpack_exports__["default"] = (bytepath__WEBPACK_IMPORTED_MODULE_1__["default"].CreateAsset({
+/* harmony default export */ __webpack_exports__["default"] = ({
   name: "DelayExample",
-  layers: [],
-  viewport: true,
+  props: {
+    keyframe: {
+      type: Number,
+      default: 0
+    }
+  },
   components: {
     underwater: bytepath__WEBPACK_IMPORTED_MODULE_1__["default"].samples.scenes.underwater.underwater,
     octopus: bytepath__WEBPACK_IMPORTED_MODULE_1__["default"].samples.scenes.underwater.octopus,
-    "keyframe-repeat": bytepath__WEBPACK_IMPORTED_MODULE_1__["default"].timers.repeat
+    "keyframe-delay": bytepath__WEBPACK_IMPORTED_MODULE_1__["default"].timers.delay
   }
-}));
+});
 
 /***/ }),
 
@@ -8181,20 +8187,17 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var core_js_modules_es_string_repeat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.string.repeat */ "./node_modules/core-js/modules/es.string.repeat.js");
-/* harmony import */ var core_js_modules_es_string_repeat__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_repeat__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var bytepath__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bytepath */ "../bytepath/vue-bytepath.js");
+/* harmony import */ var bytepath__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bytepath */ "../bytepath/vue-bytepath.js");
 
-
-/* harmony default export */ __webpack_exports__["default"] = (bytepath__WEBPACK_IMPORTED_MODULE_1__["default"].CreateAsset({
+/* harmony default export */ __webpack_exports__["default"] = (bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].CreateAsset({
   name: "DelayExample",
   layers: [],
   viewport: true,
   components: {
-    underwater: bytepath__WEBPACK_IMPORTED_MODULE_1__["default"].samples.scenes.underwater.underwater,
-    octopus: bytepath__WEBPACK_IMPORTED_MODULE_1__["default"].samples.scenes.underwater.octopus,
-    "keyframe-repeat": bytepath__WEBPACK_IMPORTED_MODULE_1__["default"].timers.repeat,
-    "keyframe-delay": bytepath__WEBPACK_IMPORTED_MODULE_1__["default"].timers.delay
+    underwater: bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].samples.scenes.underwater.underwater,
+    octopus: bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].samples.scenes.underwater.octopus,
+    "keyframe-visible": bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].timers.visible,
+    "keyframe-delay": bytepath__WEBPACK_IMPORTED_MODULE_0__["default"].timers.delay
   }
 }));
 
@@ -10150,10 +10153,22 @@ var render = function() {
   return _c(
     "vector",
     _vm._b({ style: { fill: _vm.color } }, "vector", _vm.$props, false),
-    _vm._l(_vm.filteredLayers, function(layer, i) {
-      return _c("layer", { key: i, attrs: { layer: layer } })
-    }),
-    1
+    [
+      _vm.layers
+        ? _c(
+            "g",
+            [
+              _c("layer", {
+                attrs: {
+                  position: _vm.layers["octopus"],
+                  layer: _vm.layers["octopus"]
+                }
+              })
+            ],
+            1
+          )
+        : _vm._e()
+    ]
   )
 }
 var staticRenderFns = []
@@ -10197,38 +10212,13 @@ var render = function() {
                             y: "0",
                             width: "1384",
                             height: "1500",
-                            fill: _vm.defaultColor
+                            fill: "#42A7B0"
                           }
                         }),
                         _c("layer", {
                           attrs: { layer: _vm.layers["background"] }
                         }),
-                        _c(
-                          "foreignObject",
-                          {
-                            attrs: {
-                              x: "550",
-                              y: "0",
-                              width: "810",
-                              height: "1450"
-                            }
-                          },
-                          [
-                            _c("html", [
-                              _c(
-                                "body",
-                                {
-                                  style: [
-                                    { "background-color": "#0B5262" },
-                                    { height: "1500px" }
-                                  ]
-                                },
-                                [_vm._t("default")],
-                                2
-                              )
-                            ])
-                          ]
-                        ),
+                        _vm._t("default"),
                         _c("repeat", {
                           attrs: { repeat: 7000, keyframe: _vm.keyframe },
                           scopedSlots: _vm._u(
@@ -10646,7 +10636,7 @@ var render = function() {
   return _c(
     "div",
     { staticStyle: { fill: "#90CDF4" }, attrs: { id: "app" } },
-    [_c("home-page")],
+    [_c("demo", { attrs: { src: "delay-modifier", start: 0, end: 2500 } })],
     1
   )
 }
@@ -11547,43 +11537,10 @@ var render = function() {
                           )
                         ]
                       ),
-                      _c(
-                        "ocean-scene",
-                        {
-                          staticStyle: { fill: "#90CDF4" },
-                          attrs: { "show-viewbox": false, keyframe: keyframe }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "flex justify-around content-around"
-                            },
-                            [
-                              _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "content-around text-red-400 h-screen w-full w-screen",
-                                  staticStyle: { "background-color": "#587076" }
-                                },
-                                [
-                                  _c("h1", { staticClass: "text-lg" }, [
-                                    _vm._v("What Is Lorem Ipsum")
-                                  ]),
-                                  _c("p", [
-                                    _vm._v(
-                                      "What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Why do we use it? It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). "
-                                    )
-                                  ]),
-                                  _c("br"),
-                                  _c("h3", [_vm._v("INSERT YOUR HTML HERE")])
-                                ]
-                              )
-                            ]
-                          )
-                        ]
-                      )
+                      _c("ocean-scene", {
+                        staticStyle: { fill: "#90CDF4" },
+                        attrs: { "show-viewbox": false, keyframe: keyframe }
+                      })
                     ],
                     1
                   )
@@ -11885,12 +11842,7 @@ var render = function() {
     [
       _c(
         "underwater",
-        _vm._b(
-          { attrs: { "show-viewbox": false, overflow: "hidden" } },
-          "underwater",
-          _vm.$props,
-          false
-        ),
+        { attrs: { "show-viewbox": false, overflow: "hidden" } },
         [
           _c(
             "g",
@@ -11977,12 +11929,7 @@ var render = function() {
     [
       _c(
         "underwater",
-        _vm._b(
-          { attrs: { "show-viewbox": true, overflow: "hidden" } },
-          "underwater",
-          _vm.$props,
-          false
-        ),
+        { attrs: { "show-viewbox": true, overflow: "hidden" } },
         [
           _c(
             "g",
@@ -12150,12 +12097,7 @@ var render = function() {
     [
       _c(
         "underwater",
-        _vm._b(
-          { attrs: { "show-viewbox": true, overflow: "hidden" } },
-          "underwater",
-          _vm.$props,
-          false
-        ),
+        { attrs: { "show-viewbox": true, overflow: "hidden" } },
         [
           _c("keyframe-visible", {
             attrs: { keyframe: _vm.keyframe },
@@ -12207,12 +12149,7 @@ var render = function() {
     [
       _c(
         "underwater",
-        _vm._b(
-          { attrs: { "show-viewbox": true, overflow: "hidden" } },
-          "underwater",
-          _vm.$props,
-          false
-        ),
+        { attrs: { "show-viewbox": true, overflow: "hidden" } },
         [
           _c(
             "g",
