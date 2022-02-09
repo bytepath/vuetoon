@@ -116,8 +116,6 @@
                     },
 
 
-
-
                 ]
             };
         },
@@ -125,33 +123,38 @@
 </script>
 
 <template>
-    <vector :show-viewbox="false"  :id="'dogsocean-scene'+_uid" v-bind="$props" overflow="visible">
+    <vector :show-viewbox="false" :id="'dogsocean-scene'+_uid" v-bind="$props" :overflow="overflow">
         <clock :fps="15" :keyframe="keyframe" :start="0" :end="3275" v-slot="clock">
-        <g>
+            <g>
 
-            <delay :keyframe="keyframe" :start="0" v-slot="reset">
-                <sky :keyframe="reset.keyframe">
+                <delay :keyframe="keyframe" :start="0" v-slot="reset">
+                    <sky :keyframe="reset.keyframe">
+                        <g>
+                            <delay :keyframe="keyframe" :start="1100" v-slot="reset">
+                                <coast :keyframe="reset.keyframe" transform="translate(0 1105)"/>
+                            </delay>
+                        </g>
+                        <slot/>
+                    </sky>
+                </delay>
+
+                <delay :keyframe="keyframe" :start="1100" v-slot="octopus">
                     <g>
-                        <delay :keyframe="keyframe" :start="1100" v-slot="reset">
-                            <coast :keyframe="reset.keyframe" transform="translate(0 1105)"/>
-                        </delay>
+                        <underwater :show-viewbox="false" :y="1595" color="#42A7B0" :align="'topleft'"
+                                    :position="underwaterPosition" :octopus-keyframe="octopus.keyframe"
+                                    :keyframe="clock.keyframe">
+                            <slot/>
+                        </underwater>
                     </g>
-                    <slot />
-                </sky>
-            </delay>
+                </delay>
 
-            <delay :keyframe="keyframe" :start="1100" v-slot="octopus">
-                <underwater :show-viewbox="false" :y="1595" color="#42A7B0" :align="'topleft'" :position="underwaterPosition"  :octopus-keyframe="octopus.keyframe" :keyframe="clock.keyframe">
-                    <slot />
-                </underwater>
-            </delay>
-
-            <do-a-barrel-roll :keyframe="keyframe" v-slot="barrel">
-                <balloon  :x="-225" :y="500" :sx="0.5" :sy="0.5" v-bind="barrel">
-                    <pig v-if="keyframe < 2267" width="90" height="80"  align="topleft" :fit="false"  :x="75" :y="450" :position="pigPos" />
-                </balloon>
-            </do-a-barrel-roll>
-        </g>
+                <do-a-barrel-roll :keyframe="keyframe" v-slot="barrel">
+                    <balloon :x="-225" :y="500" :sx="0.5" :sy="0.5" v-bind="barrel">
+                        <pig v-if="keyframe < 2267" width="90" height="80" align="topleft" :fit="false" :x="75" :y="450"
+                             :position="pigPos"/>
+                    </balloon>
+                </do-a-barrel-roll>
+            </g>
         </clock>
     </vector>
 </template>

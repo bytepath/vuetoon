@@ -1,16 +1,19 @@
 <script>
-    import Bytepath from 'bytepath';
-    import svg from "./underwater.svg";
+    import CreateAsset from "../../../Factories/CreateAsset";
+    import src from "./underwaterartboard.svg";
 
-    export default Bytepath.CreateAsset({
-        src: svg,
+    export default CreateAsset({
+        src,
+        layer: "theart",
+        lookAt: 'octopus',
         name: "octopus",
-        layers: ["octopus"],
     });
 </script>
 
 <template>
     <vector :style="{fill: color}" v-bind="$props" >
-        <layer v-for="(layer, i) in filteredLayers" :key="i" :layer="layer" />
+        <g v-if="layers">
+            <layer :position="layers['octopus']" :layer="layers['octopus']" />
+        </g>
     </vector>
 </template>

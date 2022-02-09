@@ -8,7 +8,7 @@ order: 1
 
 By modifying the **:X** and **:Y** props of the &lt;vector&gt; we created in the previous example, we can move our rectangle around the screen. In the world of computer graphics, changing the position of an element is referred to as a "Translation"
 
-<<< @/../ docs/.vuepress/components/BasicTransformations/Translation.vue
+<<< @/../bytepath-io/src/examples/BasicTransformations/Translation.vue
  
 :::demo translation-prop
 ::: 
@@ -18,7 +18,7 @@ By modifying the **:X** and **:Y** props of the &lt;vector&gt; we created in the
 We can increase or decrease the size of our &lt;vector&gt; by modifying the **:SX** and **:SY** props of the &lt;vector&gt; component. In the world of computer graphics, changing the position of an element is referred to as a "Scale Transformation"
 
 
-<<< @/docs/.vuepress/components/BasicTransformations/Scale.vue
+<<< @/../bytepath-io/src/examples/BasicTransformations/Scale.vue
 
 :::demo scale-prop
 ::: 
@@ -30,7 +30,7 @@ We can increase or decrease the size of our &lt;vector&gt; by modifying the **:S
 
 We can rotate our &lt;vector&gt; components by modifying the **:A** prop. In the world of computer graphics, changing the position of an element is referred to as a "Rotation Transformation"
 
-<<< @/docs/.vuepress/components/BasicTransformations/Rotation.vue
+<<< @/../bytepath-io/src/examples/BasicTransformations/Rotation.vue
 
 :::demo rotation-prop
 ::: 
@@ -53,7 +53,7 @@ CURRENTLY BROKEN
 
 Modifying the :width and :height props of a vector will override its internal size and force the image to be the provided dimensions.
 
-<<< @/docs/.vuepress/components/BasicTransformations/WidthHeight.vue
+<<< @/../bytepath-io/src/examples/BasicTransformations/WidthHeight.vue
 
 :::demo width-height
 ::: 

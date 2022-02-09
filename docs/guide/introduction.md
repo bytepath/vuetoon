@@ -41,11 +41,10 @@ The official guide assumes an intermediate level knowledge of HTML, CSS, and Jav
 Lets start by rendering a simple rectangle using the included the &lt;vector&gt; component.
 Internally, &lt;vector&gt; is just a really fancy &lt;svg&gt;, so any valid &lt;svg&gt; syntax can be written inside. 
 
-<<< @/docs/.vuepress/components/Introduction/Rectangle.vue
+<<< @/../bytepath-io/src/examples/Introduction/Rectangle.vue
 
-<ClientOnly>
-<Introduction-Rectangle />
-</ClientOnly>
+:::demo vector-rect
+:::
 
 - tip: It's helpful to be familiar with the &lt;svg&gt; tag, but if you aren't, dont worry! You won't be manually building assets like this in real projects unless you have a specific reason to do so.
 
@@ -54,22 +53,19 @@ Internally, &lt;vector&gt; is just a really fancy &lt;svg&gt;, so any valid &lt;
 Since the rectangle we just created is just a normal single file Vue component, we can now use it over and over again without having to re write any ugly XML syntax by importing Rectangle.vue into another component, just like we can do in any Vue.js based app.
 By changing the :color prop we added to the &lt;rectangle&gt; component, we can now create an unlimited number of unique graphical assets simply by changing the color.   
 
-<<< @/docs/.vuepress/components/Introduction/ComponentBasedAssets.vue
+<<< @/../bytepath-io/src/examples/Introduction/ComponentBasedAssets.vue
 
-<ClientOnly>
-<Introduction-ComponentBasedAssets />
-</ClientOnly>
-
+:::demo component-based-assets
+:::
 
 ## Sample Assets
 
 Bytepath ships with sample assets you can use right out of the box. Lets try importing the bytepath balloon logo.
 
-<<< @/docs/.vuepress/components/Introduction/BalloonSample.vue
+<<< @/../bytepath-io/src/examples/Introduction/BalloonSample.vue
 
-<ClientOnly>
-<Introduction-BalloonSample />
-</ClientOnly>
+:::demo balloon-sample
+:::
 
 - Check out the full list of assets available HERE
 

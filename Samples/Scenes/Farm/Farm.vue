@@ -20,7 +20,7 @@
 
 <template>
     <vector :id="'farm__' + _uid" :show-viewbox="false" :style="{fill: defaultColor }" v-bind="$props" v-slot="">
-        <clock :fps="30" v-slot="clock">
+        <clock :fps="60" v-slot="clock">
             <g v-if="layers">
                 <rect fill="#E3DAA6" y="-900" width="1384" height="905" />
 

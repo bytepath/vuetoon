@@ -18,14 +18,10 @@ In the example below we create a "Barrel Roll" renderless animation component th
 This is the actual renderless component used on the Bytepath homepage animation
 :::
 
-<<< @/docs/.vuepress/components/Animation/RenderlessExample.vue
+<<< @/../bytepath-io/src/examples/Animation/RenderlessExample.vue
 
-<ClientOnly>
-<Demo :end="2500" v-slot="{ keyframe }">
-<Animation-RenderlessExample :keyframe="keyframe" />
-</Demo>  
-</ClientOnly>
-
+:::demo renderless-example 0 2500
+:::
 
 ## Running animations in the context of child components
 Sometimes you might find yourself wanting to run an animation in the context of your child components but the child component does not have that animation available in it's single file component. 
@@ -60,14 +56,10 @@ However, there are situations where this isn't good enough
  This means we can access and change anything we want inside the child component from the context of the parent 
 
 
-<<< @/docs/.vuepress/components/Animation/PropAnimation.vue
+<<< @/../bytepath-io/src/examples/Animation/PropAnimation.vue
 
-<ClientOnly>
-<Demo :end="2500" v-slot="{ keyframe }">
-<Animation-PropAnimation :keyframe="keyframe" />
-</Demo>  
-</ClientOnly>
-
+:::demo prop-animation 0 2500
+:::
 
 ## Animations can only access and change properties that exist
 This might sound obvious, but since we are running the animation in the context of the child, any data you access and/or change in your animation handler() function must exist in the child class. This means that if you want to change a color, like we did in the previous example, the color variable must exist

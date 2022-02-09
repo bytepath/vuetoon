@@ -5,41 +5,28 @@ order: 12
 ---
 ## KeyframeDelay delays keyframe start until keyframe >= :start prop
 
-<<< @/docs/.vuepress/components/KeyframeModifiers/Delay.vue
+<<< @/../bytepath-io/src/examples/KeyframeModifiers/Delay.vue
 
-<ClientOnly>
-<Demo :end="2500" v-slot="{ keyframe }">
-<KeyframeModifiers-Delay :keyframe="keyframe" />
-</Demo>  
-</ClientOnly>
+:::demo delay-modifier 0 2500
+:::
 
 ## KeyframeRepeat will return keyframe to 0 at frame :repeat
 
-<<< @/docs/.vuepress/components/KeyframeModifiers/Repeat.vue
+<<< @/../bytepath-io/src/examples/KeyframeModifiers/Repeat.vue
 
-<ClientOnly>
-<Demo :end="2500" v-slot="{ keyframe }">
-<KeyframeModifiers-Repeat :keyframe="keyframe" />
-</Demo>  
-</ClientOnly>
+:::demo repeat-modifier 0 2500
+:::
 
 ## KeyframeVisible resets keyframe if asset goes off screen
 
-<<< @/docs/.vuepress/components/KeyframeModifiers/Hidden.vue
+<<< @/../bytepath-io/src/examples/KeyframeModifiers/Hidden.vue
 
-<ClientOnly>
-<Demo :end="5000" v-slot="{ keyframe }">
-<KeyframeModifiers-Hidden :keyframe="keyframe" />
-</Demo>  
-</ClientOnly>
-
+:::demo hidden-modifier 0 5000
+:::
 
 # Keyframe modifiers can be chained together
 
-<<< @/docs/.vuepress/components/KeyframeModifiers/DelayHiddenChain.vue
+<<< @/../bytepath-io/src/examples/KeyframeModifiers/DelayHiddenChain.vue
 
-<ClientOnly>
-<Demo :end="5000" v-slot="{ keyframe }">
-<KeyframeModifiers-DelayHiddenChain :keyframe="keyframe" />
-</Demo>  
-</ClientOnly>
+:::demo delay-hidden-chain 0 5000
+:::

@@ -1,18 +1,31 @@
 <script>
-    import AnimationEntity from "../../Mixins/AnimationEntity";
     import Vector from "./Vector";
     import CalculatesTransformation from "../../Mixins/CalculatesTransformation";
     import Position from "../../../Helpers/Position";
 
     export default {
         name: 'layer',
-        mixins: [ AnimationEntity, CalculatesTransformation ],
+        mixins: [ CalculatesTransformation ],
 
         props: {
             layer: {
-                type: Object,
                 required: true,
+            },
+
+            opacity: {
+                type: Number,
+                default: 100,
             }
+        },
+
+        computed: {
+            useLayer() {
+              if(typeof this.layer === 'object') {
+                  return this.layer.layer.id;
+              }
+
+              return this.layer;
+            },
         },
 
         methods: {
@@ -57,8 +70,14 @@
 </script>
 
 <template>
-    <g :transform="transform">
-        <use :href="'#' + layer.layer.id" ></use>
+    <g :transform="transform" :opacity="opacity" >
+        <use class="layer" :href="'#' + useLayer" ></use>
         <slot />
     </g>
 </template>
+
+<style scoped>
+    .color1 {
+        fill: red;
+    }
+</style>

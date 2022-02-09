@@ -1,7 +1,7 @@
 <script>
     import Background from "./Background";
     import CreateAsset from "../../../Factories/CreateAsset";
-    import Bytepath from "../../../vue-bytepath";
+    import KeyframeRepeat from "../../../vue/Components/Timers/KeyframeRepeat";
     import YellowFish from "./YellowFish";
     import BigFish from "./BigFish";
     import Octopus from "./Octopus";
@@ -26,9 +26,7 @@
             Octopus,
             BigFish,
             YellowFish,
-            delay: Bytepath.timers.delay,
-            repeat: Bytepath.timers.repeat,
-            visible: Bytepath.timers.visible,
+            repeat: KeyframeRepeat,
         }
     })
 </script>
@@ -36,16 +34,10 @@
 <template>
     <vector :id="'underwater-'+_uid" v-bind="$props" v-slot="">
         <template v-if="layers">
-            <rect x="0" y="0" width="1384" height="1500" :fill="defaultColor" />
+            <rect x="0" y="0" width="1384" height="2200" fill="#015191" />
+            <rect x="0" y="0" width="1384" height="1500" fill="#42A7B0" />
             <layer :layer="layers['background']"/>
-
-            <foreignObject x="550" y="0" width="810" height="1450">
-                <html>
-                <body :style="[{'background-color': '#0B5262' }, {height: '1500px'}]">
-                <slot />
-                </body>
-                </html>
-            </foreignObject>
+            <slot />
 
 
             <repeat :repeat="7000" :keyframe="keyframe" v-slot="visible">

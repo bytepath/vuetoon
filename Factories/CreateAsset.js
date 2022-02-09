@@ -3,6 +3,7 @@ import Layer from "../vue/Components/SVG/Layer";
 import Vector from "../vue/Components/SVG/Vector";
 import Scene from "../vue/Components/SVG/Scene";
 import LayerExtractor from "../Helpers/LayerExtractor";
+import SrcToKey from "../vue/Components/Filters/SanitizedPath";
 
 /**
  *
@@ -68,7 +69,15 @@ let createAsset = function (data = {}) {
         computed: {
             filteredLayers() {
                 return this.layers;
-            }
+            },
+
+            srcKey() {
+                if(this.src) {
+                    return SrcToKey(this.src);
+                }
+
+                return null;
+            },
         },
 
         methods: {
@@ -78,6 +87,7 @@ let createAsset = function (data = {}) {
              * @param loadedAsset the loaded image object
              */
             onLoaded(loadedAsset) {
+                console.log("onloaded", loadedAsset);
                 this.layers = LayerExtractor(loadedAsset, this.layer);
             },
         },

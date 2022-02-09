@@ -92,7 +92,11 @@ export default class Position {
     }
 
     toViewbox() {
-        return `${this.x} ${this.y} ${this.width} ${this.height}`;
+        if(this.width !== 0 && this.height !== 0) {
+            return `${this.x} ${this.y} ${this.width} ${this.height}`;
+        }
+
+        return null;
     }
 
     toString() {

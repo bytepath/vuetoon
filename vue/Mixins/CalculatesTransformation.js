@@ -5,7 +5,7 @@ import Position from "../../Helpers/Position";
 import AcceptsTransformProps from "./AcceptsTransformProps";
 
 export default {
-    mixins: [ AcceptsTransformProps ],
+    mixins: [AcceptsTransformProps],
     data() {
         return {
             dimensions: new Position(),
@@ -81,29 +81,31 @@ export default {
         /**
          * The width of the asset
          */
-        w(){
-            if(this.position.width !== null) {
+        w() {
+            if (this.position.width !== null) {
                 return this.position.width;
-            }
-            else if(this.width !== null) {
+            } else if (this.width !== null) {
                 return this.width;
+            } else if (this.dimensions.width !== 0) {
+                return this.dimensions.width;
             }
 
-            return this.dimensions.width;
+            return null;
         },
 
         /**
          * The height of the asset
          */
-        h(){
-            if(this.position.height !== null) {
+        h() {
+            if (this.position.height !== null) {
                 return this.position.height;
-            }
-            else if(this.height !== null) {
+            } else if (this.height !== null) {
                 return this.height;
+            } else if (this.dimensions.height !== 0) {
+                return this.dimensions.height;
             }
 
-            return this.dimensions.height;
+            return null;
         },
     },
 
@@ -135,7 +137,7 @@ export default {
                 skewY: 0,
                 centerX: center.x,
                 centerY: center.y,
-                width: this.w  + this.position.width,
+                width: this.w + this.position.width,
                 height: this.h + this.position.height,
             });
         },
@@ -149,8 +151,8 @@ export default {
                 let matrix = this.matrix;
 
                 // Check if the matrix prop is a matrix or a position
-                if(this.matrix){
-                    if(matrix.constructor.name == "Position") {
+                if (this.matrix) {
+                    if (matrix.constructor.name == "Position") {
                         matrix = matrix.matrix;
                     }
                 }
@@ -164,13 +166,12 @@ export default {
          * Returns the position this asset is using as center
          * @returns {{x: number, y: number}}
          */
-        getCenterPosition(){
+        getCenterPosition() {
             let file = "CalculatesTransformation.js";
             let msg = "Don't use default getCenterPosition function, instead override with your own functionality";
             console.warn(`${file}: ${msg}`);
             return new Position();
         },
-
 
 
     },

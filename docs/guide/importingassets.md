@@ -5,13 +5,10 @@ title: Importing Art Assets
 
 We can import art assets from normal SVG files created by any illustration program. Just profile a path to the file to the :src prop of the &lt;vector&gt; component and bytepath will handle loading this file for you
 
-<<< @/docs/.vuepress/components/ArtAsset/Import.vue{3,7}
+<<< @/../bytepath-io/src/examples/ArtAsset/Import.vue{3,7}
 
-<ClientOnly>
-<Demo :end="2500" v-slot="{ keyframe }">
-<ArtAsset-Import :keyframe="keyframe" />
-</Demo>  
-</ClientOnly>
+:::demo asset-import
+:::
 
 ## Files loaded only once
 
@@ -23,26 +20,20 @@ Bytepath can pull individual layers out of your SVG files to use as discrete ass
 This means that artists can simply draw all the assets for your animation in a single file, with each piece of the scene being it's own layer. 
 Example: If you were making a highway scene you could draw all of the different cars in a single file, then pull out each car as individual assets.  
 
-<<< @/docs/.vuepress/components/ArtAsset/ImportLayer.vue{8}
+<<< @/../bytepath-io/src/examples/ArtAsset/ImportLayer.vue{8}
 
-<ClientOnly>
-<Demo :end="2500" v-slot="{ keyframe }">
-<ArtAsset-ImportLayer :keyframe="keyframe" />
-</Demo>  
-</ClientOnly>
+:::demo asset-import-layer
+:::
 
 
 ## Loading Multiple layers
 
 If you want to load multiple layers just add more layers to the array 
 
-<<< @/docs/.vuepress/components/ArtAsset/ImportMultiLayer.vue{8}
+<<< @/../bytepath-io/src/examples/ArtAsset/ImportMultiLayer.vue{8}
 
-<ClientOnly>
-<Demo :end="2500" v-slot="{ keyframe }">
-<ArtAsset-ImportMultiLayer :keyframe="keyframe" />
-</Demo>  
-</ClientOnly>
+:::demo asset-import-multi-layer
+:::
 
 
 ## Use Webpack to manage your image files

@@ -32,11 +32,12 @@ export default function (asset, layer = null) {
         });
     }
 
-
     // Filter layers we don't want
-    rawLayers.filter((layer) => (layer.charAt(0) !== "_")).map((layer) => {
-        let name = layer.split(asset.key).splice(1).join("");
-        layers[name] = new LayeredPosition({}, {name, id: layer});
+    rawLayers.filter((layer) => (layer.charAt(0) !== "_"))
+        .map((layer) => {
+            console.log("filter check", layer);
+            let name = layer.split(asset.key).splice(1).join("");
+            layers[name] = new LayeredPosition({}, {name, id: layer});
     });
 
     return layers;

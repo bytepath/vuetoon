@@ -36,6 +36,10 @@ import tinyBalloon from "./Samples/Assets/TinyBalloon/TinyBalloon";
 import human from "./Samples/Assets/Human/Human";
 import pointyBackground from "./Samples/Scenes/Partials/PointyBackground";
 
+// Sample Scenes
+import underwaterScene from "./Samples/Scenes/Underwater/Underwater";
+import octopus from "./Samples/Scenes/Underwater/Octopus";
+
 // Sample Animations
 import doABarrelRoll from "./Samples/Animations/DoABarrelRoll";
 
@@ -96,6 +100,10 @@ const Bytepath = {
         },
 
         scenes: {
+            underwater: {
+                underwater: underwaterScene,
+                octopus,
+            },
             partials: {
                 pointyBackground,
             }

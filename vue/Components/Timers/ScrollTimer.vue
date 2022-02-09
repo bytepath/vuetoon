@@ -59,9 +59,14 @@
             // Updates the scale factor for the output keyframe
             updateViewportScale(){
                 if(this.$el){
-                    let m = this.$el.getScreenCTM();
-                    console.log("ve");
-                    this.scale = 1 + (1 - m.d);
+                    if(this.$el) {
+                        if (this.$el.getScreenCTM) {
+                            let m = this.$el.getScreenCTM();
+                            console.log("ve");
+                            this.scale = 1 + (1 - m.d);
+                            console.log("scroll viewport scale", this.scale);
+                        }
+                    }
                 }
             },
         },

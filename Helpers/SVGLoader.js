@@ -39,13 +39,15 @@ let loader = class SVGLoader {
      * @returns { Promise }
      */
     load(src = null, asset = null) {
+        console.log('loading', src);
+
         if(!src){
             return Promise.reject({ 'msg': 'src is null' });
         }
 
         let file = SrcToKey(src);
         if(!this.fileIsLoaded(src)) {
-            //console.log(file, "not loaded yet");
+            console.log(file, "not loaded yet");
             let promise = axios.get(src)
                 .then((response) => {
                     // Set this :src file as downloaded in the global list
@@ -58,7 +60,7 @@ let loader = class SVGLoader {
 
         // If the file was loaded without an asset id it has not been rendered on the screen. Set the ID to this asset
         if(this.loadedAssets[file].id == null && asset !== null) {
-            //console.log("found null asset id setting to ", asset, file);
+            console.log("found null asset id setting to ", asset, file);
             this.loadedAssets[file].id = asset;
         }
 

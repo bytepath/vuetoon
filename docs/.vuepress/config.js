@@ -23,12 +23,15 @@ let sidebar = {
 
         {
             title: 'Advanced',
+            collapsable: false,
             children: ['renderlessanimations', 'cameracontrol'],
         },
         {
             title: "Homeless Shelter",
+            collapsable: false,
             children: [{
                 title: 'User Input',
+                collapsable: false,
                 children: ['mouseinput', 'keyboardinput'],
             }, 'domtransformations', 'matrixprop', 'positionclass', 'sampleassets', 'animationreuse'],
         }
@@ -50,6 +53,7 @@ module.exports = {
     head: [
         ['script', { src: "/assets/js/chunk-vendors.js" }],
         ['script', { src: "/assets/js/app.js" }],
+        ['link', { rel: "stylesheet", href: "/assets/css/bytepath.css" }],
     ],
 
     plugins: [

@@ -19,11 +19,10 @@ Assets can be composed together in other components to create new assets.
 In the example below we import two sample assets, balloon and human. By including human as a slotted component on balloon, and binding the balloon's slot props, The human asset can use the balloon as a "vehicle", moving around the screen as a single asset. 
 Try moving the sliders below and watch the assets move together. 
  
-<<< @/docs/.vuepress/components/ArtAsset/VehicleComposition.vue
+<<< @/../bytepath-io/src/examples/ArtAsset/VehicleComposition.vue
 
-<ClientOnly>
-<ArtAsset-VehicleComposition />
-</ClientOnly>
+:::demo asset-composition
+:::
 
 
 ## How This Works

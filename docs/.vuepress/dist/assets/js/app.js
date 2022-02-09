@@ -6409,8 +6409,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(_Factories_CreateAsset__WEBPACK_IMPORTED_MODULE_0__["default"])({
   src: _underwaterartboard_svg__WEBPACK_IMPORTED_MODULE_1___default.a,
-  name: "bigfish",
-  components: {}
+  layer: "theart",
+  lookAt: 'bigfish',
+  name: "bigfish"
 }));
 
 /***/ }),
@@ -6451,16 +6452,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_number_constructor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_constructor__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Background__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Background */ "../bytepath/Samples/Scenes/Underwater/Background.vue");
 /* harmony import */ var _Factories_CreateAsset__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Factories/CreateAsset */ "../bytepath/Factories/CreateAsset.js");
-/* harmony import */ var _vue_Components_Timers_KeyframeVisible__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../vue/Components/Timers/KeyframeVisible */ "../bytepath/vue/Components/Timers/KeyframeVisible.js");
-/* harmony import */ var _vue_Components_Timers_KeyframeDelay__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../vue/Components/Timers/KeyframeDelay */ "../bytepath/vue/Components/Timers/KeyframeDelay.js");
-/* harmony import */ var _vue_Components_Timers_KeyframeRepeat__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../vue/Components/Timers/KeyframeRepeat */ "../bytepath/vue/Components/Timers/KeyframeRepeat.js");
-/* harmony import */ var _YellowFish__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./YellowFish */ "../bytepath/Samples/Scenes/Underwater/YellowFish.vue");
-/* harmony import */ var _BigFish__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./BigFish */ "../bytepath/Samples/Scenes/Underwater/BigFish.vue");
-/* harmony import */ var _Octopus__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Octopus */ "../bytepath/Samples/Scenes/Underwater/Octopus.vue");
-/* harmony import */ var _underwaterartboard_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./underwaterartboard.svg */ "../bytepath/Samples/Scenes/Underwater/underwaterartboard.svg");
-/* harmony import */ var _underwaterartboard_svg__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_underwaterartboard_svg__WEBPACK_IMPORTED_MODULE_9__);
-
-
+/* harmony import */ var _vue_Components_Timers_KeyframeRepeat__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../vue/Components/Timers/KeyframeRepeat */ "../bytepath/vue/Components/Timers/KeyframeRepeat.js");
+/* harmony import */ var _YellowFish__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./YellowFish */ "../bytepath/Samples/Scenes/Underwater/YellowFish.vue");
+/* harmony import */ var _BigFish__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./BigFish */ "../bytepath/Samples/Scenes/Underwater/BigFish.vue");
+/* harmony import */ var _Octopus__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Octopus */ "../bytepath/Samples/Scenes/Underwater/Octopus.vue");
+/* harmony import */ var _underwaterartboard_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./underwaterartboard.svg */ "../bytepath/Samples/Scenes/Underwater/underwaterartboard.svg");
+/* harmony import */ var _underwaterartboard_svg__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_underwaterartboard_svg__WEBPACK_IMPORTED_MODULE_7__);
 
 
 
@@ -6471,7 +6468,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(_Factories_CreateAsset__WEBPACK_IMPORTED_MODULE_2__["default"])({
   name: "underwater",
-  src: _underwaterartboard_svg__WEBPACK_IMPORTED_MODULE_9___default.a,
+  src: _underwaterartboard_svg__WEBPACK_IMPORTED_MODULE_7___default.a,
   layer: 'theart',
   lookAt: 'background',
   props: {
@@ -6483,12 +6480,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     Background: _Background__WEBPACK_IMPORTED_MODULE_1__["default"],
-    Octopus: _Octopus__WEBPACK_IMPORTED_MODULE_8__["default"],
-    BigFish: _BigFish__WEBPACK_IMPORTED_MODULE_7__["default"],
-    YellowFish: _YellowFish__WEBPACK_IMPORTED_MODULE_6__["default"],
-    KeyframeDelay: _vue_Components_Timers_KeyframeDelay__WEBPACK_IMPORTED_MODULE_4__["default"],
-    KeyframeRepeat: _vue_Components_Timers_KeyframeRepeat__WEBPACK_IMPORTED_MODULE_5__["default"],
-    KeyframeVisible: _vue_Components_Timers_KeyframeVisible__WEBPACK_IMPORTED_MODULE_3__["default"]
+    Octopus: _Octopus__WEBPACK_IMPORTED_MODULE_6__["default"],
+    BigFish: _BigFish__WEBPACK_IMPORTED_MODULE_5__["default"],
+    YellowFish: _YellowFish__WEBPACK_IMPORTED_MODULE_4__["default"],
+    repeat: _vue_Components_Timers_KeyframeRepeat__WEBPACK_IMPORTED_MODULE_3__["default"]
   }
 }));
 
@@ -6503,15 +6498,16 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _underwater_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./underwater.svg */ "../bytepath/Samples/Scenes/Underwater/underwater.svg");
-/* harmony import */ var _underwater_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_underwater_svg__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Factories_CreateAsset__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Factories/CreateAsset */ "../bytepath/Factories/CreateAsset.js");
+/* harmony import */ var _Factories_CreateAsset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Factories/CreateAsset */ "../bytepath/Factories/CreateAsset.js");
+/* harmony import */ var _underwaterartboard_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./underwaterartboard.svg */ "../bytepath/Samples/Scenes/Underwater/underwaterartboard.svg");
+/* harmony import */ var _underwaterartboard_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_underwaterartboard_svg__WEBPACK_IMPORTED_MODULE_1__);
 
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(_Factories_CreateAsset__WEBPACK_IMPORTED_MODULE_1__["default"])({
-  src: _underwater_svg__WEBPACK_IMPORTED_MODULE_0___default.a,
-  name: "yellowfish",
-  components: {}
+/* harmony default export */ __webpack_exports__["default"] = (Object(_Factories_CreateAsset__WEBPACK_IMPORTED_MODULE_0__["default"])({
+  src: _underwaterartboard_svg__WEBPACK_IMPORTED_MODULE_1___default.a,
+  layer: "theart",
+  lookAt: 'yellowfish',
+  name: "yellowfish"
 }));
 
 /***/ }),
@@ -9872,16 +9868,7 @@ var render = function() {
                                       },
                                       [_vm._t("default")],
                                       2
-                                    ),
-                                    _c("rect", {
-                                      attrs: {
-                                        x: "0",
-                                        y: "3250",
-                                        width: "1384",
-                                        height: "550",
-                                        fill: "#015191"
-                                      }
-                                    })
+                                    )
                                   ],
                                   1
                                 )
@@ -10184,7 +10171,23 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "vector",
-    _vm._b({ style: { fill: _vm.color } }, "vector", _vm.$props, false)
+    _vm._b({ style: { fill: _vm.color } }, "vector", _vm.$props, false),
+    [
+      _vm.layers
+        ? _c(
+            "g",
+            [
+              _c("layer", {
+                attrs: {
+                  position: _vm.layers[_vm.lookAt],
+                  layer: _vm.layers[_vm.lookAt]
+                }
+              })
+            ],
+            1
+          )
+        : _vm._e()
+    ]
   )
 }
 var staticRenderFns = []
@@ -10265,6 +10268,15 @@ var render = function() {
                 return [
                   _vm.layers
                     ? [
+                        _c("rect", {
+                          attrs: {
+                            x: "0",
+                            y: "0",
+                            width: "1384",
+                            height: "2200",
+                            fill: "#015191"
+                          }
+                        }),
                         _c("rect", {
                           attrs: {
                             x: "0",
@@ -10450,25 +10462,23 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "vector",
-    _vm._b(
-      {
-        style: { fill: _vm.color },
-        scopedSlots: _vm._u([
-          {
-            key: "default",
-            fn: function() {
-              return _vm._l(_vm.filteredLayers, function(layer, i) {
-                return _c("layer", { key: i, attrs: { layer: layer } })
+    _vm._b({ style: { fill: _vm.color } }, "vector", _vm.$props, false),
+    [
+      _vm.layers
+        ? _c(
+            "g",
+            [
+              _c("layer", {
+                attrs: {
+                  position: _vm.layers["yellowfish"],
+                  layer: _vm.layers["yellowfish"]
+                }
               })
-            },
-            proxy: true
-          }
-        ])
-      },
-      "vector",
-      _vm.$props,
-      false
-    )
+            ],
+            1
+          )
+        : _vm._e()
+    ]
   )
 }
 var staticRenderFns = []
@@ -10695,7 +10705,7 @@ var render = function() {
   return _c(
     "div",
     { staticStyle: { fill: "#90CDF4" }, attrs: { id: "app" } },
-    [_c("demo", { attrs: { src: "camera-control", start: 0, end: 2500 } })],
+    [_c("demo", { attrs: { src: "home-page", start: 0, end: 2500 } })],
     1
   )
 }
@@ -11680,48 +11690,13 @@ var render = function() {
                   _c(
                     "g",
                     [
-                      _c(
-                        "farm",
-                        {
-                          attrs: {
-                            color: "rgb(227,218,166)",
-                            keyframe: keyframe,
-                            y: 2500
-                          }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "flex justify-around content-around"
-                            },
-                            [
-                              _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "content-around text-red-400 h-screen w-full w-screen",
-                                  staticStyle: {
-                                    "background-color": "rgb(226,221,191)"
-                                  }
-                                },
-                                [
-                                  _c("h1", { staticClass: "text-lg" }, [
-                                    _vm._v("What Is Lorem Ipsum")
-                                  ]),
-                                  _c("p", [
-                                    _vm._v(
-                                      "What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Why do we use it? It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). "
-                                    )
-                                  ]),
-                                  _c("br"),
-                                  _c("h3", [_vm._v("INSERT YOUR HTML HERE")])
-                                ]
-                              )
-                            ]
-                          )
-                        ]
-                      ),
+                      _c("farm", {
+                        attrs: {
+                          color: "rgb(227,218,166)",
+                          keyframe: keyframe,
+                          y: 2500
+                        }
+                      }),
                       _c("ocean-scene", {
                         staticStyle: { fill: "#90CDF4" },
                         attrs: { "show-viewbox": false, keyframe: keyframe }
@@ -12418,29 +12393,33 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model.number",
-            value: _vm.currentFrame,
-            expression: "currentFrame",
-            modifiers: { number: true }
-          }
-        ],
-        attrs: { type: "range", min: _vm.start, max: _vm.end },
-        domProps: { value: _vm.currentFrame },
-        on: {
-          __r: function($event) {
-            _vm.currentFrame = _vm._n($event.target.value)
-          },
-          blur: function($event) {
-            return _vm.$forceUpdate()
-          }
-        }
-      }),
-      _vm._v(" Current Frame = " + _vm._s(_vm.currentFrame) + " "),
-      _c("br"),
+      _vm.start
+        ? [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model.number",
+                  value: _vm.currentFrame,
+                  expression: "currentFrame",
+                  modifiers: { number: true }
+                }
+              ],
+              attrs: { type: "range", min: _vm.start, max: _vm.end },
+              domProps: { value: _vm.currentFrame },
+              on: {
+                __r: function($event) {
+                  _vm.currentFrame = _vm._n($event.target.value)
+                },
+                blur: function($event) {
+                  return _vm.$forceUpdate()
+                }
+              }
+            }),
+            _vm._v(" Current Frame = " + _vm._s(_vm.currentFrame) + " "),
+            _c("br")
+          ]
+        : _vm._e(),
       _vm._t("default", null, { keyframe: _vm.currentFrame })
     ],
     2

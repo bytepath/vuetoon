@@ -14,6 +14,14 @@ export default {
             type: String,
             default: null,
         },
+
+        /**
+         * Add a filter to this vector
+         */
+        filter: {
+            type: Object,
+            default: null,
+        },
     },
 
     data() {

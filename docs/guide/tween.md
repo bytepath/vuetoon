@@ -12,13 +12,10 @@ This animation performs the following steps
 - THIS MEANS WE DO NOTHING FROM FRAMES 1000 - 1500
 - Scale x and y without moving from 1500 to 2500
 
-<<< @/docs/.vuepress/components/Animation/ComplicatedAnimation.vue
+<<< @/../bytepath-io/src/examples/Animation/ComplicatedAnimation.vue
 
-<ClientOnly>
-<Demo :end="2500" v-slot="{ keyframe }">
-<Animation-ComplicatedAnimation :keyframe="keyframe" />
-</Demo>    
-</ClientOnly>
+:::demo complicated-animation 0 2500
+:::
 
 As you start getting into things that are more and more complicated, you start having to do a lot of math to accomplish your goals and math requires spending energy thinking that could be better spent being creative and having fun. 
  - difficult to make animations do exactly what you want
@@ -31,14 +28,10 @@ Luckily, there is a solution to that.
 ## Tweening Between Numbers
     - tween.number tweens between two numbers
 
-<<< @/docs/.vuepress/components/Animation/ComplicatedToTween.vue
+<<< @/../bytepath-io/src/examples/Animation/ComplicatedToTween.vue
 
-<ClientOnly>
-<Demo :end="2500" v-slot="{ keyframe }">
-<Animation-ComplicatedToTween :keyframe="keyframe" />
-</Demo>    
-</ClientOnly>
-
+:::demo complicated-to-tween 0 2500
+:::
 
 ## Tweening Between Integers
 - tween methods
@@ -62,12 +55,9 @@ Luckily, there is a solution to that.
 ### Tweening Between Colors
 You can animate colors using the tween.hex function. The color will smoothly transition from the first to the second color over the specified time interval
 
-<<< @/docs/.vuepress/components/KeyframeAnimation/Color.vue
+<<< @/../bytepath-io/src/examples/KeyframeAnimation/Color.vue
 
 The Balloon asset should change colors as keyframe increases. 
 
-<ClientOnly>
-<Demo :end="3000" v-slot:default="{ keyframe }">
-<KeyframeAnimation-Color :keyframe="keyframe" />
-</Demo>    
-</ClientOnly>
+:::demo color-animation 0 3000
+:::

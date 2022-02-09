@@ -4,10 +4,6 @@ title: Camera Control
 ## Camera Control
 
 
-<<< @/docs/.vuepress/components/ArtAsset/CameraControl.vue
+<<< @/../bytepath-io/src/examples/ArtAsset/CameraControl.vue
 
-<ClientOnly>
-<Demo :end="2500" v-slot="{ keyframe }">
-<ArtAsset-CameraControl :keyframe="keyframe" />
-</Demo>  
-</ClientOnly>
+:::demo camera-control 0 2500

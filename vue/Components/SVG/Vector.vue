@@ -18,7 +18,7 @@
 <script>
     /* eslint-disable */
 
-    import { fromObject, applyToPoint } from "transformation-matrix";
+    import {fromObject, applyToPoint} from "transformation-matrix";
     import AssetLoader from "../Loaders/AssetLoader";
     import CalculatesTransformation from "../../Mixins/CalculatesTransformation";
     import CalcCenterUsingViewbox from "../../Mixins/CalcCenterUsingViewbox";
@@ -46,6 +46,15 @@
                 type: Object,
                 default: null,
             },
+
+            /**
+             * Vector doesn't actually need keyframe this is just a hack to prevent it from getting written to
+             * the dom when you pass $props to SVG tag
+             */
+            keyframe: {
+                type: Number,
+                default: 0,
+            }
         },
 
         data() {
@@ -61,15 +70,24 @@
                 href: null,
 
                 /**
-                * A position representing the default viewbox [0 0 0 0]
-                */
-                viewbox: new Position({ width: 0, height: 0 }),
+                 * A position representing the default viewbox [0 0 0 0]
+                 */
+                viewbox: new Position({width: 0, height: 0}),
 
                 /**
                  * The string represntation of the viewbox
                  */
                 strViewbox: null,
             };
+        },
+
+        watch: {
+            camera: {
+                deep: true,
+                handler() {
+                    this.calculateViewport();
+                },
+            }
         },
 
         computed: {
@@ -146,9 +164,16 @@
              */
             shouldShowViewbox() {
                 /**
+                 * Viewbox is required for camera to work
+                 */
+                if (this.camera !== null) {
+                    return true;
+                }
+
+                /**
                  * We always show the viewbox if showviewbox is true
                  */
-                if(this.showViewbox !== null){
+                if (this.showViewbox !== null) {
                     return this.showViewbox;
                 }
 
@@ -156,9 +181,9 @@
                  * If this is the top mounted vector element then we show viewbox unless the
                  * :show-viewbox prop is set to false
                  */
-                if(this.$el) {
-                    if(this.$el.tagName === 'svg') {
-                        if(this.$el.farthestViewportElement === null) {
+                if (this.$el) {
+                    if (this.$el.tagName === 'svg') {
+                        if (this.$el.farthestViewportElement === null) {
                             return (this.showViewbox !== false);
                         }
                     }
@@ -201,8 +226,7 @@
                             height: (br.y),
                         });
                     }
-                }
-                else if (this.assetDimensions) {
+                } else if (this.assetDimensions) {
                     this.viewbox = new Position({
                         x: this.assetDimensions.x,
                         y: this.assetDimensions.y,
@@ -212,9 +236,8 @@
 
                     this.dimensions.width = this.assetDimensions.width;
                     this.dimensions.height = this.assetDimensions.height;
-                }
-                else {
-                    this.viewbox = new Position({ width: 0, height: 0 });
+                } else {
+                    this.viewbox = new Position({width: 0, height: 0});
                     this.dimensions.width = 0;
                     this.dimensions.height = 0;
                 }
@@ -224,29 +247,26 @@
             },
 
 
-
-
-
             /**
              * Called when asset has been loaded by the asset loader component. Moves whatever we are trying to look at
              * to point {0, 0} so that we are "looking" at it
              */
             assetLoaded(asset) {
+                console.log("asset loaded", asset);
                 this.href = "#" + asset.id;
 
                 if (asset.viewBox) {
-                    this.assetDimensions = {...asset.viewBox};
+                    this.assetDimensions = { ...asset.viewBox };
                 }
 
                 let that = this;
                 setTimeout(() => {
                     let element;
                     let lookAtID;
-                    if(that.lookAt === null) {
+                    if (that.lookAt === null) {
                         lookAtID = 'g' + that.assetID;
                         element = document.getElementById(lookAtID);
-                    }
-                    else {
+                    } else {
                         let elid = SrcToKey(this.src) + this.lookAt;
                         element = document.getElementById(elid);
                     }

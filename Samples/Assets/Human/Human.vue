@@ -1,13 +1,20 @@
 <script>
     import CreateAsset from '../../../Factories/CreateAsset';
     import src from "./Human.svg";
+    import kick from "./Kick";
+    import punch from "./Punch";
+    import firstAnimation from "./FirstAnimation";
+    import FaceDance from "./FaceDance";
 
     export default CreateAsset({
         name: "human",
         src,
-        layers: [],
         animations() {
             return {
+                flap: FaceDance,
+                punch,
+                kick,
+                dance: firstAnimation,
                 default: [
                     {
                         start: 0,
@@ -40,6 +47,8 @@
 
 <template>
     <vector  :style="{fill: defaultColor }" v-bind="$props" v-slot="">
-        <layer v-for="(layer, i) in filteredLayers" :key="i" :layer="layer" />
+        <g id="humans">
+            <layer v-for="(layer, i) in filteredLayers" :key="i" :position="layer" :layer="layer" />
+        </g>
     </vector>
 </template>

@@ -2,8 +2,15 @@
 home: true
 heroImage:
 actionText: Read The Docs →
-actionLink: /guide/
+actionLink: /guide/introduction.html
 pageClass: dogsdotcom
+
+---
+
+:::demo home-page null
+:::
+
+
 features:
 - title: Built For Web Developers
   details: Bytepath has been designed to be used by web developers and makes the assumption that you have no experience with computer graphics.
@@ -21,7 +28,3 @@ features:
   details: Bytepath provides tools to help you provide a great experience with any device.   
 - title: Zero CSS
   details: Bytepath graphics and animation are built entirely using Javascript. No CSS required whatsoever (Unless you want to!)
----
-<ClientOnly>
-<HomePage />
-</ClientOnly>
